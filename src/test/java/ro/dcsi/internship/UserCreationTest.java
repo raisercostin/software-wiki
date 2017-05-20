@@ -13,7 +13,7 @@ public class UserCreationTest {
 		}
 		else if(App.getImportedusersfile().length()>0)
 		{
-			fail("File was not generated");
+			fail("Users were not exported.");
 		}
 	}
 
