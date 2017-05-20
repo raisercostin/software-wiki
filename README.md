@@ -19,5 +19,5 @@ Ask to be a collaborator if you want to contribute or make a pull request.
 `cd %PATH%`
 2. Be aware that the project was cleaned so you should compile it first.  
 `mvn compile exec:java -Dexec.mainClass=ro.dcsi.internship.App`
-3. Setup the project to worki with your IDE. For eclipse, use:  
+3. Setup the project to work with your IDE. For eclipse, use:  
 `mvn eclipse:eclipse`
