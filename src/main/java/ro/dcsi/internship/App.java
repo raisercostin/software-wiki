@@ -3,6 +3,7 @@ package ro.dcsi.internship;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 
 public class App 
 {
@@ -23,7 +24,10 @@ public class App
         	}
         } catch (IOException e){
         	e.printStackTrace();
-        }
-    
+        }    
     }
+
+	public static List<User> readUsers(String csvFile) {
+		return null;
+	}
 }
