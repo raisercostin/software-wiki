@@ -3,7 +3,7 @@
 We document the project in [this wiki](https://github.com/raisercostin/dcsi/wiki).
 Ask to be a collaborator if you want to contribute or make a pull request.
 
-# TODO
+# Backlog
 
 - [x] Import 100 users from a csv file.
 
@@ -23,3 +23,5 @@ Ask to be a collaborator if you want to contribute or make a pull request.
 `mvn compile exec:java -Dexec.mainClass=ro.dcsi.internship.App`
 3. Setup the project to work with your IDE. For eclipse, use:  
 `mvn eclipse:eclipse`
+
+
