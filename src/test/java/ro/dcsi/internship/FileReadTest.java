@@ -35,5 +35,6 @@ public class FileReadTest {
 		assertNotNull(users);
 		assertEquals(3, users.size());
 		assertEquals("Frank", users.get(0).username);
+		assertEquals("Frank", users.get(0).email);
 	}
 }
