@@ -27,4 +27,10 @@ public class AppTest {
 		exporter.export(outFileName,outFileName2);
 		assertTrue(new File(outFileName2).exists());
 	}
+	@Test
+	public void testFileNotEmpty() throws IOException{
+		assertNotNull(exporter.readUsers(fileName));
+		assertNotNull(exporter.readUsers(fileName).get(0).name);
+		assertEquals(100,exporter.readUsers(fileName).size());
+	}
 }
