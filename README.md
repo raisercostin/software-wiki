@@ -3,7 +3,7 @@
 We document the project in [this wiki](https://github.com/raisercostin/dcsi/wiki).
 Ask to be a collaborator if you want to contribute or make a pull request.
 
-
+# TODO
 
 - [x] Import 100 users from a csv file.
 
@@ -12,6 +12,8 @@ Ask to be a collaborator if you want to contribute or make a pull request.
     - [x] Make test pass.
     - [x] csv library  
         ~ stackoverflow.com > Questions > 10462507 > Any-good-library-to-read-and-write-csv-files
+    - [ ] read users from a file
+	- [ ] write users to a file
 
 - [x] Export 100 users to a csv file.
 ## First time running
