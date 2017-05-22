@@ -12,8 +12,8 @@ import com.opencsv.CSVWriter;
 
 public class App {
 	private static List<String[]> users;
-	private final static File importedUsersFile = new File("importedUsers.csv");
-	private final static File exportedUsersFile = new File("exportedUsers.csv");
+	private final static File importedUsersFile = new File("src/test/resources/importedUsers.csv");
+	private final static File exportedUsersFile = new File("target/exportedUsers.csv");
 
 	public static File getImportedusersfile() {
 		return importedUsersFile;
