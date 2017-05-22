@@ -31,19 +31,13 @@ public class CsvExporter {
 	}
 
 	public List<User> readUsers(String fileName) {
-		try {
-			ArrayList list = new ArrayList<>();
-			FileReader fr = new FileReader(fileName);
+		ArrayList<User> list = new ArrayList<>();
+		try (FileReader fr = new FileReader(fileName)) {
 			BufferedReader br = new BufferedReader(fr);
 			String s;
-			try {
-				while ((s = br.readLine()) != null) {
-					list.add(new User(s));
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
+			while ((s = br.readLine()) != null) {
+				list.add(new User("user", "email", s));
 			}
-			fr.close();
 			return list;
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);

@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -29,8 +30,12 @@ public class AppTest {
 	}
 	@Test
 	public void testFileNotEmpty() throws IOException{
-		assertNotNull(exporter.readUsers(fileName));
-		assertNotNull(exporter.readUsers(fileName).get(0).name);
-		assertEquals(100,exporter.readUsers(fileName).size());
+		List<User> users = exporter.readUsers(fileName);
+		assertNotNull(users);
+		assertNotNull(users.get(0).other);
+		assertEquals(16,users.size());
+		assertEquals("sad,adas,asda,asdasdas,;jlakjsd,asdsa,asdas",users.get(0).other);
+		assertEquals("alice",users.get(0).username);
+		assertEquals("alice@dcsi.ro",users.get(0).email);
 	}
 }
