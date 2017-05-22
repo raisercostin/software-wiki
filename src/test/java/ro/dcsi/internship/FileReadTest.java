@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-import org.junit.Assume;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -31,16 +30,9 @@ public class FileReadTest {
 	}
 
 	@Test
-	public void readUsersAlwaysNotNullTest() throws IOException {
-		List<User> users = App.readUsers("src/test/resources/sample1.csv");
-		assertNotNull(users);
-	}
-
-	@Test
 	public void readUsersTest() throws IOException {
 		List<User> users = App.readUsers("src/test/resources/sample1.csv");
-		Assume.assumeNotNull(users);
+		assertNotNull(users);
 		assertEquals(5, users.size());
 	}
-
 }
