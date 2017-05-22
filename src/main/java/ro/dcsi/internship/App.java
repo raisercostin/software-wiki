@@ -12,8 +12,10 @@ import com.opencsv.CSVWriter;
 
 public class App {
 	private static List<String[]> users;
-	private final static File importedUsersFile = new File("src/test/resources/importedUsers.csv");
-	private final static File exportedUsersFile = new File("target/exportedUsers.csv");
+	//TODO review this removal of final
+	private static File importedUsersFile = new File("src/test/resources/importedUsers.csv");
+	//TODO review this removal of final
+	private static File exportedUsersFile = new File("target/exportedUsers.csv");
 
 	public static File getImportedusersfile() {
 		return importedUsersFile;
@@ -40,7 +42,13 @@ public class App {
 		writer.close();
 	}
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String... args) throws IOException {
+		export("src/test/resources/importedUsers.csv","target/exportedUsers.csv");
+	}
+
+	public static void export(String importFile, String exportFile) throws IOException {
+		importedUsersFile = new File(importFile);
+		exportedUsersFile = new File(exportFile);
 		readCSV(importedUsersFile);
 		writeCSV(exportedUsersFile);
 	}
