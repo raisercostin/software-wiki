@@ -1,0 +1,6 @@
+#eclipse folders
+.classpath
+.project
+
+#temporary maven folders
+target/
