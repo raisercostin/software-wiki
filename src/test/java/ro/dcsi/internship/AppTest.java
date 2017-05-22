@@ -9,22 +9,22 @@ import java.io.IOException;
 import org.junit.Test;
 
 public class AppTest {
+	String fileName = "users100.csv";
+	String outFileName = "target/users100out.csv";
+	CsvExporter exporter = new CsvExporter();
+
 	@Test
 	public void test() throws IOException{
-		String fileName = "users100.csv";
-		String outFileName = "users100out.csv";
 		assertTrue(new File(fileName).exists());
 		new File(outFileName).delete();
-		App.export(fileName,outFileName);
+		exporter.export(fileName,outFileName);
 		assertTrue(new File(outFileName).exists());
 	}
 	@Test
 	public void testSameFile() throws IOException{
-		String fileName = "users100.csv";
-		String outFileName = "users100out.csv";
-		String outFileName2 = "users100out-2.csv";
-		App.export(fileName,outFileName);
-		App.export(outFileName,outFileName2);
+		String outFileName2 = "target/users100out-2.csv";
+		exporter.export(fileName,outFileName);
+		exporter.export(outFileName,outFileName2);
 		assertTrue(new File(outFileName2).exists());
 	}
 }
