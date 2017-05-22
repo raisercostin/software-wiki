@@ -7,11 +7,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class App {
-	
-    public static void main( String[] args ) throws IOException {
-    	FileReader fr = new FileReader("D:/workspace/ship2/users100.csv");
+//    public static void main( String[] args ) throws IOException {
+//    	export("users100.csv");
+//    }	
+	public static void export(String inputFilename, String outputFileName) throws IOException {
+    	FileReader fr = new FileReader(inputFilename);
     	BufferedReader br = new BufferedReader(fr);
-    	FileWriter f0 = new FileWriter("D:/workspace/ship2/users100out.csv");
+    	FileWriter f0 = new FileWriter(outputFileName);
     	String s;
     	
     	try{ 
