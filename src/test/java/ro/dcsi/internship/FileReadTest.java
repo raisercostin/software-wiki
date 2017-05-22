@@ -33,6 +33,7 @@ public class FileReadTest {
 	public void readUsersTest() throws IOException {
 		List<User> users = App.readUsers("src/test/resources/sample1.csv");
 		assertNotNull(users);
-		assertEquals(5, users.size());
+		assertEquals(3, users.size());
+		assertEquals("Frank", users.get(0).username);
 	}
 }
