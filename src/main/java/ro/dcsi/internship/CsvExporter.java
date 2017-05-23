@@ -30,14 +30,15 @@ public class CsvExporter {
 
 	}
 
-	public List<User> readUsers(String fileName) {
+	public static List<User> readUsers(String fileName) {
 		ArrayList<User> list = new ArrayList<>();
 		try (FileReader fr = new FileReader(fileName)) {
 			BufferedReader br = new BufferedReader(fr);
 			String s;
 			while ((s = br.readLine()) != null) {
-				list.add(new User("user", "email", s));
-			}
+				list.add(new User("alice", "alice@dcsi.ro",s));
+				
+		}
 			return list;
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
@@ -45,4 +46,6 @@ public class CsvExporter {
 			throw new RuntimeException(e);
 		}
 	}
+
 }
+ 
