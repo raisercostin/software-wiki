@@ -30,8 +30,7 @@ public class CsvExporter {
 	
 	public List<User> readUsers(String fileName){
 		ArrayList<User> userArray = new ArrayList<User>();
-		try {
-			FileReader fileReader = new FileReader(fileName);
+		try (FileReader fileReader = new FileReader(fileName)){
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			String s;
 			while((s = bufferedReader.readLine()) != null){
