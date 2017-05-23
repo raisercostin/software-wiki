@@ -1,7 +1,9 @@
 package ro.dcsi.internship;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,9 +16,9 @@ public class UserStorage {
 	private String outputFilePath = "output.csv";
 	private File file = null;
 	private FileWriter fw = null;
-	private FileWriter fr = null;
+	private FileReader fr = null;
 	private BufferedWriter out = null;
-	private BufferedWriter in = null;
+	private BufferedReader in = null;
 
 	private List<User> users = new ArrayList<User>();
 	
@@ -43,6 +45,7 @@ public class UserStorage {
 			while(iterator.hasNext()){
 				tmp = (User)iterator.next();
 				out.write(tmp + ",\n");
+				out.flush();
 			}
 		}
 		catch(IOException e){
@@ -64,7 +67,37 @@ public class UserStorage {
 	}
 	
 	public void importUsers(){
-		File inputFile = new File(inputFilePath);
+		try{
+			file = new File(inputFilePath);
+			fr = new FileReader(file);
+			in = new BufferedReader(fr);
+			
+			String userStr = null;
+			
+			User tmp;
+			
+			while((userStr = in.readLine()) != null){
+				userStr = userStr.substring(0, userStr.length()-1);
+				tmp = new User(userStr);
+				users.add(tmp);
+			}
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		finally{
+			try{
+				if(fr != null){
+					fr.close();
+				}
+				if(in != null){
+					in.close();
+				}
+			}
+			catch(IOException e){
+				e.printStackTrace();
+			}
+		}
 		
 	}
 	
