@@ -5,17 +5,17 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class ReadFileTest {
-	App app = new App();
+public class UserStorageTest {
+	UserStorage storage = new UserStorage();
 	
 	@Test
 	public void importFile() {
-		app.importFile();
+		storage.importUsers();
 	}
 	
 	@Test
 	public void exportFile() {
-		app.exportFile();
+		storage.exportUsers();
 	}
 
 }
