@@ -1,15 +1,11 @@
 package ro.dcsi.internship;
 
-/**
- * Hello world!
- *
- */
+import java.io.IOException;
+
 public class App 
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
-        System.out.println( "Hello World2" );
-        System.out.println( "Hello World3" );
+    	new CsvExporter().export("users.csv", "usersOut.csv");
     }
 }
