@@ -30,12 +30,14 @@ public class AppTest {
 	}
 	@Test
 	public void testFileNotEmpty() throws IOException{
-		List<User> users = exporter.readUsers(fileName);
+		List<User> users = CsvExporter.readUsers(fileName);
 		assertNotNull(users);
 		assertNotNull(users.get(0).other);
-		assertEquals(16,users.size());
-		assertEquals("sad,adas,asda,asdasdas,;jlakjsd,asdsa,asdas",users.get(0).other);
-		assertEquals("alice",users.get(0).username);
-		assertEquals("alice@dcsi.ro",users.get(0).email);
+		assertNotNull(users.get(0).username);
+		assertEquals("asda,adfas,hkjhkjh,",User.other);
+		assertEquals("alice",users.get(0).getUsername());
+		assertEquals("alice@dcsi.ro",User.email);
+		assertEquals(100,users.size());
+		
 	}
 }
