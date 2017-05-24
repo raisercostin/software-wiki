@@ -18,7 +18,7 @@ public class CsvExporter {
 		String s;
 		try{
 			while((s = bufferedReader.readLine()) != null){
-				fileWriter.append(s + " ");
+				fileWriter.append(s + " \n");
 			}
 		}
 		catch (IOException e){
@@ -27,7 +27,7 @@ public class CsvExporter {
 		fileReader.close();
 		fileWriter.close();
 	}
-	
+	/*
 	public List<User> readUsers(String fileName){
 		ArrayList<User> userArray = new ArrayList<User>();
 		try {
@@ -43,4 +43,5 @@ public class CsvExporter {
 			return new ArrayList<User>();
 		}
 	}
+*/
 }
