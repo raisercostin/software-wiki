@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-public class App 
+public class UserManager 
 {
     public static void main( String[] args )
     {
