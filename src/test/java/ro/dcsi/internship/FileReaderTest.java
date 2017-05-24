@@ -1,4 +1,4 @@
-package com.homework;
+package ro.dcsi.internship;
 
 import static org.junit.Assert.*;
 

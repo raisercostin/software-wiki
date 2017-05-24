@@ -1,4 +1,4 @@
-package com.homework;
+package ro.dcsi.internship;
 
 public class App {
 	public static void main(String[] args) {
