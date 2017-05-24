@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CsvExporter {
 	CsvExporter() {
@@ -14,29 +13,43 @@ public class CsvExporter {
 	}
 
 	public void export(String inputFilename, String outputFileName) throws IOException {
-		FileReader fr = new FileReader(inputFilename);
-		BufferedReader br = new BufferedReader(fr);
-		FileWriter f0 = new FileWriter(outputFileName);
 		String s;
+		FileReader fr = null;
+		BufferedReader br = null;
+		FileWriter fo = null;
 		try {
+			fr = new FileReader(inputFilename);
+			br = new BufferedReader(fr);
+			fo = new FileWriter(outputFileName);
 			while ((s = br.readLine()) != null) {
-				f0.append(s + ",");
+				fo.append(s + ",");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		fr.close();
-		f0.close();
+		finally{
+			try{
+				br.close();
+				fr.close();
+				
+				fo.close();
+			}
+			catch(IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
 
 	}
 
-	public static List<User> readUsers(String fileName) {
+	public ArrayList<User> readUsers(String fileName) {
 		ArrayList<User> list = new ArrayList<>();
 		try (FileReader fr = new FileReader(fileName)) {
 			BufferedReader br = new BufferedReader(fr);
 			String s;
+			br.readLine();
 			while ((s = br.readLine()) != null) {
-				list.add(new User("alice", "alice@dcsi.ro",s));
+				list.add(new User(s.split(",")));
 				
 		}
 			return list;

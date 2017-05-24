@@ -23,21 +23,22 @@ public class AppTest {
 	}
 	@Test
 	public void testSameFile() throws IOException{
-		String outFileName2 = "target/users100out-2.csv";
+		String outFileName2 = "target/users100out.csv";
 		exporter.export(fileName,outFileName);
 		exporter.export(outFileName,outFileName2);
 		assertTrue(new File(outFileName2).exists());
 	}
 	@Test
 	public void testFileNotEmpty() throws IOException{
-		List<User> users = CsvExporter.readUsers(fileName);
+		List<User> users = new CsvExporter().readUsers(fileName);
 		assertNotNull(users);
 		assertNotNull(users.get(0).other);
 		assertNotNull(users.get(0).username);
-		assertEquals("asda,adfas,hkjhkjh,",User.other);
-		assertEquals("alice",users.get(0).getUsername());
-		assertEquals("alice@dcsi.ro",User.email);
-		assertEquals(100,users.size());
+		//assertEquals("asda,adfas,hkjhkjh,",User.other);
+		System.out.println(users.get(0).getUsername());
+		assertEquals("Victor",users.get(0).getUsername());
+		assertEquals("victor.ciresica@gmail.com",users.get(0).email);
+		assertEquals(6,users.size());
 		
 	}
 }
