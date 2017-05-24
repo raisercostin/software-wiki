@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class CsvExporter {
+ public class CsvExporter {
 	CsvExporter() {
 		System.out.println("instantiated");
 	}
@@ -17,8 +17,7 @@ public class CsvExporter {
 		FileReader fr = null;
 		BufferedReader br = null;
 		FileWriter fo = null;
-		try {
-			fr = new FileReader(inputFilename);
+		try(fr = new FileReader(inputFilename)) {
 			br = new BufferedReader(fr);
 			fo = new FileWriter(outputFileName);
 			while ((s = br.readLine()) != null) {
@@ -29,7 +28,6 @@ public class CsvExporter {
 		}
 		finally{
 			try{
-				br.close();
 				fr.close();
 				
 				fo.close();
@@ -47,11 +45,11 @@ public class CsvExporter {
 		try (FileReader fr = new FileReader(fileName)) {
 			BufferedReader br = new BufferedReader(fr);
 			String s;
-			br.readLine();
+			String[] splited;
 			while ((s = br.readLine()) != null) {
-				list.add(new User(s.split(",")));
-				
-		}
+				splited = s.split(",");
+				list.add(new User(splited[0], splited[1], splited[2]));
+			}
 			return list;
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
@@ -60,5 +58,7 @@ public class CsvExporter {
 		}
 	}
 
-}
+ }
  
+
+
