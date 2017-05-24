@@ -12,6 +12,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<myJavaSourcesCostin>1.8</myJavaSourcesCostin>
   </properties>
 
   <dependencies>
@@ -27,4 +28,16 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${myJavaSourcesCostin}</source>
+					<target>${myJavaSourcesCostin}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
