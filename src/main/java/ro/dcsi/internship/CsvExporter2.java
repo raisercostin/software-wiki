@@ -34,7 +34,7 @@ public class CsvExporter2 {
 	public String readHeading(String fileName) {
 		ArrayList<User> usersArray = new ArrayList<User>();
 		String s = new String();
-		try(FileReader fr = new FileReader(fileName)) {
+		try (FileReader fr = new FileReader(fileName)) {
 			BufferedReader br = new BufferedReader(fr);
 			s = br.readLine();
 		} catch (FileNotFoundException e) {
@@ -47,8 +47,7 @@ public class CsvExporter2 {
 
 	public List<User> readUsers(String fileName) {
 		ArrayList<User> userArray = new ArrayList<User>();
-		try {
-			FileReader fileReader = new FileReader(fileName);
+		try (FileReader fileReader = new FileReader(fileName)) {
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			String s;
 			String[] splited;
@@ -58,8 +57,7 @@ public class CsvExporter2 {
 			}
 			return userArray;
 		} catch (IOException e) {
-			e.printStackTrace();
-			return new ArrayList<User>();
+			throw new RuntimeException(e);
 		}
 	}
 
