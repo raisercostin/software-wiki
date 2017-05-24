@@ -11,7 +11,7 @@ import java.util.Scanner;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class FileReaderTest {
+public class FileReadTest {
 
 	@Test
 	@Ignore
