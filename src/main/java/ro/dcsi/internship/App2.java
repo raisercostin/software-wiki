@@ -12,10 +12,14 @@ import com.opencsv.CSVWriter;
 
 public class App2 {
 	private static List<String[]> users;
-	//TODO review this removal of final
+	// TODO review this removal of final
 	private static File importedUsersFile = new File("src/test/resources/importedUsers.csv");
-	//TODO review this removal of final
+	// TODO review this removal of final
 	private static File exportedUsersFile = new File("target/exportedUsers.csv");
+
+	public static void main(String... args) throws IOException {
+		export("src/test/resources/importedUsers.csv", "target/exportedUsers.csv");
+	}
 
 	public static File getImportedusersfile() {
 		return importedUsersFile;
@@ -27,6 +31,11 @@ public class App2 {
 
 	static void readCSV(File file) throws IOException {
 		CSVReader reader = new CSVReader(new FileReader(file), ',', '\'', 1);
+		// TODO works with a 100G csv file?
+		// while ((nextLine = reader.readNext()) != null && count < 101) {
+		// count++;
+		// System.out.println(nextLine[0]);
+		// }
 		users = reader.readAll();
 		reader.close();
 		for (String[] currentUser : users) {
@@ -40,10 +49,6 @@ public class App2 {
 			writer.writeNext(Arrays.toString(currentUser).replaceAll("\\[|\\]", "").split(","));
 		}
 		writer.close();
-	}
-
-	public static void main(String... args) throws IOException {
-		export("src/test/resources/importedUsers.csv","target/exportedUsers.csv");
 	}
 
 	public static void export(String importFile, String exportFile) throws IOException {
