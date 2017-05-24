@@ -55,9 +55,9 @@ public class UserCreationTest {
 
 	@Test
 	public void fileExists() throws IOException {
-		CSVReader reader = new CSVReader(new FileReader("src/test/resources/users.csv"));
+		CSVReader reader = new CSVReader(new FileReader("src/test/resources/importedUsers.csv"));
 		List myEntries = reader.readAll();
 		Assert.assertNotNull(myEntries);
-		Assert.assertEquals(3,myEntries.size());
+		Assert.assertEquals(1001,myEntries.size());
 	}
 }
