@@ -1,5 +1,6 @@
 package ro.dcsi.internship;
 
+import java.util.List;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -33,6 +34,18 @@ public class AppTest
      */
     public void testApp()
     {
-        assertTrue( true );
+        CsvExporter export = new CsvExporter();
+        List<User> users = export.readUsers("src/main/resources/users.csv");
+        assertEquals("username,email,other",export.readHeading("src/main/resources/users.csv"));
+        assertEquals(9,users.size());
+        for(User user:users.subList(1, users.size()-1)){
+            Integer indexOfAt = user.email.indexOf("@");
+            System.out.println(user.email);
+            System.out.println(indexOfAt);
+            System.out.println(user.email.length());
+            String at = user.email.substring(indexOfAt, user.email.length());
+            System.out.println(at);
+            assertEquals("@gmail.com",at);
+        }
     }
 }

@@ -1,11 +1,14 @@
 package ro.dcsi.internship;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CsvExporter {
 	CsvExporter(){
@@ -18,7 +21,7 @@ public class CsvExporter {
 		String s;
 		try{
 			while((s = bufferedReader.readLine()) != null){
-				fileWriter.append(s + " ");
+				fileWriter.append(s + " \n");
 			}
 		}
 		catch (IOException e){
@@ -27,6 +30,21 @@ public class CsvExporter {
 		fileReader.close();
 		fileWriter.close();
 	}
+        public String readHeading(String fileName) {
+            ArrayList<User> usersArray = new ArrayList<User>();
+            String s = new String();
+            try {
+                FileReader fr = new FileReader(fileName);
+                BufferedReader br = new BufferedReader(fr);
+                
+                s = br.readLine();
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            return s;
+        }
 	
 	public List<User> readUsers(String fileName){
 		ArrayList<User> userArray = new ArrayList<User>();
@@ -34,8 +52,10 @@ public class CsvExporter {
 			FileReader fileReader = new FileReader(fileName);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			String s;
+                        String[] splited;
 			while((s = bufferedReader.readLine()) != null){
-				userArray.add(new User("user","email",s));
+                            splited = s.split(",");
+                            userArray.add(new User(splited[0],splited[1],splited[2]));
 			}
 			return userArray;
 		} catch (IOException e) {
@@ -43,4 +63,5 @@ public class CsvExporter {
 			return new ArrayList<User>();
 		}
 	}
+
 }
