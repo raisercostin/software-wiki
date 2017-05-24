@@ -1,12 +1,12 @@
 package ro.dcsi.internship;
 
 public class User {
-	public static String username;
-	public static String email;
-	public static String other;
+	public String username;
+	public String email;
+	public String other;
 
 	public User(String username, String email, String other) {
-		User.username = username;
+		this.username = username;
 		this.email = email;
 		this.other = other;
 	}
@@ -15,23 +15,28 @@ public class User {
 		this.email = email;
 		
 	}
+	public User(String[] split) {
+		this.username = split[0];
+		this.email = split[1];
+		this.other = split[2];
+	}
 	public String getUsername() {
-	    return User.username;
+	    return username;
 	}
 	public String getEmail() {
-	    return User.email;
+	    return email;
 	}
 	public String getOther() {
-		    return User.other;
+		    return other;
 	}
 	public void setOther(String other) {
-	    User.other=other;
+	    this.other=other;
 	}
 	public void setEmail(String email) {
-	    User.email=email;
+	    this.email=email;
 	}
 	public void setUsername(String name) {
-	    User.username=name;
+	    this.username=name;
 	}
 	
 }
