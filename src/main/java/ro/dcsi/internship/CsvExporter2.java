@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.junit.experimental.theories.Theories;
-
 public class CsvExporter2 {
 	CsvExporter2() {
 		System.out.println("csv exporter called");
@@ -36,23 +34,13 @@ public class CsvExporter2 {
 	public String readHeading(String fileName) {
 		ArrayList<User> usersArray = new ArrayList<User>();
 		String s = new String();
-		FileReader fr = null;
-		try {
-			fr = new FileReader(fileName);
+		try(FileReader fr = new FileReader(fileName)) {
 			BufferedReader br = new BufferedReader(fr);
 			s = br.readLine();
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
-		} finally {
-			if(fr!=null)
-				try {
-					fr.close();
-				} catch (IOException e) {
-					//bug swallowed original exception
-					throw new RuntimeException(e);
-				}
 		}
 		return s;
 	}
