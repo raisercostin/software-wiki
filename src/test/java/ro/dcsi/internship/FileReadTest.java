@@ -1,6 +1,15 @@
 package ro.dcsi.internship;
 
 import static org.junit.Assert.fail;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+import org.junit.Ignore;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,7 +19,6 @@ import java.util.List;
 import java.util.Scanner;
 import org.junit.Ignore;
 import org.junit.Test;
-
 public class FileReadTest {
 	@Test
 	@Ignore
@@ -36,6 +44,14 @@ public class FileReadTest {
 		assertEquals(3, users.size());
 		assertEquals("Frank", users.get(0).username);
 		assertEquals("Frank", users.get(0).email);
+	}
+
+	@Test
+	public void doATest() throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(new File("c:\\Users\\Andrei\\maven workspace\\ship1\\src\\main\\resources\\HundredUsers.csv")));
+		assertTrue(br.readLine() != null);
+		
+
 	}
 
 	@Test

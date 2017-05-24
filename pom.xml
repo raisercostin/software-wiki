@@ -3,12 +3,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>ro.dcsi.internship</groupId>
-  <artifactId>ship1</artifactId>
+  <artifactId>ship</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>ship1</name>
-  <url>http://maven.apache.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
