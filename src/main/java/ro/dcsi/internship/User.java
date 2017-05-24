@@ -1,9 +1,9 @@
 package ro.dcsi.internship;
 
 public class User {
-	public String username;
-	public String email;
-	public String other;
+	public final String username;
+	public final String email;
+	public final String other;
 
 	public User(String username, String email, String other) {
 		this.username = username;
@@ -13,7 +13,7 @@ public class User {
 	public User(String username, String email) {
 		this.username = username;
 		this.email = email;
-		
+		this.other = null;		
 	}
 	public User(String[] split) {
 		this.username = split[0];
@@ -29,14 +29,4 @@ public class User {
 	public String getOther() {
 		    return other;
 	}
-	public void setOther(String other) {
-	    this.other=other;
-	}
-	public void setEmail(String email) {
-	    this.email=email;
-	}
-	public void setUsername(String name) {
-	    this.username=name;
-	}
-	
 }

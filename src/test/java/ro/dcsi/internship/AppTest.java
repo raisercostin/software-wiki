@@ -39,6 +39,22 @@ public class AppTest {
 		assertEquals("Victor",users.get(0).getUsername());
 		assertEquals("victor.ciresica@gmail.com",users.get(0).email);
 		assertEquals(6,users.size());
-		
 	}
+	@Test
+	public void testApp()
+    {
+        CsvExporter2 export = new CsvExporter2();
+        List<User> users = export.readUsers("src/main/resources/users.csv");
+        assertEquals("username,email,other",export.readHeading("src/main/resources/users.csv"));
+        assertEquals(9,users.size());
+        for(User user:users.subList(1, users.size()-1)){
+            Integer indexOfAt = user.email.indexOf("@");
+            System.out.println(user.email);
+            System.out.println(indexOfAt);
+            System.out.println(user.email.length());
+            String at = user.email.substring(indexOfAt, user.email.length());
+            System.out.println(at);
+            assertEquals("@gmail.com",at);
+        }
+    }
 }
