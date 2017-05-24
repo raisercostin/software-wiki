@@ -3,13 +3,16 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>ro.dcsi.internship</groupId>
-  <artifactId>ship</artifactId>
+	<artifactId>ship</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
 
+	<url>https://github.com/raisercostin/dcsi</url>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<myJavaVersion>1.8</myJavaVersion>
   </properties>
 
   <dependencies>
@@ -20,4 +23,16 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${myJavaVersion}</source>
+					<target>${myJavaVersion}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

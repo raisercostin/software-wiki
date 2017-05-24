@@ -14,6 +14,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import java.util.ArrayList;
+import java.util.List;
 public class UserManager {
 	public static void main(String[] args) throws IOException {
 		String readCsv = "c:\\Users\\Andrei\\maven workspace\\ship1\\src\\main\\resources\\HundredUsers.csv";
@@ -87,4 +89,16 @@ public class UserManager {
 		}    
 		return list;
 	}
+
+    public static void mainStefan( String[] args )
+    {
+    	List<User> users = new ArrayList<User>();
+    	
+    	UserStorage employees = new UserStorage();
+    	
+    	employees.importUsers();
+    	employees.exportUsers();
+    	//employees.generateUsers("out.csv", 100);
+    	
+    }
 }
