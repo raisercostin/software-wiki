@@ -10,7 +10,7 @@ import java.util.List;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
-public class App {
+public class App2 {
 	private static List<String[]> users;
 	//TODO review this removal of final
 	private static File importedUsersFile = new File("src/test/resources/importedUsers.csv");
