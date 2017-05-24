@@ -25,32 +25,32 @@ public class UserCreationTest {
 
 	@Test
 	public void testExportedFileExists() throws IOException {
-		App2.export(importedUsersFile, "target/exportedUsers1.csv");
-		assertEquals("exportedUsers1.csv", App2.getExportedusersfile().getName());
-		assertTrue("file exits", App2.getExportedusersfile().exists());
+		App.export(importedUsersFile, "target/exportedUsers1.csv");
+		assertEquals("exportedUsers1.csv", App.getExportedusersfile().getName());
+		assertTrue("file exits", App.getExportedusersfile().exists());
 
-		App2.export(importedUsersFile, "target/exportedUsers2.csv");
-		assertEquals("exportedUsers2.csv", App2.getExportedusersfile().getName());
-		assertTrue("file exits", App2.getExportedusersfile().exists());
+		App.export(importedUsersFile, "target/exportedUsers2.csv");
+		assertEquals("exportedUsers2.csv", App.getExportedusersfile().getName());
+		assertTrue("file exits", App.getExportedusersfile().exists());
 	}
 
 	@Test
 	public void testImportedFileExists() throws IOException {
-		App2.main(importedUsersFile, exportedUsersFile);
-		App2.main(importedUsersFile, "target/exportedUsers2.csv");
-		assertTrue("Numarul de useri nu este pozitiv: " + App2.getExportedusersfile().length(),
-				App2.getImportedusersfile().length() > 0);
-		assertEquals(10997, App2.getImportedusersfile().length());
+		App.main(importedUsersFile, exportedUsersFile);
+		App.main(importedUsersFile, "target/exportedUsers2.csv");
+		assertTrue("Numarul de useri nu este pozitiv: " + App.getExportedusersfile().length(),
+				App.getImportedusersfile().length() > 0);
+		assertEquals(10997, App.getImportedusersfile().length());
 	}
 
 	@Test
 	@Ignore
 	public void testExportedFile() throws IOException {
-		App2.main(null);
-		assertTrue("Numarul de useri nu este pozitiv: " + App2.getExportedusersfile().length(),
-				App2.getExportedusersfile().length() > 0);
-		assertEquals(12991, App2.getExportedusersfile().length());
-		assertEquals(App2.getImportedusersfile().length(), App2.getExportedusersfile().length());
+		App.main(null);
+		assertTrue("Numarul de useri nu este pozitiv: " + App.getExportedusersfile().length(),
+				App.getExportedusersfile().length() > 0);
+		assertEquals(12991, App.getExportedusersfile().length());
+		assertEquals(App.getImportedusersfile().length(), App.getExportedusersfile().length());
 	}
 
 	@Test
