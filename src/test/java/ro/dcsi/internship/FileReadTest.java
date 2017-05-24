@@ -39,7 +39,7 @@ public class FileReadTest {
 
 	@Test
 	public void readUsersTest() throws IOException {
-		List<User> users = App.readUsers("src/test/resources/sample1.csv");
+		List<User> users = UserManager.readUsers("src/test/resources/sample1.csv");
 		assertNotNull(users);
 		assertEquals(3, users.size());
 		assertEquals("Frank", users.get(0).username);
@@ -48,14 +48,12 @@ public class FileReadTest {
 
 	@Test
 	public void doATest() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(new File("c:\\Users\\Andrei\\maven workspace\\ship1\\src\\main\\resources\\HundredUsers.csv")));
+		BufferedReader br = new BufferedReader(new FileReader(new File("src/main/resources/HundredUsers.csv")));
 		assertTrue(br.readLine() != null);
-		
-
 	}
 
 	@Test
-	public void doATest() throws IOException {
+	public void doATest2() throws IOException {
 		String destination = "HundredUsers.csv";
 		String csvFile = "HundredUsers.csv2";
 		File file1 = new File(destination);
