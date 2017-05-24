@@ -40,7 +40,7 @@ public class UserCreationTest {
 		App2.main(importedUsersFile, "target/exportedUsers2.csv");
 		assertTrue("Numarul de useri nu este pozitiv: " + App2.getExportedusersfile().length(),
 				App2.getImportedusersfile().length() > 0);
-		assertEquals(11998, App2.getImportedusersfile().length());
+		assertEquals(10997, App2.getImportedusersfile().length());
 	}
 
 	@Test
