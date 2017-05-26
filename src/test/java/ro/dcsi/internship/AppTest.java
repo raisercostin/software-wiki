@@ -1,4 +1,4 @@
-package ro.dcsi.internship;
+package dcsi;
 
 import static org.junit.Assert.*;
 
@@ -30,14 +30,13 @@ public class AppTest {
 	}
 	@Test
 	public void testFileNotEmpty() throws IOException{
-		List<User> users = new CsvExporter().readUsers(fileName);
+		List<String[]> users = new CsvExporter().readUsers(fileName);
 		assertNotNull(users);
-		assertNotNull(users.get(0).other);
-		assertNotNull(users.get(0).username);
+		assertNotNull(users.get(0).length);
 		//assertEquals("asda,adfas,hkjhkjh,",User.other);
-		System.out.println(users.get(0).getUsername());
-		assertEquals("Victor",users.get(0).getUsername());
-		assertEquals("victor.ciresica@gmail.com",users.get(0).email);
+		System.out.println(users.get(0).splited.get(0));
+		assertEquals("Victor",users.get(1).get(0));
+		assertEquals("victor.ciresica@gmail.com",users.get(0).get(1));
 		assertEquals(6,users.size());
 		
 	}
