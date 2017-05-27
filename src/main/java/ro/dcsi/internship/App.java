@@ -40,7 +40,7 @@ public class App {
 		else {
 			while ((currentUser = reader.readNext()) != null) {
 				users.add(currentUser);
-				System.out.println(Arrays.toString(users.get(users.size()-1)));
+				System.out.println(Arrays.toString(users.get(users.size() - 1)));
 			}
 		}
 		reader.close();
@@ -49,9 +49,9 @@ public class App {
 	static void writeCSV(File file) throws IOException {
 		CSVWriter writer = new CSVWriter(new FileWriter(file), ',', '\u0000');
 		writer.writeNext(header);
-		 for (String[] currentUser : users) {
-		 writer.writeNext(currentUser);
-		 }
+		for (String[] currentUser : users) {
+			writer.writeNext(currentUser);
+		}
 		writer.close();
 	}
 
@@ -59,6 +59,6 @@ public class App {
 		importedUsersFile = new File(importFile);
 		exportedUsersFile = new File(exportFile);
 		readCSV(importedUsersFile);
-	    writeCSV(exportedUsersFile);
+		writeCSV(exportedUsersFile);
 	}
 }

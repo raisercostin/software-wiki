@@ -2,62 +2,35 @@ package ro.dcsi.internship;
 
 import static org.junit.Assert.*;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
+import java.io.LineNumberReader;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.opencsv.CSVReader;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
-
-import org.junit.Ignore;
-import org.junit.Test;
-
 public class UserCreationTest {
-	private final static String importedUsersFile = "src/test/resources/importedUsers.csv";
-	private final static String exportedUsersFile = "target/exportedUsers.csv";
-
-	@Test
-	public void testExportedFileExists() throws IOException {
-		App.export(importedUsersFile, "target/exportedUsers1.csv");
-		assertEquals("exportedUsers1.csv", App.getExportedusersfile().getName());
-		assertTrue("file exits", App.getExportedusersfile().exists());
-
-		App.export(importedUsersFile, "target/exportedUsers2.csv");
-		assertEquals("exportedUsers2.csv", App.getExportedusersfile().getName());
-		assertTrue("file exits", App.getExportedusersfile().exists());
-	}
 
 	@Test
 	public void testImportedFileExists() throws IOException {
-		App.main(importedUsersFile, exportedUsersFile);
-		App.main(importedUsersFile, "target/exportedUsers2.csv");
-		assertTrue("Numarul de useri nu este pozitiv: " + App.getExportedusersfile().length(),
-				App.getImportedusersfile().length() > 0);
-		assertEquals(10997, App.getImportedusersfile().length());
+		assertTrue(App.getImportedusersfile().exists());
 	}
 
 	@Test
-	@Ignore
 	public void testExportedFile() throws IOException {
-		App.main(null);
-		assertTrue("Numarul de useri nu este pozitiv: " + App.getExportedusersfile().length(),
-				App.getExportedusersfile().length() > 0);
-		assertEquals(12991, App.getExportedusersfile().length());
-		assertEquals(App.getImportedusersfile().length(), App.getExportedusersfile().length());
+		assertTrue(App.getExportedusersfile().exists());
 	}
 
 	@Test
-	public void fileExists() throws IOException {
-		CSVReader reader = new CSVReader(new FileReader("src/test/resources/importedUsers.csv"));
-		List myEntries = reader.readAll();
-		Assert.assertNotNull(myEntries);
-		Assert.assertEquals(1001,myEntries.size());
+	public void successfulCreation() throws IOException {
+		LineNumberReader exportedEntries = new LineNumberReader(new FileReader(App.getExportedusersfile()));
+		LineNumberReader importedEntries = new LineNumberReader(new FileReader(App.getImportedusersfile()));
+		exportedEntries.skip(Long.MAX_VALUE);
+		importedEntries.skip(Long.MAX_VALUE);
+		Assert.assertEquals(exportedEntries.getLineNumber(), importedEntries.getLineNumber());
+		exportedEntries.close();
+		importedEntries.close();
 	}
 }
