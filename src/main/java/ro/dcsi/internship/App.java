@@ -13,7 +13,6 @@ import com.opencsv.CSVWriter;
 
 public class App {
 	private static String header[];
-	private static int entries = 0;
 	private static List<String[]> users = new ArrayList<String[]>();
 	// TODO review this removal of final
 	private static File importedUsersFile = new File("src/test/resources/importedUsers.csv");
@@ -33,14 +32,14 @@ public class App {
 	}
 
 	static void readCSV(File file) throws IOException {
-		String currentLine[];
+		String currentUser[];
 		CSVReader reader = new CSVReader(new FileReader(file));
 		header = reader.readNext();
 		if (header == null)
 			System.out.println("There are no entries! The CSV is empty!");
 		else {
-			while ((currentLine = reader.readNext()) != null) {
-				users.add(currentLine);
+			while ((currentUser = reader.readNext()) != null) {
+				users.add(currentUser);
 				System.out.println(Arrays.toString(users.get(users.size()-1)));
 			}
 		}
@@ -48,11 +47,11 @@ public class App {
 	}
 
 	static void writeCSV(File file) throws IOException {
-		CSVWriter writer = new CSVWriter(new FileWriter(file));
-		// for (String[] currentUser : users) {
-		// writer.writeNext(Arrays.toString(currentUser).replaceAll("\\[|\\]",
-		// "").split(","));
-		// }
+		CSVWriter writer = new CSVWriter(new FileWriter(file), ',', '\u0000');
+		writer.writeNext(header);
+		 for (String[] currentUser : users) {
+		 writer.writeNext(currentUser);
+		 }
 		writer.close();
 	}
 
@@ -60,6 +59,6 @@ public class App {
 		importedUsersFile = new File(importFile);
 		exportedUsersFile = new File(exportFile);
 		readCSV(importedUsersFile);
-		// writeCSV(exportedUsersFile);
+	    writeCSV(exportedUsersFile);
 	}
 }
