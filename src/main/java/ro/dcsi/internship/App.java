@@ -4,14 +4,17 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
 public class App {
-	private static String line[];
 	private static String header[];
 	private static int entries = 0;
+	private static List<String[]> users = new ArrayList<String[]>();
 	// TODO review this removal of final
 	private static File importedUsersFile = new File("src/test/resources/importedUsers.csv");
 	// TODO review this removal of final
@@ -30,17 +33,15 @@ public class App {
 	}
 
 	static void readCSV(File file) throws IOException {
+		String currentLine[];
 		CSVReader reader = new CSVReader(new FileReader(file));
 		header = reader.readNext();
 		if (header == null)
 			System.out.println("There are no entries! The CSV is empty!");
 		else {
-			while ((line = reader.readNext()) != null) {
-				entries++;
-				System.out.print("Line # " + entries + ": ");
-				for (int i = 0; i < line.length; i++)
-					System.out.print(line[i] + " ");
-				System.out.println();
+			while ((currentLine = reader.readNext()) != null) {
+				users.add(currentLine);
+				System.out.println(Arrays.toString(users.get(users.size()-1)));
 			}
 		}
 		reader.close();
