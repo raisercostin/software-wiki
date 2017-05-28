@@ -37,8 +37,8 @@ public class AppTest {
 		assertNotNull(users.get(0).other);
 		assertNotNull(users.get(0).username);
 		// assertEquals("asda,adfas,hkjhkjh,",User.other);
-		System.out.println(users.get(0).getUsername());
-		assertEquals("Victor", users.get(0).getUsername());
+		System.out.println(users.get(0).username);
+		assertEquals("Victor", users.get(0).username);
 		assertEquals("victor.ciresica@gmail.com", users.get(0).email);
 		assertEquals(6, users.size());
 	}
@@ -48,9 +48,10 @@ public class AppTest {
 		CsvExporter export = new CsvExporter();
 		List<User> users = export.readUsers("src/test/resources/users.csv");
 		assertEquals("username,email,other", export.readHeading("src/test/resources/users.csv"));
-		assertEquals(9, users.size());
-		for (User user : users.subList(1, users.size() - 1)) {
+		assertEquals(8, users.size());
+		for (User user : users) {
 			Integer indexOfAt = user.email.indexOf("@");
+			assertTrue("User email ["+user.email+"] should contain [@]",indexOfAt>=0);
 			System.out.println(user.email);
 			System.out.println(indexOfAt);
 			System.out.println(user.email.length());

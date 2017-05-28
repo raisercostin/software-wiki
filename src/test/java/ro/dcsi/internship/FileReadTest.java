@@ -27,7 +27,7 @@ public class FileReadTest {
 		BufferedReader br1 = new BufferedReader(new FileReader(csvFile1));
 		BufferedReader br2 = new BufferedReader(new FileReader(csvFile2));
 		assertEquals(
-				"FIRST NAME ,LAST NAME,USERNAME ,PASSWORD ,EMAIL ADDRESS,PHONE NUMBER,PASSPORT,GROUPS,USERCODE,TITLE,ADDRESS 1 ,ADDRESS 2,CITY,STATE,ZIP",
+				"FIRST NAME ,LAST NAME,USERNAME ,PASSWORD ,EMAIL,PHONE NUMBER,PASSPORT,GROUPS,USERCODE,TITLE,ADDRESS 1 ,ADDRESS 2,CITY,STATE,ZIP",
 				br1.readLine());
 	}
 
@@ -36,14 +36,8 @@ public class FileReadTest {
 		List<User> users = new CsvExporter().readUsers("src/test/resources/sample1.csv");
 		assertNotNull(users);
 		assertEquals(3, users.size());
-		assertEquals("Frank", users.get(0).username);
+		assertEquals("friley", users.get(0).username);
 		assertEquals("friley@kanab.org", users.get(0).email);
-	}
-
-	@Test
-	public void doATest() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(new File("src/test/resources/HundredUsers.csv")));
-		assertTrue(br.readLine() != null);
 	}
 
 	@Test

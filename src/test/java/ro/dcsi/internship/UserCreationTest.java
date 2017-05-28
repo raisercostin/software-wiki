@@ -20,7 +20,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 public class UserCreationTest {
-	private final static String importedUsersFile = "src/test/resources/importedUsers.csv";
+	private final static String importedUsersFile = "src/test/resources/users.csv";
 	private final static String exportedUsersFile = "target/exportedUsers.csv";
 
 	@Test
@@ -40,7 +40,7 @@ public class UserCreationTest {
 		App.main(importedUsersFile, "target/exportedUsers2.csv");
 		assertTrue("Numarul de useri nu este pozitiv: " + App.getExportedusersfile().length(),
 				App.getImportedusersfile().length() > 0);
-		assertEquals(10997, App.getImportedusersfile().length());
+		assertEquals(235, App.getImportedusersfile().length());
 	}
 
 	@Test
@@ -55,9 +55,9 @@ public class UserCreationTest {
 
 	@Test
 	public void fileExists() throws IOException {
-		CSVReader reader = new CSVReader(new FileReader("src/test/resources/importedUsers.csv"));
+		CSVReader reader = new CSVReader(new FileReader("src/test/resources/users.csv"));
 		List myEntries = reader.readAll();
 		Assert.assertNotNull(myEntries);
-		Assert.assertEquals(1001,myEntries.size());
+		Assert.assertEquals(9,myEntries.size());
 	}
 }

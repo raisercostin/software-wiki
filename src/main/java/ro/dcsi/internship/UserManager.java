@@ -62,7 +62,7 @@ public class UserManager {
 
     public static void main2( String[] args )
     {
-        List<User> users = new CsvExporter().readUsers("/home/madalin/Workspace/Eclipse/WORK/UserSyncApp/ship1/src/main/resources/sample.csv");
+        List<User> users = new CsvExporter().readUsers("/home/madalin/Workspace/Eclipse/WORK/UserSyncApp/ship1/src/main/resources/sample1.csv");
         for (User user : users) {
         	System.out.println("User " + user/*+ " " + users[1] + " has the email adress: " + users[4]*/);
 		}
