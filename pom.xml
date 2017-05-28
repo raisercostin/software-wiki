@@ -3,8 +3,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>ro.dcsi.internship</groupId>
-  <artifactId>ship2</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <artifactId>usersync</artifactId>
+  <version>0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>ship2</name>
