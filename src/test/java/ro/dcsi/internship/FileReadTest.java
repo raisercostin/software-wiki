@@ -16,8 +16,8 @@ import org.junit.Test;
 public class FileReadTest {
 	@Test 
 	public void readCSVSample() throws IOException {
-		String csvFile1 = "/home/madalin/Workspace/Eclipse/WORK/UserSyncApp/ship1/src/test/resources/sample1.csv";
-		String csvFile2 = "/home/madalin/Workspace/Eclipse/WORK/UserSyncApp/ship1/src/test/resources/sample2.csv";
+		String csvFile1 = "src/test/resources/sample1.csv";
+		String csvFile2 = "src/test/resources/sample2.csv";
 		
 		BufferedReader br1 = new BufferedReader(new FileReader(csvFile1));
 		BufferedReader br2 = new BufferedReader(new FileReader(csvFile2));
@@ -31,13 +31,10 @@ public class FileReadTest {
 
 	@Test
 	public void doATest() throws IOException {
-		String destination = "HundredUsers.csv";
 		String csvFile = "HundredUsers.csv2";
-		File file1 = new File(destination);
-		File file2 = new File(csvFile);
-		//BufferedReader buffReader = new BufferedReader(new FileReader(destination));
 		Scanner scanner = new Scanner(csvFile);
 		while(scanner.hasNextLine())
 			scanner.nextLine();
+		scanner.close();
 	}
 }
