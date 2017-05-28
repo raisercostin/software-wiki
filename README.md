@@ -8,6 +8,8 @@ Add instructions for project developers here.
 
 # Design
 - design changes - https://github.com/raisercostin/dcsi/commit/de94b0a04589716424836661bd8b259635c6410a?diff=unified
+- current design
+  ![current](https://github.com/raisercostin/dcsi/blob/user/costin/all.png)
 - design2
   ![design2](https://github.com/raisercostin/dcsi/raw/de94b0a04589716424836661bd8b259635c6410a/all.png)
 - design1
