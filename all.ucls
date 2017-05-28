@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="ro.dcsi.internship.CsvExporter" project="usersync" 
     file="/usersync/src/main/java/ro/dcsi/internship/CsvExporter.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="117" width="196" x="318" y="670"/>    
+    <position height="-1" width="-1" x="585" y="721"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -135,7 +135,7 @@
     <end type="TARGET" refId="5"/>  
   </dependency>  
   <dependency id="24">    
-    <bendpoint x="287" y="670"/>    
+    <bendpoint x="496" y="847"/>    
     <end type="SOURCE" refId="9"/>    
     <end type="TARGET" refId="5"/>  
   </dependency>  
