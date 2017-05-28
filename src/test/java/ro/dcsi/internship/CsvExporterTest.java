@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class AppTest {
+public class CsvExporterTest {
 	String fileName = "src/test/resources/users100.csv";
 	String outFileName = "target/users100out.csv";
 	CsvExporter exporter = new CsvExporter();

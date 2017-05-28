@@ -14,5 +14,4 @@ public class UserStorageTest {
 	public void exportFile() {
 		storage.exportUsers();
 	}
-
 }
