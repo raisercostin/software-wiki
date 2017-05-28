@@ -2,10 +2,9 @@ package ro.dcsi.internship;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
+import java.util.Scanner;
 
 import org.junit.Test;
 
@@ -51,7 +50,7 @@ public class CsvExporterTest {
 		assertEquals(8, users.size());
 		for (User user : users) {
 			Integer indexOfAt = user.email.indexOf("@");
-			assertTrue("User email ["+user.email+"] should contain [@]",indexOfAt>=0);
+			assertTrue("User email [" + user.email + "] should contain [@]", indexOfAt >= 0);
 			System.out.println(user.email);
 			System.out.println(indexOfAt);
 			System.out.println(user.email.length());
@@ -65,5 +64,37 @@ public class CsvExporterTest {
 	public void testExportWithMissingFile() {
 		CsvExporter export = new CsvExporter();
 		List<User> users = export.readUsers("src/test/resources/users.csv-------NO-FILE-------");
+	}
+
+	@Test
+	public void readCSVSample() throws IOException {
+		String csvFile1 = "src/test/resources/sample1.csv";
+		String csvFile2 = "src/test/resources/sample2.csv";
+		BufferedReader br1 = new BufferedReader(new FileReader(csvFile1));
+		BufferedReader br2 = new BufferedReader(new FileReader(csvFile2));
+		assertEquals(
+				"FIRST NAME ,LAST NAME,USERNAME ,PASSWORD ,EMAIL,PHONE NUMBER,PASSPORT,GROUPS,USERCODE,TITLE,ADDRESS 1 ,ADDRESS 2,CITY,STATE,ZIP",
+				br1.readLine());
+	}
+
+	@Test
+	public void readUsersTest() throws IOException {
+		List<User> users = new CsvExporter().readUsers("src/test/resources/sample1.csv");
+		assertNotNull(users);
+		assertEquals(3, users.size());
+		assertEquals("friley", users.get(0).username);
+		assertEquals("friley@kanab.org", users.get(0).email);
+	}
+
+	@Test
+	public void doATest2() throws IOException {
+		String destination = "HundredUsers.csv";
+		String csvFile = "HundredUsers.csv2";
+		File file1 = new File(destination);
+		File file2 = new File(csvFile);
+		// BufferedReader buffReader = new BufferedReader(new FileReader(destination));
+		Scanner scanner = new Scanner(csvFile);
+		while (scanner.hasNextLine())
+			scanner.nextLine();
 	}
 }
