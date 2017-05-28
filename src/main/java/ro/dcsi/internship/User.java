@@ -4,7 +4,7 @@ public class User {
 	public final String username;
 	public final String email;
 	public final String other;
-
+	private Set<String> permisions;
 	public User(String username, String email, String other) {
 		this.username = username;
 		this.email = email;
