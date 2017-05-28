@@ -3,7 +3,6 @@ package ro.dcsi.internship;
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
@@ -12,7 +11,7 @@ import org.junit.Test;
 public class AppTest {
 	String fileName = "src/test/resources/users100.csv";
 	String outFileName = "target/users100out.csv";
-	CsvExporter exporter = new CsvExporter();
+	CsvExporter2 exporter = new CsvExporter2();
 
 	@Test
 	public void test() throws IOException {
@@ -32,12 +31,10 @@ public class AppTest {
 
 	@Test
 	public void testFileNotEmpty() throws IOException {
-		List<User> users = new CsvExporter().readUsers(fileName);
+		List<User> users = new CsvExporter2().readUsers(fileName);
 		assertNotNull(users);
 		assertNotNull(users.get(0).other);
 		assertNotNull(users.get(0).username);
-		// assertEquals("asda,adfas,hkjhkjh,",User.other);
-		System.out.println(users.get(0).getUsername());
 		assertEquals("Victor", users.get(0).getUsername());
 		assertEquals("victor.ciresica@gmail.com", users.get(0).email);
 		assertEquals(6, users.size());
@@ -48,7 +45,7 @@ public class AppTest {
 		CsvExporter2 export = new CsvExporter2();
 		List<User> users = export.readUsers("src/test/resources/users.csv");
 		assertEquals("username,email,other", export.readHeading("src/test/resources/users.csv"));
-		assertEquals(9, users.size());
+		assertEquals(8, users.size());
 		for (User user : users.subList(1, users.size() - 1)) {
 			Integer indexOfAt = user.email.indexOf("@");
 			System.out.println(user.email);
@@ -64,5 +61,16 @@ public class AppTest {
 	public void testExportWithMissingFile() {
 		CsvExporter2 export = new CsvExporter2();
 		List<User> users = export.readUsers("src/test/resources/users.csv-------NO-FILE-------");
+	}
+	@Test
+	public void testCSVwithHeader() {
+		CsvExporter2 exporter = new CsvExporter2();
+		List<User> users = exporter.readWithHeader(fileName);
+		assertNotNull(users);
+		assertNotNull(users.get(0).email);
+		assertNotNull(users.get(5).username);
+		assertEquals(users.size(), exporter.readUsers(fileName).size());
+		assertEquals(users.get(2).email, exporter.readUsers(fileName).get(2).email);
+		assertEquals(users.get(3).email.contains("@"),true);
 	}
 }
