@@ -22,4 +22,8 @@ public class User {
 		this.email = email;
 		this.other = null;		
 	}
+	@Override
+	public String toString() {
+		return "User("+username+"<"+email+">)";
+	}
 }

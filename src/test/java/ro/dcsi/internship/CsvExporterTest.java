@@ -2,36 +2,22 @@ package ro.dcsi.internship;
 
 import static org.junit.Assert.*;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
 
 import org.junit.Test;
 
 public class CsvExporterTest {
 	String fileName = "src/test/resources/users100.csv";
 	String outFileName = "target/users100out.csv";
-	CsvExporter exporter = new CsvExporter();
-
-	@Test
-	public void test() throws IOException {
-		assertTrue(new File(fileName).exists());
-		new File(outFileName).delete();
-		exporter.export(fileName, outFileName);
-		assertTrue(new File(outFileName).exists());
-	}
-
-	@Test
-	public void testSameFile() throws IOException {
-		String outFileName2 = "target/users100out.csv";
-		exporter.export(fileName, outFileName);
-		exporter.export(outFileName, outFileName2);
-		assertTrue(new File(outFileName2).exists());
+	UserDao exporter() {
+		return new CsvFileUserDao();
 	}
 
 	@Test
 	public void testFileNotEmpty() throws IOException {
-		List<User> users = new CsvExporter().readUsers(fileName);
+		List<User> users = exporter().load(fileName);
 		assertNotNull(users);
 		assertNotNull(users.get(0).other);
 		assertNotNull(users.get(0).username);
@@ -44,9 +30,8 @@ public class CsvExporterTest {
 
 	@Test
 	public void testApp() {
-		CsvExporter export = new CsvExporter();
-		List<User> users = export.readUsers("src/test/resources/users.csv");
-		assertEquals("username,email,other", export.readHeading("src/test/resources/users.csv"));
+		List<User> users = exporter().load("src/test/resources/users.csv");
+		assertEquals("username,email,other", exporter().loadHeader("src/test/resources/users.csv"));
 		assertEquals(8, users.size());
 		for (User user : users) {
 			Integer indexOfAt = user.email.indexOf("@");
@@ -62,8 +47,7 @@ public class CsvExporterTest {
 
 	@Test(expected = RuntimeException.class)
 	public void testExportWithMissingFile() {
-		CsvExporter export = new CsvExporter();
-		List<User> users = export.readUsers("src/test/resources/users.csv-------NO-FILE-------");
+		List<User> users = exporter().load("src/test/resources/users.csv-------NO-FILE-------");
 	}
 
 	@Test
@@ -71,15 +55,38 @@ public class CsvExporterTest {
 		String csvFile1 = "src/test/resources/sample1.csv";
 		assertEquals(
 				"FIRST NAME ,LAST NAME,USERNAME ,PASSWORD ,EMAIL,PHONE NUMBER,PASSPORT,GROUPS,USERCODE,TITLE,ADDRESS 1 ,ADDRESS 2,CITY,STATE,ZIP",
-				new CsvExporter().readHeading(csvFile1));
+				exporter().loadHeader(csvFile1));
 	}
 
 	@Test
 	public void readUsersTest() throws IOException {
-		List<User> users = new CsvExporter().readUsers("src/test/resources/sample1.csv");
+		List<User> users = exporter().load("src/test/resources/sample1.csv");
 		assertNotNull(users);
 		assertEquals(3, users.size());
 		assertEquals("friley", users.get(0).username);
 		assertEquals("friley@kanab.org", users.get(0).email);
+	}
+
+	@Test
+	public void test() throws IOException {
+		assertTrue(new File(fileName).exists());
+		new File(outFileName).delete();
+		String fileName = "src/test/resources/users.csv";
+		String outFileName = "target/output-UsersStorageTest.csv";
+		copy(fileName,outFileName);
+		assertTrue(new File(outFileName).exists());
+	}
+
+	private void copy(String fileName, String outFileName) {
+		List<User> users = exporter().load(fileName);
+		exporter().save(users, outFileName);
+	}
+
+	@Test
+	public void testSameFile() throws IOException {
+		String outFileName2 = "target/users100out.csv";
+		copy(fileName, outFileName);
+		copy(outFileName, outFileName2);
+		assertTrue(new File(outFileName2).exists());
 	}
 }
