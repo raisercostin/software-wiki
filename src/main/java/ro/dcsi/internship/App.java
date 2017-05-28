@@ -13,7 +13,11 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
 public class App {
-	private static List<String[]> users;
+	private static String[] headersList ;
+	private static List<String> users = new ArrayList<>();
+	private static List<String> emails = new ArrayList<>();
+	private static List<String[]> lineToAdd = new ArrayList<>();
+
 	// TODO review this removal of final
 	private static File importedUsersFile = new File("src/test/resources/importedUsers.csv");
 	// TODO review this removal of final
@@ -23,11 +27,6 @@ public class App {
 		export("src/test/resources/importedUsers.csv", "target/exportedUsers.csv");
 	}
 
-	public static void main2(String[] args) throws IOException {
-		ArrayList<User> users = new ArrayList<User>();
-		new CsvExporter().export("src/main/resources/users100.csv", "target/users100out.csv");
-		users = new CsvExporter().readUsers("target/users100out.csv");
-	}
 	public static File getImportedusersfile() {
 		return importedUsersFile;
 	}
@@ -37,23 +36,34 @@ public class App {
 	}
 
 	static void readCSV(File file) throws IOException {
-		CSVReader reader = new CSVReader(new FileReader(file), ',', '\'', 1);
-		// TODO works with a 100G csv file?
-		// while ((nextLine = reader.readNext()) != null && count < 101) {
-		// count++;
-		// System.out.println(nextLine[0]);
-		// }
-		users = reader.readAll();
-		reader.close();
-		for (String[] currentUser : users) {
-			System.out.println(Arrays.toString(currentUser));
+		 CSVReader reader = new CSVReader(new FileReader(file));
+	      String [] nextLine;
+	      headersList = reader.readNext();
+	      int lineNumber = 1;
+	      while ((nextLine = reader.readNext()) != null) {
+	        lineNumber++;
+	        System.out.print("Line # " + lineNumber + ": ");
+
+	        // nextLine[] is an array of values from the line
+	       readLine(headersList,nextLine);
+	     lineToAdd.add(nextLine);
+	      System.out.println();
+	      }
+		
+	}
+	
+	static void readLine(String[] headersList,String[] nextLine){
+		for(int i =0; i < headersList.length; i++){
+			System.out.print(nextLine[i] + " ,");
 		}
 	}
 
 	static void writeCSV(File file) throws IOException {
-		CSVWriter writer = new CSVWriter(new FileWriter(file));
-		for (String[] currentUser : users) {
-			writer.writeNext(Arrays.toString(currentUser).replaceAll("\\[|\\]", "").split(","));
+		CSVWriter writer = new CSVWriter(new FileWriter(file), ',');
+		writer.writeNext(headersList);
+
+		for(int i=0 ; i<lineToAdd.size(); i++){
+			writer.writeNext(lineToAdd.get(i));
 		}
 		writer.close();
 	}
