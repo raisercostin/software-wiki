@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="ro.dcsi.internship.AppTest" project="usersync" 
     file="/usersync/src/test/java/ro/dcsi/internship/AppTest.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="775" y="476"/>    
+    <position height="-1" width="-1" x="618" y="446"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="ro.dcsi.internship.UserStorage" project="usersync" 
     file="/usersync/src/main/java/ro/dcsi/internship/UserStorage.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="978" y="697"/>    
+    <position height="-1" width="-1" x="954" y="713"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="ro.dcsi.internship.CsvExporter" project="usersync" 
     file="/usersync/src/main/java/ro/dcsi/internship/CsvExporter.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="620" y="807"/>    
+    <position height="-1" width="-1" x="631" y="820"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -143,12 +143,12 @@
     <end type="TARGET" refId="5"/>  
   </dependency>  
   <dependency id="28">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="9"/>  
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="4"/>  
   </dependency>  
   <dependency id="29">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="7"/>  
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="9"/>  
   </dependency>  
   <dependency id="30">    
     <bendpoint x="752" y="670"/>    

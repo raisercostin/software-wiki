@@ -33,11 +33,11 @@ public class FileReadTest {
 
 	@Test
 	public void readUsersTest() throws IOException {
-		List<User> users = UserManager.readUsers("src/test/resources/sample1.csv");
+		List<User> users = new CsvExporter().readUsers("src/test/resources/sample1.csv");
 		assertNotNull(users);
 		assertEquals(3, users.size());
 		assertEquals("Frank", users.get(0).username);
-		assertEquals("Frank", users.get(0).email);
+		assertEquals("friley@kanab.org", users.get(0).email);
 	}
 
 	@Test

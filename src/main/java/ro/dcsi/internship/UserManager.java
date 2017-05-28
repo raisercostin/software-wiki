@@ -62,33 +62,11 @@ public class UserManager {
 
     public static void main2( String[] args )
     {
-        List<User> users = readUsers("/home/madalin/Workspace/Eclipse/WORK/UserSyncApp/ship1/src/main/resources/sample.csv");
+        List<User> users = new CsvExporter().readUsers("/home/madalin/Workspace/Eclipse/WORK/UserSyncApp/ship1/src/main/resources/sample.csv");
         for (User user : users) {
         	System.out.println("User " + user/*+ " " + users[1] + " has the email adress: " + users[4]*/);
 		}
     }
-
-	public static List<User> readUsers(String csvFile) {
-		ArrayList<User> list = new ArrayList<>();
-        //String csvFile = "/home/madalin/Workspace/Eclipse/WORK/UserSyncApp/ship1/src/main/resources/sample.csv";
-        String line = "";
-        String csvSplitBy = ",";
-        
-        try(BufferedReader br = new BufferedReader(new FileReader(csvFile))){
-        	boolean firstLine = true;
-        	while ((line = br.readLine()) != null){
-        		if (!firstLine){
-        			String[] users = line.split(csvSplitBy);
-            		System.out.println("User " + users[0]+ " " + users[1] + " has the email adress: " + users[4]);
-            		list.add(new User(users[0]));
-        		} 
-        		firstLine = false;
-        	}
-		} catch (IOException e) {
-			throw new RuntimeException(e); 
-		}    
-		return list;
-	}
 
     public static void mainStefan( String[] args )
     {

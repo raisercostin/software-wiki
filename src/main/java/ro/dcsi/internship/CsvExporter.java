@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class CsvExporter {
-	CsvExporter() {
+	public CsvExporter() {
 		System.out.println("instantiated");
 	}
 	public void export(String inputFileName, String outputFileName) {
@@ -35,14 +35,33 @@ public class CsvExporter {
 		return s;
 	}
 
-	public List<User> readUsers(String fileName) {
+	public List<User> readUsers(String csvFile) {
+		ArrayList<User> users = new ArrayList<>();
+        String csvSplitBy = ",";
+        try(BufferedReader br = new BufferedReader(new FileReader(csvFile))){
+        	boolean firstLine = true;
+            String line = "";
+        	while ((line = br.readLine()) != null){
+        		if (!firstLine){
+        			String[] splited = line.split(csvSplitBy);
+            		//System.out.println("User " + splited[0]+ " " + splited[1] + " has the email adress: " + splited[4]);
+            		users.add(new User(splited[0], splited[1], splited[2]));
+        		} 
+        		firstLine = false;
+        	}
+		} catch (IOException e) {
+			throw new RuntimeException(e); 
+		}    
+		return users;
+	}
+
+	public List<User> readUsersWithoutHeader(String fileName) {
 		List<User> users = new ArrayList<>();
 		try (FileReader fr = new FileReader(fileName)) {
 			BufferedReader br = new BufferedReader(fr);
-			String s;
-			String[] splited;
-			while ((s = br.readLine()) != null) {
-				splited = s.split(",");
+			String line;
+			while ((line = br.readLine()) != null) {
+				String[] splited = line.split(",");
 				users.add(new User(splited[0], splited[1], splited[2]));
 			}
 			return users;
