@@ -102,4 +102,22 @@ public class App {
 		}
 
 	}
+    public static void main4( String[] args )
+    {
+        List<User> users = new CsvExporter().readUsers("/home/madalin/Workspace/Eclipse/WORK/UserSyncApp/ship1/src/main/resources/sample1.csv");
+        for (User user : users) {
+        	System.out.println("User " + user/*+ " " + users[1] + " has the email adress: " + users[4]*/);
+		}
+    }
+
+    public static void mainStefan( String[] args )
+    {
+    	List<User> users = new ArrayList<User>();
+ 
+    	UserStorage employees = new UserStorage("input.csv","output.csv");
+    	
+    	employees.importUsers();
+    	employees.exportUsers();
+    	//employees.generateUsers("out.csv", 100);    	
+    }
 }
