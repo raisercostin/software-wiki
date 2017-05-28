@@ -21,12 +21,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 public class FileReadTest {
 	@Test
-	@Ignore
-	public void test() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void readCSVSample() throws IOException {
 		String csvFile1 = "src/test/resources/sample1.csv";
 		String csvFile2 = "src/test/resources/sample2.csv";
