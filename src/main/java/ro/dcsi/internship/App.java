@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class App {
+	UserStorage storage = new UserStorage("src/test/resources/importedUsers.csv","target/exportedUsers.csv");
 	private static List<String[]> users;
 	// TODO review this removal of final
 	private static File importedUsersFile = new File("src/test/resources/importedUsers.csv");

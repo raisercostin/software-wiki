@@ -74,67 +74,75 @@
     </display>  
   </class>  
   <association id="9">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="10" name="exporter"/>      
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="10" name="storage"/>      
       <multiplicity id="11" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="12">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="13" name="exporter"/>      
+      <multiplicity id="14" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="12">    
+  <association id="15">    
     <bendpoint x="71" y="868"/>    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="13" name="users"/>      
-      <multiplicity id="14" minimum="0" maximum="2147483647"/>    
+      <attribute id="16" name="users"/>      
+      <multiplicity id="17" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="15">    
+  <dependency id="18">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="8"/>  
   </dependency>  
-  <dependency id="16">    
+  <dependency id="19">    
     <bendpoint x="371" y="868"/>    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="5"/>  
   </dependency>  
-  <dependency id="17">    
+  <dependency id="20">    
     <bendpoint x="31" y="585"/>    
     <bendpoint x="31" y="868"/>    
     <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="5"/>  
   </dependency>  
-  <nesting id="18">    
+  <nesting id="21">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="7"/>  
   </nesting>  
-  <dependency id="19">    
+  <dependency id="22">    
     <bendpoint x="263" y="585"/>    
     <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="4"/>  
   </dependency>  
-  <association id="20">    
+  <association id="23">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="21" name="exporter"/>      
-      <multiplicity id="22" minimum="0" maximum="1"/>    
+      <attribute id="24" name="exporter"/>      
+      <multiplicity id="25" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="23">    
+  <association id="26">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="24" name="storage"/>      
-      <multiplicity id="25" minimum="0" maximum="1"/>    
+      <attribute id="27" name="storage"/>      
+      <multiplicity id="28" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="26">    
+  <dependency id="29">    
     <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="3"/>  
   </dependency>  
-  <dependency id="27">    
+  <dependency id="30">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="5"/>  
   </dependency>  
