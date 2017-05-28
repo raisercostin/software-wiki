@@ -30,9 +30,8 @@ public class App {
 	}
 
 	public static void main2(String[] args) throws IOException {
-		ArrayList<User> users = new ArrayList<User>();
 		new CsvExporter().export("src/main/resources/users100.csv", "target/users100out.csv");
-		users = new CsvExporter().readUsers("target/users100out.csv");
+		List<User> users = new CsvExporter().readUsers("target/users100out.csv");
 	}
 	public static File getImportedusersfile() {
 		return importedUsersFile;
