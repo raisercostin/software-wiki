@@ -1,13 +1,15 @@
 # DCSI - Internship Java for Enterprise Security
 
-
 We document the project in [this wiki](https://github.com/raisercostin/dcsi/wiki).
 Ask to be a collaborator if you want to contribute or make a pull request.
 
-
-#  usersync2
-
+#  usersync
 Add instructions for project developers here.
+
+# Design
+- design changes - https://github.com/raisercostin/dcsi/commit/de94b0a04589716424836661bd8b259635c6410a?diff=unified
+- design2 ![design2](https://github.com/raisercostin/dcsi/raw/de94b0a04589716424836661bd8b259635c6410a/all.png)
+- design1 ![design1](https://github.com/raisercostin/dcsi/raw/22c2be6f032539e29764df3c6ca945048a613af8/all.png)
 
 # Backlog
 Priorities
@@ -17,6 +19,7 @@ Priorities
 - P2
   - read ignoring a header
   - read with swapped columns but with same names: username, email, ...
+
 # Backlog
 
 - prereq 
@@ -34,13 +37,13 @@ Priorities
 
 - check server 
     - install idm 
-        - [~ https://www.forgerock.com/downloads/download-openidm-trial-downloading/ ](https://www.forgerock.com/downloads/download-openidm-trial-downloading/)
-        - [~ https://backstage.forgerock.com/docs/idm/5/install-guide ](https://backstage.forgerock.com/docs/idm/5/install-guide)
+        - [~Â https://www.forgerock.com/downloads/download-openidm-trial-downloading/ ](https://www.forgerock.com/downloads/download-openidm-trial-downloading/)
+        - [~Â https://backstage.forgerock.com/docs/idm/5/install-guide ](https://backstage.forgerock.com/docs/idm/5/install-guide)
 
     - check connection 
         - server 
-            - [~ http://localhost:8080 ](http://localhost:8080/)
-            - [~ https://localhost:8443 ](https://localhost:8443/)
+            - [~Â http://localhost:8080 ](http://localhost:8080/)
+            - [~Â https://localhost:8443 ](https://localhost:8443/)
 
         - user 
             - openidm-admin 
@@ -56,7 +59,7 @@ Priorities
         - add access via https 
 
 - start a maven project 
-    - [~ https://start.spring.io/ ](https://start.spring.io/)
+    - [~Â https://start.spring.io/ ](https://start.spring.io/)
     - maven-archetype-quickstart 
     - mvn archetype:generate 
         - options 
@@ -93,7 +96,7 @@ Priorities
     - Make a test with junit that checks user creation. 
     - Make test pass. 
     - csv library 
-        - [~ stackoverflow.com &gt; Questions &gt; 10462507 &gt; Any-good-library-to-read-and-write-csv-files ](http://stackoverflow.com/questions/10462507/any-good-library-to-read-and-write-csv-files)
+        - [~Â stackoverflow.com &gt; Questions &gt; 10462507 &gt; Any-good-library-to-read-and-write-csv-files ](http://stackoverflow.com/questions/10462507/any-good-library-to-read-and-write-csv-files)
 
 - Export 100 users to a csv file. 
 - What if we have 1 000 000 users? 
@@ -126,8 +129,8 @@ Priorities
         - as server 
 
     - HATEOAS 
-        - [~ https://spring.io/understanding/HATEOAS ](https://spring.io/understanding/HATEOAS)
-        - [~ https://martinfowler.com/articles/richardsonMaturityModel.html ](https://martinfowler.com/articles/richardsonMaturityModel.html)
+        - [~Â https://spring.io/understanding/HATEOAS ](https://spring.io/understanding/HATEOAS)
+        - [~Â https://martinfowler.com/articles/richardsonMaturityModel.htmlÂ ](https://martinfowler.com/articles/richardsonMaturityModel.html)
         
         
 # DCSI - Internship Java for Enterprise Security
