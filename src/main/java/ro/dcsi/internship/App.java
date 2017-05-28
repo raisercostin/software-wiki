@@ -70,7 +70,7 @@ public class App {
 		readCSV(importedUsersFile);
 		writeCSV(exportedUsersFile);
 	}
-	public static void main2(String[] args) throws IOException {
+	public static void main3(String[] args) throws IOException {
 		BufferedReader br = null;
 		StringBuilder sb = null;
 		try {
