@@ -3,7 +3,7 @@ package ro.dcsi.internship;
 import org.junit.Test;
 
 public class UserStorageTest {
-	UserStorage storage = new UserStorage("input.csv","target/output-UsersStorageTest.csv");
+	UserStorage storage = new UserStorage("src/test/resources/input.csv","target/output-UsersStorageTest.csv");
 	
 	@Test
 	public void importFile() {

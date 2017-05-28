@@ -11,7 +11,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class UserStorage {
-	
+	private final CsvExporter exporter = new CsvExporter();
+
 	private final String inputFilePath;
 	private final String outputFilePath;
 	private File file = null;
@@ -21,104 +22,58 @@ public class UserStorage {
 	private BufferedReader in = null;
 
 	private List<User> users = new ArrayList<User>();
-	
-	public UserStorage(String inputFilePath, String outputFilePath){
+
+	public UserStorage(String inputFilePath, String outputFilePath) {
 		this.inputFilePath = inputFilePath;
 		this.outputFilePath = outputFilePath;
 	}
-	
-	public void exportUsers(){
-				
-		try{
+
+	public void exportUsers() {
+		exporter.export(users, outputFilePath);
+		try {
 			file = new File(outputFilePath);
 			fw = new FileWriter(file);
 			out = new BufferedWriter(fw);
-			
+
 			Iterator<User> iterator = users.iterator();
-			
+
 			User tmp;
-			
-			while(iterator.hasNext()){
-				tmp = (User)iterator.next();
+
+			while (iterator.hasNext()) {
+				tmp = (User) iterator.next();
 				out.write(tmp + ",\n");
 				out.flush();
 			}
-		}
-		catch(IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		finally{
-			try{
-				if(fw != null){
+		} finally {
+			try {
+				if (fw != null) {
 					fw.close();
 				}
-				if(out != null){
+				if (out != null) {
 					out.close();
 				}
-			}
-			catch(IOException e){
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
-	public void importUsers(){
-		try{
-			file = new File(inputFilePath);
-			fr = new FileReader(file);
-			in = new BufferedReader(fr);
-			
-			String userStr = null;
-			
-			User tmp;
-			
-			while((userStr = in.readLine()) != null){
-				userStr = userStr.substring(0, userStr.length()-1);
-				tmp = new User(userStr);
-				users.add(tmp);
-			}
-		}
-		catch(IOException e){
-			e.printStackTrace();
-		}
-		finally{
-			try{
-				if(fr != null){
-					fr.close();
-				}
-				if(in != null){
-					in.close();
-				}
-			}
-			catch(IOException e){
-				e.printStackTrace();
-			}
-		}
-		
+
+	public void importUsers() {
+		users = exporter.readUsers(inputFilePath);
 	}
-	
-	public List<User> getUsers(){
+
+	public List<User> getUsers() {
 		return users;
 	}
-	
+
 	// helper method
-	public void generateUsers(String filePath, int nrOfUsersToGenerate){
-		try{
-			File file = new File(outputFilePath);
-			FileWriter fw = new FileWriter(file);
-			BufferedWriter out = new BufferedWriter(fw);
-			
-			for(int i=1;i<=nrOfUsersToGenerate;i++){
-				out.write("User" + i + ",\n");
-				out.flush();
-			}
-			
-			fw.close();
-			out.close();
-			
+	public void generateUsers(String filePath, int nrOfUsersToGenerate) {
+		List<User> users = new ArrayList<>();
+		for (int i = 1; i <= nrOfUsersToGenerate; i++) {
+			users.add(new User("User" + i));
 		}
-		catch(IOException e){
-			e.printStackTrace();
-		}
+		exporter.export(users, filePath);
 	}
 }

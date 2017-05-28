@@ -1,26 +1,20 @@
 package ro.dcsi.internship;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 public class CsvExporter {
 	CsvExporter() {
 		System.out.println("instantiated");
 	}
-
-	public void export(String inputFilename, String outputFileName) throws IOException {
-		String s;
-		try (FileReader fr = new FileReader(inputFilename);
-			FileWriter fo = new FileWriter(outputFileName);
-			) {
-			BufferedReader br = new BufferedReader(fr);
-			while ((s = br.readLine()) != null) {
-				fo.append(s + ",");
+	public void export(String inputFileName, String outputFileName) {
+		List<User> users = readUsers(inputFileName);
+		export(users, outputFileName);
+	}
+	public void export(List<User> users, String outputFileName){
+		try (FileWriter fo = new FileWriter(outputFileName); BufferedWriter out = new BufferedWriter(fo)) {
+			for (User user : users) {
+				out.write(user + ",\n");
 			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
