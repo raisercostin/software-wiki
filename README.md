@@ -8,8 +8,10 @@ Add instructions for project developers here.
 
 # Design
 - design changes - https://github.com/raisercostin/dcsi/commit/de94b0a04589716424836661bd8b259635c6410a?diff=unified
-- design2 ![design2](https://github.com/raisercostin/dcsi/raw/de94b0a04589716424836661bd8b259635c6410a/all.png)
-- design1 ![design1](https://github.com/raisercostin/dcsi/raw/22c2be6f032539e29764df3c6ca945048a613af8/all.png)
+- design2
+  ![design2](https://github.com/raisercostin/dcsi/raw/de94b0a04589716424836661bd8b259635c6410a/all.png)
+- design1
+  ![design1](https://github.com/raisercostin/dcsi/raw/22c2be6f032539e29764df3c6ca945048a613af8/all.png)
 
 # Backlog
 Priorities
