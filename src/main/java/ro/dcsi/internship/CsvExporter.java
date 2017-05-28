@@ -7,37 +7,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
- public class CsvExporter {
+public class CsvExporter {
 	CsvExporter() {
 		System.out.println("instantiated");
 	}
 
 	public void export(String inputFilename, String outputFileName) throws IOException {
 		String s;
-		FileReader fr = null;
-		BufferedReader br = null;
-		FileWriter fo = null;
-		try(fr = new FileReader(inputFilename)) {
-			br = new BufferedReader(fr);
-			fo = new FileWriter(outputFileName);
+		try (FileReader fr = new FileReader(inputFilename); FileWriter fo = new FileWriter(outputFileName);) {
+			BufferedReader br = new BufferedReader(fr);
 			while ((s = br.readLine()) != null) {
 				fo.append(s + ",");
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
-		finally{
-			try{
-				fr.close();
-				
-				fo.close();
-			}
-			catch(IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
-
 	}
 
 	public ArrayList<User> readUsers(String fileName) {
@@ -58,7 +42,4 @@ import java.util.ArrayList;
 		}
 	}
 
- }
- 
-
-
+}
