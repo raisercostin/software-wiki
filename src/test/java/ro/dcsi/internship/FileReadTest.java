@@ -42,7 +42,7 @@ public class FileReadTest {
 
 	@Test
 	public void doATest() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(new File("src/main/resources/HundredUsers.csv")));
+		BufferedReader br = new BufferedReader(new FileReader(new File("src/test/resources/HundredUsers.csv")));
 		assertTrue(br.readLine() != null);
 	}
 
