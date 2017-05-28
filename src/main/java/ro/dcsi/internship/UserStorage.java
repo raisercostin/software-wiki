@@ -12,8 +12,8 @@ import java.util.List;
 
 public class UserStorage {
 	
-	private String inputFilePath = "input.csv";
-	private String outputFilePath = "output.csv";
+	private final String inputFilePath;
+	private final String outputFilePath;
 	private File file = null;
 	private FileWriter fw = null;
 	private FileReader fr = null;
@@ -21,10 +21,6 @@ public class UserStorage {
 	private BufferedReader in = null;
 
 	private List<User> users = new ArrayList<User>();
-	
-	public UserStorage(){
-		
-	}
 	
 	public UserStorage(String inputFilePath, String outputFilePath){
 		this.inputFilePath = inputFilePath;
@@ -99,14 +95,6 @@ public class UserStorage {
 			}
 		}
 		
-	}
-	
-	public void setInputFilePath(String inputFilePath){
-		this.inputFilePath = inputFilePath;
-	}
-	
-	public void setOutputFilePath(String inputFilePath){
-		this.inputFilePath = inputFilePath;
 	}
 	
 	public List<User> getUsers(){

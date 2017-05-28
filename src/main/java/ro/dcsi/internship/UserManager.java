@@ -94,7 +94,7 @@ public class UserManager {
     {
     	List<User> users = new ArrayList<User>();
     	
-    	UserStorage employees = new UserStorage();
+    	UserStorage employees = new UserStorage("input.csv","output.csv");
     	
     	employees.importUsers();
     	employees.exportUsers();

@@ -6,7 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class UserStorageTest {
-	UserStorage storage = new UserStorage();
+	UserStorage storage = new UserStorage("input.csv","output.csv");
 	
 	@Test
 	public void importFile() {
