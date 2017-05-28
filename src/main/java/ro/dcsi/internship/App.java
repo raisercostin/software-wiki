@@ -69,39 +69,6 @@ public class App {
 		readCSV(importedUsersFile);
 		writeCSV(exportedUsersFile);
 	}
-	public static void main3(String[] args) throws IOException {
-		BufferedReader br = null;
-		StringBuilder sb = null;
-		try {
-			br = new BufferedReader(new FileReader("HundredUsers.csv"));
-			sb = new StringBuilder();
-			String line = br.readLine();
-			String fileName = "HundredUsers.csv";
-			File file = new File(fileName);
-			while (line != null) {
-				sb.append(line);
-				sb.append(System.lineSeparator());
-				line = br.readLine();
-			}
-			String text = sb.toString();
-			System.out.println(text);
-			
-			Scanner scan = new Scanner(file);
-			while (scan.hasNext()) {
-				String data = scan.next();
-				String[] values = data.split(",");
-				for (String word : values) {
-					System.out.println(word);
-				}
-			}
-			scan.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			br.close();
-		}
-
-	}
     public static void main4( String[] args )
     {
         List<User> users = new CsvExporter().readUsers("/home/madalin/Workspace/Eclipse/WORK/UserSyncApp/ship1/src/main/resources/sample1.csv");
