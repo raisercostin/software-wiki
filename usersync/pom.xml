@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>ro.dcsi.internship</groupId>
-  <artifactId>ship3</artifactId>
+  <artifactId>ship1</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>ship3</name>
+  <name>ship1</name>
   <url>http://maven.apache.org</url>
 
   <properties>
