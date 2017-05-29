@@ -29,22 +29,17 @@ public class FileReadTest {
 
 	@Test
 	public void doATest() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(new File("c:\\Users\\Andrei\\maven workspace\\ship1\\src\\main\\resources\\HundredUsers.csv")));
+		BufferedReader br = new BufferedReader(new FileReader(new File("src/main/resources/HundredUsers.csv")));
 		assertTrue(br.readLine() != null);
 		
 
 	}
 
 	@Test
-	public void doATest() throws IOException {
-		String destination = "HundredUsers.csv";
-		String csvFile = "HundredUsers.csv2";
-		File file1 = new File(destination);
-		File file2 = new File(csvFile);
-		//BufferedReader buffReader = new BufferedReader(new FileReader(destination));
-		Scanner scanner = new Scanner(csvFile);
+	public void doATest1() throws IOException {
+		Scanner scanner = new Scanner(new File("src/main/resources/HundredUsers.csv"));
+		assertTrue(scanner.hasNext());
 		while(scanner.hasNextLine())
 			scanner.nextLine();
 	}
-}
 }
