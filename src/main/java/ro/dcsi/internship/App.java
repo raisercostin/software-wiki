@@ -1,10 +1,8 @@
 package ro.dcsi.internship;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class App {
 	public static void main(String[] args) throws IOException {
@@ -14,8 +12,6 @@ public class App {
 			br = new BufferedReader(new FileReader("src/main/resources/HundredUsers.csv"));
 			sb = new StringBuilder();
 			String line = br.readLine();
-			String fileName = "src/main/resources/HundredUsers.csv";
-			File file = new File(fileName);
 			while (line != null) {
 				sb.append(line);
 				sb.append(System.lineSeparator());
