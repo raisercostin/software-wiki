@@ -69,6 +69,15 @@ public class CsvExporterTest {
 	}
 
 	@Test
+	public void readUsersTestSpecialPass() throws IOException {
+		List<User> users = exporter().load("src/test/resources/sample-special-pass.csv");
+		assertNotNull(users);
+		assertEquals(3, users.size());
+		assertEquals("friley", users.get(0).username);
+		assertEquals("friley@kanab.org", users.get(0).email);
+	}
+
+	@Test
 	public void test() throws IOException {
 		assertTrue(new File(fileName).exists());
 		new File(outFileName).delete();
@@ -98,7 +107,27 @@ public class CsvExporterTest {
 		assertEquals(100,exporter().load(file).size());
 	}
 
-	public List<User> generateUsers(int nrOfUsersToGenerate) {
+	@Test
+	public void testQuotesAreSaved() throws IOException {
+		List<User> users = generateUsers(0);
+		String specialName = "Mc\"Donald,Ron\nald";
+		users.add(new User(specialName,"email"));
+		String file = "target/specialUser-"+getClass().getSimpleName()+".csv";
+		exporter().save(users, file);
+		List<User> actual = exporter().load(file);
+		assertEquals(specialName,actual.get(0).username);
+	}
+
+	@Test(timeout=10000)
+	public void testHugeNumberOfUsers() throws IOException {
+		List<User> users = generateUsers(3000000);
+		String file = "target/manyUsers-"+getClass().getSimpleName()+".csv";
+		exporter().save(users, file);
+		List<User> actual = exporter().load(file);
+		assertEquals(users.size(),actual.size());
+	}
+
+	public List<User> generateUsers(long nrOfUsersToGenerate) {
 		List<User> users = new ArrayList<>();
 		for (int i = 0; i < nrOfUsersToGenerate; i++) {
 			users.add(new User("User" + i));
