@@ -11,10 +11,10 @@ public class App {
 		BufferedReader br = null;
 		StringBuilder sb = null;
 		try {
-			br = new BufferedReader(new FileReader("HundredUsers.csv"));
+			br = new BufferedReader(new FileReader("src/main/resources/HundredUsers.csv"));
 			sb = new StringBuilder();
 			String line = br.readLine();
-			String fileName = "HundredUsers.csv";
+			String fileName = "src/main/resources/HundredUsers.csv";
 			File file = new File(fileName);
 			while (line != null) {
 				sb.append(line);
