@@ -30,7 +30,7 @@ public class CsvFileUserDao implements UserDao {
 			Header header = new Header(br.readLine().split(csvSplitBy));
 			while ((line = br.readLine()) != null) {
 				String[] splited = line.split(csvSplitBy);
-				users.add(new User(header.getName(splited), header.getEmail(splited), line));
+				users.add(header.toUser(splited,line));
 			}
 			return users;
 		} catch (IOException e) {
@@ -73,16 +73,16 @@ public class CsvFileUserDao implements UserDao {
 					"Header should contain [username]. Shouldn't be quoted. It was just " + header);
 		}
 
-		public String getEmail(String[] splited) {
-			return splited[header.get("email")];
+		public String getEmail(String[] values) {
+			return values[header.get("email")];
 		}
 
-		public String getName(String[] splited) {
-			return splited[header.get("username")];
+		public String getName(String[] values) {
+			return values[header.get("username")];
 		}
 
-		public User toUser(String[] splited) {
-			return new User(getName(splited), getEmail(splited), "");
+		public User toUser(String[] values, String line) {
+			return new User(getName(values), getEmail(values), line);
 		}
 
 		public String[] fromUser(User user) {
