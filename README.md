@@ -15,14 +15,8 @@ Add instructions for project developers here.
 - design1
   ![design1](https://github.com/raisercostin/dcsi/raw/22c2be6f032539e29764df3c6ca945048a613af8/all.png)
 
-# Backlog
-Priorities
-- P1
-  - read username and email columns
-
-- P2
-  - read ignoring a header
-  - read with swapped columns but with same names: username, email, ...
+# Backlog 
+See [wiki](https://github.com/raisercostin/dcsi/wiki/UserSync-App-Backlog)
 
 # Backlog
 
