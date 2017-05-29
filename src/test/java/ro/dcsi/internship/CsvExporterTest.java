@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -88,5 +89,20 @@ public class CsvExporterTest {
 		copy(fileName, outFileName);
 		copy(outFileName, outFileName2);
 		assertTrue(new File(outFileName2).exists());
+	}
+	@Test
+	public void testGenerate100Users() throws IOException {
+		List<User> users = generateUsers(100);
+		String file = "target/users-100generated-"+getClass().getSimpleName()+".csv";
+		exporter().save(users, file);
+		assertEquals(100,exporter().load(file).size());
+	}
+
+	public List<User> generateUsers(int nrOfUsersToGenerate) {
+		List<User> users = new ArrayList<>();
+		for (int i = 0; i < nrOfUsersToGenerate; i++) {
+			users.add(new User("User" + i));
+		}
+		return users;
 	}
 }

@@ -42,7 +42,7 @@ public class CsvFileUserDao implements UserDao {
 	public void save(List<User> users, String outputFileName) {
 		Header header = new Header();
 		try (FileWriter fo = new FileWriter(outputFileName); BufferedWriter out = new BufferedWriter(fo)) {
-			out.write(header.fullHeader);
+			out.write(header.fullHeader+"\n");
 			for (User user : users) {
 				out.write(Arrays.toString(header.fromUser(user)) + "\n");
 			}
@@ -92,13 +92,5 @@ public class CsvFileUserDao implements UserDao {
 		public String[] headerValues() {
 			return new String[]{"username","email","other"};
 		}
-	}
-
-	public void generateUsers(String filePath, int nrOfUsersToGenerate) {
-		List<User> users = new ArrayList<>();
-		for (int i = 1; i <= nrOfUsersToGenerate; i++) {
-			users.add(new User("User" + i));
-		}
-		save(users, filePath);
 	}
 }
