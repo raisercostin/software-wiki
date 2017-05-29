@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class CsvExporterTest {
@@ -119,6 +120,7 @@ public class CsvExporterTest {
 	}
 
 	@Test(timeout=10000)
+	@Ignore
 	public void testHugeNumberOfUsers() throws IOException {
 		List<User> users = generateUsers(3000000);
 		String file = "target/manyUsers-"+getClass().getSimpleName()+".csv";
