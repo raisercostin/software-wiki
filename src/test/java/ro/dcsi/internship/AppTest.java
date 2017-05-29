@@ -45,7 +45,7 @@ public class AppTest {
 
 	@Test
 	public void testApp() {
-		CsvExporter2 export = new CsvExporter2();
+		CsvExporter export = new CsvExporter();
 		List<User> users = export.readUsers("src/test/resources/users.csv");
 		assertEquals("username,email,other", export.readHeading("src/test/resources/users.csv"));
 		assertEquals(9, users.size());
@@ -62,7 +62,7 @@ public class AppTest {
 
 	@Test(expected = RuntimeException.class)
 	public void testExportWithMissingFile() {
-		CsvExporter2 export = new CsvExporter2();
+		CsvExporter export = new CsvExporter();
 		List<User> users = export.readUsers("src/test/resources/users.csv-------NO-FILE-------");
 	}
 }
