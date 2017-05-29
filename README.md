@@ -6,6 +6,9 @@ Ask to be a collaborator if you want to contribute or make a pull request.
 #  usersync
 Add instructions for project developers here.
 
+# Backlog 
+See [wiki](https://github.com/raisercostin/dcsi/wiki/UserSync-App-Backlog)
+
 # Design
 - design changes - https://github.com/raisercostin/dcsi/commit/de94b0a04589716424836661bd8b259635c6410a?diff=unified
 - current design
@@ -14,9 +17,6 @@ Add instructions for project developers here.
   ![design2](https://github.com/raisercostin/dcsi/raw/de94b0a04589716424836661bd8b259635c6410a/all.png)
 - design1
   ![design1](https://github.com/raisercostin/dcsi/raw/22c2be6f032539e29764df3c6ca945048a613af8/all.png)
-
-# Backlog 
-See [wiki](https://github.com/raisercostin/dcsi/wiki/UserSync-App-Backlog)
 
 # Backlog
 
@@ -136,23 +136,3 @@ See [wiki](https://github.com/raisercostin/dcsi/wiki/UserSync-App-Backlog)
 We document the project in [this wiki](https://github.com/raisercostin/dcsi/wiki).
 Ask to be a collaborator if you want to contribute or make a pull request.
 
-# Backlog
-
-- [x] Import 100 users from a csv file.
-
-    - [x] Project built with maven.
-    - [x] Make a test with junit that checks user creation.
-    - [x] Make test pass.
-    - [x] csv library  
-        ~ stackoverflow.com > Questions > 10462507 > Any-good-library-to-read-and-write-csv-files
-    - [ ] read users from a file
-	- [ ] write users to a file
-
-- [x] Export 100 users to a csv file.
-## First time running
-1. Go to the project path using:  
-`cd %PATH%`
-2. Be aware that the project was cleaned so you should compile it first.  
-`mvn compile exec:java -Dexec.mainClass=ro.dcsi.internship.App`
-3. Setup the project to work with your IDE. For eclipse, use:  
-`mvn eclipse:eclipse`
