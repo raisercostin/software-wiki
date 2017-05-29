@@ -95,7 +95,10 @@ public class CsvExporterTest {
 		List<User> users = generateUsers(100);
 		String file = "target/users-100generated-"+getClass().getSimpleName()+".csv";
 		exporter().save(users, file);
-		assertEquals(100,exporter().load(file).size());
+		List<User> loaded = exporter().load(file);
+		assertEquals(100,loaded.size());
+		assertEquals("User0",loaded.get(0).username);
+		assertEquals("User99",loaded.get(99).username);
 	}
 
 	public List<User> generateUsers(int nrOfUsersToGenerate) {
