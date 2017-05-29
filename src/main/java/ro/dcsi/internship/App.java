@@ -24,15 +24,7 @@ public class App {
 			String text = sb.toString();
 			System.out.println(text);
 			
-			Scanner scan = new Scanner(file);
-			while (scan.hasNext()) {
-				String data = scan.next();
-				String[] values = data.split(",");
-				for (String word : values) {
-					System.out.println(word);
-				}
-			}
-			scan.close();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
