@@ -29,8 +29,8 @@ public class CsvFileUserDao implements UserDao {
 			String line = "";
 			Header header = new Header(br.readLine().split(csvSplitBy));
 			while ((line = br.readLine()) != null) {
-				String[] splited = line.split(csvSplitBy);
-				users.add(new User(header.getName(splited), header.getEmail(splited), line));
+				String[] rowValues = line.split(csvSplitBy);
+				users.add(new User(header.getName(rowValues), header.getEmail(rowValues), line));
 			}
 			return users;
 		} catch (IOException e) {
