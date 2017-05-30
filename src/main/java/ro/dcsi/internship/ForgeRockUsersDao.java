@@ -4,11 +4,13 @@ import java.io.*;
 import java.util.*;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.*;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -18,7 +20,8 @@ import com.opencsv.CSVWriter;
 
 public class ForgeRockUsersDao implements UserDao {
 	private final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(ForgeRockUsersDao.class);
-	
+	private final HttpClient httpClient = HttpClientBuilder.create().build();
+
 	public ForgeRockUsersDao() {
 		logger.info("ForgeRockUsersDao initialized");
 	}
@@ -34,12 +37,31 @@ public class ForgeRockUsersDao implements UserDao {
 
 	@Override
 	public List<User> load(String csvFile) {
-		try (CSVReader reader = new CSVReader(new FileReader(csvFile), ',', '\"', 0)) {
+		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build();) {
 			ArrayList<User> users = new ArrayList<>();
-			String[] splited = null;
-			Header header = new Header(reader.readNext());
-			while ((splited = reader.readNext()) != null) {
-				users.add(header.toUser(splited));
+			String url = "http://localhost:8080/openidm/managed/user?_prettyPrint=true&_queryId=query-all";
+			HttpGet request = new HttpGet(url);
+			configure(request);
+			try (CloseableHttpResponse response = httpClient.execute(request);) {
+				String result = EntityUtils.toString(response.getEntity());
+				System.out.println(result);
+				// parse the json result and find the largest id
+				JSONObject obj = new JSONObject(result);
+				JSONArray arr = obj.getJSONArray("result");
+				for (int i = 0; i < arr.length(); i++) {
+					String usernameFromId = arr.getJSONObject(i).getString("_id");
+					String email = arr.getJSONObject(i).getString("mail");
+					String username = arr.getJSONObject(i).getString("userName");
+					String firstname = arr.getJSONObject(i).getString("givenName");
+					String lastname = arr.getJSONObject(i).getString("sn");
+					users.add(new User(usernameFromId, email, firstname, lastname));
+					if (!username.equals(usernameFromId)) {
+						logger.warn(
+								"We modeled a single field for both id and username and the server has two different values ["
+										+ usernameFromId + "] != [" + username
+										+ "]. The first value will be used for both.");
+					}
+				}
 			}
 			return users;
 		} catch (IOException e) {
@@ -48,77 +70,79 @@ public class ForgeRockUsersDao implements UserDao {
 	}
 
 	public void save(List<User> users, String outputFileName) {
-		Header header = new Header();
-		try (CSVWriter writer = new CSVWriter(new FileWriter(outputFileName))) {
-			writer.writeNext(header.headerValues());
-			for (User user : users) {
-				String[] currentUser = header.fromUser(user);
-				writer.writeNext(currentUser);// Arrays.toString(currentUser).replaceAll("\\[|\\]", "").split(","));
+		for (User user : users) {
+			postCreateUser(user.username, user.email, user.username, user.lastname, user.firstname);
+		}
+	}
 
-				postCreateUser(getLastUserId() + 1, header.getEmail(currentUser), header.getUserName(currentUser),
-						header.getLastName(currentUser), header.getFirstName(currentUser));
+	public void deleteIfExists(String username) {
+		try {
+			// TODO deletion if exists shouldn't be implemented by swallowing the exception
+			delete(username);
+		} catch (RuntimeException e) {
+			logger.debug("Cannot delete user ["+username+"].",e);
+		}
+	}
+
+	public void delete(String username) {
+		try {
+			String url = "http://localhost:8080/openidm/managed/user/" + username;
+			HttpDelete request = new HttpDelete(url);
+			configure(request);
+			HttpResponse response = httpClient.execute(request);
+			int responseCode = -1;
+			responseCode = response.getStatusLine().getStatusCode();
+			String entity = EntityUtils.toString(response.getEntity());
+			logger.info("user put " + response + "\nentity=" + entity);
+			if (response.getStatusLine().getStatusCode() < 200 || response.getStatusLine().getStatusCode() >= 300) {
+				throw new RuntimeException("Error code=" + response + "\ncontent=" + entity);
 			}
-
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	private static void postCreateUser(int id, String mail, String userName, String lastName, String givenName) {
-		HttpClient httpClient = HttpClientBuilder.create().build(); // Use this instead
-		int responseCode = -1;
-
+	private void postCreateUser(String id, String mail, String userName, String lastName, String givenName) {
 		try {
-			String url = "http://localhost:8080/openidm/managed/user/" + Integer.toString(id);
+			String url = "http://localhost:8080/openidm/managed/user/" + id;
 			HttpPut request = new HttpPut(url);
-			StringEntity params = new StringEntity("{" + "\"_id\": \"" + Integer.toString(id) + "\", " + "\"mail\": \""
-					+ mail + "\", " + "\"userName\": \"" + userName + "\", " + "\"sn\": \"" + lastName + "\", "
-					+ "\"givenName\": \"" + givenName + "\"}");
+			StringEntity params = new StringEntity(
+					"{" + "\"_id\": \"" + id + "\", " + "\"mail\": \"" + mail + "\", " + "\"userName\": \"" + userName
+							+ "\", " + "\"sn\": \"" + lastName + "\", " + "\"givenName\": \"" + givenName + "\"}");
 
-			request.addHeader("content-type", "application/json");
-			request.addHeader("Accept", "application/json");
+			configure(request);
 			request.addHeader("If-None-Match", "*");
-			request.addHeader("X-Requested-With", "Swagger-UI");
-			request.addHeader("X-OpenIDM-Username", "openidm-admin");
-			request.addHeader("X-OpenIDM-Password", "openidm-admin");
 
 			request.setEntity(params);
 
 			HttpResponse response = httpClient.execute(request);
 
-			responseCode = response.getStatusLine().getStatusCode();
-			if (response.getStatusLine().getStatusCode() == 200 || response.getStatusLine().getStatusCode() == 204) {
-
-				BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
-
-				String output;
-				// System.out.println("Output from Server ...." + response.getStatusLine().getStatusCode() + "\n");
-				while ((output = br.readLine()) != null) {
-					// System.out.println(output);
-				}
-			} else {
-				System.out.println("Error " + response.getStatusLine().getStatusCode());
+			String entity = EntityUtils.toString(response.getEntity());
+			logger.info("user put " + response + "\nentity=" + entity);
+			int responseCode = response.getStatusLine().getStatusCode();
+			if (responseCode < 200 || responseCode >= 300) {
+				throw new RuntimeException("Error code=" + response + "\ncontent=" + entity);
 			}
-
-		} catch (Exception ex) {
-
-			// handle exception here
-
+		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
-	private static int getLastUserId() {
+	private void configure(HttpRequestBase request) {
+		request.addHeader("content-type", "application/json");
+		request.addHeader("Accept", "application/json");
+		request.addHeader("X-Requested-With", "Swagger-UI");
+		request.addHeader("X-OpenIDM-Username", "openidm-admin");
+		request.addHeader("X-OpenIDM-Password", "openidm-admin");
+	}
+
+	private int getLastUserId() {
 		HttpClient httpClient = HttpClientBuilder.create().build(); // Use this instead
 		int max = -1;
 		try {
 			String url = "http://localhost:8080/openidm/managed/user?_queryId=query-all-ids";
 			HttpGet request = new HttpGet(url);
-
-			request.addHeader("content-type", "application/json");
-			request.addHeader("Accept", "application/json");
-			request.addHeader("X-Requested-With", "Swagger-UI");
-			request.addHeader("X-OpenIDM-Username", "openidm-admin");
-			request.addHeader("X-OpenIDM-Password", "openidm-admin");
+			configure(request);
 
 			HttpResponse response = httpClient.execute(request);
 
@@ -140,13 +164,12 @@ public class ForgeRockUsersDao implements UserDao {
 						max = Integer.parseInt(arr.getJSONObject(i).getString("_id"));
 					}
 				} catch (NumberFormatException e) {
-					continue;
+					throw new RuntimeException(e);
 				}
 			}
-		} catch (Exception ex) {
-			// handle exception here
+		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}
 		return max;
 	}
-
 }

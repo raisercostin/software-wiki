@@ -15,12 +15,6 @@ public class User {
 		this.firstname = firstname;
 		this.lastname = lastname;
 	}
-	public User(String username) {
-		this.username = username;
-		this.email = "NoEmail";
-		this.firstname = "NoFirstName";
-		this.lastname = "NoLastName";	
-	}
 	public User(String username, String email) {
 		this.username = username;
 		this.email = email;

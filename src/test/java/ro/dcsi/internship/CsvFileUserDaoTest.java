@@ -13,6 +13,7 @@ import org.junit.Test;
 public class CsvFileUserDaoTest {
 	String fileName = "src/test/resources/users100.csv";
 	String outFileName = "target/users100out.csv";
+
 	UserDao exporter() {
 		return new CsvFileUserDao();
 	}
@@ -85,7 +86,7 @@ public class CsvFileUserDaoTest {
 		new File(outFileName).delete();
 		String fileName = "src/test/resources/users.csv";
 		String outFileName = "target/output-UsersStorageTest.csv";
-		copy(fileName,outFileName);
+		copy(fileName, outFileName);
 		assertTrue(new File(outFileName).exists());
 	}
 
@@ -101,42 +102,47 @@ public class CsvFileUserDaoTest {
 		copy(outFileName, outFileName2);
 		assertTrue(new File(outFileName2).exists());
 	}
+
 	@Test
 	public void testGenerate100Users() throws IOException {
 		List<User> users = generateUsers(100);
-		String file = "target/users-100generated-"+getClass().getSimpleName()+".csv";
+		String file = "target/users-100generated-" + getClass().getSimpleName() + ".csv";
 		exporter().save(users, file);
 		List<User> loaded = exporter().load(file);
-		assertEquals(100,loaded.size());
-		assertEquals("User0",loaded.get(0).username);
-		assertEquals("User99",loaded.get(99).username);
+		assertEquals(100, loaded.size());
+		assertEquals("User0", loaded.get(0).username);
+		assertEquals("User99", loaded.get(99).username);
 	}
 
 	@Test
 	public void testQuotesAreSaved() throws IOException {
 		List<User> users = generateUsers(0);
 		String specialName = "Mc\"Donald,Ron\nald";
-		users.add(new User(specialName,"email"));
-		String file = "target/specialUser-"+getClass().getSimpleName()+".csv";
+		users.add(new User(specialName, "email"));
+		String file = "target/specialUser-" + getClass().getSimpleName() + ".csv";
 		exporter().save(users, file);
 		List<User> actual = exporter().load(file);
-		assertEquals(specialName,actual.get(0).username);
+		assertEquals(specialName, actual.get(0).username);
 	}
 
-	@Test(timeout=10000)
+	@Test(timeout = 10000)
 	@Ignore
 	public void testHugeNumberOfUsers() throws IOException {
 		List<User> users = generateUsers(3000000);
-		String file = "target/manyUsers-"+getClass().getSimpleName()+".csv";
+		String file = "target/manyUsers-" + getClass().getSimpleName() + ".csv";
 		exporter().save(users, file);
 		List<User> actual = exporter().load(file);
-		assertEquals(users.size(),actual.size());
+		assertEquals(users.size(), actual.size());
 	}
 
 	public List<User> generateUsers(long nrOfUsersToGenerate) {
+		return generateUsers("User", nrOfUsersToGenerate, "@gmail.com");
+	}
+
+	public List<User> generateUsers(String prefix, long nrOfUsersToGenerate, String emailServer) {
 		List<User> users = new ArrayList<>();
 		for (int i = 0; i < nrOfUsersToGenerate; i++) {
-			users.add(new User("User" + i));
+			users.add(new User(prefix + i, prefix + i + emailServer));
 		}
 		return users;
 	}
