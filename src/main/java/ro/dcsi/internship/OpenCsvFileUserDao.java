@@ -31,7 +31,7 @@ public class OpenCsvFileUserDao implements UserDao {
 			String[] splited = null;
 			Header header = new Header(reader.readNext());
 			while ((splited = reader.readNext()) != null) {
-				users.add(header.toUser(splited));
+				users.add(header.toUser(splited,""));
 			}
 			return users;
 		} catch (IOException e) {
