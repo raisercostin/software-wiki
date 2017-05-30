@@ -30,7 +30,7 @@ public class CsvFileUserDao implements UserDao {
 			Header header = new Header(br.readLine().split(csvSplitBy));
 			while ((line = br.readLine()) != null) {
 				String[] rowValues = line.split(csvSplitBy);
-				users.add(header.toUser(rowValues,line));
+				users.add(header.toUser(rowValues));
 			}
 			return users;
 		} catch (IOException e) {
@@ -52,7 +52,7 @@ public class CsvFileUserDao implements UserDao {
 	}
 
 	public static class Header {
-		public static String fullHeader = "username,email,others";
+		public static String fullHeader = "username,email,firstname,lastname";
 		private final Map<String, Integer> header;
 
 		public Header() {
@@ -77,20 +77,28 @@ public class CsvFileUserDao implements UserDao {
 			return values[header.get("email")];
 		}
 
-		public String getName(String[] values) {
-			return values[header.get("username")];
+		public String getUserName(String[] splited) {
+			return splited[header.get("username")];
 		}
 
-		public User toUser(String[] values, String line) {
-			return new User(getName(values), getEmail(values), line);
+		public String getFirstName(String[] splited) {
+			return splited[header.get("firstname")];
+		}
+		
+		public String getLastName(String[] splited) {
+			return splited[header.get("lastname")];
+		}
+
+		public User toUser(String[] splited) {
+			return new User(getUserName(splited), getEmail(splited), getFirstName(splited), getLastName(splited));
 		}
 
 		public String[] fromUser(User user) {
-			return new String[]{user.username,user.email,user.other};
+			return new String[]{user.username, user.email, user.firstname, user.lastname};
 		}
 
 		public String[] headerValues() {
-			return new String[]{"username","email","other"};
+			return new String[]{"username", "email", "firstname", "lastname"};
 		}
 	}
 }
