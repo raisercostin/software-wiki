@@ -20,7 +20,8 @@ public class CsvExporterTest {
 	public void testFileNotEmpty() throws IOException {
 		List<User> users = exporter().load(fileName);
 		assertNotNull(users);
-		assertNotNull(users.get(0).other);
+		assertNotNull(users.get(0).firstname);
+		assertNotNull(users.get(0).lastname);
 		assertNotNull(users.get(0).username);
 		// assertEquals("asda,adfas,hkjhkjh,",User.other);
 		System.out.println(users.get(0).username);
@@ -32,7 +33,7 @@ public class CsvExporterTest {
 	@Test
 	public void testApp() {
 		List<User> users = exporter().load("src/test/resources/users.csv");
-		assertEquals("username,email,other", exporter().loadHeader("src/test/resources/users.csv"));
+		assertEquals("username,email,firstname,lastname", exporter().loadHeader("src/test/resources/users.csv"));
 		assertEquals(8, users.size());
 		for (User user : users) {
 			Integer indexOfAt = user.email.indexOf("@");
@@ -55,7 +56,7 @@ public class CsvExporterTest {
 	public void readCSVSample() throws IOException {
 		String csvFile1 = "src/test/resources/sample1.csv";
 		assertEquals(
-				"FIRST NAME ,LAST NAME,USERNAME ,PASSWORD ,EMAIL,PHONE NUMBER,PASSPORT,GROUPS,USERCODE,TITLE,ADDRESS 1 ,ADDRESS 2,CITY,STATE,ZIP",
+				"FIRST NAME ,LAST NAME,USERNAME,PASSWORD ,EMAIL,PHONE NUMBER,PASSPORT,GROUPS,USERCODE,TITLE,ADDRESS 1 ,ADDRESS 2,CITY,STATE,ZIP",
 				exporter().loadHeader(csvFile1));
 	}
 
