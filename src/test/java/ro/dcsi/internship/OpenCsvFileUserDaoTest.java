@@ -1,6 +1,6 @@
 package ro.dcsi.internship;
 
-public class OpenCsvExporterTest extends CsvExporterTest {
+public class OpenCsvFileUserDaoTest extends CsvFileUserDaoTest {
 	@Override
 	UserDao exporter() {
 		return new OpenCsvFileUserDao();

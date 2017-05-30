@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class CsvExporterTest {
+public class CsvFileUserDaoTest {
 	String fileName = "src/test/resources/users100.csv";
 	String outFileName = "target/users100out.csv";
 	UserDao exporter() {
@@ -57,7 +57,7 @@ public class CsvExporterTest {
 	public void readCSVSample() throws IOException {
 		String csvFile1 = "src/test/resources/sample1.csv";
 		assertEquals(
-				"FIRST NAME ,LAST NAME,USERNAME,PASSWORD ,EMAIL,PHONE NUMBER,PASSPORT,GROUPS,USERCODE,TITLE,ADDRESS 1 ,ADDRESS 2,CITY,STATE,ZIP",
+				"FIRSTNAME ,LASTNAME,USERNAME ,PASSWORD ,EMAIL,PHONE NUMBER,PASSPORT,GROUPS,USERCODE,TITLE,ADDRESS 1 ,ADDRESS 2,CITY,STATE,ZIP",
 				exporter().loadHeader(csvFile1));
 	}
 
