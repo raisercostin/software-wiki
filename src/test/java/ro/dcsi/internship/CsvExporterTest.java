@@ -56,7 +56,7 @@ public class CsvExporterTest {
 	public void readCSVSample() throws IOException {
 		String csvFile1 = "src/test/resources/sample1.csv";
 		assertEquals(
-				"FIRST NAME ,LAST NAME,USERNAME,PASSWORD ,EMAIL,PHONE NUMBER,PASSPORT,GROUPS,USERCODE,TITLE,ADDRESS 1 ,ADDRESS 2,CITY,STATE,ZIP",
+				"FIRSTNAME ,LASTNAME,USERNAME,PASSWORD ,EMAIL,PHONE NUMBER,PASSPORT,GROUPS,USERCODE,TITLE,ADDRESS 1 ,ADDRESS 2,CITY,STATE,ZIP",
 				exporter().loadHeader(csvFile1));
 	}
 

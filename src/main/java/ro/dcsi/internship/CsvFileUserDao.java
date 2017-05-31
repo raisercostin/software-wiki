@@ -71,6 +71,12 @@ public class CsvFileUserDao implements UserDao {
 					"Header should contain column [email]. Shouldn't be quoted. It was just " + header.keySet());
 			Preconditions.checkState(header.containsKey("username"),
 					"Header should contain [username]. Shouldn't be quoted. It was just " + header);
+//			Preconditions.checkState(header.containsKey("firstname"),
+//					"Header should contain [firstname]. Shouldn't be quoted. It was just " + header);
+			if(!header.containsKey("firstname"))
+				header.put("firstname", header.get("username"));
+			if(!header.containsKey("lastname"))
+				header.put("lastname", header.get("username"));
 		}
 
 		public String getEmail(String[] splited) {
