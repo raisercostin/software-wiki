@@ -24,4 +24,10 @@ public class User {
 	public String toString() {
 		return "User("+username+"<"+email+">)";
 	}
+	/**A cleaned up username that can be used by forgerock.*/
+	//TODO remove a violation of SRP
+	public String idFromUsenameForForgeRock() {
+		String reg = "[\\\\ \",]";
+		return username.replaceAll(reg, "-");
+	}
 }

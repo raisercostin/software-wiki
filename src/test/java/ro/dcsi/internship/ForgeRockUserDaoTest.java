@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -29,12 +30,10 @@ public class ForgeRockUserDaoTest extends CsvFileUserDaoTest {
 		List<User> users = exporter().load("doesn't matter the name2");
 		logger.debug(users.toString());
 		User x = new User("raisercostin","raisercostin+dcsi@gmail.com");
-		exporter().deleteIfExists(x.username);
+		exporter().deleteIfExistsById(x.username);
 		exporter().save(Lists.newArrayList(x),"doesn't matter the name1");
-		List<User> users2 = exporter().load("doesn't matter the name2");
-		List<User> res = users2.stream().filter(u->u.username.equals(x.username)).collect(Collectors.toList());
-		Assert.assertEquals(x.toString(),res.get(0).toString());
-		Assert.assertEquals(1,res.size());
+		Optional<User> user = exporter().loadUserById(x.idFromUsenameForForgeRock());
+		Assert.assertEquals(x.toString(),user.get().toString());
 	}
 	@Test
 	public void create10Users() throws IOException {
@@ -47,8 +46,7 @@ public class ForgeRockUserDaoTest extends CsvFileUserDaoTest {
 	}
 	@Test
 	public void exportUsersFromFile() throws IOException {
-		List<User> users = new OpenCsvFileUserDao().load("src/test/resources/sample3"
-				+ ".csv");
+		List<User> users = new OpenCsvFileUserDao().load("src/test/resources/sample3.csv");
 		ForgeRockUsersDao fr = new ForgeRockUsersDao("dcs-xps:8080");
 		fr.forcedCreate(users);
 	}
@@ -70,7 +68,18 @@ public class ForgeRockUserDaoTest extends CsvFileUserDaoTest {
 
 	@Test
 	public void testQuotesAreSaved() throws IOException {
-		super.testQuotesAreSaved();
+		//TODO duplicates a little the super.testQuotesAreSaved();
+		String specialName = "M c\"Donald,Ronald";
+		User user = new User(specialName, "email@pebune.ro");
+		String file = "target/specialUser-" + getClass().getSimpleName() + ".csv";
+		exporter().deleteIfExistsById(user.idFromUsenameForForgeRock());
+		exporter().save(Lists.newArrayList(user), file);
+		Optional<User> actual = exporter().loadUserById(user.idFromUsenameForForgeRock());
+		assertEquals(specialName, actual.get().username);
+	}
+	@Test
+	@Ignore("The test works only if you read from a file.")
+	public void testFileNotEmpty() throws IOException {
 	}
 }
 

@@ -2,6 +2,7 @@ package ro.dcsi.internship;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -13,6 +14,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.Assert;
 
 import com.google.common.base.Joiner;
 import com.opencsv.CSVReader;
@@ -58,8 +60,9 @@ public class ForgeRockUsersDao implements UserDao {
 					String username = arr.getJSONObject(i).getString("userName");
 					String firstname = arr.getJSONObject(i).getString("givenName");
 					String lastname = arr.getJSONObject(i).getString("sn");
-					users.add(new User(usernameFromId, email, firstname, lastname));
-					if (!username.equals(usernameFromId)) {
+					User user = new User(username, email, firstname, lastname);
+					users.add(user);
+					if (!user.idFromUsenameForForgeRock().equals(usernameFromId)) {
 						logger.warn(
 								"We modeled a single field for both id and username and the server has two different values ["
 										+ usernameFromId + "] != [" + username
@@ -75,13 +78,13 @@ public class ForgeRockUsersDao implements UserDao {
 
 	public void save(List<User> users, String outputFileName) {
 		for (User user : users) {
-			postCreateUser(user.username, user.email, user.username, user.lastname, user.firstname);
+			createUser(user);
 		}
 	}
 
-	public void delete(String username) {
+	public void deleteById(String id) {
 		try {
-			String url = protocol+"://" + hostAndPort + "/openidm/managed/user/" + username;
+			String url = protocol+"://" + hostAndPort + "/openidm/managed/user/" + id;
 			HttpDelete request = new HttpDelete(url);
 			configure(request);
 			HttpResponse response = httpClient.execute(request);
@@ -96,22 +99,33 @@ public class ForgeRockUsersDao implements UserDao {
 			throw new RuntimeException(e);
 		}
 	}
-
-	private void postCreateUser(String id, String mail, String userName, String lastName, String givenName) {
+	private void createUser(User user) {
+		String id = user.idFromUsenameForForgeRock();
 		try {
 			String url = protocol+"://" + hostAndPort + "/openidm/managed/user/" + id;
 			HttpPut request = new HttpPut(url);
-			StringEntity params = new StringEntity(
-					"{" + "\"_id\": \"" + id + "\", " + "\"mail\": \"" + mail + "\", " + "\"userName\": \"" + userName
-							+ "\", " + "\"sn\": \"" + lastName + "\", " + "\"givenName\": \"" + givenName + "\"}");
 
+			JSONObject json = new JSONObject();
+	    	json.put("id", id );
+	    	json.put("mail", user.email );
+	    	json.put("userName", user.username);
+	    	json.put("sn", user.lastname);
+	    	json.put("givenName", user.firstname );	    	
+	    	String fullJson = json.toString();
+//					"{" + 
+//					"\"_id\": \"" + id + "\", " + 
+//					"\"mail\": \"" + user.email + "\", " + 
+//					"\"userName\": \"" + user.username
+//					+ "\", " + "\"sn\": \"" + user.lastname + "\", " + "\"givenName\": \"" + user.firstname + "\"}";
+			StringEntity params = new StringEntity(fullJson);
+		
 			configure(request);
 			request.addHeader("If-None-Match", "*");
-
+		
 			request.setEntity(params);
-
+		
 			HttpResponse response = httpClient.execute(request);
-
+		
 			String entity = EntityUtils.toString(response.getEntity());
 			logger.info("user put " + response + "\nentity=" + entity);
 			int responseCode = response.getStatusLine().getStatusCode();
@@ -173,16 +187,31 @@ public class ForgeRockUsersDao implements UserDao {
 	}
 	public void deleteIfExists(List<User> users) {
 		for (User user : users) {
-			deleteIfExists(user.username);
+			deleteIfExistsById(user.username);
 		}
 	}
-	public void deleteIfExists(String username) {
+	public void deleteIfExistsById(String id) {
 		try {
 			// TODO deletion if exists shouldn't be implemented by swallowing
 			// the exception
-			delete(username);
+			deleteById(id);
 		} catch (RuntimeException e) {
-			logger.debug("Cannot delete user [" + username + "].", e);
+			logger.debug("Cannot delete user [" + id + "].", e);
 		}
+	}
+
+	public void delete(User user) {
+		deleteById(user.idFromUsenameForForgeRock());
+	}
+
+	//TODO improve performance
+	public Optional<User> loadUserById(String idFromUsenameForForgeRock) {
+		List<User> users2 = load("doesn't matter the name2");
+		List<User> res = users2.stream().filter(u->u.idFromUsenameForForgeRock().equals(idFromUsenameForForgeRock)).collect(Collectors.toList());
+		if(res.size()>1)
+			throw new IllegalStateException("Too many users!");
+		if(res.size()==0)
+			return Optional.empty();
+		return Optional.of(res.get(0));
 	}
 }

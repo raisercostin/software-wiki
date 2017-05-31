@@ -10,7 +10,11 @@ import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.google.common.collect.Lists;
+
 public class CsvFileUserDaoTest {
+	private final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger("myspeciallog");
+
 	String fileName = "src/test/resources/users100.csv";
 	String outFileName = "target/users100out.csv";
 
@@ -26,7 +30,7 @@ public class CsvFileUserDaoTest {
 		assertNotNull(users.get(0).lastname);
 		assertNotNull(users.get(0).username);
 		// assertEquals("asda,adfas,hkjhkjh,",User.other);
-		System.out.println(users.get(0).username);
+		logger.info("aha -- "+users.get(0).username);
 		assertEquals("Victor", users.get(0).username);
 		assertEquals("victor.ciresica@gmail.com", users.get(0).email);
 		assertEquals(6, users.size());
@@ -117,11 +121,10 @@ public class CsvFileUserDaoTest {
 
 	@Test
 	public void testQuotesAreSaved() throws IOException {
-		List<User> users = generateUsers(0);
-		String specialName = "Mc\"Donald,Ronald";
-		users.add(new User(specialName, "email"));
+		String specialName = "M c\"Donald,Ronald";
+		User user = new User(specialName, "email@pebune.ro");
 		String file = "target/specialUser-" + getClass().getSimpleName() + ".csv";
-		exporter().save(users, file);
+		exporter().save(Lists.newArrayList(user), file);
 		List<User> actual = exporter().load(file);
 		assertEquals(specialName, actual.get(0).username);
 	}
