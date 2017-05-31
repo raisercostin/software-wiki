@@ -118,12 +118,17 @@ public class CsvFileUserDaoTest {
 	@Test
 	public void testQuotesAreSaved() throws IOException {
 		List<User> users = generateUsers(0);
-		String specialName = "Mc\"Donald,Ron\nald";
+		String specialName = "Mc\"Donald,Ronald";
 		users.add(new User(specialName, "email"));
 		String file = "target/specialUser-" + getClass().getSimpleName() + ".csv";
 		exporter().save(users, file);
 		List<User> actual = exporter().load(file);
 		assertEquals(specialName, actual.get(0).username);
+	}
+
+	@Test(expected=RuntimeException.class)
+	public void testEndOfLineAreNotSaved() throws IOException {
+		new User("Mc\"Donald,Ron\nald", "email");
 	}
 
 	@Test(timeout = 10000)

@@ -9,17 +9,16 @@ public class User {
 	public final String lastname;
 
 	private Set<String> permisions;
+	public User(String username, String email) {
+		this(username,email,"NoFirstName","NoLastName");
+	}
 	public User(String username, String email, String firstname, String lastname) {
 		this.username = username;
 		this.email = email;
 		this.firstname = firstname;
 		this.lastname = lastname;
-	}
-	public User(String username, String email) {
-		this.username = username;
-		this.email = email;
-		this.firstname = "NoFirstName";
-		this.lastname = "NoLastName";		
+		if(username.contains("\n"))
+			throw new RuntimeException("A username shouldn't contain End Of Lines. The username was ["+username+"]");
 	}
 	@Override
 	public String toString() {
