@@ -5,7 +5,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.*;
 import org.apache.http.entity.StringEntity;
@@ -14,11 +13,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.junit.Assert;
-
-import com.google.common.base.Joiner;
-import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
 
 public class ForgeRockUsersDao implements UserDao {
 	private final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(ForgeRockUsersDao.class);
