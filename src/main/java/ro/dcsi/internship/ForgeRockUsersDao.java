@@ -21,9 +21,11 @@ import com.opencsv.CSVWriter;
 public class ForgeRockUsersDao implements UserDao {
 	private final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(ForgeRockUsersDao.class);
 	private final HttpClient httpClient = HttpClientBuilder.create().build();
+	private final String hostAndPort;
 
-	public ForgeRockUsersDao() {
+	public ForgeRockUsersDao(String hostAndPort) {
 		logger.info("ForgeRockUsersDao initialized");
+		this.hostAndPort = hostAndPort;
 	}
 
 	@Override
@@ -31,15 +33,11 @@ public class ForgeRockUsersDao implements UserDao {
 		throw new RuntimeException("Not implemented yet!");
 	}
 
-	private String toLine(String[] fields) {
-		return Joiner.on(",").join(Arrays.asList(fields));
-	}
-
 	@Override
 	public List<User> load(String csvFile) {
 		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build();) {
 			ArrayList<User> users = new ArrayList<>();
-			String url = "http://localhost:8080/openidm/managed/user?_prettyPrint=true&_queryId=query-all";
+			String url = "http://"+hostAndPort+"/openidm/managed/user?_prettyPrint=true&_queryId=query-all";
 			HttpGet request = new HttpGet(url);
 			configure(request);
 			try (CloseableHttpResponse response = httpClient.execute(request);) {
@@ -86,7 +84,7 @@ public class ForgeRockUsersDao implements UserDao {
 
 	public void delete(String username) {
 		try {
-			String url = "http://localhost:8080/openidm/managed/user/" + username;
+			String url = "http://"+hostAndPort+"/openidm/managed/user/" + username;
 			HttpDelete request = new HttpDelete(url);
 			configure(request);
 			HttpResponse response = httpClient.execute(request);
@@ -104,7 +102,7 @@ public class ForgeRockUsersDao implements UserDao {
 
 	private void postCreateUser(String id, String mail, String userName, String lastName, String givenName) {
 		try {
-			String url = "http://localhost:8080/openidm/managed/user/" + id;
+			String url = "http://"+hostAndPort+"/openidm/managed/user/" + id;
 			HttpPut request = new HttpPut(url);
 			StringEntity params = new StringEntity(
 					"{" + "\"_id\": \"" + id + "\", " + "\"mail\": \"" + mail + "\", " + "\"userName\": \"" + userName
@@ -140,7 +138,7 @@ public class ForgeRockUsersDao implements UserDao {
 		HttpClient httpClient = HttpClientBuilder.create().build(); // Use this instead
 		int max = -1;
 		try {
-			String url = "http://localhost:8080/openidm/managed/user?_queryId=query-all-ids";
+			String url = "http://"+hostAndPort+"/openidm/managed/user?_queryId=query-all-ids";
 			HttpGet request = new HttpGet(url);
 			configure(request);
 

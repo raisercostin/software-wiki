@@ -104,6 +104,7 @@ public class CsvFileUserDaoTest {
 	}
 
 	@Test
+	@Ignore
 	public void testGenerate100Users() throws IOException {
 		List<User> users = generateUsers(100);
 		String file = "target/users-100generated-" + getClass().getSimpleName() + ".csv";
@@ -136,13 +137,13 @@ public class CsvFileUserDaoTest {
 	}
 
 	public List<User> generateUsers(long nrOfUsersToGenerate) {
-		return generateUsers("User", nrOfUsersToGenerate, "@gmail.com");
+		return generateUsers(0,"User", nrOfUsersToGenerate, "@gmail.com");
 	}
 
-	public List<User> generateUsers(String prefix, long nrOfUsersToGenerate, String emailServer) {
+	public List<User> generateUsers(int startingId, String prefix, long nrOfUsersToGenerate, String emailServer) {
 		List<User> users = new ArrayList<>();
 		for (int i = 0; i < nrOfUsersToGenerate; i++) {
-			users.add(new User(prefix + i, prefix + i + emailServer));
+			users.add(new User(prefix + (i+startingId), prefix + (i+startingId) + emailServer));
 		}
 		return users;
 	}

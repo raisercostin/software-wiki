@@ -11,9 +11,11 @@ import org.junit.*;
 import com.google.common.collect.Lists;
 
 public class ForgeRockUserDaoTest extends CsvFileUserDaoTest {
+	private final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(ForgeRockUserDaoTest.class);
+
 	@Override
 	ForgeRockUsersDao exporter() {
-		return new ForgeRockUsersDao();
+		return new ForgeRockUsersDao("dcs-xps:8080");
 	}
 	@Override
 	@Test
@@ -23,7 +25,7 @@ public class ForgeRockUserDaoTest extends CsvFileUserDaoTest {
 	@Test
 	public void addOneUserTest() throws IOException {
 		List<User> users = exporter().load("doesn't matter the name2");
-		System.out.println(users);
+		logger.info(users.toString());
 		User user = new User("raisercostin","raisercostin+dcsi@gmail.com");
 		exporter().deleteIfExists(user.username);
 		exporter().save(Lists.newArrayList(user),"doesn't matter the name1");
@@ -32,10 +34,17 @@ public class ForgeRockUserDaoTest extends CsvFileUserDaoTest {
 	}
 	@Test
 	public void create10Users() throws IOException {
-		List<User> users = generateUsers("user",10,"@gmail.com");
+		int alreadyExistingUsers = exporter().load("doesn't matter the name2").size();
+		List<User> users = generateUsers(1000,"user",10,"@gmail.com");
 		exporter().save(users, "");
 		List<User> actual = exporter().load("");
-		assertEquals(users.size(),actual.size());
+		assertEquals(alreadyExistingUsers+users.size(),actual.size());
+	}
+	@Test
+	public void exportUsersFromFile() throws IOException {
+		List<User> users = new OpenCsvFileUserDao().load("src/test/resources/sample3"
+				+ ".csv");
+		exporter().save(users, "nu conteaza");
 	}
 }
 
