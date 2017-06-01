@@ -1,6 +1,7 @@
 package ro.dcsi.internship;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,8 +24,19 @@ public class ForgeRockUserDaoTest extends CsvFileUserDaoTest {
 	@Override
 	@Test
 	public void readUsersTest() throws IOException {
-		List<User> users = exporter().load("doesn't matter the name");
-	}
+		List<User> users = exporter().load("no reading from file !!!!!!!!!!!");
+		assertNotNull(users);
+		assertEquals(0, users.size());
+		String email = "raisercostin+testuser1@gmail.com";
+		User user = new User("testuser1",email);
+		assertEquals(email, user.email);
+		exporter().save(Lists.newArrayList(user),"no writing to file !!!!!");
+		List<User> users2 = exporter().load("no reading from file !!!!!!!!!!!");
+		assertNotNull(users2);
+		assertEquals(1, users2.size());
+		assertEquals("testuser1", users.get(0).username);
+		assertEquals(email, users.get(0).email);
+	}	
 	@Test
 	public void addOneUserTest() throws IOException {
 		List<User> users = exporter().load("doesn't matter the name2");
