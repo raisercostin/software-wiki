@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class-diagram version="1.2.0" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+<class-diagram version="1.1.9" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="ro.dcsi.internship.Header" project="usersync" 
     file="/usersync/src/main/java/ro/dcsi/internship/Header.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="297" width="185" x="42" y="464"/>    
+    <position height="297" width="185" x="1175" y="454"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,70 +12,177 @@
   </class>  
   <class id="2" language="java" name="ro.dcsi.internship.User" project="usersync" 
     file="/usersync/src/main/java/ro/dcsi/internship/User.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="207" width="178" x="474" y="801"/>    
+    <position height="225" width="210" x="971" y="791"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="ro.dcsi.internship.App" project="usersync" 
+  <class id="3" language="java" name="ro.dcsi.internship.OpenCsvFileUserDao" project="usersync" 
+    file="/usersync/src/main/java/ro/dcsi/internship/OpenCsvFileUserDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="164" x="971" y="27"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="4" language="java" name="ro.dcsi.internship.UserDao" project="usersync" 
+    file="/usersync/src/main/java/ro/dcsi/internship/UserDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="164" x="971" y="454"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="5" language="java" name="ro.dcsi.internship.ForgeRockUserDao" project="usersync" 
+    file="/usersync/src/main/java/ro/dcsi/internship/ForgeRockUserDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="387" width="203" x="728" y="27"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="ro.dcsi.internship.App" project="usersync" 
     file="/usersync/src/main/java/ro/dcsi/internship/App.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="117" width="233" x="121" y="37"/>    
+    <position height="117" width="233" x="1148" y="-130"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="ro.dcsi.internship.OpenCsvFileUserDaoTest" project="usersync" 
+  <class id="7" language="java" name="ro.dcsi.internship.CsvFileUserDao" project="usersync" 
+    file="/usersync/src/main/java/ro/dcsi/internship/CsvFileUserDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="164" x="1217" y="27"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="ro.dcsi.internship.OpenCsvFileUserDaoTest" project="usersync" 
     file="/usersync/src/test/java/ro/dcsi/internship/OpenCsvFileUserDaoTest.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="167" x="267" y="464"/>    
+    <position height="-1" width="-1" x="76" y="374"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="ro.dcsi.internship.CsvFileUserDaoTest" project="usersync" 
+  <class id="9" language="java" name="ro.dcsi.internship.CsvFileUserDaoTest" project="usersync" 
     file="/usersync/src/test/java/ro/dcsi/internship/CsvFileUserDaoTest.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="387" width="257" x="474" y="37"/>    
+    <position height="-1" width="-1" x="174" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="ro.dcsi.internship.ForgeRockUserDaoTest" project="usersync" 
+  <class id="10" language="java" name="ro.dcsi.internship.ForgeRockUserDaoTest" project="usersync" 
     file="/usersync/src/test/java/ro/dcsi/internship/ForgeRockUserDaoTest.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="189" width="178" x="474" y="464"/>    
+    <position height="-1" width="-1" x="341" y="433"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <dependency id="7">    
-    <end type="SOURCE" refId="1"/>    
+  <dependency id="11">    
+    <end type="SOURCE" refId="9"/>    
     <end type="TARGET" refId="2"/>  
   </dependency>  
-  <generalization id="8">    
-    <end type="SOURCE" refId="6"/>    
+  <dependency id="12">    
+    <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <generalization id="13">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="9"/>  
   </generalization>  
-  <dependency id="9">    
-    <end type="SOURCE" refId="6"/>    
+  <dependency id="14">    
+    <bendpoint x="1390" y="454"/>    
+    <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="2"/>  
   </dependency>  
-  <dependency id="10">    
-    <bendpoint x="682" y="464"/>    
+  <dependency id="15">    
+    <bendpoint x="859" y="454"/>    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="2"/>  
   </dependency>  
-  <generalization id="11">    
+  <dependency id="16">    
     <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="17">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="18">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="19">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="20">    
+    <bendpoint x="940" y="454"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="21">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="22">    
+    <bendpoint x="1165" y="27"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="23">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="24">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <generalization id="25">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="9"/>  
   </generalization>  
+  <dependency id="26">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <realization id="27">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <realization id="28">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <realization id="29">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <dependency id="30">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="31">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="32">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
