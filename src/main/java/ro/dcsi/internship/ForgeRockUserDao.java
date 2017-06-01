@@ -14,18 +14,18 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class ForgeRockUsersDao implements UserDao {
-	private final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(ForgeRockUsersDao.class);
+public class ForgeRockUserDao implements UserDao {
+	private final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(ForgeRockUserDao.class);
 	private final HttpClient httpClient = HttpClientBuilder.create().build();
 	public final String hostAndPort;
 	public final String protocol;
 
-	public ForgeRockUsersDao(String hostAndPort) {
+	public ForgeRockUserDao(String hostAndPort) {
 		this("http",hostAndPort);
 	}
 
-	public ForgeRockUsersDao(String protocol, String hostAndPort) {
-		logger.info("ForgeRockUsersDao initialized");
+	public ForgeRockUserDao(String protocol, String hostAndPort) {
+		logger.info("ForgeRockUserDao initialized");
 		this.protocol = protocol;
 		this.hostAndPort = hostAndPort;
 	}
