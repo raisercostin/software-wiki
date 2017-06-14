@@ -41,3 +41,6 @@ nbdist/
 .classpath
 .project
 .settings/
+
+###Mac Users###
+.DS_Store
