@@ -5,7 +5,11 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
+/**
+ * 
+ * @author Alin Penea
+ *
+ */
 public class CSVUtils {
 
 	private static boolean enterDetected = false;
