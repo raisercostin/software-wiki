@@ -13,6 +13,10 @@ import de.siegmar.fastcsv.reader.*;
  */
 public class TranslatorCSV extends Translator {
 
+    public TranslatorCSV() {
+        initDefaultHeaders();
+    }
+
     @Override
     public List<List<String>> readBulk(int nMax) {
         File input = new File(inputFile);
