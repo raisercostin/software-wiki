@@ -13,8 +13,19 @@ import java.util.Scanner;
  */
 public class CSVUtils {
 
+	private Scanner scanner;
+
 	private static boolean enterDetected = false;
 	private static List<String> res;
+
+	public CSVUtils(String csvFile) {
+		try {
+			scanner = new Scanner(new File(csvFile));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * 
@@ -43,6 +54,22 @@ public class CSVUtils {
 		}
 		scanner.close();
 		return date;
+	}
+
+	public boolean scannerHasNext() {
+		return scanner.hasNext();
+	}
+
+	public List<String> parseHugeCSVFile() {
+		List<String> line = null;
+
+		line = parseLine(scanner.nextLine());
+
+		while (enterDetected) {
+			line = parseLine(scanner.nextLine());
+		}
+
+		return line;
 	}
 
 	private static List<String> parseLine(String csvLine) {

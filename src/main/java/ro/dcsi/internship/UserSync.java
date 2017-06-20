@@ -23,4 +23,8 @@ public class UserSync {
 		return users;
 	}
 
+	public static Iterable<User> readUsersFromHugeFile(String csvFile) {
+		return new UserList(csvFile);
+	}
+
 }

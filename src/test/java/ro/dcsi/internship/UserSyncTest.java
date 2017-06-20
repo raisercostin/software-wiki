@@ -12,7 +12,21 @@ public class UserSyncTest {
 	public void test() {
 		List<User> users = UserSync.readUsers("ceva.csv");
 		assertEquals(5, users.size());
-		assertEquals("", users.get(0).name);
+		assertEquals("Andrei", users.get(0).name);
 	}
-
+	@Test
+	public void testHugeFile() {
+		Iterable<User> users = UserSync.readUsersFromHugeFile("ceva.csv"); // implementare iterator fara buffer (citire cate un entry o data)
+		User last = lastFrom(users);
+		
+		assertEquals("Iulian",last.name);
+		
+	}
+	private User lastFrom(Iterable<User> users) {
+		User last = null;
+		for (User user : users) {
+			last = user;
+		}
+		return last;
+	}
 }
