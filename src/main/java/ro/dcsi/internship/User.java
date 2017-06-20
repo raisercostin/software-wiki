@@ -31,6 +31,14 @@ class User{
         extraFieldHeaders.add(Header);
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         String rez;

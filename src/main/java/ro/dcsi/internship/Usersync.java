@@ -12,14 +12,15 @@ public class Usersync {
     public Usersync() {
     }
 
-    public void readUsers(String Filename){
+    public UserManager readUsers(String Filename){
         Translator translator = new TranslatorCSV();
         database = new UserManager(Usersync.bulkDefine);
 
         translator.setInputFile(Filename);
         database.setUserFile(translator);
-
         database.readUsers();
+
+        return database;
     }
 
 
@@ -29,7 +30,7 @@ public class Usersync {
         UserManager database = new UserManager(1);
         boolean ok;
 
-        translator.setInputFile("date.csv");
+        translator.setInputFile("NoHeaders.csv");
         database.setUserFile(translator);
 
         ok = database.readUsers();

@@ -14,7 +14,6 @@ public class TranslatorCSV extends Translator {
     private CsvRow lastRow;
     private boolean hasNext;
 
-    private static final double matchPercent =0.5;
 
     public TranslatorCSV() {
         this.parser = null;
@@ -117,10 +116,9 @@ public class TranslatorCSV extends Translator {
                 match++;
         }
 
-        match/=defaultHeader.size();
 
         //confirm current field is headers
-        if(match >= matchPercent){
+        if(match > 0){
             this.headers = currentRow;
             lastRow=null;
         }
