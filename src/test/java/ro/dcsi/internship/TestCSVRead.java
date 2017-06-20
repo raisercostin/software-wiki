@@ -67,10 +67,14 @@ public class TestCSVRead {
         UserManager database=sync.readUsers("src/test/CSV/headerslarge.csv");
         Iterator<User> users= database.iterator();
         User buffer=null;
+        int count=0;
 
-        while(users.hasNext())
-            buffer=users.next();
+        while(users.hasNext()) {
+            buffer = users.next();
+            count++;
+        }
 
+        assertEquals(count,1070);
         assertNotEquals(buffer,null);
         assertEquals(buffer.getName(),"CatalinLast");
         assertEquals(buffer.getEmail(),"catalinlast@yahoo.com");
