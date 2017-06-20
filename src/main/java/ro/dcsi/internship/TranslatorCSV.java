@@ -14,6 +14,8 @@ public class TranslatorCSV extends Translator {
     private CsvRow lastRow;
     private boolean hasNext;
 
+    private static final double matchPercent =0.5;
+
     public TranslatorCSV() {
         this.parser = null;
         this.lastRow= null;
@@ -22,56 +24,55 @@ public class TranslatorCSV extends Translator {
 
     @Override
     public List<List<String>> readBulk(int nMax) {
-        Reader fileReader;
-        try {
-            fileReader = new BufferedReader(new FileReader(inputFile));
-        }
-        catch (FileNotFoundException e){
-            e.printStackTrace();
+        if(!hasNext())
             return null;
-        }
 
-        CsvReader reader = new CsvReader();
-
-        List<List<String>> output = new ArrayList<List<String>>();
+        //Init
+        List<List<String>> result;
         List<String> buffer;
-        CsvRow row;
-        CsvParser csv;
-        initDefaultHeaders();
-        int numberOfHeaders=0,count=0;
+        int i,numberOfFields,currentRows;
 
-        try {
-            csv = reader.parse(fileReader);
+        currentRows=0;
+        result = new ArrayList<List<String>>();
+        numberOfFields=lastRow.getFieldCount();
 
-            while((row = csv.nextRow()) != null && count <nMax){
-                buffer= new ArrayList<String>();
-                for(int i=0;i<row.getFieldCount();i++)
-                    buffer.add(row.getField(i));
-                output.add(buffer);
-                count++;
+        //Parse nMax rows
+        while (lastRow!=null && currentRows<nMax){
 
-                if(numberOfHeaders==0)
-                    numberOfHeaders=row.getFieldCount();
+            //Parse current row
+            buffer=new ArrayList<String>();
+            currentRows++;
+            for(i=0;i<numberOfFields;i++){
+                buffer.add(lastRow.getField(i));
+            }
+            result.add(buffer);
+
+            //Get next row
+            try{
+                lastRow = parser.nextRow();
+            }
+            catch (IOException e){
+                System.err.print("Parser error!");
+                e.printStackTrace();
             }
 
         }
-        catch (IOException e){
-            e.printStackTrace();
-            return null;
-        }
+        if(lastRow == null)
+            hasNext=false;
 
-        resizeHeaders(numberOfHeaders);
-        return output;
+
+        return result;
     }
 
     public boolean hasNext() {
-        return false;
+        return hasNext;
     }
 
-    private void initDefaultHeaders(){
-        headers = new ArrayList<String>();
+    private List<String> getDefaultHeaders(){
+        List<String> headers = new ArrayList<String>();
         headers.add("Name");
         headers.add("EMail");
+        return headers;
     }
 
     private void resizeHeaders(int n){
@@ -82,12 +83,57 @@ public class TranslatorCSV extends Translator {
             headers.add("Unknown");
     }
 
-    private void InitHeader(){
+    private void InitHeaders(){
+        if(parser == null)
+            return ;
+
+        try{
+            lastRow = parser.nextRow();
+        }
+        catch (IOException e){
+            System.err.print("Parser error!");
+            e.printStackTrace();
+        }
+
+        //Check if current field is header
+        int i,numberOfFields;
+        double match;
+        List<String> defaultHeader,currentRow;
+        String buffer;
+
+        //Init values
+        match=0;
+        numberOfFields=lastRow.getFieldCount();
+        currentRow = new ArrayList<String>();
+        defaultHeader=getDefaultHeaders();
+
+        //Parse current row
+        for(i=0; i<numberOfFields;i++){
+            buffer=lastRow.getField(i);
+            currentRow.add(buffer);
+            if(defaultHeader.contains(buffer.toLowerCase()))
+                match++;
+        }
+
+        match/=numberOfFields;
+
+        //confirm current field is headers
+        if(match >= matchPercent){
+            this.headers = currentRow;
+            lastRow=null;
+
+        }
+        else {
+            this.headers = defaultHeader;
+            resizeHeaders(numberOfFields);
+        }
 
     }
 
     @Override
     public void setInputFile(String inputFile) {
+
+        //Open file
         super.inputFile = inputFile;
         try{
             Reader input = new BufferedReader(new FileReader(inputFile));
@@ -103,14 +149,25 @@ public class TranslatorCSV extends Translator {
             e.printStackTrace();
         }
 
-        //Init header
+        //Init headers
+        InitHeaders();
 
         //Populate hasNext
         if(lastRow != null)
             this.hasNext = true;
+
+        //Try to get next row
         else{
-            
-            lastRow = this.parser.nextRow();
+            try {
+                lastRow = this.parser.nextRow();
+            }
+            catch(IOException e){
+                System.err.print("Parser error!");
+                e.printStackTrace();
+            }
+
+            if (lastRow == null)
+                this.hasNext=false;
         }
 
     }

@@ -29,5 +29,8 @@ public class Usersync {
         database.readUsers();
         System.out.print(database.toString());
 
+        database.readUsers();
+        System.out.print(database.toString());
+
     }
 }
