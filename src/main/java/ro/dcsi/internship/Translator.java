@@ -1,5 +1,6 @@
 package ro.dcsi.internship;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
@@ -17,6 +18,9 @@ public abstract class Translator {
     }
 
     public abstract List<List<String>> readBulk(int nMax);
+    public abstract boolean hasNext();
+
+
     public abstract boolean writeBulk(List<List<String>> userList);
 
     public void setInputFile(String inputFile) {

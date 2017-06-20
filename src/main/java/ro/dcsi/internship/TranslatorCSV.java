@@ -1,8 +1,6 @@
 package ro.dcsi.internship;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import de.siegmar.fastcsv.reader.*;
@@ -19,7 +17,15 @@ public class TranslatorCSV extends Translator {
 
     @Override
     public List<List<String>> readBulk(int nMax) {
-        File input = new File(inputFile);
+        Reader fileReader;
+        try {
+            fileReader = new BufferedReader(new FileReader(inputFile));
+        }
+        catch (FileNotFoundException e){
+            e.printStackTrace();
+            return null;
+        }
+
         CsvReader reader = new CsvReader();
 
         List<List<String>> output = new ArrayList<List<String>>();
@@ -30,7 +36,7 @@ public class TranslatorCSV extends Translator {
         int numberOfHeaders=0,count=0;
 
         try {
-            csv = reader.parse(input, StandardCharsets.UTF_8);
+            csv = reader.parse(fileReader);
 
             while((row = csv.nextRow()) != null && count <nMax){
                 buffer= new ArrayList<String>();
@@ -53,6 +59,10 @@ public class TranslatorCSV extends Translator {
         return output;
     }
 
+    public boolean hasNext() {
+        return false;
+    }
+
     private void initDefaultHeaders(){
         headers = new ArrayList<String>();
         headers.add("Name");
@@ -65,6 +75,10 @@ public class TranslatorCSV extends Translator {
 
         while(headers.size() < n)
             headers.add("Unknown");
+    }
+
+    private void InitHeader(){
+
     }
 
     @Override
