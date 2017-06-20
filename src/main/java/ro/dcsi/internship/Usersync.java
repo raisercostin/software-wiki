@@ -1,17 +1,20 @@
 package ro.dcsi.internship;
 
+import java.util.Iterator;
+
 /**
  * Created by Catalin on 6/19/2017.
  */
 public class Usersync {
     public static final int bulkDefine = 100;
+    private UserManager database;
 
     public Usersync() {
     }
 
     public void readUsers(String Filename){
         Translator translator = new TranslatorCSV();
-        UserManager database = new UserManager(Usersync.bulkDefine);
+        database = new UserManager(Usersync.bulkDefine);
 
         translator.setInputFile(Filename);
         database.setUserFile(translator);
@@ -24,15 +27,18 @@ public class Usersync {
     public static void main(String [ ] args){
         Translator translator = new TranslatorCSV();
         UserManager database = new UserManager(1);
+        boolean ok;
 
         translator.setInputFile("date.csv");
         database.setUserFile(translator);
 
-        database.readUsers();
-        System.out.print(database.toString());
+        ok = database.readUsers();
+        if(!ok)
+            return ;
 
-        database.readUsers();
-        System.out.print(database.toString());
+        Iterator<User> userIterator = database.iterator();
+        while(userIterator.hasNext())
+            System.out.print(userIterator.next().toString() + '\n');
 
     }
 }

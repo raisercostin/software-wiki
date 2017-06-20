@@ -70,8 +70,8 @@ public class TranslatorCSV extends Translator {
 
     private List<String> getDefaultHeaders(){
         List<String> headers = new ArrayList<String>();
-        headers.add("Name");
-        headers.add("EMail");
+        headers.add("name");
+        headers.add("email");
         return headers;
     }
 
@@ -93,6 +93,8 @@ public class TranslatorCSV extends Translator {
         catch (IOException e){
             System.err.print("Parser error!");
             e.printStackTrace();
+            this.headers=getDefaultHeaders();
+            return ;
         }
 
         //Check if current field is header
@@ -115,13 +117,12 @@ public class TranslatorCSV extends Translator {
                 match++;
         }
 
-        match/=numberOfFields;
+        match/=defaultHeader.size();
 
         //confirm current field is headers
         if(match >= matchPercent){
             this.headers = currentRow;
             lastRow=null;
-
         }
         else {
             this.headers = defaultHeader;
@@ -166,8 +167,9 @@ public class TranslatorCSV extends Translator {
                 e.printStackTrace();
             }
 
-            if (lastRow == null)
-                this.hasNext=false;
+            if (lastRow != null)
+                this.hasNext=true;
+
         }
 
     }
