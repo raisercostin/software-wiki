@@ -23,9 +23,7 @@ public abstract class Translator {
 
     public abstract boolean writeBulk(List<List<String>> userList);
 
-    public void setInputFile(String inputFile) {
-        this.inputFile = inputFile;
-    }
+    abstract public void setInputFile(String inputFile);
 
     public void setOutputFile(String outputFile) {
         this.outputFile = outputFile;

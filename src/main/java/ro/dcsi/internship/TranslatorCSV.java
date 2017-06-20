@@ -10,9 +10,14 @@ import de.siegmar.fastcsv.reader.*;
  * Created by Catalin on 6/19/2017.
  */
 public class TranslatorCSV extends Translator {
+    private CsvParser parser;
+    private CsvRow lastRow;
+    private boolean hasNext;
 
     public TranslatorCSV() {
-        initDefaultHeaders();
+        this.parser = null;
+        this.lastRow= null;
+        this.hasNext = false;
     }
 
     @Override
@@ -78,6 +83,35 @@ public class TranslatorCSV extends Translator {
     }
 
     private void InitHeader(){
+
+    }
+
+    @Override
+    public void setInputFile(String inputFile) {
+        super.inputFile = inputFile;
+        try{
+            Reader input = new BufferedReader(new FileReader(inputFile));
+            CsvReader csv = new CsvReader();
+            this.parser = csv.parse(input);
+        }
+        catch (FileNotFoundException e){
+            System.err.print("File not found!");
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            System.err.print("Parser error!");
+            e.printStackTrace();
+        }
+
+        //Init header
+
+        //Populate hasNext
+        if(lastRow != null)
+            this.hasNext = true;
+        else{
+            
+            lastRow = this.parser.nextRow();
+        }
 
     }
 
