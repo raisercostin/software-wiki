@@ -137,6 +137,7 @@ public class TranslatorCSV extends Translator {
         try{
             Reader input = new BufferedReader(new FileReader(inputFile));
             CsvReader csv = new CsvReader();
+            csv.setFieldSeparator(';');
             this.parser = csv.parse(input);
         }
         catch (FileNotFoundException e){

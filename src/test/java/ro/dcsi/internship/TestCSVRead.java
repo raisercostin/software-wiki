@@ -31,17 +31,49 @@ public class TestCSVRead {
 
     @Test
     public void HeadersNotDefault(){
-        assert(true);
+        Usersync sync = new Usersync();
+        UserManager database=sync.readUsers("src/test/CSV/headersnotdefault.csv");
+        Iterator<User> users= database.iterator();
+        User buffer=null;
+
+        while(users.hasNext())
+            buffer=users.next();
+
+        assertNotEquals(buffer,null);
+        assertEquals(buffer.getName(),"CatalinLast");
+        assertEquals(buffer.getEmail(),"catalinlast@yahoo.com");
+
+
     }
 
     @Test
     public void NoHeaderLarge(){
-        fail();
+        Usersync sync = new Usersync();
+        UserManager database=sync.readUsers("src/test/CSV/NoHeadersLarge.csv");
+        Iterator<User> users= database.iterator();
+        User buffer=null;
+
+        while(users.hasNext())
+            buffer=users.next();
+
+        assertNotEquals(buffer,null);
+        assertEquals(buffer.getName(),"CatalinLast");
+        assertEquals(buffer.getEmail(),"emaillast@ceva.com");
     }
 
     @Test
     public void HeadersLarge(){
-        assert(true);
+        Usersync sync = new Usersync();
+        UserManager database=sync.readUsers("src/test/CSV/headerslarge.csv");
+        Iterator<User> users= database.iterator();
+        User buffer=null;
+
+        while(users.hasNext())
+            buffer=users.next();
+
+        assertNotEquals(buffer,null);
+        assertEquals(buffer.getName(),"CatalinLast");
+        assertEquals(buffer.getEmail(),"catalinlast@yahoo.com");
     }
 
 
