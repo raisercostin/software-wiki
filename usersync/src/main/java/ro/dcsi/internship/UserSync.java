@@ -57,9 +57,13 @@ public class UserSync
 		
 	}
 
-	public static Iterable<User> readUsersFromHugeFile(String string) 
+	public static Iterable<User> readUsersFromHugeFile(String title) 
 	{
-		throw new RuntimeException("Not implemented yet!!!!");
+		//throw new RuntimeException("Not implemented yet!!!!");
+		Scanner sc = null;
+		Iterable<User> lu = new ArrayList<User>();
+		
+		return lu;
 	}
 
 }
