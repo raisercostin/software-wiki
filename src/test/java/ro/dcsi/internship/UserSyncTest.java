@@ -10,13 +10,13 @@ public class UserSyncTest {
 
 	@Test
 	public void test() {
-		List<User> users = UserSync.readUsers("ceva.csv");
+		List<User> users = UserSync.readUsers("src/test/resources/ceva.csv");
 		assertEquals(5, users.size());
 		assertEquals("Andrei", users.get(0).name);
 	}
 	@Test
 	public void testHugeFile() {
-		Iterable<User> users = UserSync.readUsersFromHugeFile("ceva.csv"); // implementare iterator fara buffer (citire cate un entry o data)
+		Iterable<User> users = UserSync.readUsersFromHugeFile("src/test/resources/ceva.csv"); // implementare iterator fara buffer (citire cate un entry o data)
 		User last = lastFrom(users);
 		
 		assertEquals("Iulian",last.name);
