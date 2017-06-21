@@ -11,8 +11,8 @@ public class UserSyncTest {
 	@Test
 	public void test() {
 		List<User> users = UserSync.readUsers("users.csv");
-		assertEquals(5,users.size());
-		assertEquals("Ion",users.get(0).name);
+		assertEquals(100,users.size());
+		assertEquals("Eldon Base for stackable storage shelf",users.get(0).name);
 	}
 
 }
