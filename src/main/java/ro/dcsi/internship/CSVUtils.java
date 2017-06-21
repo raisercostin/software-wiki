@@ -1,9 +1,7 @@
 package ro.dcsi.internship;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class CSVUtils {
 
@@ -11,18 +9,8 @@ public class CSVUtils {
 	private static final char DEFAULT_QUOTE = '"';
 
 	public static void main(String[] args) throws Exception {
-
 		String csvFile = "test.csv";
-
-		Scanner scanner = new Scanner(new File(csvFile));
-		while (scanner.hasNext()) {
-			List<String> line = parseLine(scanner.nextLine());
-
-			System.out.println("Cetatean [Prenume: " + line.get(0) + ", Nume: " + line.get(1) + " , Varsta: "
-					+ line.get(2) + ", Nationalitate: " + line.get(3) + ", Tara de domiciliu: " + line.get(4) + "]");
-		}
-		scanner.close();
-
+		UserSync.readUsers(csvFile);
 	}
 
 	public static List<String> parseLine(String cvsLine) {
