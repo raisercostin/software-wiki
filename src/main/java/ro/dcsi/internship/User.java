@@ -1,21 +1,21 @@
 package ro.dcsi.internship;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.List;
-import java.util.Scanner;
-
 public class User {
-
-	public String name;
-	public int age;
-	public double salary;
-	public String details;
+	public final String name;
+	public final int age;
+	public final double salary;
+	public final String details;
 	
-	@Override
-	public String toString()
-	{
-		return name+" "+age+" "+salary+" "+details;
+	public User(String name, int age, double salary, String details) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.salary = salary;
+		this.details = details;
 	}
 
+	@Override
+	public String toString() {
+		return "User [name=" + name + ", age=" + age + ", salary=" + salary + ", details=" + details + "]";
+	}
 }

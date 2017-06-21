@@ -9,21 +9,18 @@ import java.util.Scanner;
 public class UserSync {
 
 	public static List<User> readUser(String title) {
-		try (Scanner sc = new Scanner(new File(title)).useDelimiter(",[\\n\\r]{0,2}");) {
+		try (Scanner sc = new Scanner(new File(title)); Scanner sc2 = sc.useDelimiter(",[\\n\\r]{0,2}");) {
 			List<User> lu = new ArrayList<User>();
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
 				String w[] = line.split("[,]");
-				User curent_user = new User();
-				curent_user.name = w[0] + " " + w[1];
-				curent_user.age = Integer.parseInt(w[2]);
-				curent_user.salary = Double.parseDouble(w[3]);
+				String name = w[0] + " " + w[1];
+				Integer age = Integer.parseInt(w[2]);
+				Double salary = Double.parseDouble(w[3]);
+				String details = "";
 				for (int i = 4; i < w.length; i++)
-					if (curent_user.details != null)
-						curent_user.details = curent_user.details + w[i] + " ";
-					else
-						curent_user.details = w[i] + " ";
-				lu.add(curent_user);
+					details = w[i] + " ";
+				lu.add(new User(name, age, salary, details));
 			}
 			return lu;
 		} catch (FileNotFoundException e) {
