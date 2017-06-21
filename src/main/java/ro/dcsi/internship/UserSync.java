@@ -7,16 +7,13 @@ import java.util.Scanner;
 
 public class UserSync {
 	public static List<User> readUsers(String csvFile) {
-		try {
-			Scanner scanner = new Scanner(new File(csvFile));
+		try(Scanner scanner = new Scanner(new File(csvFile));){
 			while (scanner.hasNext()) {
 				List<String> line = CSVUtils.parseLine(scanner.nextLine());
-
 				System.out.println(
 						"Cetatean [Prenume: " + line.get(0) + ", Nume: " + line.get(1) + " , Varsta: " + line.get(2)
 								+ ", Nationalitate: " + line.get(3) + ", Tara de domiciliu: " + line.get(4) + "]");
 			}
-			scanner.close();
 			throw new RuntimeException("Not implemented yet!");
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
