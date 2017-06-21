@@ -1,14 +1,11 @@
 package ro.dcsi.internship;
 
-import static org.junit.Assert.*;
-
-import ro.dcsi.internship.CSVUtils;
-import org.hamcrest.core.IsNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
+import org.hamcrest.core.IsNull;
 
 public class Test {
 
