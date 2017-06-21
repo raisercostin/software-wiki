@@ -13,8 +13,7 @@ public class UserSyncTest
 	@Test
 	public void test() 
 	{
-
-		List<User> users = UserSync.readUser("users1.csv");
+		List<User> users = UserSync.readUser("src/test/resources/users1.csv");
 		assertNotNull(users);
 		assertEquals(3,users.size());
 		assertEquals("ion andrei",users.get(0).name);
