@@ -9,7 +9,7 @@ import org.junit.Test;
 public class UserSyncTest {
 	@Test
 	public void test() {
-		List<User> users = UserSync.readUsers("test.csv");
+		List<User> users = UserSync.readUsers("src/test/resources/test.csv");
 		assertEquals(5, users.size());
 		assertEquals("Andrei", users.get(0).name);
 	}
