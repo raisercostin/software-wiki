@@ -13,40 +13,35 @@ import static org.hamcrest.core.Is.is;
 public class Test {
 
 	@org.junit.Test
-    public void test_faraGhilimele() {
+	public void test_faraGhilimele() {
 
-        String line = "Radu,Tudorache,18,roman,Romania";
-        List<String> result = CSVUtils.parseLine(line);
+		String line = "Radu,Tudorache,18,roman,Romania";
+		List<String> result = CSVUtils.parseLine(line);
 
-        assertThat(result, IsNull.notNullValue());
-        assertThat(result.size(), is(5));
-        assertThat(result.get(0), is("Radu"));
-        assertThat(result.get(1), is("Tudorache"));
-        assertThat(result.get(2), is("18"));
-        assertThat(result.get(3), is("roman"));
-        assertThat(result.get(4), is("Romania"));
+		assertThat(result, IsNull.notNullValue());
+		assertThat(result.size(), is(5));
+		assertThat(result.get(0), is("Radu"));
+		assertThat(result.get(1), is("Tudorache"));
+		assertThat(result.get(2), is("18"));
+		assertThat(result.get(3), is("roman"));
+		assertThat(result.get(4), is("Romania"));
 
-    }
-
-	
+	}
 
 	@org.junit.Test
-    public void test_ghilimele() {
+	public void test_ghilimele() {
 
-        String line = "\"Radu\",\"Tudorache\",\"18\",\"roman\",\"Romania";
-        List<String> result = CSVUtils.parseLine(line);
+		String line = "\"Radu\",\"Tudorache\",\"18\",\"roman\",\"Romania";
+		List<String> result = CSVUtils.parseLine(line);
 
-        assertThat(result, IsNull.notNullValue());
-        assertThat(result.size(), is(5));
-        assertThat(result.get(0), is("Radu"));
-        assertThat(result.get(1), is("Tudorache"));
-        assertThat(result.get(2), is("18"));
-        assertThat(result.get(3), is("roman"));
-        assertThat(result.get(4), is("Romania"));
+		assertThat(result, IsNull.notNullValue());
+		assertThat(result.size(), is(5));
+		assertThat(result.get(0), is("Radu"));
+		assertThat(result.get(1), is("Tudorache"));
+		assertThat(result.get(2), is("18"));
+		assertThat(result.get(3), is("roman"));
+		assertThat(result.get(4), is("Romania"));
 
-    }
+	}
 
-	
-
-	
 }
