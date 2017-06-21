@@ -7,11 +7,10 @@ import java.util.List;
 
 import org.hamcrest.core.IsNull;
 
-public class Test {
+public class CSVUtilsTest {
 
 	@org.junit.Test
-	public void test_faraGhilimele() {
-
+	public void testFaraGhilimele() {
 		String line = "Radu,Tudorache,18,roman,Romania";
 		List<String> result = CSVUtils.parseLine(line);
 
@@ -26,8 +25,7 @@ public class Test {
 	}
 
 	@org.junit.Test
-	public void test_ghilimele() {
-
+	public void testGhilimele() {
 		String line = "\"Radu\",\"Tudorache\",\"18\",\"roman\",\"Romania";
 		List<String> result = CSVUtils.parseLine(line);
 
