@@ -11,6 +11,6 @@ public class UserSyncTest {
 	public void test() {
 		List<User> users = UserSync.readUsers("src/test/resources/test.csv");
 		assertEquals(5, users.size());
-		assertEquals("Andrei", users.get(0).name);
+		assertEquals("Andrei", users.get(0).firstname);
 	}
 }
