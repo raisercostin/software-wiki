@@ -12,20 +12,8 @@ import java.util.Scanner;
  *
  */
 public class CSVUtils {
-
-	private Scanner scanner;
-
 	private static boolean enterDetected = false;
 	private static List<String> res;
-
-	public CSVUtils(String csvFile) {
-		try {
-			scanner = new Scanner(new File(csvFile));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * 
@@ -37,23 +25,34 @@ public class CSVUtils {
 	 */
 	public static List<List<String>> parseCSVFile(String csvFile) throws FileNotFoundException {
 		// pastrarea datelor sub forma unei matrici bidimensionale
-		List<List<String>> date = new ArrayList<List<String>>();
-		Scanner scanner = new Scanner(new File(csvFile));
-		List<String> line;
-		// atata timp cat mai exista linii de citit din fisier
-		while (scanner.hasNext()) {
-			// citeste urmatoarea linie si parseaza datele
-			line = parseLine(scanner.nextLine());
-			// in cazul in care linia contine CRLF in interiorul ghilimelelor,
-			// parseaza si alipeste de linia curenta urmatoarea linie
-			while (enterDetected) {
-				line = parseLine(scanner.nextLine());
+		try (Scanner scanner = new Scanner(new File(csvFile));) {
+			List<List<String>> date = new ArrayList<List<String>>();
+			// atata timp cat mai exista linii de citit din fisier
+			while (scanner.hasNext()) {
+				// citeste urmatoarea linie si parseaza datele
+				List<String> line = parseLine(scanner.nextLine());
+				// in cazul in care linia contine CRLF in interiorul
+				// ghilimelelor,
+				// parseaza si alipeste de linia curenta urmatoarea linie
+				while (enterDetected) {
+					line = parseLine(scanner.nextLine());
+				}
+				// adauga la matricea bidimensionala linia curenta
+				date.add(line);
 			}
-			// adauga la matricea bidimensionala linia curenta
-			date.add(line);
+			return date;
 		}
-		scanner.close();
-		return date;
+	}
+
+	private Scanner scanner;
+
+	public CSVUtils(String csvFile) {
+		try {
+			scanner = new Scanner(new File(csvFile));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public boolean scannerHasNext() {
