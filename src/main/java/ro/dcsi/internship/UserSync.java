@@ -10,39 +10,19 @@ import java.util.List;
 public class UserSync {
 
 	public static List<User> readUsers(String csvFile) {
-        BufferedReader br = null;
-        String line = "";
-        String cvsSplitBy = ",";
-        List<User> users= new ArrayList<User>();
-        User temp=new User();
-        try {
-
-            br = new BufferedReader(new FileReader(csvFile));
-            while ((line = br.readLine()) != null) {
-
-                
-                String[] info = line.split(cvsSplitBy);
-                temp=new User(info[1]);
-                users.add(temp);
-
-            }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return users;
-    }
-
+		String cvsSplitBy = ",";
+		List<User> users = new ArrayList<User>();
+		try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+			String line = "";
+			while ((line = br.readLine()) != null) {
+				String[] info = line.split(cvsSplitBy);
+				users.add(new User(info[1]));
+			}
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		return users;
+	}
 }
-
-

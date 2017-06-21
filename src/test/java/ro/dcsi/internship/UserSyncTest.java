@@ -10,9 +10,12 @@ public class UserSyncTest {
 
 	@Test
 	public void test() {
-		List<User> users = UserSync.readUsers("src/test/resources/SampleCSVFile.csv");//"users.csv");
-		assertEquals(100,users.size());
-		assertEquals("Eldon Base for stackable storage shelf",users.get(0).name);
+		List<User> users = UserSync.readUsers("src/test/resources/SampleCSVFile.csv");// "users.csv");
+		assertEquals(100, users.size());
+		assertEquals("Eldon Base for stackable storage shelf", users.get(0).name);
 	}
-
+	@Test(expected=RuntimeException.class)
+	public void testFileNotFound() {
+		List<User> users = UserSync.readUsers("src/test/resources/SampleCSVFile-non-existing.csv");// "users.csv");
+	}
 }
