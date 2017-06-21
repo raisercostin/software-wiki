@@ -9,8 +9,7 @@ import java.util.List;
 
 public class UserSync {
 
-	public static List<User> readUsers(String string) {
-		String csvFile = "src/test/resources/SampleCSVFile.csv";
+	public static List<User> readUsers(String csvFile) {
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
