@@ -8,23 +8,27 @@ import java.util.List;
  * Created by Catalin on 6/19/2017.
  */
 public class UserManager implements Iterable<User>{
-    private Translator userFile;
+    private Translator reader,writer;
     private List<User> users;
     private UserIterator instance=null;
     private int maxRead;
 
     public UserManager(int maxRead) {
-        userFile=null;
+        reader =null;
         users=null;
         this.maxRead=maxRead;
     }
 
-    public void setUserFile(Translator userFile) {
-        this.userFile = userFile;
+    public void setReader(Translator reader) {
+        this.reader = reader;
+    }
+
+    public void setWriter(Translator writer) {
+        this.writer = writer;
     }
 
     public boolean readUsers(){
-        if(userFile==null)
+        if(reader ==null)
             return false;
 
         //Variables
@@ -34,14 +38,14 @@ public class UserManager implements Iterable<User>{
         int i;
 
         //Read fields
-        buffer = userFile.readBulk(this.maxRead);
+        buffer = reader.readBulk(this.maxRead);
 
         //Check error
         if(buffer == null)
             return false;
 
         //Read headers + init
-        headers = userFile.getHeaders();
+        headers = reader.getHeaders();
         users = new ArrayList<User>();
 
 
@@ -65,13 +69,41 @@ public class UserManager implements Iterable<User>{
         return true;
     }
 
+    public void writeUsers(){
+        //Variables
+        List<String> headers,buffer;
+        List<List<String>> bulkWrite;
+
+        //set headers
+        headers = users.get(0).getExtraFieldHeaders();
+        headers.add(0,"name");
+        headers.add(1,"email");
+        writer.setHeaders(headers);
+
+        while(true){
+            bulkWrite = new ArrayList<List<String>>();
+            for(User u:users){
+                buffer = u.getExtraFields();
+                buffer.add(0,u.getName());
+                buffer.add(1,u.getEmail());
+                bulkWrite.add(buffer);
+            }
+            writer.writeBulk(bulkWrite);
+
+            if(reader.hasNext())
+                this.readUsers();
+            else
+                break;
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         for(User u:users)
             builder.append(u.toString() + '\n');
 
-        if(userFile.hasNext()) {
+        if(reader.hasNext()) {
             this.readUsers();
             builder.append(this.toString());
         }
@@ -95,11 +127,15 @@ public class UserManager implements Iterable<User>{
 
         public User next() {
             User result = users.get(currentIndex++);
-            if(currentIndex == users.size() && userFile.hasNext()) {
+            if(currentIndex == users.size() && reader.hasNext()) {
                 readUsers();
                 currentIndex=0;
             }
             return result;
+        }
+
+        public void remove() {
+            return ;
         }
     }
 

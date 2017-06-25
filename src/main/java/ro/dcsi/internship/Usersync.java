@@ -17,29 +17,39 @@ public class Usersync {
         database = new UserManager(Usersync.bulkDefine);
 
         translator.setInputFile(Filename);
-        database.setUserFile(translator);
+        database.setReader(translator);
         database.readUsers();
 
         return database;
     }
 
+    public void saveFile(String fileName){
+        Translator writeTranslator,readTranslator;
+        UserManager localDatabase = new UserManager(Usersync.bulkDefine);
+        String writeFileName;
+        int location;
+
+        //Read Users
+        readTranslator = new TranslatorCSV();
+        readTranslator.setInputFile(fileName);
+        localDatabase.setReader(readTranslator);
+        localDatabase.readUsers();
+
+        //Write Users
+        location=fileName.lastIndexOf('.');
+        writeFileName = fileName.substring(0,location) + "_backup" + fileName.substring(location);
+
+        writeTranslator=new TranslatorCSV();
+        writeTranslator.setOutputFile(writeFileName);
+
+        localDatabase.setWriter(writeTranslator);
+        localDatabase.writeUsers();
+    }
+
 
 
     public static void main(String [ ] args){
-        Translator translator = new TranslatorCSV();
-        UserManager database = new UserManager(1);
-        boolean ok;
-
-        translator.setInputFile("NoHeaders.csv");
-        database.setUserFile(translator);
-
-        ok = database.readUsers();
-        if(!ok)
-            return ;
-
-        Iterator<User> userIterator = database.iterator();
-        while(userIterator.hasNext())
-            System.out.print(userIterator.next().toString() + '\n');
-
+        Usersync app = new Usersync();
+        app.saveFile("src/test/CSV/headerslarge.csv");
     }
 }

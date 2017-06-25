@@ -1,6 +1,5 @@
 package ro.dcsi.internship;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
@@ -23,10 +22,9 @@ public abstract class Translator {
     abstract public void setInputFile(String inputFile);
 
     //Write to file
-    public abstract boolean writeBulk(List<List<String>> userList);
-    public void setOutputFile(String outputFile) {
-        this.outputFile = outputFile;
-    }
+    public abstract void writeBulk(List<List<String>> userList);
+    public abstract void setHeaders(List<String> header);
+    public abstract void setOutputFile(String outputFile);
 
 
     //Info

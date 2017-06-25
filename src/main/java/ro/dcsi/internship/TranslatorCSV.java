@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import de.siegmar.fastcsv.reader.*;
+import de.siegmar.fastcsv.writer.*;
+
 
 
 /**
@@ -12,6 +14,8 @@ import de.siegmar.fastcsv.reader.*;
 public class TranslatorCSV extends Translator {
     private CsvParser parser;
     private CsvRow lastRow;
+    private CsvAppender writer;
+    private boolean headersWritten;
     private boolean hasNext;
 
 
@@ -19,6 +23,8 @@ public class TranslatorCSV extends Translator {
         this.parser = null;
         this.lastRow= null;
         this.hasNext = false;
+        this.headersWritten=false;
+        this.writer=null;
     }
 
     @Override
@@ -174,7 +180,83 @@ public class TranslatorCSV extends Translator {
     }
 
     @Override
-    public boolean writeBulk(List<List<String>> userList) {
-        return false;
+    public void writeBulk(List<List<String>> userList) {
+        if(!headersWritten) {
+
+            if(headers == null) {
+                headers = getDefaultHeaders();
+                resizeHeaders(userList.get(0).size());
+            }
+
+            headersWritten = true;
+            try {
+                for (String s : headers)
+                    writer.appendField(s);
+                writer.endLine();
+            } catch (IOException e) {
+                System.err.print("Write to file Error");
+                e.printStackTrace();
+            }
+            headersWritten = true;
+        }
+
+        //Write each field
+        for(List<String> list:userList) {
+            try {
+                for (String field : list) {
+                    writer.appendField(field);
+                }
+                writer.endLine();
+            }
+
+            catch (IOException e){
+                System.err.print("Write to file Error");
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            writer.flush();
+        }
+        catch (IOException e){
+            System.err.print("Flush Error!");
+            e.printStackTrace();
+        }
+
+    }
+
+    public void setHeaders(List<String> headers) {
+        this.headers=headers;
+    }
+
+    public void setOutputFile(String outputFile) {
+        this.outputFile=outputFile;
+
+
+        //Opening file;
+        File output = new File(outputFile);
+        CsvWriter csv = new CsvWriter();
+        csv.setFieldSeparator(';');
+
+        try {
+            this.writer = csv.append(new FileWriter(output));
+        }
+        catch (IOException e){
+            System.err.print("Open file for Write Error!");
+            e.printStackTrace();
+        }
+
+
+        if(this.headers != null) {
+            headersWritten = true;
+            try {
+                for (String s : headers)
+                    writer.appendField(s);
+                writer.endLine();
+            } catch (IOException e) {
+                System.err.print("Write to file Error");
+                e.printStackTrace();
+            }
+        }
     }
 }

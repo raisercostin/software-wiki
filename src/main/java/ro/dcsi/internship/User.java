@@ -31,6 +31,14 @@ class User{
         extraFieldHeaders.add(Header);
     }
 
+    public List<String> getExtraFieldHeaders() {
+        return new ArrayList<String>(extraFieldHeaders);
+    }
+
+    public List<String> getExtraFields() {
+        return new ArrayList<String>(extraFields);
+    }
+
     public String getEmail() {
         return email;
     }
