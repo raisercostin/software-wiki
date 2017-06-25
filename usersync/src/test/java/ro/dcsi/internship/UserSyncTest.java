@@ -13,16 +13,16 @@ public class UserSyncTest {
 		assertNotNull(users);
 		assertEquals(3, users.size());
 		assertEquals("ion andrei", users.get(0).name);
-		/*for(User user: users)
+		for(User user: users)
 		{
-			System.out.print(user);
-		}*/
+			System.out.println(user);
+		}
 	}
 
 	@Test
 	public void testFileDoesntExist() {
 		try {
-			List<User> users = UserSync.readUser("src/test/resources/users1-nonexisting.csv");
+			List<User> users = UserSync.readUser("usersync/src/test/resources/users1-nonexisting.csv");
 			fail("should not return normally from readUser");
 		} catch (RuntimeException e) {
 			assertNotNull(e);

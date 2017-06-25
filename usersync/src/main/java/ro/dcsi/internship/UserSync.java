@@ -31,7 +31,7 @@ public class UserSync {
 			throw new RuntimeException(e);
 		}*/
 		//CSVReader reader = null;
-		try(CSVReader reader = new CSVReader(new FileReader("users1.csv"));)
+		try(CSVReader reader = new CSVReader(new FileReader(title));)
 		{
 			String [] w;
 			List<User> lu = new ArrayList<User>();
