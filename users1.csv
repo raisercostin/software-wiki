@@ -1,6 +1,6 @@
-EmployeeID,FirstName,LastName,Salary
-1,FirstName1,LastName1,10000
-2,FirstName2,LastName2,20000
-3,FirstName3,LastName3,30000
-4,FirstName4,LastName4,40000
-5,FirstName5,LastName5,50000
+SurName,FirstName,Age,Nationality,Country
+FirstName1,LastName1,15,Bulgarian,Bulgaria
+FirstName2,LastName2,30,Serbian,Serbia
+FirstName3,LastName3,33,Romanian,Romania
+FirstName4,LastName4,40,Romanian,Romania
+john,LastName5,50,Serbian,Romania
