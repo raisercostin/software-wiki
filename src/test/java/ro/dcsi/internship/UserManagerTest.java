@@ -36,5 +36,7 @@ public class UserManagerTest {
 		assertEquals(user.hasPermission("w"), true);
 		assertEquals(user.hasPermission("somethingNotThere"), false);
 		assertEquals(user.hasPermission("c"), true);
+		
+		System.out.println(um);
 	}
 }

@@ -40,8 +40,11 @@ public class Permissions {
 	}
 	
 	public String toString() {
-		//TreeSet<String> key = permissions.keySet();
-		
-		return "";
+		Set<String> keys = permissions.keySet();
+		StringBuilder str = new StringBuilder();
+		for (String key : keys) {
+			str.append(key).append(";");
+		}
+		return str.toString();
 	}
 }

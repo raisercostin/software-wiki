@@ -4,7 +4,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Hashtable;
+import java.util.Set;
+
 import com.opencsv.*;
+import com.sun.xml.internal.bind.v2.runtime.RuntimeUtil.ToStringAdapter;
 
 public class UserManager {
 	private final Hashtable<String, User> users = new Hashtable<String, User>();
@@ -53,5 +56,14 @@ public class UserManager {
 		catch (IOException exception) {
 			throw new RuntimeException(exception);
 		}*/
+	}
+	
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		Set<String> keys = users.keySet();
+		for (String key : keys) {
+			str.append(this.getUser(key)).append("\n");
+		}
+		return str.toString();
 	}
 }
