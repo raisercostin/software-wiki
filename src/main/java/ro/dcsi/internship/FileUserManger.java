@@ -5,16 +5,16 @@ import java.util.Iterator;
 /**
  * Created by Catalin on 6/19/2017.
  */
-public class Usersync {
+public class FileUserManger implements UserSync{
     public static final int bulkDefine = 100;
     private UserManager database;
 
-    public Usersync() {
+    public FileUserManger() {
     }
 
-    public UserManager readUsers(String Filename){
+    public UserManager readUsersAsManager(String Filename){
         Translator translator = new TranslatorCSV();
-        database = new UserManager(Usersync.bulkDefine);
+        database = new UserManager(FileUserManger.bulkDefine);
 
         translator.setInputFile(Filename);
         database.setReader(translator);
@@ -25,7 +25,7 @@ public class Usersync {
 
     public void saveFile(String fileName){
         Translator writeTranslator,readTranslator;
-        UserManager localDatabase = new UserManager(Usersync.bulkDefine);
+        UserManager localDatabase = new UserManager(FileUserManger.bulkDefine);
         String writeFileName;
         int location;
 
@@ -49,7 +49,13 @@ public class Usersync {
 
 
     public static void main(String [ ] args){
-        Usersync app = new Usersync();
+        FileUserManger app = new FileUserManger();
         app.saveFile("src/test/CSV/headerslarge.csv");
     }
+
+	@Override public Iterator<User> readUsers(String filename) {
+		UserManager database=readUsersAsManager(filename);
+        Iterator<User> users= database.iterator();
+		return users;
+	}
 }

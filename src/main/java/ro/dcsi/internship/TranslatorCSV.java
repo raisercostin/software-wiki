@@ -231,19 +231,15 @@ public class TranslatorCSV extends Translator {
 
     public void setOutputFile(String outputFile) {
         this.outputFile=outputFile;
-
-
         //Opening file;
         File output = new File(outputFile);
         CsvWriter csv = new CsvWriter();
         csv.setFieldSeparator(';');
-
         try {
             this.writer = csv.append(new FileWriter(output));
         }
         catch (IOException e){
-            System.err.print("Open file for Write Error!");
-            e.printStackTrace();
+            throw new RuntimeException("Open file for Write Error!");
         }
 
 

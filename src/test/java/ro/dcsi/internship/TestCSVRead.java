@@ -13,9 +13,20 @@ public class TestCSVRead {
 
     @Test
     public void NoHeaderSmallTest(){
-        Usersync sync = new Usersync();
-        UserManager database=sync.readUsers("src/test/CSV/NoHeaders.csv");
-        Iterator<User> users= database.iterator();
+        UserSync sync = new FileUserManger();
+        test(sync);
+    }
+
+    @Test
+    public void ReadUsersFromRemoteServer(){
+        UserSync sync = new RemoteServerUserManger();
+        test(sync);
+    }
+
+
+	private void test(UserSync sync) {
+		String filename = "src/test/CSV/NoHeaders.csv";
+		Iterator<User> users = sync.readUsers(filename);
         User buffer;
 
         buffer=users.next();
@@ -27,12 +38,13 @@ public class TestCSVRead {
         assertEquals(buffer.getEmail(),"ghenea@yahoo.com");
 
         assertEquals(users.hasNext(),false);
-    }
+	}
+
 
     @Test
     public void HeadersNotDefault(){
-        Usersync sync = new Usersync();
-        UserManager database=sync.readUsers("src/test/CSV/headersnotdefault.csv");
+        FileUserManger sync = new FileUserManger();
+        UserManager database=sync.readUsersAsManager("src/test/CSV/headersnotdefault.csv");
         Iterator<User> users= database.iterator();
         User buffer=null;
 
@@ -48,8 +60,8 @@ public class TestCSVRead {
 
     @Test
     public void NoHeaderLarge(){
-        Usersync sync = new Usersync();
-        UserManager database=sync.readUsers("src/test/CSV/NoHeadersLarge.csv");
+        FileUserManger sync = new FileUserManger();
+        UserManager database=sync.readUsersAsManager("src/test/CSV/NoHeadersLarge.csv");
         Iterator<User> users= database.iterator();
         User buffer=null;
 
@@ -63,8 +75,8 @@ public class TestCSVRead {
 
     @Test
     public void HeadersLarge(){
-        Usersync sync = new Usersync();
-        UserManager database=sync.readUsers("src/test/CSV/headerslarge.csv");
+        FileUserManger sync = new FileUserManger();
+        UserManager database=sync.readUsersAsManager("src/test/CSV/headerslarge.csv");
         Iterator<User> users= database.iterator();
         User buffer=null;
         int count=0;
