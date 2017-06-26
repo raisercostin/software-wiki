@@ -87,4 +87,8 @@ public class User {
 	public void setPermission(String permission, boolean val) {
 		permissions.setPermission(permission, val);
 	}
+	
+	public String toString() {
+		return this.username + ": [" + this.getEmail() + ", " + this.getFirstName() + ", " + this.getLastName() + ", " + this.permissions + "]";
+	}
 }
