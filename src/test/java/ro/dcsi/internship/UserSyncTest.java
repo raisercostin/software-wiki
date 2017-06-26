@@ -21,7 +21,7 @@ public class UserSyncTest {
     public void testHugeFile() {
         Iterable<User> users = UserSync.readUsersFromHugeFile("src/test/resources/users1.csv");
         User last = lastFrom(users);
-        assertEquals("john", last.surname);
+        assertEquals("doc", last.firstName);
     }
 
     private User lastFrom(Iterable<User> users) {
