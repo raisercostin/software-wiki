@@ -11,23 +11,26 @@ public abstract class Translator {
     protected List<String> headers;
 
     public Translator() {
-        inputFile=null;
-        outputFile=null;
-        headers=null;
+        inputFile = null;
+        outputFile = null;
+        headers = null;
     }
 
-    //Read from file
+    // Read from file
     public abstract List<List<String>> readBulk(int nMax);
+
     public abstract boolean hasNext();
+
     abstract public void setInputFile(String inputFile);
 
-    //Write to file
+    // Write to file
     public abstract void writeBulk(List<List<String>> userList);
+
     public abstract void setHeaders(List<String> header);
+
     public abstract void setOutputFile(String outputFile);
 
-
-    //Info
+    // Info
     public List<String> getHeaders() {
         return headers;
     }
