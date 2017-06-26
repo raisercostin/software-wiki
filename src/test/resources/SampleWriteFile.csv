@@ -1,0 +1,4 @@
+a,b,c,d
+"aaa","bb,b","cc,c"
+'aaa'|'bbb'|'cc,c'
+aaa,bbb,cc""c
