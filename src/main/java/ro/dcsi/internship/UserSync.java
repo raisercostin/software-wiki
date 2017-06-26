@@ -16,13 +16,11 @@ public class UserSync {
 			 * Reading the CSV File Delimiter is comma Start reading from line 1
 			 */
 			csvReader = new CSVReader(new FileReader("users1.csv"), ',', '"', 1);
-			// employeeDetails stores the values current line
 			String[] employeeDetails = null;
-			// Create List for holding Employee objects
 
 			while ((employeeDetails = csvReader.readNext()) != null) {
-				// Save the employee details in Employee object
-				User emp = new User(employeeDetails[0]);
+				User emp = new User(employeeDetails[0], employeeDetails[1], employeeDetails[2], employeeDetails[3],
+						employeeDetails[4]);
 
 				empList.add(emp);
 			}
@@ -41,14 +39,11 @@ public class UserSync {
 			 * Reading the CSV File Delimiter is comma Start reading from line 1
 			 */
 			csvReader = new CSVReader(new FileReader("users1.csv"), ',', '"', 1);
-			// employeeDetails stores the values current line
 			String[] employeeDetails = null;
-			// Create List for holding Employee objects
 
 			while ((employeeDetails = csvReader.readNext()) != null) {
-				// Save the employee details in Employee object
-				User emp = new User(employeeDetails[0]);
-
+				User emp = new User(employeeDetails[0], employeeDetails[1], employeeDetails[2], employeeDetails[3],
+						employeeDetails[4]);
 				empList.add(emp);
 			}
 

@@ -14,13 +14,13 @@ public class UserSyncTest {
 		List<User> users = UserSync.readUsers("users1.csv");
 		assertNotNull(users);
 		assertEquals(5,users.size());
-		assertEquals("ion",users.get(0).name);
+		assertEquals("ion",users.get(0).surname);
 	}
 	@Test
 	public void testHugeFile() {
 		Iterable<User> users = UserSync.readUsersFromHugeFile("users1.csv");
 		User last = lastFrom(users);
-		assertEquals("john",last.name);
+		assertEquals("john",last.surname);
 	}
 	private User lastFrom(Iterable<User> users) {
 		User last = null;
