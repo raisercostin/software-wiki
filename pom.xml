@@ -27,6 +27,12 @@
 			<artifactId>opencsv</artifactId>
 			<version>3.9</version>
 		</dependency>
+    <dependency>
+      <groupId>de.siegmar</groupId>
+      <artifactId>fastcsv</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+
 	</dependencies>
 	<build>
 		<plugins>

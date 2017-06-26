@@ -1,13 +1,11 @@
 package ro.dcsi.internship;
 
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Set;
 
-import com.opencsv.*;
-import com.sun.xml.internal.bind.v2.runtime.RuntimeUtil.ToStringAdapter;
+import com.opencsv.CSVReader;
 
 public class UserManager {
     private final Hashtable<String, User> users = new Hashtable<String, User>();

@@ -1,9 +1,9 @@
 package ro.dcsi.internship;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.Iterator;
-import java.util.List;
 
 import org.junit.Test;
 
@@ -11,7 +11,7 @@ public class UserSyncTest {
 
     @Test
     public void test() {
-        List<User> users = UserSync.readUsers("src/test/resources/users1.csv");
+        Iterator<User> users = new FileUserManager2().readUsers("src/test/resources/users1.csv");
         assertNotNull(users);
         // assertEquals(5,users.size());
         // assertEquals("ion",users.get(0).surname);
@@ -19,7 +19,7 @@ public class UserSyncTest {
 
     @Test
     public void testHugeFile() {
-        Iterable<User> users = UserSync.readUsersFromHugeFile("src/test/resources/users1.csv");
+        Iterable<User> users = new FileUserManager2().readUsersFromHugeFile("src/test/resources/users1.csv");
         User last = lastFrom(users);
         assertEquals("doc", last.firstName);
     }
