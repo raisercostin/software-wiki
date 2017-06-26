@@ -1,6 +1,7 @@
 package ro.dcsi.internship;
 
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Hashtable;
 import com.opencsv.*;
@@ -40,5 +41,17 @@ public class UserManager {
 	}
 	
 	public void exportUsers(String csvFile) {
+		try {
+			CSVWriter writer = new CSVWriter(new FileWriter(csvFile));
+			String[] line;
+			while ((line = reader.readNext()) != null) {
+				User user = new User(line[0], line[1], line[2], line[3], line[4]);
+				this.addUser(user);
+			}
+			reader.close();
+		}
+		catch (IOException exception) {
+			throw new RuntimeException(exception);
+		}
 	}
 }

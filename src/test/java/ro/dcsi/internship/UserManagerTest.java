@@ -27,5 +27,14 @@ public class UserManagerTest {
 		um.importUsers("src/test/resources/users1.csv");
 		User user = um.getUser("dj");
 		assertEquals(user.getFirstName(), "John");
+		assertEquals(user.hasPermission("w"), true);
+		assertEquals(user.hasPermission("somethingNotThere"), false);
+		assertEquals(user.hasPermission("r"), true);
+		
+		user = um.getUser("trail");
+		assertEquals(user.getFirstName(), "doc");
+		assertEquals(user.hasPermission("w"), true);
+		assertEquals(user.hasPermission("somethingNotThere"), false);
+		assertEquals(user.hasPermission("c"), true);
 	}
 }
