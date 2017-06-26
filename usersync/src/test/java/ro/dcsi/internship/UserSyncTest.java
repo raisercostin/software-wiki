@@ -13,10 +13,6 @@ public class UserSyncTest {
 		assertNotNull(users);
 		assertEquals(3, users.size());
 		assertEquals("ion andrei", users.get(0).name);
-		for(User user: users)
-		{
-			System.out.println(user);
-		}
 	}
 
 	@Test
