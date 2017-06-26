@@ -41,7 +41,7 @@ public class UserManager {
 	}
 	
 	public void exportUsers(String csvFile) {
-		try {
+		/*try {
 			CSVWriter writer = new CSVWriter(new FileWriter(csvFile));
 			String[] line;
 			while ((line = reader.readNext()) != null) {
@@ -52,6 +52,6 @@ public class UserManager {
 		}
 		catch (IOException exception) {
 			throw new RuntimeException(exception);
-		}
+		}*/
 	}
 }
