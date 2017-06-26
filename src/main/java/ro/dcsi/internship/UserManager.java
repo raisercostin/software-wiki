@@ -26,8 +26,8 @@ public class UserManager {
 	}
 
 	public void importUsers(String csvFile) {
-		try {
-			CSVReader reader = new CSVReader(new FileReader(csvFile));
+		try(CSVReader reader = new CSVReader(new FileReader(csvFile));){
+			
 			String[] line;
 			while ((line = reader.readNext()) != null) {
 				User user = new User(line[0], line[1], line[2], line[3], line[4]);

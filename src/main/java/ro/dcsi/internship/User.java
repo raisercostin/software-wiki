@@ -1,15 +1,11 @@
 package ro.dcsi.internship;
 
-import java.util.Hashtable;
-import java.util.Set;
-import java.util.TreeSet;
-
 public class User {
 	public final String username;
-	private String email = null;
-	private String firstName = null;
-	private String lastName = null;
-	private Permissions permissions = new Permissions();
+	public final String email;
+	public final String firstName;
+	public final String lastName;
+	private final Permissions permissions;
 
 	public User(String username, String email, String firstName, String lastName,
 			Permissions permissions) {
@@ -34,10 +30,15 @@ public class User {
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.permissions = new Permissions();
 	}
 
 	public User(String username) {
 		this.username = username;
+		this.email = "";
+		this.firstName = "";
+		this.lastName = "";
+		this.permissions = new Permissions();
 	}
 	
 	public User(User user) {
@@ -47,31 +48,6 @@ public class User {
 		this.lastName = user.lastName;
 		this.permissions = new Permissions(user.permissions);
 	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
 	public boolean hasPermission(String permission) {
 		return permissions.hasPermission(permission);
 	}
