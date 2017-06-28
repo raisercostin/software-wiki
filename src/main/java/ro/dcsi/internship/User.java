@@ -1,16 +1,26 @@
 package ro.dcsi.internship;
 
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Set;
+
 public class User {
-  public final String username;
-  public final String email;
-  public final String firstName;
-  public final String lastName;
+  public String username;
+  public String email;
+  public String firstName;
+  public String lastName;
+  /* TODO add support for complex attributes */
+  private final Hashtable<String, String> attributes = new Hashtable<String, String>();
 
   public User(String username, String email, String firstName, String lastName) {
     this.username = username;
     this.email = email;
     this.firstName = firstName;
     this.lastName = lastName;
+  }
+  public User(String id, Map<String, String> attributes) {
+    this.attributes.putAll(attributes);
+    this.attributes.put("_id", id);
   }
 
   @Override
@@ -19,4 +29,15 @@ public class User {
         + "]";
   }
 
+  public Set<String> getAttributeSet() {
+    return attributes.keySet();
+  }
+
+  public String getAttributeValue(String attribute) {
+    return attributes.get(attribute);
+  }
+
+  public String getId() {
+    return attributes.get("_id");
+  }
 }
