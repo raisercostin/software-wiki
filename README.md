@@ -7,4 +7,6 @@ Ask to be a collaborator if you want to contribute or make a pull request.
 ```
 mvn formatter:format
 mvn antrun:run
+mvn checkstyle:check
+mvn versions:display-plugin-updates
 ```
