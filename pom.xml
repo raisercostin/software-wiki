@@ -55,7 +55,7 @@
                     <target>
                         <echo message="ant cleanup started." />
                         <fixcrlf srcdir="${basedir}" eol="unix" tab="remove"
-                            tablength="4" includes="**/*.java **/*.xml" preservelastmodified="true" />
+                            tablength="2" includes="**/*.java **/*.xml" preservelastmodified="true" />
                         <echo message="ant cleanup finished." />
                     </target>
                 </configuration>
