@@ -52,11 +52,12 @@ public class GetFromServer {
 				User user = new User(username, mail, firstname, lastname);
 				lu.add(user);
 			}
-		} catch (ClientProtocolException ex) {
-			throw new RuntimeException(ex);
-		} catch (IOException e1) {
+		
+		} catch (Exception e1) {
 			throw new RuntimeException(e1);
 		}
+		for(User us : lu)
+			System.out.println(us);
 		return lu;
 	}
 }

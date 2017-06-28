@@ -18,10 +18,10 @@ public class UserSync {
 			 */
 			String[] employeeDetails = null;
 			while ((employeeDetails = csvReader.readNext()) != null) {
-				User emp = new User(employeeDetails[0], employeeDetails[1], employeeDetails[2], employeeDetails[3],
-						employeeDetails[4]);
-
-				empList.add(emp);
+//				User emp = new User(employeeDetails[0], employeeDetails[1], employeeDetails[2], employeeDetails[3],
+//						employeeDetails[4]);
+//
+//				empList.add(emp);
 			}
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
@@ -39,9 +39,9 @@ public class UserSync {
 			 */
 			String[] employeeDetails = null;
 			while ((employeeDetails = csvReader.readNext()) != null) {
-				User emp = new User(employeeDetails[0], employeeDetails[1], employeeDetails[2], employeeDetails[3],
-						employeeDetails[4]);
-				empList.add(emp);
+//				User emp = new User(employeeDetails[0], employeeDetails[1], employeeDetails[2], employeeDetails[3],
+//						employeeDetails[4]);
+//				empList.add(emp);
 			}
 		} catch (Exception ee) {
 			throw new RuntimeException("While reading users from file " + fileName, ee);
