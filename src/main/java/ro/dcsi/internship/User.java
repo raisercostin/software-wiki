@@ -43,9 +43,11 @@ public class User {
         this.lastName = "";
         this.permissions = new Permissions();
     }
+
     public User() {
         this("");
     }
+
     public User(User user) {
         this.username = user.username;
         this.email = user.email;
@@ -53,6 +55,7 @@ public class User {
         this.lastName = user.lastName;
         this.permissions = new Permissions(user.permissions);
     }
+
     protected void addExtraField(String Value, String Header) {
         extraFields.add(Value);
         extraFieldHeaders.add(Header);
@@ -65,6 +68,7 @@ public class User {
     public List<String> getExtraFields() {
         return new ArrayList<String>(extraFields);
     }
+
     public boolean hasPermission(String permission) {
         return permissions.hasPermission(permission);
     }
@@ -84,6 +88,7 @@ public class User {
     public String toString() {
         return username + ": [" + email + ", " + firstName + ", " + lastName + ", " + permissions + "]";
     }
+
     public String toString2() {
         String rez;
         rez = "User{" + "name='" + username + '\'' + ", email='" + email + '\'';

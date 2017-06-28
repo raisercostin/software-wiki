@@ -9,7 +9,7 @@ import java.util.List;
 
 import com.opencsv.CSVReader;
 
-public class FileUserManager2 implements UserSync{
+public class FileUserManager2 implements UserSync {
     public Iterator<User> readUsers(String fileName) {
         List<User> empList = new ArrayList<User>();
         try (CSVReader csvReader = new CSVReader(new FileReader(fileName), ',', '"', 1);) {
