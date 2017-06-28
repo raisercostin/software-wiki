@@ -14,27 +14,26 @@ public class ForgeRockDB implements UserDB {
 		this.openIDMPassword = openIDMPassword;
 	}
 
-	public Iterator<User> iterator() {
-		return new ForgeRockDBIterator(this);
+	public static JSONObject userToJSONObject(User user) {
+		/* TODO extend User instead of static method */
+		JSONObject object = new JSONObject();
+		for (String key : user.getAttributeSet()) {
+			object.put(key, user.getAttributeValue(key));
+		}
+		object.put("_id", user.id);
+		return object;
 	}
 
-	public User getUser(String id) {
-		HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + id, "GET",
-				this.authenticationHeader());
-		String response = request.send();
-		JSONObject jsonUser = new JSONObject(response);
+	public static String userToJSONString(User user) {
+		/* TODO extend User instead of static method */
+		JSONObject object = ForgeRockDB.userToJSONObject(user);
+		return object.toString();
+	}
 
-		Map<String, String> attributes = new Hashtable<String, String>();
+	/* TODO jsonToUser methods*/
 
-		for (String attr : jsonUser.toMap().keySet()) {
-			if (jsonUser.get(attr) instanceof String) {
-				attributes.put(attr, (String) jsonUser.get(attr));
-			}
-		}
-
-		User user = new User(jsonUser.getString("_id"), attributes);
-
-		return user;
+	public Iterator<User> iterator() {
+		return new ForgeRockDBIterator(this);
 	}
 
 	public Map<String, String> authenticationHeader() {
@@ -42,5 +41,53 @@ public class ForgeRockDB implements UserDB {
 		header.put("X-OpenIDM-Username", this.openIDMUsername);
 		header.put("X-OpenIDM-Password", this.openIDMPassword);
 		return header;
+	}
+	
+	public Map<String, String> basicIDMHeader() {
+		Map<String, String> header = this.authenticationHeader();
+		header.put("Content-Type", "application/json");
+		return header;
+	}
+	
+	public User getUser(String id) {
+		HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + id, "GET",
+				this.basicIDMHeader());
+		HTTPResponse response = request.send();
+		JSONObject jsonUser = new JSONObject(response.response);
+
+		Map<String, String> attributes = new Hashtable<String, String>();
+		for (String attr : jsonUser.toMap().keySet()) {
+			if (jsonUser.get(attr) instanceof String) {
+				attributes.put(attr, (String) jsonUser.get(attr));
+			}
+		}
+		User user = new User(jsonUser.getString("_id"), attributes);
+		return user;
+	}
+
+	public boolean userExists(String id) {
+		HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + id, "GET",
+				this.basicIDMHeader());
+		HTTPResponse response = request.send();
+
+		return (response.code == 200);
+	}
+
+	public boolean deleteUser(String id) {
+		HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + id, "DELETE",
+				this.basicIDMHeader());
+		HTTPResponse response = request.send();
+
+		return (response.code == 200);
+	}
+
+	public boolean updateUser(User user) {
+		Map<String, String> headers = this.basicIDMHeader();
+		headers.put("data", ForgeRockDB.userToJSONString(user));
+		HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + user.id, "PUT",
+				headers);
+		HTTPResponse response = request.send();
+		
+		return (response.code == 201);
 	}
 }
