@@ -1,7 +1,6 @@
 package ro.dcsi.internship;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -20,6 +19,7 @@ public class HTTPRequest {
 	}
 
 	public String send() {
+		/* TODO better error checking */
 		HttpURLConnection connection = null;
 		try {
 			// Open connection
@@ -52,5 +52,9 @@ public class HTTPRequest {
 				connection.disconnect();
 			}
 		}
+	}
+
+	public String toString() {
+		return "HTTPRequest [\n\turl=" + url + ", \n\tmethod=" + method + ", \n\theaders=" + headers + "\n]";
 	}
 }

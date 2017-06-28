@@ -7,12 +7,14 @@ import org.junit.Test;
 public class HTTPRequestTest {
 	@Test
 	public void simpleTest() {
+		/* TODO general tests */
 		Map<String, String> headers = new Hashtable<String, String>();
 		headers.put("X-OpenIDM-Username", "openidm-admin");
 		headers.put("X-OpenIDM-Password", "openidm-admin");
-		String url = "http://localhost:8080/openidm/managed/user/75dbcfad-fb4d-4963-81fc-6a8c7175ffce";
+		String url = "http://localhost:8080/openidm/managed/user/75dbcfad-fb4d-4963-81fc-6a8c7175ffce?_prettyPrint=true";
 		HTTPRequest request = new HTTPRequest(url, "GET", headers);
 		String response = request.send();
-		System.out.println(response);
+		System.out.println("Requested " + request);
+		System.out.println("Recieved " + response);
 	}
 }
