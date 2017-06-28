@@ -40,6 +40,11 @@
       <artifactId>fastcsv</artifactId>
       <version>1.0.1</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.3</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -59,7 +64,8 @@
           <target>
             <echo message="ant cleanup started." />
             <fixcrlf srcdir="${basedir}" eol="unix" tab="remove"
-              tablength="2" includes="**/*.java **/*.xml" preservelastmodified="true" />
+              tablength="2" includes="**/*.java **/*.xml"
+              preservelastmodified="true" />
             <echo message="ant cleanup finished." />
           </target>
         </configuration>
