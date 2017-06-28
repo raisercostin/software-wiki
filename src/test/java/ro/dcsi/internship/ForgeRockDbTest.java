@@ -6,13 +6,18 @@ import java.util.Hashtable;
 
 import org.junit.Test;
 
-public class ForgeRockDBTest {
-  String existingUserId = "ForgeRockDBTestExistingUser", nonExistingUserId = "ForgeRockDBTestNonExistingUser";
+public class ForgeRockDbTest {
+  private static final String forgeRockHostname = "http://dcs-xps:8080";
+  private static final String username = "openidm-admin";
+  private static final String pass = "openidm-admin2";
+
+  String existingUserId = "ForgeRockDBTestExistingUser";
+  String nonExistingUserId = "ForgeRockDBTestNonExistingUser";
 
   @Test
   public void test() {
     /* TODO general tests */
-    ForgeRockDB db = new ForgeRockDB("http://localhost:8080", "openidm-admin", "openidm-admin");
+    ForgeRockDB db = new ForgeRockDB(forgeRockHostname, username, pass);
     User user = db.getUser(existingUserId);
     assertNotNull(user);
     assertEquals(user.getAttributeValue("city"), "buch");
@@ -21,7 +26,7 @@ public class ForgeRockDBTest {
   @Test
   public void userExistsTest() {
     /* TODO general tests */
-    ForgeRockDB db = new ForgeRockDB("http://localhost:8080", "openidm-admin", "openidm-admin");
+    ForgeRockDB db = new ForgeRockDB(forgeRockHostname, username, pass);
     assertTrue(db.userExists(existingUserId));
     assertFalse(db.userExists(nonExistingUserId));
   }
@@ -29,7 +34,7 @@ public class ForgeRockDBTest {
   @Test
   public void deleteUserTest() {
     /* TODO general tests */
-    ForgeRockDB db = new ForgeRockDB("http://localhost:8080", "openidm-admin", "openidm-admin");
+    ForgeRockDB db = new ForgeRockDB(forgeRockHostname, username, pass);
     assertTrue(db.deleteUser(existingUserId));
     assertFalse(db.deleteUser(nonExistingUserId));
   }
@@ -41,7 +46,7 @@ public class ForgeRockDBTest {
     attributes.put("_id", "Joe");
     attributes.put("mail", "joe@ex.com");
     User user = new User("Joe", attributes);
-    ForgeRockDB db = new ForgeRockDB("http://localhost:8080", "openidm-admin", "openidm-admin");
+    ForgeRockDB db = new ForgeRockDB(forgeRockHostname, username, pass);
     db.updateUser(user);
   }
 }

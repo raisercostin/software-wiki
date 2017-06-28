@@ -3,6 +3,8 @@ package ro.dcsi.internship;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ForgeRockDB implements UserDB {
@@ -30,7 +32,7 @@ public class ForgeRockDB implements UserDB {
     return object.toString();
   }
 
-  /* TODO jsonToUser methods*/
+  /* TODO jsonToUser methods */
 
   public Iterator<User> iterator() {
     return new ForgeRockDBIterator(this);
@@ -53,7 +55,12 @@ public class ForgeRockDB implements UserDB {
     HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + id, "GET",
         this.basicIDMHeader());
     HTTPResponse response = request.send();
-    JSONObject jsonUser = new JSONObject(response.response);
+    JSONObject jsonUser = null;
+    try {
+      jsonUser = new JSONObject(response.response);
+    } catch (JSONException e) {
+      throw new RuntimeException("When response came "+response+" an exception was thrown with "+request+" .", e);
+    }
     if (response.code == 200) {
       Map<String, String> attributes = new Hashtable<String, String>();
       for (String attr : jsonUser.toMap().keySet()) {
