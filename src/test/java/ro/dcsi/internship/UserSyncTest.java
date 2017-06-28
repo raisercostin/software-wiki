@@ -1,8 +1,8 @@
 package ro.dcsi.internship;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Test;
