@@ -1,49 +1,34 @@
 package ro.dcsi.internship;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Iterator;
 
 import org.junit.Test;
 
 public class UserSyncTest {
 
-	@Test
-	public void test() {
-		List<User> users = UserSync.readUsers("src/test/resources/SampleCSVFile.csv");// "users.csv");
-		assertEquals(100, users.size());
-		assertEquals("Eldon Base for stackable storage shelf", users.get(0).name);
-	}
-	
-	@Test(expected=RuntimeException.class)
-	public void testFileNotFound() {
-		List<User> users = UserSync.readUsers("src/test/resources/SampleCSVFile-non-existing.csv");// "users.csv");
-	}
-	
-	@Test
-	public void writeText() throws IOException{
+    @Test
+    public void test() {
+        Iterator<User> users = new FileUserManager2().readUsers("src/test/resources/users1.csv");
+        assertNotNull(users);
+        // assertEquals(5,users.size());
+        // assertEquals("ion",users.get(0).surname);
+    }
 
-        String csvFile = "src/test/resources/SampleWriteFile.csv";
-        FileWriter writer = new FileWriter(csvFile);
+    @Test
+    public void testHugeFile() {
+        Iterable<User> users = new FileUserManager2().readUsersFromHugeFile("src/test/resources/users1.csv");
+        User last = lastFrom(users);
+        assertEquals("doc", last.firstName);
+    }
 
-        UserSync.writeLine(writer, Arrays.asList("a", "b", "c", "d"));
-
-        //custom separator + quote
-        UserSync.writeLine(writer, Arrays.asList("aaa", "bb,b", "cc,c"), ',', '"');
-
-        //custom separator + quote
-        UserSync.writeLine(writer, Arrays.asList("aaa", "bbb", "cc,c"), '|', '\'');
-
-        //double-quotes
-        UserSync.writeLine(writer, Arrays.asList("aaa", "bbb", "cc\"c"));
-
-
-        writer.flush();
-        writer.close();
-
-	}
-	
+    private User lastFrom(Iterable<User> users) {
+        User last = null;
+        for (User user : users) {
+            last = user;
+        }
+        return last;
+    }
 }
