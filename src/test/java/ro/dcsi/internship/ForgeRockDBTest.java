@@ -7,11 +7,15 @@ import java.util.Hashtable;
 import org.junit.Test;
 
 public class ForgeRockDBTest {
+	String existingUserId = "ForgeRockDBTestExistingUser",
+			nonExistingUserId = "ForgeRockDBTestNonExistingUser";
+
 	@Test
 	public void test() {
 		/* TODO general tests */
 		ForgeRockDB db = new ForgeRockDB("http://localhost:8080", "openidm-admin", "openidm-admin");
-		User user = db.getUser("75dbcfad-fb4d-4963-81fc-6a8c7175ffce");
+		User user = db.getUser(existingUserId);
+		assertNotNull(user);
 		assertEquals(user.getAttributeValue("city"), "buch");
 	}
 
@@ -19,18 +23,18 @@ public class ForgeRockDBTest {
 	public void userExistsTest() {
 		/* TODO general tests */
 		ForgeRockDB db = new ForgeRockDB("http://localhost:8080", "openidm-admin", "openidm-admin");
-		assertTrue(db.userExists("75dbcfad-fb4d-4963-81fc-6a8c7175ffce"));
-		assertFalse(db.userExists("sir"));
+		assertTrue(db.userExists(existingUserId));
+		assertFalse(db.userExists(nonExistingUserId));
 	}
-	
+
 	@Test
 	public void deleteUserTest() {
 		/* TODO general tests */
 		ForgeRockDB db = new ForgeRockDB("http://localhost:8080", "openidm-admin", "openidm-admin");
-		assertTrue(db.deleteUser("75dbcfad-fb4d-4963-81fc-6a8c7175ffce"));
-		assertFalse(db.deleteUser("sir"));
+		assertTrue(db.deleteUser(existingUserId));
+		assertFalse(db.deleteUser(nonExistingUserId));
 	}
-	
+
 	@Test
 	public void updateUserTest() {
 		/* TODO general tests */
