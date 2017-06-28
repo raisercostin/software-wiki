@@ -4,6 +4,7 @@ import java.util.Hashtable;
 import java.util.Map;
 
 public class User {
+	/* TODO add support for complex attributes */
 	public final String id;
 	private final Hashtable<String, String> attributes = new Hashtable<String, String>();
 	
