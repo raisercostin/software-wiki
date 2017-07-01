@@ -105,10 +105,17 @@ public class ForgeRockDB implements UserDB {
 
   public boolean addUser(User user) {
     Map<String, String> headers = this.basicIDMHeader();
-    HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + user.getId(), "PUT", headers,
-        ForgeRockDB.userToJSONString(user));
-    HTTPResponse response = request.send();
-
-    return (response.code == 201);
+    if (!this.userExists(user.getId())) {
+      HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + user.getId(), "PUT", headers,
+          ForgeRockDB.userToJSONString(user));
+      HTTPResponse response = request.send();
+      System.out.println(request);
+      System.out.println(response);
+      
+      return (response.code == 201);
+    }
+    else {
+      return false;
+    }
   }
 }
