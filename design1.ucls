@@ -19,8 +19,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="3" language="java" name="ro.dcsi.internship.UserDB" project="usersync" 
-    file="/usersync/src/main/java/ro/dcsi/internship/UserDB.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="3" language="java" name="ro.dcsi.internship.UserDb" project="usersync" 
+    file="/usersync/src/main/java/ro/dcsi/internship/UserDb.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="81" width="126" x="333" y="423"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -77,11 +77,7 @@
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="4"/>  
   </dependency>  
-  <realization id="13">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="3"/>  
-  </realization>  
-  <dependency id="14">    
+  <dependency id="13">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="5"/>  
   </dependency>  

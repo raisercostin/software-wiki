@@ -8,7 +8,7 @@ import java.util.Optional;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ForgeRockDb implements UserDB {
+public class ForgeRockDb implements UserDb {
   public final String openIDMServer, openIDMUsername, openIDMPassword;
 
   public ForgeRockDb(String openIDMServer, String openIDMUsername, String openIDMPassword) {
