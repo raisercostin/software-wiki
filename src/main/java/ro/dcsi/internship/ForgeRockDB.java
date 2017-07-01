@@ -4,11 +4,10 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Optional;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ForgeRockDB implements UserDB {
+public class ForgeRockDB implements UserDB, UserSync {
   public final String openIDMServer;
   public final String openIDMUsername;
   public final String openIDMPassword;
@@ -61,9 +60,10 @@ public class ForgeRockDB implements UserDB {
     JSONObject jsonUser = null;
     try {
       jsonUser = new JSONObject(response.response);
-    } catch (JSONException e) {
-      throw new RuntimeException("When response came " + response + " an exception was thrown with " + request + " .",
-          e);
+    }
+    catch (JSONException e) {
+      throw new RuntimeException(
+          "When response came " + response + " an exception was thrown with " + request + " .", e);
     }
     if (response.code == 200) {
       Map<String, String> attributes = new Hashtable<String, String>();
@@ -74,7 +74,8 @@ public class ForgeRockDB implements UserDB {
       }
       User user = new User(jsonUser.getString("_id"), attributes);
       return Optional.of(user);
-    } else {
+    }
+    else {
       return Optional.empty();
     }
   }
@@ -88,16 +89,17 @@ public class ForgeRockDB implements UserDB {
   }
 
   public boolean deleteUser(String id) {
-    HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + id, "DELETE",
-        this.basicIDMHeader());
+    HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + id,
+        "DELETE", this.basicIDMHeader());
     HTTPResponse response = request.send();
     return (response.code == 200);
   }
 
   public boolean updateUser(User user) {
     Map<String, String> headers = this.basicIDMHeader();
-    HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + user.getId() + "#_update", "PUT",
-        headers, ForgeRockDB.userToJSONString(user));
+    HTTPRequest request = new HTTPRequest(
+        this.openIDMServer + "/openidm/managed/user/" + user.getId() + "#_update", "PUT", headers,
+        ForgeRockDB.userToJSONString(user));
     HTTPResponse response = request.send();
 
     return (response.code == 200);
@@ -106,14 +108,19 @@ public class ForgeRockDB implements UserDB {
   public boolean addUser(User user) {
     Map<String, String> headers = this.basicIDMHeader();
     if (!this.userExists(user.getId())) {
-      HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + user.getId(), "PUT", headers,
+      HTTPRequest request = new HTTPRequest(
+          this.openIDMServer + "/openidm/managed/user/" + user.getId(), "PUT", headers,
           ForgeRockDB.userToJSONString(user));
       HTTPResponse response = request.send();
-      
+
       return (response.code == 201);
     }
     else {
       return false;
     }
+  }
+  
+  public Iterator<User> readUsers() {
+    return this.iterator();
   }
 }

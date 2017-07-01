@@ -1,24 +1,23 @@
 package ro.dcsi.internship;
 
 import static org.junit.Assert.*;
-
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Optional;
-
 import org.junit.AfterClass;
 import org.junit.Test;
 
 public class HTTPRequestTest {
   private static String existingUserId = "HTTPRequestTestExistingUser";
   private static String nonExistingUserId = "HTTPRequestTestNonExistingUser";
-  private static String openIdmServer = "http://localhost:8080";
-  private static String openIdmUsername = "openidm-admin";
-  private static String openIdmPassword = "openidm-admin";
+  private static String openIDMServer = "http://localhost:8080";
+  private static String openIDMUsername = "openidm-admin";
+  private static String openIDMPassword = "openidm-admin";
 
   @AfterClass
   public static void prepareDatabase() {
-    ForgeRockDB db = new ForgeRockDB(openIdmServer, openIdmUsername, openIdmPassword);
+    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
+    db.deleteUser(existingUserId);
     db.deleteUser(nonExistingUserId);
     Hashtable<String, String> existingUserAttributes = new Hashtable<String, String>();
     existingUserAttributes.put("_id", existingUserId);
@@ -33,7 +32,7 @@ public class HTTPRequestTest {
   @Test
   public void prepareDatabaseTest() {
     HTTPRequestTest.prepareDatabase();
-    ForgeRockDB db = new ForgeRockDB(openIdmServer, openIdmUsername, openIdmPassword);
+    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
     Optional<User> user = db.getUser(existingUserId);
     assertTrue(user.isPresent());
     assertEquals(existingUserId, db.getUser(existingUserId).get().getId());
