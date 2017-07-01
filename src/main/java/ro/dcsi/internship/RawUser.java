@@ -25,4 +25,8 @@ public class RawUser {
   public String getId() {
     return attributes.get("_id");
   }
+
+  public String toString() {
+    return "RawUser [attributes=" + attributes + "]";
+  }
 }

@@ -32,7 +32,6 @@ public class HTTPRequestTest {
 
   @Test
   public void prepareDatabaseTest() {
-    /* TODO general tests */
     HTTPRequestTest.prepareDatabase();
     ForgeRockDB db = new ForgeRockDB(openIdmServer, openIdmUsername, openIdmPassword);
     Optional<User> user = db.getUser(existingUserId);
@@ -42,7 +41,6 @@ public class HTTPRequestTest {
 
   @Test
   public void simpleTest() {
-    /* TODO general tests */
     HTTPRequestTest.prepareDatabase();
     Map<String, String> headers = new Hashtable<String, String>();
     headers.put("X-OpenIDM-Username", "openidm-admin");
@@ -59,7 +57,6 @@ public class HTTPRequestTest {
 
   @Test
   public void simple404Test() {
-    /* TODO general tests */
     HTTPRequestTest.prepareDatabase();
     Map<String, String> headers = new Hashtable<String, String>();
     headers.put("X-OpenIDM-Username", "openidm-admin");
@@ -76,7 +73,6 @@ public class HTTPRequestTest {
 
   @Test
   public void dataTest() {
-    /* TODO general tests */
     HTTPRequestTest.prepareDatabase();
     Map<String, String> headers = new Hashtable<String, String>();
     headers.put("X-OpenIDM-Username", "openidm-admin");
