@@ -1,5 +1,9 @@
 *.class
 
+# UML
+design1.png
+design1.ucls
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
