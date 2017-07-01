@@ -4,13 +4,36 @@ import static org.junit.Assert.*;
 
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Optional;
+
 import org.junit.Test;
 
 public class HTTPRequestTest {
-  String existingUserId = "HTTPRequestTestExistingUser", nonExistingUserId = "HTTPRequestTestNonExistingUser";
+  private String existingUserId = "HTTPRequestTestExistingUser", nonExistingUserId = "HTTPRequestTestNonExistingUser";
+  private String openIdmServer = "http://localhost:8080", openIdmUsername = "openidm-admin",
+      openIdmPassword = "openidm-admin";
 
   public void prepareDatabase() {
+    ForgeRockDB db = new ForgeRockDB(openIdmServer, openIdmUsername, openIdmPassword);
+    db.deleteUser(nonExistingUserId);
+    Hashtable<String, String> existingUserAttributes = new Hashtable<String, String>();
+    existingUserAttributes.put("_id", existingUserId);
+    existingUserAttributes.put("userName", existingUserId);
+    existingUserAttributes.put("mail", "ExistingUser@ex.com");
+    existingUserAttributes.put("sn", existingUserId);
+    existingUserAttributes.put("givenName", existingUserId);
+    User existingUser = new User(existingUserId, existingUserAttributes);
+    db.addUser(existingUser);
+  }
 
+  @Test
+  public void prepareDatabaseTest() {
+    /* TODO general tests */
+    this.prepareDatabase();
+    ForgeRockDB db = new ForgeRockDB(openIdmServer, openIdmUsername, openIdmPassword);
+    Optional<User> user = db.getUser(existingUserId);
+    assertTrue(user.isPresent());
+    assertEquals(existingUserId, db.getUser(existingUserId).get().getId());
   }
 
   @Test
@@ -24,9 +47,10 @@ public class HTTPRequestTest {
     String url = "http://localhost:8080/openidm/managed/user/" + existingUserId + "?_prettyPrint=true";
     HTTPRequest request = new HTTPRequest(url, "GET", headers);
     HTTPResponse response = request.send();
+    
     System.out.println("Requested " + request);
     System.out.println("Recieved " + response);
-    assertEquals(response.code, 200);
+    assertEquals(200, response.code);
   }
 
   @Test
@@ -40,9 +64,10 @@ public class HTTPRequestTest {
     String url = "http://localhost:8080/openidm/managed/user/" + nonExistingUserId + "?_prettyPrint=true";
     HTTPRequest request = new HTTPRequest(url, "GET", headers);
     HTTPResponse response = request.send();
+    
     System.out.println("Requested " + request);
     System.out.println("Recieved " + response);
-    assertEquals(response.code, 404);
+    assertEquals(404, response.code);
   }
 
   @Test
@@ -55,11 +80,18 @@ public class HTTPRequestTest {
     headers.put("Content-Type", "application/json");
     String url = "http://localhost:8080/openidm/managed/user/" + nonExistingUserId + "?_prettyPrint=true";
     HTTPRequest request = new HTTPRequest(url, "PUT", headers,
-        "{\"givenName\":\"joe\",\"sn\":\"joeSN\",\"userName\":\"joe\",\"_id\":\"joe\",\"mail\":\"joe@ex.com\"}");
+        "{\"givenName\":\"" + nonExistingUserId + "\",\"sn\":\"" + nonExistingUserId + "\",\"userName\":\""
+            + nonExistingUserId + "\",\"_id\":\"" + nonExistingUserId + "\",\"mail\":\"NonExistingUser@ex.com\"}");
     HTTPResponse response = request.send();
+    
     System.out.println("Requested " + request);
     System.out.println("Recieved " + response);
-
-    assertEquals(response.code, 201);
+    assertEquals(201, response.code);
+    
+    HTTPRequest request2 = new HTTPRequest(url, "DELETE", headers);
+    HTTPResponse response2 = request2.send();
+    System.out.println("Requested " + request2);
+    System.out.println("Recieved " + response2);
+    assertEquals(200, response2.code);
   }
 }

@@ -52,17 +52,21 @@ public class HTTPRequest {
       } else {
         is = connection.getErrorStream();
       }
-      BufferedReader rd = new BufferedReader(new InputStreamReader(is));
       StringBuilder response = new StringBuilder();
-      String line;
-      while ((line = rd.readLine()) != null) {
-        response.append(line);
-        response.append('\n');
+      if (is != null) {
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+        String line;
+        while ((line = rd.readLine()) != null) {
+          response.append(line);
+          response.append('\n');
+        }
+        rd.close();
       }
-      rd.close();
       return new HTTPResponse(response.toString(), connection.getResponseCode());
     } catch (Exception ex) {
-      throw new RuntimeException(ex);
+      RuntimeException rex = new RuntimeException("Error on request:\n" + this, ex);
+      rex.printStackTrace();
+      throw rex;
     } finally {
       if (connection != null) {
         connection.disconnect();
