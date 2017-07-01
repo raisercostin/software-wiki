@@ -3,14 +3,15 @@ package ro.dcsi.internship;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Optional;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ForgeRockDB implements UserDB {
+public class ForgeRockDb implements UserDB {
   public final String openIDMServer, openIDMUsername, openIDMPassword;
 
-  public ForgeRockDB(String openIDMServer, String openIDMUsername, String openIDMPassword) {
+  public ForgeRockDb(String openIDMServer, String openIDMUsername, String openIDMPassword) {
     this.openIDMServer = openIDMServer;
     this.openIDMUsername = openIDMUsername;
     this.openIDMPassword = openIDMPassword;
@@ -28,7 +29,7 @@ public class ForgeRockDB implements UserDB {
 
   public static String userToJSONString(User user) {
     /* TODO extend User instead of static method */
-    JSONObject object = ForgeRockDB.userToJSONObject(user);
+    JSONObject object = ForgeRockDb.userToJSONObject(user);
     return object.toString();
   }
 
@@ -51,7 +52,7 @@ public class ForgeRockDB implements UserDB {
     return header;
   }
 
-  public User getUser(String id) {
+  public Optional<User> getUser(String id) {
     HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + id, "GET",
         this.basicIDMHeader());
     HTTPResponse response = request.send();
@@ -59,7 +60,8 @@ public class ForgeRockDB implements UserDB {
     try {
       jsonUser = new JSONObject(response.response);
     } catch (JSONException e) {
-      throw new RuntimeException("When response came "+response+" an exception was thrown with "+request+" .", e);
+      throw new RuntimeException("When response came " + response + " an exception was thrown with " + request + " .",
+          e);
     }
     if (response.code == 200) {
       Map<String, String> attributes = new Hashtable<String, String>();
@@ -68,11 +70,10 @@ public class ForgeRockDB implements UserDB {
           attributes.put(attr, (String) jsonUser.get(attr));
         }
       }
-      System.out.println(jsonUser);
       User user = new User(jsonUser.getString("_id"), attributes);
-      return user;
+      return Optional.of(user);
     } else {
-      return null;
+      return Optional.empty();
     }
   }
 
@@ -88,14 +89,22 @@ public class ForgeRockDB implements UserDB {
     HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + id, "DELETE",
         this.basicIDMHeader());
     HTTPResponse response = request.send();
-
     return (response.code == 200);
   }
 
   public boolean updateUser(User user) {
     Map<String, String> headers = this.basicIDMHeader();
-    headers.put("data", ForgeRockDB.userToJSONString(user));
-    HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + user.getId(), "PUT", headers);
+    HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + user.getId() + "#_update", "PUT",
+        headers, ForgeRockDb.userToJSONString(user));
+    HTTPResponse response = request.send();
+
+    return (response.code == 200);
+  }
+
+  public boolean addUser(User user) {
+    Map<String, String> headers = this.basicIDMHeader();
+    HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + user.getId(), "PUT", headers,
+        ForgeRockDb.userToJSONString(user));
     HTTPResponse response = request.send();
 
     return (response.code == 201);
