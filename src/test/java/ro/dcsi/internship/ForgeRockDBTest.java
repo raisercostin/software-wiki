@@ -8,17 +8,17 @@ import java.util.Optional;
 import org.junit.AfterClass;
 import org.junit.Test;
 
-public class ForgeRockDbTest {
+public class ForgeRockDBTest {
   /* TODO add required field checks */
-  private static String openIdmServer = "http://localhost:8080";
-  private static String openIdmUsername = "openidm-admin";
-  private static String openIdmPassword = "openidm-admin";
+  private static String openIDMServer = "http://localhost:8080";
+  private static String openIDMUsername = "openidm-admin";
+  private static String openIDMPassword = "openidm-admin";
   private static String existingUserId = "ForgeRockDBTestExistingUser";
   private static String nonExistingUserId = "ForgeRockDBTestNonExistingUser";
   
   @AfterClass
   public static void prepareDatabase() {
-    ForgeRockDb db = new ForgeRockDb(openIdmServer, openIdmUsername, openIdmPassword);
+    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
     db.deleteUser(nonExistingUserId);
     Hashtable<String, String> existingUserAttributes = new Hashtable<String, String>();
     existingUserAttributes.put("_id", existingUserId);
@@ -32,9 +32,8 @@ public class ForgeRockDbTest {
   
   @Test
   public void prepareDatabaseTest() {
-    /* TODO general tests */
-    ForgeRockDbTest.prepareDatabase();
-    ForgeRockDb db = new ForgeRockDb(openIdmServer, openIdmUsername, openIdmPassword);
+    ForgeRockDBTest.prepareDatabase();
+    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
     Optional<User> user = db.getUser(existingUserId);
     assertTrue(user.isPresent());
     assertEquals(existingUserId, db.getUser(existingUserId).get().getId());
@@ -42,9 +41,8 @@ public class ForgeRockDbTest {
 
   @Test
   public void getUserTest() {
-    /* TODO general tests */
-    ForgeRockDbTest.prepareDatabase();
-    ForgeRockDb db = new ForgeRockDb(openIdmServer, openIdmUsername, openIdmPassword);
+    ForgeRockDBTest.prepareDatabase();
+    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
     Optional<User> user = db.getUser(existingUserId);
     assertTrue(user.isPresent());
     assertEquals(existingUserId, user.get().getAttributeValue("sn"));
@@ -55,27 +53,24 @@ public class ForgeRockDbTest {
 
   @Test
   public void userExistsTest() {
-    /* TODO general tests */
-    ForgeRockDbTest.prepareDatabase();
-    ForgeRockDb db = new ForgeRockDb(openIdmServer, openIdmUsername, openIdmPassword);
+    ForgeRockDBTest.prepareDatabase();
+    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
     assertTrue(db.userExists(existingUserId));
     assertFalse(db.userExists(nonExistingUserId));
   }
 
   @Test
   public void deleteUserTest() {
-    /* TODO general tests */
-    ForgeRockDbTest.prepareDatabase();
-    ForgeRockDb db = new ForgeRockDb(openIdmServer, openIdmUsername, openIdmPassword);
+    ForgeRockDBTest.prepareDatabase();
+    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
     assertTrue(db.deleteUser(existingUserId));
     assertFalse(db.deleteUser(nonExistingUserId));
   }
 
   @Test
   public void updateUserTest() {
-    /* TODO general tests */
     /* TODO update nonExistingUser */
-    ForgeRockDbTest.prepareDatabase();
+    ForgeRockDBTest.prepareDatabase();
     Hashtable<String, String> attributes = new Hashtable<String, String>();
     attributes.put("_id", existingUserId);
     attributes.put("mail", "ExistingUser@ex.com");
@@ -85,7 +80,7 @@ public class ForgeRockDbTest {
     attributes.put("city", "Bucharest");
     attributes.put("customAttr", "customVal");
     User user = new User(existingUserId, attributes);
-    ForgeRockDb db = new ForgeRockDb(openIdmServer, openIdmUsername, openIdmPassword);
+    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
     assertTrue(db.updateUser(user));
     assertTrue(db.getUser(existingUserId).isPresent());
     assertEquals("joe", db.getUser(existingUserId).get().getAttributeValue("userName"));
@@ -96,7 +91,7 @@ public class ForgeRockDbTest {
   @Test
   public void addUserTest() {
     /* TODO add existingUser */
-    ForgeRockDbTest.prepareDatabase();
+    ForgeRockDBTest.prepareDatabase();
     Hashtable<String, String> attributes = new Hashtable<String, String>();
     attributes.put("_id", nonExistingUserId);
     attributes.put("mail", "NonExistingUser@ex.com");
@@ -104,7 +99,7 @@ public class ForgeRockDbTest {
     attributes.put("givenName", nonExistingUserId);
     attributes.put("userName", nonExistingUserId);
     User user = new User(nonExistingUserId, attributes);
-    ForgeRockDb db = new ForgeRockDb(openIdmServer, openIdmUsername, openIdmPassword);
+    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
     assertTrue(db.addUser(user));
     assertTrue(db.getUser(nonExistingUserId).isPresent());
     assertEquals(nonExistingUserId, db.getUser(nonExistingUserId).get().getAttributeValue("userName"));

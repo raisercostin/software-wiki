@@ -8,10 +8,12 @@ import java.util.Optional;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ForgeRockDb implements UserDb {
-  public final String openIDMServer, openIDMUsername, openIDMPassword;
+public class ForgeRockDB implements UserDB {
+  public final String openIDMServer;
+  public final String openIDMUsername;
+  public final String openIDMPassword;
 
-  public ForgeRockDb(String openIDMServer, String openIDMUsername, String openIDMPassword) {
+  public ForgeRockDB(String openIDMServer, String openIDMUsername, String openIDMPassword) {
     this.openIDMServer = openIDMServer;
     this.openIDMUsername = openIDMUsername;
     this.openIDMPassword = openIDMPassword;
@@ -29,7 +31,7 @@ public class ForgeRockDb implements UserDb {
 
   public static String userToJSONString(User user) {
     /* TODO extend User instead of static method */
-    JSONObject object = ForgeRockDb.userToJSONObject(user);
+    JSONObject object = ForgeRockDB.userToJSONObject(user);
     return object.toString();
   }
 
@@ -95,7 +97,7 @@ public class ForgeRockDb implements UserDb {
   public boolean updateUser(User user) {
     Map<String, String> headers = this.basicIDMHeader();
     HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + user.getId() + "#_update", "PUT",
-        headers, ForgeRockDb.userToJSONString(user));
+        headers, ForgeRockDB.userToJSONString(user));
     HTTPResponse response = request.send();
 
     return (response.code == 200);
@@ -104,7 +106,7 @@ public class ForgeRockDb implements UserDb {
   public boolean addUser(User user) {
     Map<String, String> headers = this.basicIDMHeader();
     HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + user.getId(), "PUT", headers,
-        ForgeRockDb.userToJSONString(user));
+        ForgeRockDB.userToJSONString(user));
     HTTPResponse response = request.send();
 
     return (response.code == 201);

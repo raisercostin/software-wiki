@@ -18,7 +18,7 @@ public class HTTPRequestTest {
 
   @AfterClass
   public static void prepareDatabase() {
-    ForgeRockDb db = new ForgeRockDb(openIdmServer, openIdmUsername, openIdmPassword);
+    ForgeRockDB db = new ForgeRockDB(openIdmServer, openIdmUsername, openIdmPassword);
     db.deleteUser(nonExistingUserId);
     Hashtable<String, String> existingUserAttributes = new Hashtable<String, String>();
     existingUserAttributes.put("_id", existingUserId);
@@ -34,7 +34,7 @@ public class HTTPRequestTest {
   public void prepareDatabaseTest() {
     /* TODO general tests */
     HTTPRequestTest.prepareDatabase();
-    ForgeRockDb db = new ForgeRockDb(openIdmServer, openIdmUsername, openIdmPassword);
+    ForgeRockDB db = new ForgeRockDB(openIdmServer, openIdmUsername, openIdmPassword);
     Optional<User> user = db.getUser(existingUserId);
     assertTrue(user.isPresent());
     assertEquals(existingUserId, db.getUser(existingUserId).get().getId());

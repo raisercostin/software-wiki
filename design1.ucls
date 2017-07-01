@@ -10,8 +10,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="ro.dcsi.internship.ForgeRockDb" project="usersync" 
-    file="/usersync/src/main/java/ro/dcsi/internship/ForgeRockDb.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="ro.dcsi.internship.ForgeRockDB" project="usersync" 
+    file="/usersync/src/main/java/ro/dcsi/internship/ForgeRockDB.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="189" width="230" x="250" y="194"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -19,8 +19,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="3" language="java" name="ro.dcsi.internship.UserDb" project="usersync" 
-    file="/usersync/src/main/java/ro/dcsi/internship/UserDb.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="3" language="java" name="ro.dcsi.internship.UserDB" project="usersync" 
+    file="/usersync/src/main/java/ro/dcsi/internship/UserDB.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="81" width="126" x="333" y="423"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -47,39 +47,39 @@
     </display>  
   </class>  
   <dependency id="6">    
-    <bendpoint x="510" y="194"/>    
-    <bendpoint x="510" y="423"/>    
-    <end type="SOURCE" refId="4"/>    
+    <bendpoint x="489" y="423"/>    
+    <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="1"/>  
   </dependency>  
-  <association id="7">    
+  <dependency id="7">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <association id="8">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="8" name="database">        
+      <attribute id="9" name="database">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="9" minimum="0" maximum="1">        
+      <multiplicity id="10" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="10">    
-    <bendpoint x="489" y="423"/>    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
   <dependency id="11">    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="1"/>  
   </dependency>  
   <dependency id="12">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="4"/>  
+    <bendpoint x="510" y="194"/>    
+    <bendpoint x="510" y="423"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
   </dependency>  
   <dependency id="13">    
     <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="TARGET" refId="4"/>  
   </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

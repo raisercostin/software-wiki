@@ -3,9 +3,9 @@ package ro.dcsi.internship;
 import java.util.Iterator;
 
 public class ForgeRockDBIterator implements Iterator<User> {
-  private final ForgeRockDb database;
+  private final ForgeRockDB database;
 
-  public ForgeRockDBIterator(ForgeRockDb database) {
+  public ForgeRockDBIterator(ForgeRockDB database) {
     this.database = database;
   }
 
