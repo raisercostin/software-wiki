@@ -1,12 +1,12 @@
 package ro.dcsi.internship;
 
-import java.util.Hashtable;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
 public class RawUser {
   /* TODO add support for complex attributes */
+  /* TODO toString */
   protected final Map<String, String> attributes = new TreeMap<String, String>();
 
   public RawUser(String id, Map<String, String> attributes) {
