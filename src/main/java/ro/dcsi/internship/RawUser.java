@@ -26,6 +26,6 @@ public class RawUser {
   }
 
   public String toString() {
-    return "RawUser [attributes=" + attributes + "]";
+    return this.getClass().getSimpleName() + "[attributes=" + attributes + "]";
   }
 }

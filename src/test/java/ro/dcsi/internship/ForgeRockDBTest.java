@@ -22,7 +22,7 @@ public class ForgeRockDBTest {
     Hashtable<String, String> existingUserAttributes = new Hashtable<String, String>();
     existingUserAttributes.put("_id", existingUserId);
     existingUserAttributes.put("userName", existingUserId);
-    existingUserAttributes.put("mail", "0ExistingUser@ex.com");
+    existingUserAttributes.put("mail", "ExistingUser@ex.com");
     existingUserAttributes.put("sn", existingUserId);
     existingUserAttributes.put("givenName", existingUserId);
     User existingUser = new User(existingUserId, existingUserAttributes);
@@ -111,7 +111,7 @@ public class ForgeRockDBTest {
     // add a non existing user
     Hashtable<String, String> attributes = new Hashtable<String, String>();
     attributes.put("_id", nonExistingUserId);
-    attributes.put("mail", "1NonExistingUser@ex.com");
+    attributes.put("mail", "NonExistingUser@ex.com");
     attributes.put("sn", nonExistingUserId);
     attributes.put("givenName", nonExistingUserId);
     attributes.put("userName", nonExistingUserId);
@@ -124,7 +124,7 @@ public class ForgeRockDBTest {
     // add an existing user
     Hashtable<String, String> attributes2 = new Hashtable<String, String>();
     attributes2.put("_id", existingUserId);
-    attributes2.put("mail", "2ExistingUser@ex.com");
+    attributes2.put("mail", "ExistingUser@ex.com");
     attributes2.put("sn", existingUserId);
     attributes2.put("givenName", existingUserId);
     attributes2.put("userName", "joe");
