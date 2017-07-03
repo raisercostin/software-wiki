@@ -18,9 +18,8 @@ public class ForgeRockDBIterator implements Iterator<User> {
 
   private void fetchUserList() {
     Map<String, String> headers = this.database.basicIDMHeader();
-    HTTPRequest request = new HTTPRequest(
-        this.database.openIDMServer + "/openidm/managed/user?_queryId=query-all-ids", "GET",
-        headers);
+    HTTPRequest request = new HTTPRequest(this.database.openIDMServer + "/openidm/managed/user?_queryId=query-all-ids",
+        "GET", headers);
     HTTPResponse response = request.send();
 
     if (response.code == 200) {
@@ -30,10 +29,9 @@ public class ForgeRockDBIterator implements Iterator<User> {
         JSONObject user = (JSONObject) obj;
         this.userIds.add((String) user.get("_id"));
       }
-    }
-    else {
-      throw new RuntimeException("Error while connecting to server with request " + request
-          + ".\nRecieved response " + response + ".");
+    } else {
+      throw new RuntimeException(
+          "Error while connecting to server with request " + request + ".\nRecieved response " + response + ".");
     }
   }
 
@@ -43,8 +41,7 @@ public class ForgeRockDBIterator implements Iterator<User> {
     }
     if (!this.userIds.isEmpty()) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
@@ -55,15 +52,12 @@ public class ForgeRockDBIterator implements Iterator<User> {
       User user = this.database.getUser(id).get();
       if (user != null) {
         return user;
-      }
-      else {
+      } else {
         throw new RuntimeException("Error loading next user: user " + user
             + " probably was in the database earlier but is no longer present.");
       }
-    }
-    else {
-      throw new RuntimeException(
-          "Error loading next user: no other users present in the database.");
+    } else {
+      throw new RuntimeException("Error loading next user: no other users present in the database.");
     }
   }
 }

@@ -26,7 +26,7 @@ public class ForgeRockDBIteratorTest {
     User existingUser = new User(existingUserId, existingUserAttributes);
     db.addUser(existingUser);
   }
-  
+
   @Test
   public void simpleIteratorTest() {
     ForgeRockDBIteratorTest.prepareDatabase();

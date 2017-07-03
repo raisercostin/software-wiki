@@ -10,6 +10,6 @@ public interface UserDB extends Iterable<User> {
   public boolean deleteUser(String id);
 
   public boolean updateUser(User user);
-  
+
   public boolean addUser(User user);
 }

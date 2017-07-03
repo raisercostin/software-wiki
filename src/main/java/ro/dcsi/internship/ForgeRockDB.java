@@ -60,10 +60,9 @@ public class ForgeRockDB implements UserDB, UserSync {
     JSONObject jsonUser = null;
     try {
       jsonUser = new JSONObject(response.response);
-    }
-    catch (JSONException e) {
-      throw new RuntimeException(
-          "When response came " + response + " an exception was thrown with " + request + " .", e);
+    } catch (JSONException e) {
+      throw new RuntimeException("When response came " + response + " an exception was thrown with " + request + " .",
+          e);
     }
     if (response.code == 200) {
       Map<String, String> attributes = new Hashtable<String, String>();
@@ -74,8 +73,7 @@ public class ForgeRockDB implements UserDB, UserSync {
       }
       User user = new User(jsonUser.getString("_id"), attributes);
       return Optional.of(user);
-    }
-    else {
+    } else {
       return Optional.empty();
     }
   }
@@ -89,17 +87,16 @@ public class ForgeRockDB implements UserDB, UserSync {
   }
 
   public boolean deleteUser(String id) {
-    HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + id,
-        "DELETE", this.basicIDMHeader());
+    HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + id, "DELETE",
+        this.basicIDMHeader());
     HTTPResponse response = request.send();
     return (response.code == 200);
   }
 
   public boolean updateUser(User user) {
     Map<String, String> headers = this.basicIDMHeader();
-    HTTPRequest request = new HTTPRequest(
-        this.openIDMServer + "/openidm/managed/user/" + user.getId() + "#_update", "PUT", headers,
-        ForgeRockDB.userToJSONString(user));
+    HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + user.getId() + "#_update",
+        "PUT", headers, ForgeRockDB.userToJSONString(user));
     HTTPResponse response = request.send();
 
     return (response.code == 200);
@@ -108,20 +105,18 @@ public class ForgeRockDB implements UserDB, UserSync {
   public boolean addUser(User user) {
     Map<String, String> headers = this.basicIDMHeader();
     if (!this.userExists(user.getId())) {
-      HTTPRequest request = new HTTPRequest(
-          this.openIDMServer + "/openidm/managed/user/" + user.getId(), "PUT", headers,
-          ForgeRockDB.userToJSONString(user));
+      HTTPRequest request = new HTTPRequest(this.openIDMServer + "/openidm/managed/user/" + user.getId(), "PUT",
+          headers, ForgeRockDB.userToJSONString(user));
       HTTPResponse response = request.send();
       //System.out.println(request);
       //System.out.println(response);
 
       return (response.code == 201);
-    }
-    else {
+    } else {
       return false;
     }
   }
-  
+
   public Iterator<User> readUsers() {
     return this.iterator();
   }

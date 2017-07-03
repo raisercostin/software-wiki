@@ -11,7 +11,6 @@ import org.junit.Test;
  */
 public class TestCSVWrite {
 
-
   @Test
   public void HeadersNotDefaultWrite() {
     String filename = "src/test/resources/CSV/headersnotdefault.csv";
@@ -35,25 +34,23 @@ public class TestCSVWrite {
     User uRead;
     User uReference;
 
-
-    while (usersRead.hasNext() && userReference.hasNext()){
+    while (usersRead.hasNext() && userReference.hasNext()) {
       uRead = usersRead.next();
-      uReference=userReference.next();
+      uReference = userReference.next();
 
       //Compare number if fields
-      assertEquals(uRead.getAttributeSet().size(),uReference.getAttributeSet().size());
+      assertEquals(uRead.getAttributeSet().size(), uReference.getAttributeSet().size());
 
       //Compare field values
-      for(String s:uRead.getAttributeSet())
-        assertEquals(uRead.getAttributeValue(s),uReference.getAttributeValue(s));
+      for (String s : uRead.getAttributeSet())
+        assertEquals(uRead.getAttributeValue(s), uReference.getAttributeValue(s));
     }
 
     //Compare number of entryes
-    assertEquals(usersRead.hasNext(),false);
-    assertEquals(userReference.hasNext(),false);
+    assertEquals(usersRead.hasNext(), false);
+    assertEquals(userReference.hasNext(), false);
 
   }
-
 
   @Test
   public void HeadersLargeWrite() {
@@ -78,22 +75,21 @@ public class TestCSVWrite {
     User uRead;
     User uReference;
 
-
-    while (usersRead.hasNext() && userReference.hasNext()){
+    while (usersRead.hasNext() && userReference.hasNext()) {
       uRead = usersRead.next();
-      uReference=userReference.next();
+      uReference = userReference.next();
 
       //Compare number if fields
-      assertEquals(uRead.getAttributeSet().size(),uReference.getAttributeSet().size());
+      assertEquals(uRead.getAttributeSet().size(), uReference.getAttributeSet().size());
 
       //Compare field values
-      for(String s:uRead.getAttributeSet())
-        assertEquals(uRead.getAttributeValue(s),uReference.getAttributeValue(s));
+      for (String s : uRead.getAttributeSet())
+        assertEquals(uRead.getAttributeValue(s), uReference.getAttributeValue(s));
     }
 
     //Compare number of entryes
-    assertEquals(usersRead.hasNext(),false);
-    assertEquals(userReference.hasNext(),false);
+    assertEquals(usersRead.hasNext(), false);
+    assertEquals(userReference.hasNext(), false);
   }
 
 }

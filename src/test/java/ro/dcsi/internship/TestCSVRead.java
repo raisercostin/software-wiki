@@ -12,8 +12,6 @@ import org.junit.Test;
  */
 public class TestCSVRead {
 
-
-
   @Test
   public void HeadersNotDefault() {
     CsvDB database = new CsvDB("src/test/resources/CSV/headersnotdefault.csv");
@@ -29,7 +27,6 @@ public class TestCSVRead {
     assertEquals("CatalinLast", buffer.getAttributeValue("name"));
     assertEquals("catalinlast@yahoo.com", buffer.getAttributeValue("email"));
   }
-
 
   @Test
   public void HeadersLarge() {

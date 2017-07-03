@@ -55,8 +55,7 @@ public class CsvExporter implements Exporter {
 
       } while (!u.getId().equals("-10"));
 
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       System.err.print("Write CSV ERROR!");
       throw new RuntimeException("Error writting to file", e);
     }

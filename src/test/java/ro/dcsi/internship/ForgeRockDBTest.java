@@ -118,8 +118,7 @@ public class ForgeRockDBTest {
     User user = new User(nonExistingUserId, attributes);
     assertTrue(db.addUser(user));
     assertTrue(db.getUser(nonExistingUserId).isPresent());
-    assertEquals(nonExistingUserId,
-        db.getUser(nonExistingUserId).get().getAttributeValue("userName"));
+    assertEquals(nonExistingUserId, db.getUser(nonExistingUserId).get().getAttributeValue("userName"));
 
     // add an existing user
     Hashtable<String, String> attributes2 = new Hashtable<String, String>();
