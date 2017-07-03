@@ -6,6 +6,7 @@ import de.siegmar.fastcsv.writer.CsvWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -45,7 +46,7 @@ public class CsvExporter implements Exporter {
                 if(iterator.hasNext())
                     u=iterator.next();
                 else
-                    u = new User("-10",null);
+                    u = new User("-10",new HashMap<>());
 
             }while(!u.getId().equals("-10"));
 
