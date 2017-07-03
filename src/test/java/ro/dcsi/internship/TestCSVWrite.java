@@ -17,18 +17,18 @@ public class TestCSVWrite {
     String path = "src/test/resources/CSV/"+filename2;
 
     //Read Users
-    CsvDB database = new CsvDB(path);
-    Iterator<User> users = database.readUsers();
+    CsvUserDao database = new CsvUserDao(path);
+    Iterator<User> users = database.read();
 
     //Write Users
     int location = filename2.lastIndexOf('.');
     String path2 = "target/"+filename2.substring(0, location) + "_backup" + filename2.substring(location);
-    Exporter exporter = new CsvExporter(path2);
-    exporter.export(users);
+    UserWriter exporter = new CsvUserDao(path2);
+    exporter.write(users);
 
     //Read Written file
-    CsvDB writeDatabase = new CsvDB(path2);
-    Iterator<User> usersRead = writeDatabase.readUsers();
+    CsvUserDao writeDatabase = new CsvUserDao(path2);
+    Iterator<User> usersRead = writeDatabase.read();
 
     Iterator<User> userReference = database.iterator();
 
@@ -59,18 +59,18 @@ public class TestCSVWrite {
     String path = "src/test/resources/CSV/"+filename2;
 
     //Read Users
-    CsvDB database = new CsvDB(path);
-    Iterator<User> users = database.readUsers();
+    CsvUserDao database = new CsvUserDao(path);
+    Iterator<User> users = database.read();
 
     //Write Users
     int location = filename2.lastIndexOf('.');
     String writeFilename = "target/"+filename2.substring(0, location) + "_backup" + filename2.substring(location);
-    Exporter exporter = new CsvExporter(writeFilename);
-    exporter.export(users);
+    UserWriter exporter = new CsvUserDao(writeFilename);
+    exporter.write(users);
 
     //Read Written file
-    CsvDB writeDatabase = new CsvDB(writeFilename);
-    Iterator<User> usersRead = writeDatabase.readUsers();
+    CsvUserDao writeDatabase = new CsvUserDao(writeFilename);
+    Iterator<User> usersRead = writeDatabase.read();
 
     Iterator<User> userReference = database.iterator();
 

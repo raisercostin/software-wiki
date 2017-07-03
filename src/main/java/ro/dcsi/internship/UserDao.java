@@ -2,7 +2,7 @@ package ro.dcsi.internship;
 
 import java.util.Optional;
 
-public interface UserDB extends Iterable<User> {
+public interface UserDao extends Iterable<User>, UserReader, UserWriter{
   public boolean userExists(String id);
 
   public Optional<User> getUser(String id);

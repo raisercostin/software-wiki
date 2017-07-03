@@ -1,7 +1,12 @@
 package ro.dcsi.internship;
 
 public class OpenIdConfig {
-  static final String openIDMServer = "http://10.3.67.23:8080";
-  static final String openIDMUsername = "openidm-admin";
-  static final String openIDMPassword = "openidm-admin";
+  final String openIDMServer;
+  final String openIDMUsername;
+  final String openIDMPassword;
+  public OpenIdConfig(String openIDMServer, String openIDMUsername, String openIDMPassword) {
+    this.openIDMServer = openIDMServer;
+    this.openIDMUsername = openIDMUsername;
+    this.openIDMPassword = openIDMPassword;
+  }
 }

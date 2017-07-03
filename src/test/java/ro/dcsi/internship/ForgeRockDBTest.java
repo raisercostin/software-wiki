@@ -1,11 +1,14 @@
 package ro.dcsi.internship;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Hashtable;
 import java.util.Optional;
+
 import org.junit.AfterClass;
 import org.junit.Test;
-import static ro.dcsi.internship.OpenIdConfig.*;
 
 public class ForgeRockDBTest {
   /* TODO add required field checks */
@@ -14,7 +17,7 @@ public class ForgeRockDBTest {
 
   @AfterClass
   public static void prepareDatabase() {
-    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
+    ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
     db.deleteUser(existingUserId);
     db.deleteUser(nonExistingUserId);
     Hashtable<String, String> existingUserAttributes = new Hashtable<String, String>();
@@ -30,7 +33,7 @@ public class ForgeRockDBTest {
   @Test
   public void prepareDatabaseTest() {
     ForgeRockDBTest.prepareDatabase();
-    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
+    ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
     Optional<User> user = db.getUser(existingUserId);
     assertTrue(user.isPresent());
     assertEquals(existingUserId, db.getUser(existingUserId).get().getId());
@@ -39,7 +42,7 @@ public class ForgeRockDBTest {
   @Test
   public void getUserTest() {
     ForgeRockDBTest.prepareDatabase();
-    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
+    ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
 
     // get an existing user
     Optional<User> user = db.getUser(existingUserId);
@@ -54,7 +57,7 @@ public class ForgeRockDBTest {
   @Test
   public void userExistsTest() {
     ForgeRockDBTest.prepareDatabase();
-    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
+    ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
     assertTrue(db.userExists(existingUserId));
     assertFalse(db.userExists(nonExistingUserId));
   }
@@ -62,7 +65,7 @@ public class ForgeRockDBTest {
   @Test
   public void deleteUserTest() {
     ForgeRockDBTest.prepareDatabase();
-    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
+    ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
     assertTrue(db.deleteUser(existingUserId));
     assertFalse(db.deleteUser(nonExistingUserId));
   }
@@ -70,7 +73,7 @@ public class ForgeRockDBTest {
   @Test
   public void updateUserTest() {
     ForgeRockDBTest.prepareDatabase();
-    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
+    ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
 
     // update an existing user
     Hashtable<String, String> attributes = new Hashtable<String, String>();
@@ -104,7 +107,8 @@ public class ForgeRockDBTest {
   @Test
   public void addUserTest() {
     ForgeRockDBTest.prepareDatabase();
-    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
+    ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
+
 
     // add a non existing user
     Hashtable<String, String> attributes = new Hashtable<String, String>();

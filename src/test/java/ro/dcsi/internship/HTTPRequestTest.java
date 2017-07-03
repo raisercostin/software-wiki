@@ -11,10 +11,11 @@ import static ro.dcsi.internship.OpenIdConfig.*;
 public class HTTPRequestTest {
   private static String existingUserId = "HTTPRequestTestExistingUser";
   private static String nonExistingUserId = "HTTPRequestTestNonExistingUser";
+  private static OpenIdConfig c = IntegrationTestConfig.testInstance;
 
   @AfterClass
   public static void prepareDatabase() {
-    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
+    ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
     db.deleteUser(existingUserId);
     db.deleteUser(nonExistingUserId);
     Hashtable<String, String> existingUserAttributes = new Hashtable<String, String>();
@@ -30,7 +31,7 @@ public class HTTPRequestTest {
   @Test
   public void prepareDatabaseTest() {
     HTTPRequestTest.prepareDatabase();
-    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
+    ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
     Optional<User> user = db.getUser(existingUserId);
     assertTrue(user.isPresent());
     assertEquals(existingUserId, db.getUser(existingUserId).get().getId());
@@ -40,10 +41,10 @@ public class HTTPRequestTest {
   public void simpleTest() {
     HTTPRequestTest.prepareDatabase();
     Map<String, String> headers = new Hashtable<String, String>();
-    headers.put("X-OpenIDM-Username", openIDMUsername);
-    headers.put("X-OpenIDM-Password", openIDMPassword);
+    headers.put("X-OpenIDM-Username", c.openIDMUsername);
+    headers.put("X-OpenIDM-Password", c.openIDMPassword);
     headers.put("Content-Type", "application/json");
-    String url = openIDMServer + "/openidm/managed/user/" + existingUserId + "?_prettyPrint=true";
+    String url = c.openIDMServer + "/openidm/managed/user/" + existingUserId + "?_prettyPrint=true";
     HTTPRequest request = new HTTPRequest(url, "GET", headers);
     HTTPResponse response = request.send();
 
@@ -56,10 +57,10 @@ public class HTTPRequestTest {
   public void simple404Test() {
     HTTPRequestTest.prepareDatabase();
     Map<String, String> headers = new Hashtable<String, String>();
-    headers.put("X-OpenIDM-Username", openIDMUsername);
-    headers.put("X-OpenIDM-Password", openIDMPassword);
+    headers.put("X-OpenIDM-Username", c.openIDMUsername);
+    headers.put("X-OpenIDM-Password", c.openIDMPassword);
     headers.put("Content-Type", "application/json");
-    String url = openIDMServer + "/openidm/managed/user/" + nonExistingUserId + "?_prettyPrint=true";
+    String url = c.openIDMServer + "/openidm/managed/user/" + nonExistingUserId + "?_prettyPrint=true";
     HTTPRequest request = new HTTPRequest(url, "GET", headers);
     HTTPResponse response = request.send();
 
@@ -72,10 +73,10 @@ public class HTTPRequestTest {
   public void dataTest() {
     HTTPRequestTest.prepareDatabase();
     Map<String, String> headers = new Hashtable<String, String>();
-    headers.put("X-OpenIDM-Username", openIDMUsername);
-    headers.put("X-OpenIDM-Password", openIDMPassword);
+    headers.put("X-OpenIDM-Username", c.openIDMUsername);
+    headers.put("X-OpenIDM-Password", c.openIDMPassword);
     headers.put("Content-Type", "application/json");
-    String url = openIDMServer + "/openidm/managed/user/" + nonExistingUserId + "?_prettyPrint=true";
+    String url = c.openIDMServer + "/openidm/managed/user/" + nonExistingUserId + "?_prettyPrint=true";
     HTTPRequest request = new HTTPRequest(url, "PUT", headers,
         "{\"givenName\":\"" + nonExistingUserId + "\",\"sn\":\"" + nonExistingUserId + "\",\"userName\":\""
             + nonExistingUserId + "\",\"_id\":\"" + nonExistingUserId + "\",\"mail\":\"NonExistingUser@ex.com\"}");

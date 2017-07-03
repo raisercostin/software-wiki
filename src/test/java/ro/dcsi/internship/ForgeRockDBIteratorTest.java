@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 import java.util.Hashtable;
 import org.junit.AfterClass;
 import org.junit.Test;
-import static ro.dcsi.internship.OpenIdConfig.*;
+import static ro.dcsi.internship.IntegrationTestConfig.*;
 
 public class ForgeRockDBIteratorTest {
   private static String existingUserId = "ForgeRockDBIteratorTestExistingUser";
@@ -12,7 +12,7 @@ public class ForgeRockDBIteratorTest {
 
   @AfterClass
   public static void prepareDatabase() {
-    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
+    ForgeRockUserDao db = new ForgeRockUserDao(testInstance);
     db.deleteUser(existingUserId);
     db.deleteUser(nonExistingUserId);
     Hashtable<String, String> existingUserAttributes = new Hashtable<String, String>();
@@ -28,7 +28,7 @@ public class ForgeRockDBIteratorTest {
   @Test
   public void simpleIteratorTest() {
     ForgeRockDBIteratorTest.prepareDatabase();
-    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
+    ForgeRockUserDao db = new ForgeRockUserDao(testInstance);
     User found = null;
     for (User user : db) {
       if (user.getId().equals(existingUserId)) {

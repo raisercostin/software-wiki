@@ -14,8 +14,8 @@ public class TestCSVRead {
 
   @Test
   public void HeadersNotDefault() {
-    CsvDB database = new CsvDB("src/test/resources/CSV/headersnotdefault.csv");
-    Iterator<User> users = database.readUsers();
+    CsvUserDao database = new CsvUserDao("src/test/resources/CSV/headersnotdefault.csv");
+    Iterator<User> users = database.read();
     User buffer = null;
 
     while (users.hasNext()) {
@@ -30,8 +30,8 @@ public class TestCSVRead {
 
   @Test
   public void HeadersLarge() {
-    CsvDB database = new CsvDB("src/test/resources/CSV/headerslarge.csv");
-    Iterator<User> users = database.readUsers();
+    CsvUserDao database = new CsvUserDao("src/test/resources/CSV/headerslarge.csv");
+    Iterator<User> users = database.read();
     User buffer = null;
     int count = 0;
 

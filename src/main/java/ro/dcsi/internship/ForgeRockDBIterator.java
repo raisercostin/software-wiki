@@ -8,17 +8,17 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ForgeRockDBIterator implements Iterator<User> {
-  private final ForgeRockDB database;
+  private final ForgeRockUserDao database;
   private Queue<String> userIds = new LinkedList<String>();
 
-  public ForgeRockDBIterator(ForgeRockDB database) {
+  public ForgeRockDBIterator(ForgeRockUserDao database) {
     this.database = database;
     this.fetchUserList();
   }
 
   private void fetchUserList() {
     Map<String, String> headers = this.database.basicIDMHeader();
-    HTTPRequest request = new HTTPRequest(this.database.openIDMServer + "/openidm/managed/user?_queryId=query-all-ids",
+    HTTPRequest request = new HTTPRequest(IntegrationTestConfig.testInstance.openIDMServer + "/openidm/managed/user?_queryId=query-all-ids",
         "GET", headers);
     HTTPResponse response = request.send();
 

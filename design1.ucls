@@ -1,86 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.0" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="ro.dcsi.internship.User" project="usersync" 
-    file="/usersync/src/main/java/ro/dcsi/internship/User.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="135" width="196" x="480" y="634"/>    
+  <class id="1" language="java" name="ro.dcsi.internship.CsvUserDao" project="usersync" 
+    file="/usersync/src/main/java/ro/dcsi/internship/CsvUserDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="705" y="505"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="ro.dcsi.internship.ForgeRockDB" project="usersync" 
-    file="/usersync/src/main/java/ro/dcsi/internship/ForgeRockDB.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="189" width="230" x="250" y="194"/>    
+  <class id="2" language="java" name="ro.dcsi.internship.ForgeRockUserDao" project="usersync" 
+    file="/usersync/src/main/java/ro/dcsi/internship/ForgeRockUserDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="435" y="524"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="3" language="java" name="ro.dcsi.internship.UserDB" project="usersync" 
-    file="/usersync/src/main/java/ro/dcsi/internship/UserDB.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="81" width="126" x="333" y="423"/>    
+  <class id="3" language="java" name="ro.dcsi.internship.OpenIdConfig" project="usersync" 
+    file="/usersync/src/main/java/ro/dcsi/internship/OpenIdConfig.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="139" y="561"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="4" language="java" name="ro.dcsi.internship.UserDao" project="usersync" 
+    file="/usersync/src/main/java/ro/dcsi/internship/UserDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="574" y="221"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="4" language="java" name="ro.dcsi.internship.ForgeRockDBIterator" project="usersync" 
-    file="/usersync/src/main/java/ro/dcsi/internship/ForgeRockDBIterator.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="117" width="200" x="476" y="37"/>    
+  <interface id="5" language="java" name="ro.dcsi.internship.UserReader" project="usersync" 
+    file="/usersync/src/main/java/ro/dcsi/internship/UserReader.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="81" width="128" x="411" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
-  </class>  
-  <class id="5" language="java" name="ro.dcsi.internship.HTTPRequest" project="usersync" 
-    file="/usersync/src/main/java/ro/dcsi/internship/HTTPRequest.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="171" width="252" x="41" y="423"/>    
+  </interface>  
+  <interface id="6" language="java" name="ro.dcsi.internship.UserWriter" project="usersync" 
+    file="/usersync/src/main/java/ro/dcsi/internship/UserWriter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="81" width="151" x="579" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
-  </class>  
-  <dependency id="6">    
-    <bendpoint x="489" y="423"/>    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
-  <dependency id="7">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="5"/>  
-  </dependency>  
+  </interface>  
+  <generalization id="7">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
   <association id="8">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="9" name="database">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="10" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="9" name="config"/>      
+      <multiplicity id="10" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="11">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
-  <dependency id="12">    
-    <bendpoint x="510" y="194"/>    
-    <bendpoint x="510" y="423"/>    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
-  <dependency id="13">    
+  <realization id="11">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="4"/>  
-  </dependency>  
+  </realization>  
+  <realization id="12">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <generalization id="13">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

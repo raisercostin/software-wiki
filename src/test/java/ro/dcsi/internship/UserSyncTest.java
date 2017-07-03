@@ -8,17 +8,17 @@ import static ro.dcsi.internship.OpenIdConfig.*;
 public class UserSyncTest {
   @Test
   public void csvBackupTest() {
-    CsvExporter exporter = new CsvExporter("target/csvBackupTest.csv");
-    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
+    UserWriter exporter = new CsvUserDao("target/csvBackupTest.csv");
+    ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
 
-    exporter.export(db.iterator());
+    exporter.write(db.iterator());
   }
 
   @Test
   public void csvRestoreTest() {
     CsvReader reader = new CsvReader("src/test/resources/CSV/csvRestoreTest.csv", ',');
     List<User> users = reader.readUsers();
-    ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
+    ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
 
     for (User user : users) {
       db.deleteUser(user.getId());
