@@ -30,12 +30,10 @@ public class UserSyncTest {
       assertFalse(db.userExists(user.getId()));
     }
     for (User user : users) {
-      System.out.println(db.addUser(user));
+      db.addUser(user);
     }
     for (User user : users) {
       User user2 = db.getUser(user.getId()).get();
-      System.out.println(user);
-      System.out.println(user2);
       for (String attr : user2.getAttributeSet()) {
         if (!attr.equals("_rev")) {
           assertEquals(user.getAttributeValue(attr), user2.getAttributeValue(attr));
