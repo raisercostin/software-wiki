@@ -20,6 +20,7 @@ public class ForgeRockDBIterator implements Iterator<User> {
     Map<String, String> headers = this.database.basicIDMHeader();
     HTTPRequest request = new HTTPRequest(IntegrationTestConfig.testInstance.openIDMServer + "/openidm/managed/user?_queryId=query-all-ids",
         "GET", headers);
+    database.incCallsToServer("fetchUsers");
     HTTPResponse response = request.send();
 
     if (response.code == 200) {

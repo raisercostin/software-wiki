@@ -1,12 +1,14 @@
 package ro.dcsi.internship;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Optional;
+
 import org.junit.AfterClass;
 import org.junit.Test;
-import static ro.dcsi.internship.OpenIdConfig.*;
 
 public class HTTPRequestTest {
   private static String existingUserId = "HTTPRequestTestExistingUser";
