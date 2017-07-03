@@ -125,4 +125,7 @@ public class ForgeRockUserDao implements UserDao {
     // TODO Auto-generated method stub
     throw new RuntimeException("Not Implemented Yet!!!");
   }
+  public int requestsToServer() {
+    throw new RuntimeException("Not Implemented Yet!!!");
+  }
 }

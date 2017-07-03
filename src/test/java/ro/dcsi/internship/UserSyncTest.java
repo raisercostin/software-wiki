@@ -1,11 +1,24 @@
 package ro.dcsi.internship;
 
 import static org.junit.Assert.*;
+
+import java.util.Iterator;
 import java.util.List;
 import org.junit.Test;
 import static ro.dcsi.internship.OpenIdConfig.*;
 
 public class UserSyncTest {
+  @Test//(timeout=2000)
+  public void twoIterators(){
+    ForgeRockUserDao daoAdmin1 = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
+    UserDao dao1 = daoAdmin1;
+    for (User u1 : dao1) {
+      for (User u2 : dao1) {
+        System.out.println(u1.username()+"-"+u2.username());
+      }
+    }
+    assertEquals(6,daoAdmin1.requestsToServer());
+  } 
   @Test
   public void csvBackupTest() {
     UserWriter exporter = new CsvUserDao("target/csvBackupTest.csv");

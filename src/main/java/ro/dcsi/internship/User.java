@@ -23,4 +23,8 @@ public class User extends RawUser {
     }
     return result;
   }
+
+  public String username() {
+    return attributes.get("userName");
+  }
 }
