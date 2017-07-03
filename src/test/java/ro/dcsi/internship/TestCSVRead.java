@@ -16,9 +16,8 @@ public class TestCSVRead {
 
   @Test
   public void HeadersNotDefault() {
-    FileUserManger sync = new FileUserManger();
-    UserManager2 database = sync.readUsersAsManager("src/test/resources/CSV/headersnotdefault.csv");
-    Iterator<User> users = database.iterator();
+    CsvDB database = new CsvDB("src/test/resources/CSV/headersnotdefault.csv");
+    Iterator<User> users = database.readUsers();
     User buffer = null;
 
     while (users.hasNext()) {
@@ -26,17 +25,16 @@ public class TestCSVRead {
     }
 
     assertNotEquals(buffer, null);
-    assertEquals(buffer.getName(), "CatalinLast");
-    assertEquals(buffer.getEmail(), "catalinlast@yahoo.com");
 
+    assertEquals(buffer.getAttributeValue("name"), "CatalinLast");
+    assertEquals(buffer.getAttributeValue("email"), "catalinlast@yahoo.com");
   }
 
 
   @Test
   public void HeadersLarge() {
-    FileUserManger sync = new FileUserManger();
-    UserManager2 database = sync.readUsersAsManager("src/test/resources/CSV/headerslarge.csv");
-    Iterator<User> users = database.iterator();
+    CsvDB database = new CsvDB("src/test/resources/CSV/headerslarge.csv");
+    Iterator<User> users = database.readUsers();
     User buffer = null;
     int count = 0;
 
@@ -47,8 +45,8 @@ public class TestCSVRead {
 
     assertEquals(count, 1070);
     assertNotEquals(buffer, null);
-    assertEquals(buffer.getName(), "CatalinLast");
-    assertEquals(buffer.getEmail(), "catalinlast@yahoo.com");
+    assertEquals(buffer.getAttributeValue("name"), "CatalinLast");
+    assertEquals(buffer.getAttributeValue("email"), "catalinlast@yahoo.com");
   }
 
 }
