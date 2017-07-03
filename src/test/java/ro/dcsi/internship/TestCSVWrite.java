@@ -1,7 +1,6 @@
 package ro.dcsi.internship;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 import java.util.Iterator;
 
@@ -29,7 +28,7 @@ public class TestCSVWrite {
 
     //Read Written file
     CsvDB writeDatabase = new CsvDB(filename);
-    Iterator<User> usersRead = database.readUsers();
+    Iterator<User> usersRead = writeDatabase.readUsers();
 
     Iterator<User> userReference = database.iterator();
 
@@ -72,7 +71,7 @@ public class TestCSVWrite {
 
     //Read Written file
     CsvDB writeDatabase = new CsvDB(filename);
-    Iterator<User> usersRead = database.readUsers();
+    Iterator<User> usersRead = writeDatabase.readUsers();
 
     Iterator<User> userReference = database.iterator();
 

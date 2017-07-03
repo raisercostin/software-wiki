@@ -112,6 +112,8 @@ public class ForgeRockDB implements UserDB, UserSync {
           this.openIDMServer + "/openidm/managed/user/" + user.getId(), "PUT", headers,
           ForgeRockDB.userToJSONString(user));
       HTTPResponse response = request.send();
+      //System.out.println(request);
+      //System.out.println(response);
 
       return (response.code == 201);
     }

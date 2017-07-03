@@ -26,8 +26,8 @@ public class TestCSVRead {
 
     assertNotEquals(buffer, null);
 
-    assertEquals(buffer.getAttributeValue("name"), "CatalinLast");
-    assertEquals(buffer.getAttributeValue("email"), "catalinlast@yahoo.com");
+    assertEquals("CatalinLast", buffer.getAttributeValue("name"));
+    assertEquals("catalinlast@yahoo.com", buffer.getAttributeValue("email"));
   }
 
 
@@ -40,13 +40,14 @@ public class TestCSVRead {
 
     while (users.hasNext()) {
       buffer = users.next();
+      System.out.println(buffer);
       count++;
     }
 
     assertEquals(count, 1070);
     assertNotEquals(buffer, null);
-    assertEquals(buffer.getAttributeValue("name"), "CatalinLast");
-    assertEquals(buffer.getAttributeValue("email"), "catalinlast@yahoo.com");
+    assertEquals("CatalinLast", buffer.getAttributeValue("name"));
+    assertEquals("catalinlast@yahoo.com", buffer.getAttributeValue("email"));
   }
 
 }
