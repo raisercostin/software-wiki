@@ -4,13 +4,11 @@ import static org.junit.Assert.*;
 import java.util.Hashtable;
 import org.junit.AfterClass;
 import org.junit.Test;
+import static ro.dcsi.internship.OpenIdConfig.*;
 
 public class ForgeRockDBIteratorTest {
   private static String existingUserId = "ForgeRockDBIteratorTestExistingUser";
   private static String nonExistingUserId = "ForgeRockDBIteratorTestNonExistingUser";
-  private static String openIDMServer = "http://localhost:8080";
-  private static String openIDMUsername = "openidm-admin";
-  private static String openIDMPassword = "openidm-admin";
 
   @AfterClass
   public static void prepareDatabase() {

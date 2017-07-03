@@ -5,12 +5,10 @@ import java.util.Hashtable;
 import java.util.Optional;
 import org.junit.AfterClass;
 import org.junit.Test;
+import static ro.dcsi.internship.OpenIdConfig.*;
 
 public class ForgeRockDBTest {
   /* TODO add required field checks */
-  private static String openIDMServer = "http://localhost:8080";
-  private static String openIDMUsername = "openidm-admin";
-  private static String openIDMPassword = "openidm-admin";
   private static String existingUserId = "ForgeRockDBTestExistingUser";
   private static String nonExistingUserId = "ForgeRockDBTestNonExistingUser";
 

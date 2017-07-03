@@ -6,13 +6,11 @@ import java.util.Map;
 import java.util.Optional;
 import org.junit.AfterClass;
 import org.junit.Test;
+import static ro.dcsi.internship.OpenIdConfig.*;
 
 public class HTTPRequestTest {
   private static String existingUserId = "HTTPRequestTestExistingUser";
   private static String nonExistingUserId = "HTTPRequestTestNonExistingUser";
-  private static String openIDMServer = "http://localhost:8080";
-  private static String openIDMUsername = "openidm-admin";
-  private static String openIDMPassword = "openidm-admin";
 
   @AfterClass
   public static void prepareDatabase() {
@@ -42,10 +40,10 @@ public class HTTPRequestTest {
   public void simpleTest() {
     HTTPRequestTest.prepareDatabase();
     Map<String, String> headers = new Hashtable<String, String>();
-    headers.put("X-OpenIDM-Username", "openidm-admin");
-    headers.put("X-OpenIDM-Password", "openidm-admin");
+    headers.put("X-OpenIDM-Username", openIDMUsername);
+    headers.put("X-OpenIDM-Password", openIDMPassword);
     headers.put("Content-Type", "application/json");
-    String url = "http://localhost:8080/openidm/managed/user/" + existingUserId + "?_prettyPrint=true";
+    String url = openIDMServer + "/openidm/managed/user/" + existingUserId + "?_prettyPrint=true";
     HTTPRequest request = new HTTPRequest(url, "GET", headers);
     HTTPResponse response = request.send();
 
