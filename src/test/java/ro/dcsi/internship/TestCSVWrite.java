@@ -13,20 +13,21 @@ public class TestCSVWrite {
 
   @Test
   public void HeadersNotDefaultWrite() {
-    String filename = "src/test/resources/CSV/headersnotdefault.csv";
+    String filename2 = "headersnotdefault.csv";
+    String path = "src/test/resources/CSV/"+filename2;
 
     //Read Users
-    CsvDB database = new CsvDB(filename);
+    CsvDB database = new CsvDB(path);
     Iterator<User> users = database.readUsers();
 
     //Write Users
-    int location = filename.lastIndexOf('.');
-    String writeFilename = filename.substring(0, location) + "_backup" + filename.substring(location);
-    Exporter exporter = new CsvExporter(writeFilename);
+    int location = filename2.lastIndexOf('.');
+    String path2 = "target/"+filename2.substring(0, location) + "_backup" + filename2.substring(location);
+    Exporter exporter = new CsvExporter(path2);
     exporter.export(users);
 
     //Read Written file
-    CsvDB writeDatabase = new CsvDB(filename);
+    CsvDB writeDatabase = new CsvDB(path2);
     Iterator<User> usersRead = writeDatabase.readUsers();
 
     Iterator<User> userReference = database.iterator();
@@ -54,20 +55,21 @@ public class TestCSVWrite {
 
   @Test
   public void HeadersLargeWrite() {
-    String filename = "src/test/resources/CSV/headerslarge.csv";
+    String filename2 = "headerslarge.csv";
+    String path = "src/test/resources/CSV/"+filename2;
 
     //Read Users
-    CsvDB database = new CsvDB(filename);
+    CsvDB database = new CsvDB(path);
     Iterator<User> users = database.readUsers();
 
     //Write Users
-    int location = filename.lastIndexOf('.');
-    String writeFilename = filename.substring(0, location) + "_backup" + filename.substring(location);
+    int location = filename2.lastIndexOf('.');
+    String writeFilename = "target/"+filename2.substring(0, location) + "_backup" + filename2.substring(location);
     Exporter exporter = new CsvExporter(writeFilename);
     exporter.export(users);
 
     //Read Written file
-    CsvDB writeDatabase = new CsvDB(filename);
+    CsvDB writeDatabase = new CsvDB(writeFilename);
     Iterator<User> usersRead = writeDatabase.readUsers();
 
     Iterator<User> userReference = database.iterator();

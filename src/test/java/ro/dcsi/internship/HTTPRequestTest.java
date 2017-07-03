@@ -56,10 +56,10 @@ public class HTTPRequestTest {
   public void simple404Test() {
     HTTPRequestTest.prepareDatabase();
     Map<String, String> headers = new Hashtable<String, String>();
-    headers.put("X-OpenIDM-Username", "openidm-admin");
-    headers.put("X-OpenIDM-Password", "openidm-admin");
+    headers.put("X-OpenIDM-Username", openIDMUsername);
+    headers.put("X-OpenIDM-Password", openIDMPassword);
     headers.put("Content-Type", "application/json");
-    String url = "http://localhost:8080/openidm/managed/user/" + nonExistingUserId + "?_prettyPrint=true";
+    String url = openIDMServer + "/openidm/managed/user/" + nonExistingUserId + "?_prettyPrint=true";
     HTTPRequest request = new HTTPRequest(url, "GET", headers);
     HTTPResponse response = request.send();
 
@@ -72,10 +72,10 @@ public class HTTPRequestTest {
   public void dataTest() {
     HTTPRequestTest.prepareDatabase();
     Map<String, String> headers = new Hashtable<String, String>();
-    headers.put("X-OpenIDM-Username", "openidm-admin");
-    headers.put("X-OpenIDM-Password", "openidm-admin");
+    headers.put("X-OpenIDM-Username", openIDMUsername);
+    headers.put("X-OpenIDM-Password", openIDMPassword);
     headers.put("Content-Type", "application/json");
-    String url = "http://localhost:8080/openidm/managed/user/" + nonExistingUserId + "?_prettyPrint=true";
+    String url = openIDMServer + "/openidm/managed/user/" + nonExistingUserId + "?_prettyPrint=true";
     HTTPRequest request = new HTTPRequest(url, "PUT", headers,
         "{\"givenName\":\"" + nonExistingUserId + "\",\"sn\":\"" + nonExistingUserId + "\",\"userName\":\""
             + nonExistingUserId + "\",\"_id\":\"" + nonExistingUserId + "\",\"mail\":\"NonExistingUser@ex.com\"}");

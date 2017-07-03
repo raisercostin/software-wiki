@@ -6,16 +6,9 @@ import org.junit.Test;
 import static ro.dcsi.internship.OpenIdConfig.*;
 
 public class UserSyncTest {
-<<<<<<< HEAD
-=======
-  private static String openIDMServer = "http://localhost:8080";
-  private static String openIDMUsername = "openidm-admin";
-  private static String openIDMPassword = "openidm-admin";
-
->>>>>>> 7c6e55ec6bcdb3b44216191b709dc25329049e37
   @Test
   public void csvBackupTest() {
-    CsvExporter exporter = new CsvExporter("src/test/resources/CSV/csvBackupTest.csv");
+    CsvExporter exporter = new CsvExporter("target/csvBackupTest.csv");
     ForgeRockDB db = new ForgeRockDB(openIDMServer, openIDMUsername, openIDMPassword);
 
     exporter.export(db.iterator());
