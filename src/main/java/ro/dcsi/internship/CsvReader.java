@@ -12,10 +12,11 @@ import java.util.*;
  */
 public class CsvReader {
   private String Filename;
-  private char separator = ';';
+  private final char separator ;
 
   public CsvReader(String filename) {
     Filename = filename;
+    separator=';';
   }
 
   public CsvReader(String filename, char separator) {
@@ -39,11 +40,6 @@ public class CsvReader {
 
       //Reading headers
       List<String> headers = new ArrayList<>(container.getHeader());
-
-      //Convert headers to lowercase
-      /*for(String s:headers) {
-         headers.set(headers.indexOf(s), s.toLowerCase());
-      }*/
 
       //User list
       List<User> users = new ArrayList<>();

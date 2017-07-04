@@ -21,16 +21,24 @@ public class CsvUserDao implements UserDao {
   List<User> database;
   CsvReader reader;
   private String filename;
+  private final char separator;
 
   public CsvUserDao(String filename) {
     this.filename = filename;
-    reader = new CsvReader(filename);
+    separator = ';';
+    reader = new CsvReader(filename,separator);
+  }
+
+  public CsvUserDao(String filename, char separator) {
+    this.filename = filename;
+    this.separator = separator;
+    reader = new CsvReader(filename,separator);
   }
 
   @Override
   public boolean userExists(String id) {
     for (User u : database)
-      if (u.getAttributeValue("id") != null && u.getAttributeValue("id") == id)
+      if (u.getAttributeValue("_id") != null && u.getAttributeValue("_id").equals(id))
         return true;
     return false;
   }
@@ -38,7 +46,7 @@ public class CsvUserDao implements UserDao {
   @Override
   public Optional<User> getUser(String id) {
     for (User u : database)
-      if (u.getAttributeValue("id") != null && u.getAttributeValue("id") == id)
+      if (u.getAttributeValue("_id") != null && u.getAttributeValue("_id").equals(id))
         return Optional.of(u);
     return Optional.empty();
   }
@@ -106,7 +114,7 @@ public class CsvUserDao implements UserDao {
   public void write(Iterator<User> iterator) {
     File file = new File(filename);
     CsvWriter csv = new CsvWriter();
-    csv.setFieldSeparator(',');
+    csv.setFieldSeparator(separator);
 
     try (CsvAppender appender = csv.append(new FileWriter(file))) {
       if (!iterator.hasNext())

@@ -37,7 +37,6 @@ public class TestCSVRead {
 
     while (users.hasNext()) {
       buffer = users.next();
-      System.out.println(buffer);
       count++;
     }
 
