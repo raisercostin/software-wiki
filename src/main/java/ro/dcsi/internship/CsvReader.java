@@ -11,22 +11,22 @@ import java.util.*;
  * Created by Catalin on 7/3/2017.
  */
 public class CsvReader {
-  private String Filename;
-  private final char separator ;
+  private String filename;
+  private final char separator;
 
   public CsvReader(String filename) {
-    Filename = filename;
-    separator=';';
+    this.filename = filename;
+    separator = ';';
   }
 
   public CsvReader(String filename, char separator) {
-    Filename = filename;
+    this.filename = filename;
     this.separator = separator;
   }
 
   public List<User> readUsers() {
     //Opening file
-    try (FileReader reader = new FileReader(new File(Filename))) {
+    try (FileReader reader = new FileReader(new File(filename))) {
 
       //Init reader for FastCSV
       de.siegmar.fastcsv.reader.CsvReader csv = new de.siegmar.fastcsv.reader.CsvReader();

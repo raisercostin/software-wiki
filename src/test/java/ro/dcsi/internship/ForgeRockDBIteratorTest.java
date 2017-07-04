@@ -25,7 +25,7 @@ public class ForgeRockDBIteratorTest {
     db.addUser(existingUser);
   }
 
-  @Test(timeout=6000)
+  @Test(timeout = 6000)
   public void simpleIteratorTest() {
     ForgeRockDBIteratorTest.prepareDatabase();
     ForgeRockUserDao db = new ForgeRockUserDao(testInstance);

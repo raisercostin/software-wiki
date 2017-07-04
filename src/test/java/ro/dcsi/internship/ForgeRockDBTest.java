@@ -30,7 +30,7 @@ public class ForgeRockDBTest {
     db.addUser(existingUser);
   }
 
-  @Test(timeout=10000)
+  @Test(timeout = 10000)
   public void prepareDatabaseTest() {
     ForgeRockDBTest.prepareDatabase();
     ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
@@ -39,7 +39,7 @@ public class ForgeRockDBTest {
     assertEquals(existingUserId, db.getUser(existingUserId).get().getId());
   }
 
-  @Test(timeout=10000)
+  @Test(timeout = 10000)
   public void getUserTest() {
     ForgeRockDBTest.prepareDatabase();
     ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
@@ -54,7 +54,7 @@ public class ForgeRockDBTest {
     assertFalse(user2.isPresent());
   }
 
-  @Test(timeout=10000)
+  @Test(timeout = 10000)
   public void userExistsTest() {
     ForgeRockDBTest.prepareDatabase();
     ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
@@ -62,7 +62,7 @@ public class ForgeRockDBTest {
     assertFalse(db.userExists(nonExistingUserId));
   }
 
-  @Test(timeout=10000)
+  @Test(timeout = 10000)
   public void deleteUserTest() {
     ForgeRockDBTest.prepareDatabase();
     ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
@@ -70,7 +70,7 @@ public class ForgeRockDBTest {
     assertFalse(db.deleteUser(nonExistingUserId));
   }
 
-  @Test(timeout=10000)
+  @Test(timeout = 10000)
   public void updateUserTest() {
     ForgeRockDBTest.prepareDatabase();
     ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
@@ -104,11 +104,10 @@ public class ForgeRockDBTest {
     assertFalse(db.updateUser(user2));
   }
 
-  @Test(timeout=10000)
+  @Test(timeout = 10000)
   public void addUserTest() {
     ForgeRockDBTest.prepareDatabase();
     ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
-
 
     // add a non existing user
     Hashtable<String, String> attributes = new Hashtable<String, String>();

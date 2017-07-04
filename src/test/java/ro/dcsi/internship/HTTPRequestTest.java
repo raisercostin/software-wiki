@@ -30,7 +30,7 @@ public class HTTPRequestTest {
     db.addUser(existingUser);
   }
 
-  @Test(timeout=10000)
+  @Test(timeout = 10000)
   public void prepareDatabaseTest() {
     HTTPRequestTest.prepareDatabase();
     ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
@@ -39,7 +39,7 @@ public class HTTPRequestTest {
     assertEquals(existingUserId, db.getUser(existingUserId).get().getId());
   }
 
-  @Test(timeout=10000)
+  @Test(timeout = 10000)
   public void simpleTest() {
     HTTPRequestTest.prepareDatabase();
     Map<String, String> headers = new Hashtable<String, String>();
@@ -55,7 +55,7 @@ public class HTTPRequestTest {
     assertEquals(200, response.code);
   }
 
-  @Test(timeout=10000)
+  @Test(timeout = 10000)
   public void simple404Test() {
     HTTPRequestTest.prepareDatabase();
     Map<String, String> headers = new Hashtable<String, String>();
@@ -71,7 +71,7 @@ public class HTTPRequestTest {
     assertEquals(404, response.code);
   }
 
-  @Test(timeout=10000)
+  @Test(timeout = 10000)
   public void dataTest() {
     HTTPRequestTest.prepareDatabase();
     Map<String, String> headers = new Hashtable<String, String>();

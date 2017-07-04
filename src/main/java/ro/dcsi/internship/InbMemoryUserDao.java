@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class InbMemoryUserDao implements UserDao {
-  Map<String,User> users;
+  Map<String, User> users;
 
   @Override
   public Iterator<User> read() {

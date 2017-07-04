@@ -14,6 +14,7 @@ public class ForgeRockUserDao implements UserDao {
   public ForgeRockUserDao(String openIDMServer, String openIDMUsername, String openIDMPassword) {
     this(new OpenIdConfig(openIDMServer, openIDMUsername, openIDMPassword));
   }
+
   public ForgeRockUserDao(OpenIdConfig config) {
     this.config = config;
   }
@@ -50,7 +51,7 @@ public class ForgeRockUserDao implements UserDao {
   public Optional<User> getUser(String id) {
     HTTPRequest request = new HTTPRequest(config.openIDMServer + "/openidm/managed/user/" + id, "GET",
         this.basicIDMHeader());
-    incCallsToServer("getUser"+id);
+    incCallsToServer("getUser" + id);
     HTTPResponse response = request.send();
     JSONObject jsonUser = null;
     try {
@@ -76,7 +77,7 @@ public class ForgeRockUserDao implements UserDao {
   public boolean userExists(String id) {
     HTTPRequest request = new HTTPRequest(config.openIDMServer + "/openidm/managed/user/" + id, "GET",
         this.basicIDMHeader());
-    incCallsToServer("exists "+id);
+    incCallsToServer("exists " + id);
     HTTPResponse response = request.send();
 
     return (response.code == 200);
@@ -85,7 +86,7 @@ public class ForgeRockUserDao implements UserDao {
   public boolean deleteUser(String id) {
     HTTPRequest request = new HTTPRequest(config.openIDMServer + "/openidm/managed/user/" + id, "DELETE",
         this.basicIDMHeader());
-    incCallsToServer("delete "+id);
+    incCallsToServer("delete " + id);
     HTTPResponse response = request.send();
     return (response.code == 200);
   }
@@ -94,7 +95,7 @@ public class ForgeRockUserDao implements UserDao {
     Map<String, String> headers = this.basicIDMHeader();
     HTTPRequest request = new HTTPRequest(config.openIDMServer + "/openidm/managed/user/" + user.getId() + "#_update",
         "PUT", headers, ForgeRockUserDao.userToJSONString(user));
-    incCallsToServer("update "+user.getId());
+    incCallsToServer("update " + user.getId());
     HTTPResponse response = request.send();
 
     return (response.code == 200);
@@ -105,7 +106,7 @@ public class ForgeRockUserDao implements UserDao {
     if (!this.userExists(user.getId())) {
       HTTPRequest request = new HTTPRequest(config.openIDMServer + "/openidm/managed/user/" + user.getId(), "PUT",
           headers, ForgeRockUserDao.userToJSONString(user));
-      incCallsToServer("add "+user.getId());
+      incCallsToServer("add " + user.getId());
       HTTPResponse response = request.send();
       // System.out.println(request);
       // System.out.println(response);
@@ -131,9 +132,11 @@ public class ForgeRockUserDao implements UserDao {
     // TODO Auto-generated method stub
     throw new RuntimeException("Not Implemented Yet!!!");
   }
+
   public int requestsToServer() {
     return requestsToServer;
   }
+
   void incCallsToServer(String message) {
     System.out.println(message);
     requestsToServer++;

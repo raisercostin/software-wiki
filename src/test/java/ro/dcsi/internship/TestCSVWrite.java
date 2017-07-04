@@ -14,7 +14,7 @@ public class TestCSVWrite {
   @Test
   public void HeadersNotDefaultWrite() {
     String filename2 = "headersnotdefault.csv";
-    String path = "src/test/resources/CSV/"+filename2;
+    String path = "src/test/resources/CSV/" + filename2;
 
     //Read Users
     CsvUserDao database = new CsvUserDao(path);
@@ -22,7 +22,7 @@ public class TestCSVWrite {
 
     //Write Users
     int location = filename2.lastIndexOf('.');
-    String path2 = "target/"+filename2.substring(0, location) + "_backup" + filename2.substring(location);
+    String path2 = "target/" + filename2.substring(0, location) + "_backup" + filename2.substring(location);
     UserWriter exporter = new CsvUserDao(path2);
     exporter.write(users);
 
@@ -56,7 +56,7 @@ public class TestCSVWrite {
   @Test
   public void HeadersLargeWrite() {
     String filename2 = "headerslarge.csv";
-    String path = "src/test/resources/CSV/"+filename2;
+    String path = "src/test/resources/CSV/" + filename2;
 
     //Read Users
     CsvUserDao database = new CsvUserDao(path);
@@ -64,7 +64,7 @@ public class TestCSVWrite {
 
     //Write Users
     int location = filename2.lastIndexOf('.');
-    String writeFilename = "target/"+filename2.substring(0, location) + "_backup" + filename2.substring(location);
+    String writeFilename = "target/" + filename2.substring(0, location) + "_backup" + filename2.substring(location);
     UserWriter exporter = new CsvUserDao(writeFilename);
     exporter.write(users);
 
