@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 public class ForgeRockUserDao implements UserDao {
   private int requestsToServer = 0;
-  private OpenIdConfig config;
+  OpenIdConfig config;
 
   public ForgeRockUserDao(String openIDMServer, String openIDMUsername, String openIDMPassword) {
     this(new OpenIdConfig(openIDMServer, openIDMUsername, openIDMPassword));
