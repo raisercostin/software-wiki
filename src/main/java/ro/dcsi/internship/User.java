@@ -3,7 +3,12 @@ package ro.dcsi.internship;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.common.collect.Maps;
+
 public class User extends RawUser {
+  public User(String id) {
+    super(id, Maps.newTreeMap());
+  }
   public User(String id, Map<String, String> attributes) {
     super(id, attributes);
   }

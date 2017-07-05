@@ -10,6 +10,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
+
+import com.google.common.base.Preconditions;
 
 import de.siegmar.fastcsv.writer.CsvAppender;
 import de.siegmar.fastcsv.writer.CsvWriter;
@@ -77,15 +80,15 @@ public class CsvUserDao implements UserDao {
     return true;
   }
 
-  @Override
-  public Iterator<User> iterator() {
-    return new CsvDBIterator();
-  }
+//  @Override
+//  public Iterator<User> iterator() {
+//    return read();
+//  }
 
   @Override
   public Iterator<User> read() {
     database = reader.readUsers();
-    return iterator();
+    return new CsvDBIterator();
   }
 
   class CsvDBIterator implements Iterator<User> {
