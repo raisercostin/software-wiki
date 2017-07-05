@@ -2,7 +2,7 @@ package ro.dcsi.internship;
 
 import org.apache.commons.cli.*;
 
-public class UserSyncApp {
+public class UserSyncApp2 {
   public static void main(String[] args) {
     Option srcType = Option.builder("st").longOpt("source-type").hasArgs().argName("type")
         .desc("Type of the source. Can be \"csv\" (CSV file) or \"fr\" (ForgeRock database)").required().build();
