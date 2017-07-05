@@ -27,12 +27,14 @@ public class CsvUserDao implements UserDao {
     this.filename = filename;
     separator = ';';
     reader = new CsvReader(filename, separator);
+    database = reader.readUsers();
   }
 
   public CsvUserDao(String filename, char separator) {
     this.filename = filename;
     this.separator = separator;
     reader = new CsvReader(filename, separator);
+    database = reader.readUsers();
   }
 
   @Override
@@ -84,7 +86,6 @@ public class CsvUserDao implements UserDao {
 
   @Override
   public Iterator<User> read() {
-    database = reader.readUsers();
     return iterator();
   }
 
