@@ -21,14 +21,24 @@ public class UserSyncApp {
     help.printHelp(usage,options);
   }
 
+  //Parse option for UserDao
   private static UserDao parseDaoInfo(Option daoInfo){
-    throw new RuntimeException("Not implemented yet!");
+
+    //Parse CSV Dao
+    if(daoInfo.getOpt().equals(csvShortOption) || (daoInfo.hasLongOpt() && daoInfo.getLongOpt().equals(csvLongOption)))
+      return new CsvUserDao(daoInfo.getValue());
+
+    //Parse ForgeRockDao
+    if(daoInfo.getOpt().equals(forgeRockShortOption) || (daoInfo.hasLongOpt() && daoInfo.getLongOpt().equals(forgeRockLongOption)))
+      return new ForgeRockUserDao(new OpenIdConfig(daoInfo.getValue(0),daoInfo.getValue(1),daoInfo.getValue(2)));
+
+    return new CsvUserDao("");
   }
 
 
   public static void main(String[] args) {
 
-    //Create option groupe
+    //Create option group
     Options options = new Options();
 
     //Creating options
@@ -53,7 +63,7 @@ public class UserSyncApp {
     options.addOption(forgeRock);
     options.addOption(csv);
 
-    //Create Necesary stuff
+    //Create Necessary stuff
     CommandLine cmd;
     CommandLineParser parser = new DefaultParser();
     UserDao src;
@@ -63,36 +73,27 @@ public class UserSyncApp {
     try {
       cmd = parser.parse(options, args);
 
-
       //Get options
       Option parsedOptions[] = cmd.getOptions();
 
       //check number of option
       if(parsedOptions.length == 2){
-
         //Parse first option
         src = parseDaoInfo(parsedOptions[0]);
-
         //Parse second option
         dest = parseDaoInfo(parsedOptions[1]);
 
-
-        //TODO Implement App actual logic
-
+        //Actual function
+        UserSync function = new UserSync();
+        function.copyUsers(src, dest);
       }
-
       printHelp(options);
-
+      throw new RuntimeException("Invalid number of options");
     }
     catch (ParseException e){
       printHelp(options);
       throw new RuntimeException("Invalid Arguments",e);
     }
 
-
-
-
-    //create src/dest UserDao
-    //call UserSync
   }
 }
