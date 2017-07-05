@@ -52,25 +52,15 @@ public class UserSyncApp {
     options.addOption(forgeRock);
     options.addOption(csv);
 
-    // Create Necessary stuff
-    CommandLine cmd;
-    CommandLineParser parser = new DefaultParser();
-    UserDao src;
-    UserDao dest;
-
-    // Parse input
     try {
-      cmd = parser.parse(options, args);
-
-      // Get options
-      Option parsedOptions[] = cmd.getOptions();
+      Option[] parsedOptions = new DefaultParser().parse(options, args).getOptions();
 
       // check number of option
       if (parsedOptions.length == 2) {
         // Parse first option
-        src = parseDaoInfo(parsedOptions[0]);
+        UserDao src = parseDaoInfo(parsedOptions[0]);
         // Parse second option
-        dest = parseDaoInfo(parsedOptions[1]);
+        UserDao dest = parseDaoInfo(parsedOptions[1]);
 
         // Actual function
         UserSync function = new UserSync();

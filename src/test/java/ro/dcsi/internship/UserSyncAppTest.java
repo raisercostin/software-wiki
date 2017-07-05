@@ -2,6 +2,8 @@ package ro.dcsi.internship;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static ro.dcsi.internship.IntegrationTestConfig.testInstance;
 
 import java.util.Iterator;
 import java.util.List;
@@ -13,19 +15,32 @@ public class UserSyncAppTest {
   @Test
   public void twoSyncViaCommandLine1() {
     OpenIdConfig c = IntegrationTestConfig.testInstance;
+    String csvFile = "target/export2.csv";
     String args[] = { "--forgerock", c.openIDMServer, c.openIDMUsername, c.openIDMPassword, "--csv",
         "target/export2.csv" };
     UserSyncApp.main(args);
-    // ... check that target/export2.csv exists and is identical with forgerock
+    UserDao fr = new ForgeRockUserDao(c);
+    UserDao csv = new CsvUserDao(csvFile);
+    assertEverythingFromSrcIsInDst(fr,csv);
   }
 
   @Test
   public void twoSyncViaCommandLine2() {
     OpenIdConfig c = IntegrationTestConfig.testInstance;
-    String args[] = { "copy", "--csv", "target/export2.csv", "--forgerock", c.openIDMServer, c.openIDMUsername,
+    String srcFile = "src/test/resources/CSV/UserSyncAppRestoreTest.csv";
+
+    String args[] = { "copy", "--csv", srcFile, "--forgerock", c.openIDMServer, c.openIDMUsername,
         c.openIDMPassword };
     UserSyncApp.main(args);
-    // ... check that target/export2.csv exists and is identical with forgerock
+    UserDao fr = new ForgeRockUserDao(c);
+    UserDao csv = new CsvUserDao(srcFile);
+    assertEverythingFromSrcIsInDst(csv,fr);
+  }
+
+  private void assertEverythingFromSrcIsInDst(UserDao src, UserDao dest) {
+    for (User user : src) {
+      assertTrue("Search for user "+user.username()+" with id "+user.getId(),dest.userExists(user.getId()));
+    }
   }
 
   @Test

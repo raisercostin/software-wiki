@@ -21,7 +21,7 @@ import de.siegmar.fastcsv.writer.CsvWriter;
  * Created by Catalin on 7/3/2017.
  */
 public class CsvUserDao implements UserDao {
-  //List<User> database;
+  // List<User> database;
   CsvReader reader;
   private String filename;
   private final char separator;
@@ -39,16 +39,16 @@ public class CsvUserDao implements UserDao {
   }
 
   @Override
-  //TODO not thread safe
+  // TODO not thread safe
   public boolean userExists(String id) {
-    throw new RuntimeException("Not implemented yet!!!");
-//    if (database == null) {
-//      database = reader.readUsers();
-//    }
-//    for (User u : database)
-//      if (u.getAttributeValue("_id") != null && u.getAttributeValue("_id").equals(id))
-//        return true;
-//    return false;
+    List<User> users = reader.readUsers();
+    // if (database == null) {
+    // database = reader.readUsers();
+    // }
+    for (User u : users)
+      if (u.getAttributeValue("_id") != null && u.getAttributeValue("_id").equals(id))
+        return true;
+    return false;
   }
 
   // @Override
