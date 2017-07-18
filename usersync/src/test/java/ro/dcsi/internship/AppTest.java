@@ -41,6 +41,7 @@ public class AppTest
     {
     	String testR = new ReadingUsers().read();
 		String testW = new WritingUsers().verification();
+		//knowing the last user i want to know if the method 			//read them all
 		Assert.assertEquals("xxyztt", testR);
 		Assert.assertEquals("Writing done!", testW);
     }

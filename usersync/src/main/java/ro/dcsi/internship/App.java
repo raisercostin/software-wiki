@@ -40,8 +40,9 @@ class WritingUsers {
 		pw.close();
 	}
 	
-	@SuppressWarnings("unused")
 	public String verification() {
+		//users2 file doesn't exist in first place
+		//if it is created, it will be also written hopefully
 		if (new File("src/test/files/users2.csv") != null) {
 			return "Writing done!";
 		}
