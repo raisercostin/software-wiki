@@ -6,15 +6,18 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 class ReadingUsers {
-	public void read() throws FileNotFoundException {
+	public String read() throws FileNotFoundException {
 		System.out.println("Reading users in order from a CSV file");
-        Scanner sc = new Scanner(new File("src/test/files/users.csv"));
+        String last = "";
+		Scanner sc = new Scanner(new File("src/test/files/users.csv"));
         sc.useDelimiter(",");
         System.out.println("User list: ");
         while (sc.hasNext()) {
-        	System.out.println(sc.next());
+        	last = sc.next();
+        	System.out.println(last);
         }
         sc.close();
+        return last;
 	}
 }
 
@@ -35,12 +38,19 @@ class WritingUsers {
 		sc.close();
 		pw.write(sb.toString());
 		pw.close();
-		System.out.println("Writing done!");
+	}
+	
+	@SuppressWarnings("unused")
+	public String verification() {
+		if (new File("src/test/files/users2.csv") != null) {
+			return "Writing done!";
+		}
+		return "no";
 	}
 }
 
-//this app deal only with users
-//TODO: add pass and other info..
+//this app deals only with users
+//TODO: add pass and other info besides users
 public class App {
     public static void main(String[] args) throws FileNotFoundException {
         new ReadingUsers().read();
