@@ -4,8 +4,13 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import java.io.FileNotFoundException;
+
+import junit.framework.Assert;
+
+
 /**
- * Unit test for simple App.
+ * Unit test for App.
  */
 public class AppTest 
     extends TestCase
@@ -29,10 +34,15 @@ public class AppTest
     }
 
     /**
-     * Rigourous Test :-)
+     * My tests
+     * @throws FileNotFoundException 
      */
-    public void testApp()
+    public void testApp() throws FileNotFoundException
     {
-        assertTrue( true );
+    	String testR = new ReadingUsers().read();
+		String testW = new WritingUsers().verification();
+		//knowing the last user i want to know if the method 			//read them all
+		Assert.assertEquals("xxyztt", testR);
+		Assert.assertEquals("Writing done!", testW);
     }
 }
