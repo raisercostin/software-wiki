@@ -3,7 +3,7 @@ package ro.dcsi.internship;
 import java.io.*;
 import java.util.Scanner;
 
-public class App {
+public class App3 {
     private static final String FILENAME = System.getProperty("user.home") + "/data.csv";
     private static final String COMMA_DELIMITER = ",";
 
