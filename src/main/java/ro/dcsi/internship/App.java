@@ -1,87 +1,33 @@
 package ro.dcsi.internship;
 
+import com.opencsv.bean.CsvToBeanBuilder;
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+import java.util.List;
 import java.io.*;
-import java.util.Scanner;
 
+/**
+ * Hello world!
+ *
+ */
 public class App {
-    private static final String FILENAME = System.getProperty("user.home") + "/data.csv";
-    private static final String COMMA_DELIMITER = ",";
 
-    public static void main(String[] args) {
-        createFile();
+  public static void main(String[] args)
+      throws FileNotFoundException, IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+    List<User> beans = new CsvToBeanBuilder(new FileReader("src/test/resources/users.csv")).withType(User.class).build()
+        .parse();
 
-        System.out.println("Insert data:");
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-
-        while (!(input.equals("DONE"))) {
-            writeDataInFile(input);
-            input = scanner.nextLine();
-        }
-        scanner.close();
-        readDataFromFile();
+    for (User user : beans) {
+      System.out.println("Username: " + user.getUsername());
     }
 
-    private static void createFile() {
-        try {
+    Writer writer = new FileWriter("src/test/export/userExport.csv");
+    StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
+    beanToCsv.write(beans);
+    writer.close();
 
-            File file = new File(FILENAME);
+  }
 
-            if (file.createNewFile() || file.exists()) {
-                System.out.println("File created/exists!");
-            } else {
-                System.out.println("Cannot create file!");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void writeDataInFile(String input) {
-        FileWriter fileWriter = null;
-        try {
-            fileWriter = new FileWriter(FILENAME, true);
-            fileWriter.append(input);
-            fileWriter.append(COMMA_DELIMITER);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        } finally {
-            try {
-                fileWriter.flush();
-                fileWriter.close();
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private static void readDataFromFile() {
-        FileReader fileReader = null;
-        BufferedReader bufferedReader = null;
-        try {
-            fileReader = new FileReader(FILENAME);
-            bufferedReader = new BufferedReader(fileReader);
-
-            String currentLine;
-            while ((currentLine = bufferedReader.readLine()) != null) {
-                System.out.println(currentLine);
-            }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        } finally {
-            try {
-                if (bufferedReader != null)
-                    bufferedReader.close();
-                if (fileReader != null)
-                    fileReader.close();
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-                e.printStackTrace();
-            }
-        }
-    }
 }
-
