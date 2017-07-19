@@ -4,12 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
-
+class ConfigTest{
+  static String resourcesFolder="src/test/resources";
+}
 class ReadingUsers {
-	public String read() throws FileNotFoundException {
+  public String read() throws FileNotFoundException {
 		System.out.println("Reading users in order from a CSV file");
         String last = "";
-		Scanner sc = new Scanner(new File("src/test/files/users.csv"));
+		Scanner sc = new Scanner(new File(ConfigTest.resourcesFolder+"/users.csv"));
         sc.useDelimiter(",");
         System.out.println("User list: ");
         while (sc.hasNext()) {
@@ -23,7 +25,7 @@ class ReadingUsers {
 
 class WritingUsers {
 	public void write() throws FileNotFoundException {
-		PrintWriter pw = new PrintWriter(new File("src/test/files/users2.csv"));
+		PrintWriter pw = new PrintWriter(new File(ConfigTest.resourcesFolder+"/users2.csv"));
 		StringBuilder sb = new StringBuilder();
 		Scanner sc = new Scanner(System.in);
 		while (true) {
@@ -43,7 +45,7 @@ class WritingUsers {
 	public String verification() {
 		//users2 file doesn't exist in first place
 		//if it is created, it will be also written hopefully
-		if (new File("src/test/files/users2.csv") != null) {
+		if (new File(ConfigTest.resourcesFolder+"/users2.csv") != null) {
 			return "Writing done!";
 		}
 		return "no";
