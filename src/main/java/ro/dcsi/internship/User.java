@@ -13,33 +13,32 @@ import com.opencsv.bean.CsvBindByName;
  */
 public class User {
 
-    @CsvBindByName
-     private String username;
+  @CsvBindByName
+  private String username;
 
-     @CsvBindByName
-     private String email;
+  @CsvBindByName
+  private String email;
 
-     @CsvBindByName
-     private String firstname;
-     
-     @CsvBindByName
-     private String lastname;
+  @CsvBindByName
+  private String firstname;
 
-    public String getUsername() {
-        return username;
-    }
+  @CsvBindByName
+  private String lastname;
 
-    public String getEmail() {
-        return email;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public String getFirstname() {
-        return firstname;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public String getLastname() {
-        return lastname;
-    }
-     
-   
+  public String getFirstname() {
+    return firstname;
+  }
+
+  public String getLastname() {
+    return lastname;
+  }
+
 }
