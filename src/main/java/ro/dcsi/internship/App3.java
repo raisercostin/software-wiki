@@ -37,7 +37,7 @@ public class App3 {
     }
   }
 
-  private static void writeDataInFile(String input) {
+  static void writeDataInFile(String input) {
     FileWriter fileWriter = null;
     try {
       fileWriter = new FileWriter(FILENAME, true);
@@ -57,7 +57,7 @@ public class App3 {
     }
   }
 
-  private static void readDataFromFile() {
+  static void readDataFromFile() {
     FileReader fileReader = null;
     BufferedReader bufferedReader = null;
     try {

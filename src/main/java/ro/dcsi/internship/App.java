@@ -14,20 +14,25 @@ import java.io.*;
  */
 public class App {
 
-  public static void main(String[] args)
-      throws FileNotFoundException, IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
-    List<User> beans = new CsvToBeanBuilder(new FileReader("src/test/resources/users.csv")).withType(User.class).build()
-        .parse();
+  public static void main(String[] args) {
+    try {
+      List<User> beans = new CsvToBeanBuilder(new FileReader("src/test/resources/users.csv")).withType(User.class)
+          .build().parse();
 
-    for (User user : beans) {
-      System.out.println("Username: " + user.getUsername());
+      for (User user : beans) {
+        System.out.println("Username: " + user.getUsername());
+      }
+
+      Writer writer = new FileWriter("src/test/export/userExport.csv");
+      StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
+      beanToCsv.write(beans);
+      writer.close();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    } catch (CsvDataTypeMismatchException e) {
+      throw new RuntimeException(e);
+    } catch (CsvRequiredFieldEmptyException e) {
+      throw new RuntimeException(e);
     }
-
-    Writer writer = new FileWriter("src/test/export/userExport.csv");
-    StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
-    beanToCsv.write(beans);
-    writer.close();
-
   }
-
 }
