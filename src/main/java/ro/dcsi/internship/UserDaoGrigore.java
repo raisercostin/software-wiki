@@ -23,6 +23,7 @@ public class UserDaoGrigore implements UserDao {
             record[i] = user.getmUserName();
             i++;
         }
+        //TODO cred ca aici imi scrie gresit la linii multiple
         try {
             CSVWriter writer = new CSVWriter(new FileWriter(csvFile));
             writer.writeNext(record);
@@ -39,7 +40,7 @@ public class UserDaoGrigore implements UserDao {
         List<TheUser> theUserList = new ArrayList<TheUser>();
         try {
 
-            CSVReader csvReader = new CSVReader(new FileReader(csvFile), ',');
+            CSVReader csvReader = new CSVReader(new FileReader(csvFile));
             while ((row = csvReader.readNext()) != null) {
                 theUserList.add(new TheUser(row[0]));
             }
