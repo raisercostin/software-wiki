@@ -12,7 +12,8 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 public class AppTest
 {
   @Test
-  public void testApp(){
+  public void testApp()
+  {
     UserDao app= new UserDaoCostin();
     app.writeUsers("file1",new TheUser("ion"),new TheUser("gigi"));
     app.writeUsers("file2",new TheUser("costin"));
