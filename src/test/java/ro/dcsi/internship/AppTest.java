@@ -14,9 +14,11 @@ public class AppTest
   @Test
   public void testApp()
   {
-    UserDao app= new UserDaoCostin();
+    UserDao app= new UserDaoIulian();
+    
     app.writeUsers("file1",new TheUser("ion"),new TheUser("gigi"));
     app.writeUsers("file2",new TheUser("costin"));
+    
     Assert.assertEquals(2,app.readUsers("file1").size());
     Assert.assertEquals(1,app.readUsers("file2").size());
   }
