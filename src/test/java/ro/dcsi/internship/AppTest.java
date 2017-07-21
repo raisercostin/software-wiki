@@ -38,5 +38,5 @@ public class AppTest {
     app.writeUsers("file2", new TheUser("costin"));
     Assert.assertEquals(2, app.readUsers("file1").size());
     Assert.assertEquals(1, app.readUsers("file2").size());
-  }
+  } 
 }
