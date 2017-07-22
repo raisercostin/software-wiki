@@ -1,7 +1,6 @@
 package ro.dcsi.internship;
 
 import java.io.Serializable;
-
 import com.opencsv.bean.CsvBindByName;
 
 @SuppressWarnings("serial")
@@ -23,12 +22,12 @@ public class TheUser implements Serializable
 	}
 	
 	public TheUser(String name)
-  {
-	  this.name = name;
-  }
+    {
+		this.name = name;
+    }
   
 	public TheUser()
-  {
-	  this.name = "NO_NAME";
-  }
+    {
+		this.name = "NO_NAME";
+    }
 }

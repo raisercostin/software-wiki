@@ -9,6 +9,7 @@ import org.junit.Test;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
+@SuppressWarnings("unused")
 public class AppTest
 {
   @Test
