@@ -1,5 +1,7 @@
 package ro.dcsi.internship;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -8,7 +10,19 @@ public class AppTest {
 
   @Test
   public void testApp() {
-    App.main(null);
+	  UserController controller = new UserController();
+	  List<User> existingUsers = controller.readUsers(resourcesFolder + "users.csv");
+	  User[] users = new User[existingUsers.size()];
+	  
+	  controller.writeUsers(resourcesFolder + "tempUsers", existingUsers.toArray(users));
+	  
+	  List<User> tempUsers = controller.readUsers(resourcesFolder + "tempUsers");
+	  
+	  Assert.assertEquals(existingUsers.size(), tempUsers.size());
+	  
+	  for (int i = 0; i< existingUsers.size(); i++) {
+		  Assert.assertEquals(existingUsers.get(i).toString(), tempUsers.get(i).toString());
+	  }
   }
 
   @Test
