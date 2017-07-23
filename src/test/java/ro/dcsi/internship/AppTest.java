@@ -1,13 +1,9 @@
 package ro.dcsi.internship;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.opencsv.exceptions.CsvDataTypeMismatchException;
-import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 public class AppTest {
   @Test
@@ -15,13 +11,12 @@ public class AppTest {
     App.main(null);
   }
   @Test
-  public void testApp2() throws FileNotFoundException {
-    String testR = new ReadingUsers().read();
-    String testW = new WritingUsers().verification();
-    //knowing the last user i want to know if the method      //read them all
-    //TODO review
-    Assert.assertEquals("ca\n", testR);
-    Assert.assertEquals("Writing done!", testW);
+  public void testAppSorin() throws FileNotFoundException {
+    UserDao appS = new UserDaoSorin();
+    appS.writeUsers("file1",new TheUser("ion"),new TheUser("gigi"));
+    appS.writeUsers("file2",new TheUser("costin"));
+    Assert.assertEquals(2,appS.readUsers("file1").size());
+    Assert.assertEquals(1,appS.readUsers("file2").size());
   }
   @Test
   public void testApp3(){
