@@ -40,7 +40,7 @@ public class User {
   public String getLastname() {
     return lastname;
   }
-  
+
   public String toString() {
     return "[" + this.username + "::" + this.firstname + "::" + this.lastname + "::" + this.email + "]";
   }

@@ -1,7 +1,7 @@
 package ro.dcsi.internship;
 
 public class TheUser {
-  
+
   private String username;
   private String passwd;
   private String fullname;
@@ -10,12 +10,18 @@ public class TheUser {
   private String country;
   private String email;
 
-  public TheUser(String name) {
+  public TheUser(String name, String pass, String fname, int perms, int age, String country, String mail) {
     setUsername(name);
+    setPasswd(pass);
+    setFullname(fname);
+    setPermissions(perms);
+    setAge(age);
+    setCountry(country);
+    setEmail(mail);
   }
-  
+
   public TheUser() {
-    
+
   }
 
   public String getUsername() {
@@ -73,9 +79,10 @@ public class TheUser {
   public void setEmail(String email) {
     this.email = email;
   }
-  
+
   public String toString() {
-    return "[" + getUsername() + "::" + getFullname() + "::" + getPermissions() + "::" + getPermissions() + "::" + getEmail() + "]";
+    return "[" + getUsername() + "::" + getFullname() + "::" + getPermissions() + "::" + getPermissions() + "::"
+        + getEmail() + "]";
   }
 
 }
