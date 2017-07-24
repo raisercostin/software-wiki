@@ -3,6 +3,7 @@ package ro.dcsi.internship;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,7 +16,7 @@ import java.util.List;
 public class UserDaoGrigore implements UserDao {
   @Override
   public void writeUsers(String file, TheUser... users) {
-    String csvFile = "src/main/resources/" + file + ".csv";
+    String csvFile = file + ".csv";
     String[] record;
     try {
       CSVWriter writer = new CSVWriter(new FileWriter(csvFile));
@@ -33,7 +34,7 @@ public class UserDaoGrigore implements UserDao {
 
   @Override
   public List<TheUser> readUsers(String file) {
-    String csvFile = "src/main/resources/" + file + ".csv";
+    String csvFile = file + ".csv";
     String[] row = null;
     List<TheUser> theUserList = new ArrayList<TheUser>();
     try {
@@ -42,11 +43,9 @@ public class UserDaoGrigore implements UserDao {
       while ((row = csvReader.readNext()) != null) {
         theUserList.add(new TheUser(row[0]));
       }
-
       csvReader.close();
-
-    } catch (Exception e) {
-      e.printStackTrace();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
 
     return theUserList;

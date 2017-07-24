@@ -20,7 +20,7 @@ public class UserDaoSorin implements UserDao {
     try {
       CSVWriter writer = new CSVWriter(new FileWriter(file, true), ',');
       if (!fileExists) {
-        //here add Header if necessary
+        // here add Header if necessary
       }
       List<String[]> data = new ArrayList<>();
       for (TheUser u : users) {

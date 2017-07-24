@@ -5,6 +5,7 @@ import com.opencsv.bean.CsvBindByName;
 
 public class TheUser {
 
+  @CsvBindByName
   private String username;
   private String passwd;
   private String fullname;

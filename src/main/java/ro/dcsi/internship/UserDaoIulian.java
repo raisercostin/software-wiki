@@ -3,6 +3,8 @@ package ro.dcsi.internship;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.raisercostin.jedi.Locations;
+
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
@@ -16,16 +18,18 @@ public class UserDaoIulian implements UserDao {
   @Override
   public void writeUsers(String file, TheUser... users) {
     try {
-      //add users to a list
+      // add users to a list
       List<TheUser> userList = new ArrayList<TheUser>();
       for (TheUser obj : users) {
         userList.add(obj);
       }
 
       String fileName = file + ".csv";
+      Locations.current(fileName).mkdirOnParentIfNecessary();
+      // new File(fileName).getParentFile().mkdirs();
       Writer writer = new FileWriter(fileName);
 
-      //writing to a .csv
+      // writing to a .csv
       StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
       beanToCsv.write(userList);
       writer.close();
