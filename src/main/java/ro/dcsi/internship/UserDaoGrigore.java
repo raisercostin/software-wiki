@@ -20,7 +20,7 @@ public class UserDaoGrigore implements UserDao {
 
     int i = 0;
     for (TheUser user : users) {
-      record[i] = user.getmUserName();
+      record[i] = user.getUsername();
       i++;
     }
     //TODO cred ca aici imi scrie gresit la linii multiple

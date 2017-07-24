@@ -59,6 +59,7 @@ public class AppTest {
     Assert.assertEquals(2,app.readUsers("file1").size());
     Assert.assertEquals(1,app.readUsers("file2").size());
   }
+  @Test
   public void testGrigore() {
     UserDao app = new UserDaoGrigore();
     app.writeUsers("file1", new TheUser("ion"), new TheUser("gigi"));

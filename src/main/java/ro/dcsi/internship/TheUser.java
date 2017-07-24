@@ -10,6 +10,14 @@ public class TheUser {
   private String country;
   private String email;
 
+  public TheUser() {
+
+  }
+
+  public TheUser(String name) {
+    this(name, "", "", 0, 0, "", "");
+  }
+  
   public TheUser(String name, String pass, String fname, int perms, int age, String country, String mail) {
     setUsername(name);
     setPasswd(pass);
@@ -18,10 +26,6 @@ public class TheUser {
     setAge(age);
     setCountry(country);
     setEmail(mail);
-  }
-
-  public TheUser() {
-
   }
 
   public String getUsername() {
