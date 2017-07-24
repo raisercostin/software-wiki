@@ -16,17 +16,15 @@ public class UserDaoGrigore implements UserDao {
   @Override
   public void writeUsers(String file, TheUser... users) {
     String csvFile = "src/main/resources/" + file + ".csv";
-    String[] record = new String[users.length];
-
-    int i = 0;
-    for (TheUser user : users) {
-      record[i] = user.getUsername();
-      i++;
-    }
-    //TODO cred ca aici imi scrie gresit la linii multiple
+    String[] record;
     try {
       CSVWriter writer = new CSVWriter(new FileWriter(csvFile));
-      writer.writeNext(record);
+      for (TheUser user : users) {
+        record = new String[1];
+        record[0] = user.getUsername();
+
+        writer.writeNext(record);
+      }
       writer.close();
     } catch (IOException e) {
       e.printStackTrace();
