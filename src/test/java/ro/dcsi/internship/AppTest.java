@@ -59,8 +59,9 @@ public class AppTest {
     UserDao app = new UserDaoGrigore();
     app.writeUsers("file1", new TheUser("ion"), new TheUser("gigi"));
     app.writeUsers("file2", new TheUser("costin"));
-
-    Assert.assertEquals(2, app.readUsers("file1").size());
+    
+    List<TheUser> ls = app.readUsers("file1");
+    Assert.assertEquals(2, ls.size());
     Assert.assertEquals(1, app.readUsers("file2").size());
   }
 }
