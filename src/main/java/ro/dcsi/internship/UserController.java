@@ -15,38 +15,35 @@ import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
-
-
 public class UserController implements UserDaoInterface {
 
-	@Override
-	public void writeUsers(String file, User... users) {
-		Writer writer;
+  @Override
+  public void writeUsers(String file, User... users) {
+    Writer writer;
 
-		try {
-			writer = new FileWriter(file);
-			StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();    
-			beanToCsv.write(new ArrayList<User>(Arrays.asList(users)));
-			writer.close();
-		} catch (IOException | CsvDataTypeMismatchException | CsvRequiredFieldEmptyException e1) {
-			e1.printStackTrace();
-		}	
-	}
+    try {
+      writer = new FileWriter(file);
+      StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
+      beanToCsv.write(new ArrayList<User>(Arrays.asList(users)));
+      writer.close();
+    } catch (IOException | CsvDataTypeMismatchException | CsvRequiredFieldEmptyException e1) {
+      e1.printStackTrace();
+    }
+  }
 
-	@Override
-	public List<User> readUsers(String file) {
-		List<User> beans = null;
-		
-		 try {
-			beans = new CsvToBeanBuilder(new FileReader(file)).withType(User.class)
-			          .build().parse();
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+  @Override
+  public List<User> readUsers(String file) {
+    List<User> beans = null;
 
-		return beans;
-	}
+    try {
+      beans = new CsvToBeanBuilder(new FileReader(file)).withType(User.class).build().parse();
+    } catch (IllegalStateException e) {
+      e.printStackTrace();
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+
+    return beans;
+  }
 
 }

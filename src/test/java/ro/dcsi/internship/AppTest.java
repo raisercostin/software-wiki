@@ -43,7 +43,7 @@ public class AppTest {
     Assert.assertEquals(2, appS.readUsers(resourcesFolder + "newSorinUsersCsv.csv").size());
     Assert.assertEquals(1, appS.readUsers(resourcesFolder + "new2SorinUsersCsv2.csv").size());
   }
-  
+
   @Test
   public void testAppIulian() {
     UserDao app = new UserDaoIulian();
@@ -59,9 +59,24 @@ public class AppTest {
     UserDao app = new UserDaoGrigore();
     app.writeUsers("file1", new TheUser("ion"), new TheUser("gigi"));
     app.writeUsers("file2", new TheUser("costin"));
-    
+
     List<TheUser> ls = app.readUsers("file1");
     Assert.assertEquals(2, ls.size());
     Assert.assertEquals(1, app.readUsers("file2").size());
+  }
+
+  @Test
+  public void testReadGrigore() {
+    UserDao app = new UserDaoGrigore();
+    List<TheUser> ls = app.readUsers("users");
+    Assert.assertEquals(8, ls.size());
+  }
+
+  @Test
+  @Ignore
+  public void testReadCostin() {
+    UserDao app = new UserDaoCostin();
+    List<TheUser> ls = app.readUsers("users");
+    Assert.assertEquals(8, ls.size());
   }
 }
