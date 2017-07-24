@@ -20,7 +20,7 @@ public class TheUser {
   public TheUser(String name) {
     this(name, "", "", 0, 0, "", "");
   }
-  
+
   public TheUser(String name, String pass, String fname, int perms, int age, String country, String mail) {
     setUsername(name);
     setPasswd(pass);
@@ -94,33 +94,26 @@ public class TheUser {
 
 }
 
-class TheUser2 {
-
 @SuppressWarnings("serial")
-public class TheUser implements Serializable
-{
-	//private String id;
-	@CsvBindByName
-	private String name;
-	//private String email;
-	
-	public String getName()
-	{
-		return name;
-	}
+class TheUser2 implements Serializable {
+  // private String id;
+  @CsvBindByName
+  private String name;
+  // private String email;
 
-	public void setName(String name)
-	{
-		this.name = name;
-	}
-	
-	public TheUser(String name)
-    {
-		this.name = name;
-    }
-  
-	public TheUser()
-    {
-		this.name = "NO_NAME";
-    }
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public TheUser2(String name) {
+    this.name = name;
+  }
+
+  public TheUser2() {
+    this.name = "NO_NAME";
+  }
 }

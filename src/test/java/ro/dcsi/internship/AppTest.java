@@ -11,19 +11,19 @@ public class AppTest {
 
   @Test
   public void testApp() {
-	  UserController controller = new UserController();
-	  List<User> existingUsers = controller.readUsers(resourcesFolder + "users.csv");
-	  User[] users = new User[existingUsers.size()];
-	  
-	  controller.writeUsers(resourcesFolder + "tempUsers", existingUsers.toArray(users));
-	  
-	  List<User> tempUsers = controller.readUsers(resourcesFolder + "tempUsers");
-	  
-	  Assert.assertEquals(existingUsers.size(), tempUsers.size());
-	  
-	  for (int i = 0; i< existingUsers.size(); i++) {
-		  Assert.assertEquals(existingUsers.get(i).toString(), tempUsers.get(i).toString());
-	  }
+    UserController controller = new UserController();
+    List<User> existingUsers = controller.readUsers(resourcesFolder + "users.csv");
+    User[] users = new User[existingUsers.size()];
+
+    controller.writeUsers(resourcesFolder + "tempUsers", existingUsers.toArray(users));
+
+    List<User> tempUsers = controller.readUsers(resourcesFolder + "tempUsers");
+
+    Assert.assertEquals(existingUsers.size(), tempUsers.size());
+
+    for (int i = 0; i < existingUsers.size(); i++) {
+      Assert.assertEquals(existingUsers.get(i).toString(), tempUsers.get(i).toString());
+    }
   }
 
   @Test
@@ -43,33 +43,24 @@ public class AppTest {
     Assert.assertEquals(2, appS.readUsers(resourcesFolder + "newSorinUsersCsv.csv").size());
     Assert.assertEquals(1, appS.readUsers(resourcesFolder + "new2SorinUsersCsv2.csv").size());
   }
-
+  
   @Test
-  public void testApp3() {
-    App3.writeDataInFile("");
-    App3.readDataFromFile();
+  public void testAppIulian() {
+    UserDao app = new UserDaoIulian();
+
+    app.writeUsers("file1", new TheUser(), new TheUser());
+    app.writeUsers("file2", new TheUser());
+    Assert.assertEquals(2, app.readUsers("file1").size());
+    Assert.assertEquals(1, app.readUsers("file2").size());
   }
 
-  @Test
-  @Ignore
-  public void testCostin(){
-    UserDao app= new UserDaoCostin();
-  public void testApp()
-  {
-    UserDao app= new UserDaoIulian();
-    
-    app.writeUsers("file1",new TheUser(),new TheUser());
-    app.writeUsers("file2",new TheUser());
-    Assert.assertEquals(2,app.readUsers("file1").size());
-    Assert.assertEquals(1,app.readUsers("file2").size());
-  }
   @Test
   public void testGrigore() {
     UserDao app = new UserDaoGrigore();
     app.writeUsers("file1", new TheUser("ion"), new TheUser("gigi"));
     app.writeUsers("file2", new TheUser("costin"));
-    
+
     Assert.assertEquals(2, app.readUsers("file1").size());
     Assert.assertEquals(1, app.readUsers("file2").size());
-  } 
+  }
 }
