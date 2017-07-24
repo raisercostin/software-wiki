@@ -49,10 +49,11 @@ public class AppTest {
   @Test
   public void testAppIulian() {
     UserDao app = new UserDaoIulian();
-    app.writeUsers(target + "file1", new TheUser(), new TheUser());
-    app.writeUsers(target + "file2", new TheUser());
+    app.writeUsers(target + "file1", new TheUser("1"), new TheUser("1"));
+    app.writeUsers(target + "file2", new TheUser("2"));
     Assert.assertEquals(2, app.readUsers(target + "file1").size());
     Assert.assertEquals(1, app.readUsers(target + "file2").size());
+    Assert.assertEquals("2", app.readUsers(target + "file2").get(0).getUsername());
   }
 
   @Test

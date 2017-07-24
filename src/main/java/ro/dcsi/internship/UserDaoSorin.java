@@ -42,14 +42,14 @@ public class UserDaoSorin implements UserDao {
       CSVReader reader = new CSVReader(new FileReader(file), ',');
       String[] buff = null;
       while ((buff = reader.readNext()) != null) {
-        TheUser u = new TheUser();
-        u.setUsername(buff[0]);
-        u.setPasswd(buff[1]);
-        u.setFullname(buff[2]);
-        u.setPermissions(Integer.parseInt(buff[3]));
-        u.setAge(Integer.parseInt(buff[4]));
-        u.setCountry(buff[5]);
-        u.setEmail(buff[6]);
+        TheUser u = new TheUser.Builder().setUsername(buff[0])
+        .setUsername(buff[0])
+        .setPasswd(buff[1])
+        .setFullname(buff[2])
+        .setPermissions(Integer.parseInt(buff[3]))
+        .setAge(Integer.parseInt(buff[4]))
+        .setCountry(buff[5])
+        .setEmail(buff[6]).build();
         theusers.add(u);
       }
       reader.close();
