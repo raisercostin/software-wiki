@@ -14,12 +14,14 @@ public class AppTest {
   @Test
   public void testLiviu() {
     UserController controller = new UserController();
-    List<User> existingUsers = controller.readUsers(resources + "users.csv");
-    User[] users = new User[existingUsers.size()];
+    List<TheUser> existingUsers = controller.readUsers(resources + "users.csv");
+    Assert.assertEquals(8,existingUsers.size());
+    
+    TheUser[] users = new TheUser[existingUsers.size()];
 
     controller.writeUsers(target + "tempUsers", existingUsers.toArray(users));
 
-    List<User> tempUsers = controller.readUsers(target + "tempUsers");
+    List<TheUser> tempUsers = controller.readUsers(target + "tempUsers");
 
     Assert.assertEquals(existingUsers.size(), tempUsers.size());
 
@@ -53,7 +55,7 @@ public class AppTest {
     app.writeUsers(target + "file2", new TheUser("2"));
     Assert.assertEquals(2, app.readUsers(target + "file1").size());
     Assert.assertEquals(1, app.readUsers(target + "file2").size());
-    Assert.assertEquals("2", app.readUsers(target + "file2").get(0).getUsername());
+    Assert.assertEquals("2", app.readUsers(target + "file2").get(0).username);
   }
 
   @Test

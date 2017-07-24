@@ -22,7 +22,7 @@ public class UserDaoGrigore implements UserDao {
       CSVWriter writer = new CSVWriter(new FileWriter(csvFile));
       for (TheUser user : users) {
         record = new String[1];
-        record[0] = user.getUsername();
+        record[0] = user.username;
 
         writer.writeNext(record);
       }

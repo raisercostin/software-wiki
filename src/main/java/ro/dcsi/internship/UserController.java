@@ -15,16 +15,16 @@ import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
-public class UserController implements UserDaoInterface {
+public class UserController implements UserDao {
 
   @Override
-  public void writeUsers(String file, User... users) {
+  public void writeUsers(String file,TheUser... users) {
     Writer writer;
 
     try {
       writer = new FileWriter(file);
       StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
-      beanToCsv.write(new ArrayList<User>(Arrays.asList(users)));
+      beanToCsv.write(new ArrayList<TheUser>(Arrays.asList(users)));
       writer.close();
     } catch (IOException | CsvDataTypeMismatchException | CsvRequiredFieldEmptyException e1) {
       e1.printStackTrace();
@@ -32,11 +32,11 @@ public class UserController implements UserDaoInterface {
   }
 
   @Override
-  public List<User> readUsers(String file) {
-    List<User> beans = null;
+  public List<TheUser> readUsers(String file) {
+    List<TheUser> beans = null;
 
     try {
-      beans = new CsvToBeanBuilder(new FileReader(file)).withType(User.class).build().parse();
+      beans = new CsvToBeanBuilder(new FileReader(file)).withType(TheUser.class).build().parse();
     } catch (IllegalStateException e) {
       e.printStackTrace();
     } catch (FileNotFoundException e) {

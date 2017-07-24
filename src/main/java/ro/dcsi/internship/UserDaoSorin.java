@@ -24,8 +24,8 @@ public class UserDaoSorin implements UserDao {
 //      }
       List<String[]> data = new ArrayList<>();
       for (TheUser u : users) {
-        data.add(new String[] { u.getUsername(), u.getPasswd(), u.getFullname(), Integer.toString(u.getPermissions()),
-            Integer.toString(u.getAge()), u.getCountry(), u.getEmail() });
+        data.add(new String[] { u.username, u.passwd, u.fullname, Integer.toString(u.permissions),
+            Integer.toString(u.age), u.country, u.email });
       }
 
       writer.writeAll(data);
@@ -42,7 +42,7 @@ public class UserDaoSorin implements UserDao {
       CSVReader reader = new CSVReader(new FileReader(file), ',');
       String[] buff = null;
       while ((buff = reader.readNext()) != null) {
-        TheUser u = new TheUser.Builder().setUsername(buff[0])
+        TheUser u = new UserBuilder().setUsername(buff[0])
         .setUsername(buff[0])
         .setPasswd(buff[1])
         .setFullname(buff[2])
