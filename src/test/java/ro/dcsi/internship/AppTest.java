@@ -12,7 +12,7 @@ public class AppTest {
   static String resources = "src/test/resources/";
 
   @Test
-  public void testApp() {
+  public void testLiviu() {
     UserController controller = new UserController();
     List<User> existingUsers = controller.readUsers(resources + "users.csv");
     User[] users = new User[existingUsers.size()];
