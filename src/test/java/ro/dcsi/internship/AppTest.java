@@ -3,6 +3,7 @@ package ro.dcsi.internship;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class AppTest {
@@ -48,12 +49,13 @@ public class AppTest {
     App3.writeDataInFile("");
     App3.readDataFromFile();
   }
-  /*@Test
-  public void testApp4(){
+  @Test
+  @Ignore
+  public void testCostin(){
     UserDao app= new UserDaoCostin();
     app.writeUsers("file1",new TheUser(),new TheUser());
     app.writeUsers("file2",new TheUser());
     Assert.assertEquals(2,app.readUsers("file1").size());
     Assert.assertEquals(1,app.readUsers("file2").size());
-  }*/
+  }
 }
