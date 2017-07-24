@@ -54,6 +54,10 @@ public class AppTest {
   @Ignore
   public void testCostin(){
     UserDao app= new UserDaoCostin();
+  public void testApp()
+  {
+    UserDao app= new UserDaoIulian();
+    
     app.writeUsers("file1",new TheUser(),new TheUser());
     app.writeUsers("file2",new TheUser());
     Assert.assertEquals(2,app.readUsers("file1").size());
@@ -64,6 +68,7 @@ public class AppTest {
     UserDao app = new UserDaoGrigore();
     app.writeUsers("file1", new TheUser("ion"), new TheUser("gigi"));
     app.writeUsers("file2", new TheUser("costin"));
+    
     Assert.assertEquals(2, app.readUsers("file1").size());
     Assert.assertEquals(1, app.readUsers("file2").size());
   } 
