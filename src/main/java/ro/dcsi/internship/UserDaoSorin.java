@@ -16,12 +16,12 @@ public class UserDaoSorin implements UserDao {
   @Override
   public void writeUsers(String file, TheUser... users) {
 
-    boolean fileExists = new File(file).exists();
+//    boolean fileExists = new File(file).exists();
     try {
-      CSVWriter writer = new CSVWriter(new FileWriter(file, true), ',');
-      if (!fileExists) {
+      CSVWriter writer = new CSVWriter(new FileWriter(file, false), ',');
+//      if (!fileExists) {
         // here add Header if necessary
-      }
+//      }
       List<String[]> data = new ArrayList<>();
       for (TheUser u : users) {
         data.add(new String[] { u.getUsername(), u.getPasswd(), u.getFullname(), Integer.toString(u.getPermissions()),
