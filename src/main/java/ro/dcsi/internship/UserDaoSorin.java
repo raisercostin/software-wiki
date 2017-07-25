@@ -1,5 +1,6 @@
 package ro.dcsi.internship;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -15,13 +16,16 @@ public class UserDaoSorin implements UserDao {
   @Override
   public void writeUsers(String file, TheUser... users) {
 
-//    boolean fileExists = new File(file).exists();
+    boolean fileExists = new File(file).exists();
     try {
       CSVWriter writer = new CSVWriter(new FileWriter(file, false), ',');
-//      if (!fileExists) {
-        // here add Header if necessary
-//      }
       List<String[]> data = new ArrayList<>();
+      
+      if (!fileExists) {
+        String[] header = new String[] {"Username", "Password", "Full Name", "Permissions", "Age", "Country", "Email"};
+        data.add(header);
+      }
+      
       for (TheUser u : users) {
         data.add(new String[] { u.username, u.passwd, u.fullname, Integer.toString(u.permissions),
             Integer.toString(u.age), u.country, u.email });
@@ -40,9 +44,9 @@ public class UserDaoSorin implements UserDao {
     try {
       CSVReader reader = new CSVReader(new FileReader(file), ',');
       String[] buff = null;
+      reader.readNext(); //skip header
       while ((buff = reader.readNext()) != null) {
         TheUser u = new UserBuilder().setUsername(buff[0])
-        .setUsername(buff[0])
         .setPasswd(buff[1])
         .setFullname(buff[2])
         .setPermissions(Integer.parseInt(buff[3]))
