@@ -61,19 +61,6 @@ public class UserDaoGrigore implements UserDao {
         theUserList.add(user);
       }
       csvReader.close();
-      BufferedReader br = new BufferedReader(new FileReader(csvFile));
-      String line = null;
-      String strtemp;
-
-      while ((line = br.readLine()) != null) {
-        // use comma as separator
-        String[] cols = line.split(",");
-        strtemp = cols[0];
-        cols[0] = cols[1];
-        cols[1] = strtemp;
-        System.out.println("Coulmn 0= " + cols[0] + "Coulmn 1= " + cols[1]);
-      }
-      writeUsers(file);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
