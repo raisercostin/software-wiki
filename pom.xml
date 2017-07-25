@@ -29,6 +29,13 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
+
+<dependency>
+    <groupId>com.github.javafaker</groupId>
+    <artifactId>javafaker</artifactId>
+    <version>0.13</version>
+</dependency>
+
     <dependency>
       <groupId>org.raisercostin</groupId>
       <artifactId>jedi-io_2.10</artifactId>
