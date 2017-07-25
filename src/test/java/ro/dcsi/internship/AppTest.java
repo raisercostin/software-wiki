@@ -1,12 +1,14 @@
 package ro.dcsi.internship;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.raisercostin.jedi.Locations;
 
 public class AppTest {
   static String target = "target/test-files/";
@@ -16,13 +18,34 @@ public class AppTest {
   public void testLiviu() {
     UserController controller = new UserController();
     List<TheUser> existingUsers = controller.readUsers(resources + "users.csv");
+    
     Assert.assertEquals(8, existingUsers.size());
 
+    for(TheUser e:existingUsers) {
+    	System.out.println(e);
+    }
+    
     TheUser[] users = new TheUser[existingUsers.size()];
+    
+//    Locations.current("tempUsers.csv").mkdirOnParentIfNecessary();
+    
+    File fisier = new File("tempUsers.csv");
+   
+    try { 
+    	if(fisier.exists()){
+    		
+    	}else {
+    		fisier.createNewFile();
+    	}
+		
+	} catch (IOException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+    
+    controller.writeUsers(target + fisier, existingUsers.toArray(users));
 
-    controller.writeUsers(target + "tempUsers", existingUsers.toArray(users));
-
-    List<TheUser> tempUsers = controller.readUsers(target + "tempUsers");
+    List<TheUser> tempUsers = controller.readUsers(target + "tempUsers.csv");
 
     Assert.assertEquals(existingUsers.size(), tempUsers.size());
 

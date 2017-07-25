@@ -10,7 +10,7 @@ public class TheUser {
   public final String username;
   @CsvBindByName
   public final String passwd;
-  @CsvBindByName
+  @CsvBindByName(required = false)
   public final String fullname;
   public final int permissions;
   public final int age;
@@ -23,7 +23,43 @@ public class TheUser {
   @CsvBindByName
   private String lastname;
 
-  // needed by com.opencsv.CsvToBean
+  public String getUsername() {
+	return username;
+}
+
+public String getPasswd() {
+	return passwd;
+}
+
+public String getFullname() {
+	return fullname;
+}
+
+public int getPermissions() {
+	return permissions;
+}
+
+public int getAge() {
+	return age;
+}
+
+public String getCountry() {
+	return country;
+}
+
+public String getEmail() {
+	return email;
+}
+
+public String getFirstname() {
+	return firstname;
+}
+
+public String getLastname() {
+	return lastname;
+}
+
+// needed by com.opencsv.CsvToBean
   @Deprecated
   public TheUser() {
     this("empty user");
