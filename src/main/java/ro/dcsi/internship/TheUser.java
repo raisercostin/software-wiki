@@ -1,6 +1,5 @@
 package ro.dcsi.internship;
 
-import java.io.Serializable;
 import com.opencsv.bean.CsvBindByName;
 
 //case class TheUser(username:String, passwd:String)
@@ -47,7 +46,7 @@ public class TheUser {
   }
 
   public String toString() {
-    return "[" + username + "::" + fullname + "::" + permissions + "::" + permissions + "::" + email + "]";
+    return "[" + username + "::" + fullname + "::" + permissions + "::" + email + "]";
   }
 
 }
