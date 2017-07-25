@@ -18,7 +18,7 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 public class UserController implements UserDao {
 
   @Override
-  public void writeUsers(String file,TheUser... users) {
+  public void writeUsers(String file, TheUser... users) {
     Writer writer;
 
     try {

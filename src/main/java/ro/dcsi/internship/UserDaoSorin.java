@@ -13,7 +13,7 @@ import com.opencsv.CSVWriter;
 
 public class UserDaoSorin implements UserDao {
   public static int howMany = 0;
-  
+
   public boolean isDuplicate(TheUser user, List<TheUser> old) {
     for (TheUser u : old) {
       if (u.username.equals(user.username) || u.email.equals(user.email)) {
@@ -22,7 +22,7 @@ public class UserDaoSorin implements UserDao {
     }
     return false;
   }
-  
+
   @Override
   public void writeUsers(String file, TheUser... users) {
 
@@ -31,15 +31,15 @@ public class UserDaoSorin implements UserDao {
       CSVWriter writer = new CSVWriter(new FileWriter(file, true), ',');
       List<String[]> data = new ArrayList<>();
       List<TheUser> existingUsers = new ArrayList<>();
-      
+
       if (!fileExists) {
-        String[] header = new String[] {"Username", "Password", "Full Name", "Permissions", "Age", "Country", "Email"};
+        String[] header = new String[] { "Username", "Password", "Full Name", "Permissions", "Age", "Country",
+            "Email" };
         data.add(header);
       } else {
         existingUsers = readUsers(file);
       }
-      
-      
+
       for (TheUser u : users) {
         if (!isDuplicate(u, existingUsers)) {
           data.add(new String[] { u.username, u.passwd, u.fullname, Integer.toString(u.permissions),
@@ -63,13 +63,9 @@ public class UserDaoSorin implements UserDao {
       String[] buff = null;
       reader.readNext(); //skip header
       while ((buff = reader.readNext()) != null) {
-        TheUser u = new UserBuilder().setUsername(buff[0])
-        .setPasswd(buff[1])
-        .setFullname(buff[2])
-        .setPermissions(Integer.parseInt(buff[3]))
-        .setAge(Integer.parseInt(buff[4]))
-        .setCountry(buff[5])
-        .setEmail(buff[6]).build();
+        TheUser u = new UserBuilder().setUsername(buff[0]).setPasswd(buff[1]).setFullname(buff[2])
+            .setPermissions(Integer.parseInt(buff[3])).setAge(Integer.parseInt(buff[4])).setCountry(buff[5])
+            .setEmail(buff[6]).build();
         theusers.add(u);
       }
       reader.close();

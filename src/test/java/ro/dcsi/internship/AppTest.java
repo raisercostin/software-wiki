@@ -16,8 +16,8 @@ public class AppTest {
   public void testLiviu() {
     UserController controller = new UserController();
     List<TheUser> existingUsers = controller.readUsers(resources + "users.csv");
-    Assert.assertEquals(8,existingUsers.size());
-    
+    Assert.assertEquals(8, existingUsers.size());
+
     TheUser[] users = new TheUser[existingUsers.size()];
 
     controller.writeUsers(target + "tempUsers", existingUsers.toArray(users));
@@ -36,10 +36,10 @@ public class AppTest {
     UserDao appS = new UserDaoSorin();
     System.out.println(appS.readUsers(resources + "sorinUsersStyle.csv"));
   }
-  
+
   public int getSize(String file) {
     return new UserDaoSorin().readUsers(file).size();
-    
+
   }
 
   @Test
@@ -85,12 +85,12 @@ public class AppTest {
   @Test
   public void testGrigore() {
     UserDao app = new UserDaoGrigore();
-    app.writeUsers(target+"file1", new TheUser("ion"), new TheUser("gigi"));
-    app.writeUsers(target+"file2", new TheUser("costin"));
+    app.writeUsers(target + "file1", new TheUser("ion"), new TheUser("gigi"));
+    app.writeUsers(target + "file2", new TheUser("costin"));
 
-    List<TheUser> ls = app.readUsers(target+"file1");
+    List<TheUser> ls = app.readUsers(target + "file1");
     Assert.assertEquals(2, ls.size());
-    Assert.assertEquals(1, app.readUsers(target+"file2").size());
+    Assert.assertEquals(1, app.readUsers(target + "file2").size());
   }
 
   @Test

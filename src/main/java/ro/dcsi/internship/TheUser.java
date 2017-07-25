@@ -5,7 +5,6 @@ import com.opencsv.bean.CsvBindByName;
 //case class TheUser(username:String, passwd:String)
 //new TheUser(passwd="a",username="b'")
 
-
 public class TheUser {
   @CsvBindByName
   public final String username;
