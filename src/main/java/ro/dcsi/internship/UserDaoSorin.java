@@ -12,23 +12,40 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
 public class UserDaoSorin implements UserDao {
-
+  public static int howMany = 0;
+  
+  public boolean isDuplicate(TheUser user, List<TheUser> old) {
+    for (TheUser u : old) {
+      if (u.username.equals(user.username) || u.email.equals(user.email)) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
   @Override
   public void writeUsers(String file, TheUser... users) {
 
     boolean fileExists = new File(file).exists();
     try {
-      CSVWriter writer = new CSVWriter(new FileWriter(file, false), ',');
+      CSVWriter writer = new CSVWriter(new FileWriter(file, true), ',');
       List<String[]> data = new ArrayList<>();
+      List<TheUser> existingUsers = new ArrayList<>();
       
       if (!fileExists) {
         String[] header = new String[] {"Username", "Password", "Full Name", "Permissions", "Age", "Country", "Email"};
         data.add(header);
+      } else {
+        existingUsers = readUsers(file);
       }
       
+      
       for (TheUser u : users) {
-        data.add(new String[] { u.username, u.passwd, u.fullname, Integer.toString(u.permissions),
-            Integer.toString(u.age), u.country, u.email });
+        if (!isDuplicate(u, existingUsers)) {
+          data.add(new String[] { u.username, u.passwd, u.fullname, Integer.toString(u.permissions),
+              Integer.toString(u.age), u.country, u.email });
+          howMany++;
+        }
       }
 
       writer.writeAll(data);
@@ -63,5 +80,4 @@ public class UserDaoSorin implements UserDao {
     }
     return theusers;
   }
-
 }
