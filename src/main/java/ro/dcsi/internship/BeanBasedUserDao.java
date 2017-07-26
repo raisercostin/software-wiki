@@ -21,7 +21,7 @@ public class BeanBasedUserDao implements UserDao {
 
   @Override
   public void writeUsers(String file, TheUser... users) {
-    Locations.current(file).mkdirOnParentIfNecessary();
+    //Locations.current(file).mkdirOnParentIfNecessary();
     try (Writer writer = new FileWriter(file);) {
       StatefulBeanToCsv<TheUser> beanToCsv = new StatefulBeanToCsvBuilder<TheUser>(writer).build();
       beanToCsv.write(Arrays.asList(users));

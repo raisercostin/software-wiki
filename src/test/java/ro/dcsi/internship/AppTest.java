@@ -1,7 +1,7 @@
 package ro.dcsi.internship;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +9,8 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.raisercostin.jedi.Locations;
+
+import com.github.javafaker.Faker;
 
 public class AppTest {
   static String target = "target/test-files/";
@@ -23,7 +25,7 @@ public class AppTest {
 
   @Test
   public void testHeaderDefinesTheColumnDaoSorin() {
-    UserDao app = new UserDaoSorin();
+    UserDao app = new BeanBasedUserDao();
     Assert.assertEquals("Ambrose", app.readUsers(resources + "file-header1.csv").get(2).getLastname());
     Assert.assertEquals("Ambrose", app.readUsers(resources + "file-header2.csv").get(2).getLastname());
   }
@@ -46,8 +48,9 @@ public class AppTest {
     
     
     TheUser[] users = new TheUser[existingUsers.size()];
-    File fisier = Locations.current("tempUsers.csv").mkdirOnParentIfNecessary().toFile();
-    controller.writeUsers(target + fisier, existingUsers.toArray(users));
+    System.out.println(Locations.current(target + "tempUsers.csv").absolute());
+    //File fisier = new File(Locations.current(target + "tempUsers.csv").mkdirOnParentIfNecessary().absolute());
+    controller.writeUsers(target+"tempUsers.csv", existingUsers.toArray(users));
 
     List<TheUser> tempUsers = controller.readUsers(target + "tempUsers.csv");
 
@@ -60,60 +63,30 @@ public class AppTest {
 
   @Test
   public void testReadAppSorin() {
-    UserDao appS = new UserDaoSorin();
+    UserDao appS = new BeanBasedUserDao();
     System.out.println(appS.readUsers(resources + "sorinUsersStyle.csv"));
   }
 
   public int getSize(String file) {
-    return new UserDaoSorin().readUsers(file).size();
+    return new BeanBasedUserDao().readUsers(file).size();
 
-  }
-
-  @Test
-  public void testAppSorin() {
-    UserDao appS = new UserDaoSorin();
-    int size1 = 0;
-    int size2 = 0;
-    if (new File(target + "newSorinUsersCsv.csv").exists()) {
-      size1 = getSize(target + "newSorinUsersCsv.csv");
-    }
-    if (new File(target + "new2SorinUsersCsv2.csv").exists()) {
-      size2 = getSize(target + "new2SorinUsersCsv2.csv");
-    }
-    // not very clear but working fine
-    appS.writeUsers(target + "newSorinUsersCsv.csv",
-        new TheUser("ion12", "abc", "IonIon", 755, 22, "RO", "ion.ion@ionmail.com"),
-        new TheUser("gigi123200", "qwerty", "GigelMasan", 753, 21, "RO", "gigi.ggg@gmail.com"));
-    Assert.assertEquals(size1 + UserDaoSorin.howMany, appS.readUsers(target + "newSorinUsersCsv.csv").size());
-    if (size1 == 0) {
-      size1 = UserDaoSorin.howMany;
-    }
-    UserDaoSorin.howMany = 0;
-    appS.writeUsers(target + "newSorinUsersCsv.csv",
-        new TheUser("ion1233", "abcd", "IonIon", 755, 22, "RO", "ion.ion@ionmailll.com"),
-        new TheUser("gigi123200", "qwerty", "GigelMasan", 753, 21, "RO", "gigi.ggg@gmail.com"));
-    Assert.assertEquals(size1 + UserDaoSorin.howMany, appS.readUsers(target + "newSorinUsersCsv.csv").size());
-    UserDaoSorin.howMany = 0;
-    appS.writeUsers(target + "new2SorinUsersCsv2.csv",
-        new TheUser("sorin", "mnqw12", "SorinDragan", 777, 20, "RO", "sorin.dragan27@gmail.com"));
-    Assert.assertEquals(size2 + UserDaoSorin.howMany, appS.readUsers(target + "new2SorinUsersCsv2.csv").size());
   }
 
   @Test
   public void testGrigore() {
-    UserDaoGrigore app = new UserDaoGrigore();
-    app.writeUsers(target + "file1", app.generateUsers(5).toArray(new TheUser[0]));
+    UserDao app = new BeanBasedUserDao();
+    app.writeUsers(target + "file1", generateUsers(5).toArray(new TheUser[0]));
     app.writeUsers(target + "file2", new TheUser("costin"));
 
     List<TheUser> ls = app.readUsers(target + "file1");
-    Assert.assertEquals(2, ls.size());
+    Assert.assertEquals(5, ls.size());
     Assert.assertEquals(1, app.readUsers(target + "file2").size());
   }
 
   @Test
   @Ignore
   public void testReadCostin() {
-    UserDao app = new UserDaoCostin();
+    UserDao app = new BeanBasedUserDao();
     List<TheUser> ls = app.readUsers("users");
     Assert.assertEquals(8, ls.size());
   }
@@ -146,5 +119,19 @@ public class AppTest {
 
   private void someMethodThatShouldThrowAnExceptionIfParameterIsNull(Integer a) {
     System.out.println(a.toString());
+  }
+  
+  public List<TheUser> generateUsers(int n) {
+    List<TheUser> theUserList = new ArrayList<>();
+    Faker faker = new Faker();
+    for (int i = 0; i < n; i++) {
+      Integer permission = (Math.random() < 0.5) ? 0 : 1;
+      Integer age = faker.number().numberBetween(0, 100);
+      TheUser user = new UserBuilder().setUsername(faker.name().username()).setPasswd(faker.idNumber().valid())
+          .setFullname(faker.name().fullName()).setPermissions(permission).setAge(age)
+          .setCountry(faker.address().country()).setEmail(faker.name().username() + "@gmail.com").build();
+      theUserList.add(user);
+    }
+    return theUserList;
   }
 }
