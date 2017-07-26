@@ -1,4 +1,8 @@
+# Design
+![](https://github.com/raisercostin/dcsi/raw/user/bogdan/design.png)
+
 # internship
+
 Dcsi Internship
 
 Usefull commands
