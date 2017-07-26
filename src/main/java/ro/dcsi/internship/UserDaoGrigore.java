@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -21,46 +22,42 @@ public class UserDaoGrigore implements UserDao {
     String csvFile = file + ".csv";
     Locations.current(csvFile).mkdirOnParentIfNecessary();
 
-    Faker faker = new Faker();
-
     try {
       CSVWriter writer = new CSVWriter(new FileWriter(csvFile));
 
-      //write header
+      // write header
       String[] header = { "username", "password", "name", "permissions", "age", "country", "email" };
       writer.writeNext(header);
-
-      List<String[]> theUserList = new ArrayList<>();
-
-      //generate random users in csv file
-      for (int i = 0; i < 5; i++) {
-        Integer permission = (Math.random() < 0.5) ? 0 : 1;
-        Integer age = faker.number().numberBetween(0, 100);
-        theUserList.add(new String[] { faker.name().username(), faker.idNumber().valid(), faker.name().fullName(),
-            permission.toString(), age.toString(), faker.address().country(), faker.name().username() + "@gmail.com" });
+      for (TheUser u : users) {
+        writer.writeNext(new String[] { u.username, u.passwd, u.fullname, Integer.toString(u.permissions),
+              Integer.toString(u.age), u.country, u.email });
       }
-      writer.writeAll(theUserList);
       writer.close();
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
   }
 
+  @SuppressWarnings("resource")
   @Override
   public List<TheUser> readUsers(String file) {
     String csvFile = file + ".csv";
     List<TheUser> theUserList = new ArrayList<TheUser>();
     try {
       String[] row = null;
-      CSVReader csvReader = new CSVReader(new FileReader(csvFile));
-      csvReader.readNext();
-      while ((row = csvReader.readNext()) != null) {
-        TheUser user = new UserBuilder().setUsername(row[0]).setPasswd(row[1]).setFullname(row[2])
-            .setPermissions(Integer.parseInt(row[3])).setAge(Integer.parseInt(row[4])).setCountry(row[5])
-            .setEmail(row[6]).build();
-        theUserList.add(user);
+      try (CSVReader csvReader = new CSVReader(new FileReader(csvFile))) {
+        csvReader.readNext();
+        while ((row = csvReader.readNext()) != null) {
+          try {
+            TheUser user = new UserBuilder().setUsername(row[0]).setPasswd(row[1]).setFullname(row[2])
+                .setPermissions(Integer.parseInt(row[3])).setAge(Integer.parseInt(row[4])).setCountry(row[5])
+                .setEmail(row[6]).build();
+            theUserList.add(user);
+          } catch (RuntimeException e) {
+            throw new RuntimeException("Couldn't parse line [" + Arrays.toString(row) + "] from file " + csvFile, e);
+          }
+        }
       }
-      csvReader.close();
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -87,6 +84,19 @@ public class UserDaoGrigore implements UserDao {
       throw new RuntimeException(e);
     }
 
+    return theUserList;
+  }
+
+  public List<TheUser> generateUsers(int n) {
+    List<TheUser> theUserList = new ArrayList<>();
+    Faker faker = new Faker();
+    for (int i = 0; i < n; i++) {
+      Integer permission = (Math.random() < 0.5) ? 0 : 1;
+      Integer age = faker.number().numberBetween(0, 100);
+      TheUser user = new UserBuilder().setUsername(faker.name().username()).setPasswd(faker.idNumber().valid())
+          .setFullname(faker.name().fullName()).setPermissions(permission).setAge(age)
+          .setCountry(faker.address().country()).setEmail(faker.name().username() + "@gmail.com").build();
+    }
     return theUserList;
   }
 }

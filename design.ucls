@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class-diagram version="1.2.0" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
+<class-diagram version="1.2.0" icons="true" automaticImage="JPEG" always-add-relationships="true" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="ro.dcsi.internship.UserController" project="usersync" 
     file="/usersync/src/main/java/ro/dcsi/internship/UserController.java" binary="false" corner="BOTTOM_RIGHT">    
@@ -65,7 +65,8 @@
     </display>  
   </class>  
   <dependency id="8">    
-    <end type="SOURCE" refId="1"/>    
+    <bendpoint x="791" y="352"/>    
+    <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="5"/>  
   </dependency>  
   <dependency id="9">    
@@ -73,37 +74,36 @@
     <end type="TARGET" refId="5"/>  
   </dependency>  
   <realization id="10">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="6"/>  
-  </realization>  
-  <dependency id="11">    
-    <bendpoint x="621" y="336"/>    
     <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="5"/>  
-  </dependency>  
-  <realization id="12">    
-    <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="6"/>  
   </realization>  
-  <dependency id="13">    
-    <bendpoint x="791" y="352"/>    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="5"/>  
-  </dependency>  
-  <realization id="14">    
+  <realization id="11">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="6"/>  
   </realization>  
+  <dependency id="12">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <realization id="13">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="6"/>  
+  </realization>  
+  <dependency id="14">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
   <realization id="15">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="6"/>  
   </realization>  
   <realization id="16">    
-    <end type="SOURCE" refId="3"/>    
+    <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="6"/>  
   </realization>  
   <dependency id="17">    
-    <end type="SOURCE" refId="6"/>    
+    <bendpoint x="621" y="336"/>    
+    <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="5"/>  
   </dependency>  
   <dependency id="18">    

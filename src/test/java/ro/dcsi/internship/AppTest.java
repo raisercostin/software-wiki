@@ -107,8 +107,8 @@ public class AppTest {
 
   @Test
   public void testGrigore() {
-    UserDao app = new UserDaoGrigore();
-    app.writeUsers(target + "file1", new TheUser("ion"), new TheUser("gigi"));
+    UserDaoGrigore app = new UserDaoGrigore();
+    app.writeUsers(target + "file1", app.generateUsers(5).toArray(new TheUser[0]));
     app.writeUsers(target + "file2", new TheUser("costin"));
 
     List<TheUser> ls = app.readUsers(target + "file1");
@@ -116,13 +116,6 @@ public class AppTest {
     Assert.assertEquals(1, app.readUsers(target + "file2").size());
   }
 
-  @Test
-  public void testReadGrigore() {
-    UserDao app = new UserDaoGrigore();
-    List<TheUser> ls = app.readUsers(resources + "users");
-    Assert.assertEquals(9, ls.size());
-    //8 if header is not read
-  }
 
   @Test
   @Ignore
@@ -132,6 +125,7 @@ public class AppTest {
     Assert.assertEquals(8, ls.size());
   }
 
+  @SuppressWarnings("null")
   @Test(expected = NullPointerException.class)
   public void workingWithNull() {
     Integer a = null;
