@@ -21,7 +21,6 @@
       <artifactId>opencsv</artifactId>
       <version>3.10</version>
     </dependency>
-
     <!-- https://mvnrepository.com/artifact/junit/junit -->
     <dependency>
       <groupId>junit</groupId>
@@ -29,17 +28,21 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
-
-<dependency>
-    <groupId>com.github.javafaker</groupId>
-    <artifactId>javafaker</artifactId>
-    <version>0.13</version>
-</dependency>
-
+    <dependency>
+      <groupId>com.github.javafaker</groupId>
+      <artifactId>javafaker</artifactId>
+      <version>0.13</version>
+    </dependency>
     <dependency>
       <groupId>org.raisercostin</groupId>
       <artifactId>jedi-io_2.10</artifactId>
       <version>0.55</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>22.0</version>
     </dependency>
   </dependencies>
   <build>

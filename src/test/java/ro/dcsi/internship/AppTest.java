@@ -15,34 +15,38 @@ public class AppTest {
   static String resources = "src/test/resources/";
 
   @Test
-  public void testLiviu() {
-    UserController controller = new UserController();
-    List<TheUser> existingUsers = controller.readUsers(resources + "users.csv");
-    
-    Assert.assertEquals(8, existingUsers.size());
+  public void testHeaderDefinesTheColumn() {
+    UserDao app = new BeanBasedUserDao();
+    Assert.assertEquals("Ambrose", app.readUsers(resources + "file-header1.csv").get(2).getLastname());
+    Assert.assertEquals("Ambrose", app.readUsers(resources + "file-header2.csv").get(2).getLastname());
+  }
 
-    for(TheUser e:existingUsers) {
-    	System.out.println(e);
-    }
+  @Test
+  public void testHeaderDefinesTheColumnDaoSorin() {
+    UserDao app = new UserDaoSorin();
+    Assert.assertEquals("Ambrose", app.readUsers(resources + "file-header1.csv").get(2).getLastname());
+    Assert.assertEquals("Ambrose", app.readUsers(resources + "file-header2.csv").get(2).getLastname());
+  }
+
+  @Test
+  public void testAppIulian() {
+    UserDao app = new BeanBasedUserDao();
+    app.writeUsers(target + "file1", new TheUser("1"), new TheUser("1"));
+    app.writeUsers(target + "file2", new TheUser("2"));
+    Assert.assertEquals(2, app.readUsers(target + "file1").size());
+    Assert.assertEquals(1, app.readUsers(target + "file2").size());
+    Assert.assertEquals("2", app.readUsers(target + "file2").get(0).username);
+  }
+
+  @Test
+  public void testLiviu() {
+    BeanBasedUserDao controller = new BeanBasedUserDao();
+    List<TheUser> existingUsers = controller.readUsers(resources + "users.csv");
+    Assert.assertEquals(8, existingUsers.size());
+    
     
     TheUser[] users = new TheUser[existingUsers.size()];
-    
-//    Locations.current("tempUsers.csv").mkdirOnParentIfNecessary();
-    
-    File fisier = new File("tempUsers.csv");
-   
-    try { 
-    	if(fisier.exists()){
-    		
-    	}else {
-    		fisier.createNewFile();
-    	}
-		
-	} catch (IOException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
-    
+    File fisier = Locations.current("tempUsers.csv").mkdirOnParentIfNecessary().toFile();
     controller.writeUsers(target + fisier, existingUsers.toArray(users));
 
     List<TheUser> tempUsers = controller.readUsers(target + "tempUsers.csv");
@@ -76,7 +80,7 @@ public class AppTest {
     if (new File(target + "new2SorinUsersCsv2.csv").exists()) {
       size2 = getSize(target + "new2SorinUsersCsv2.csv");
     }
-    //not very clear but working fine
+    // not very clear but working fine
     appS.writeUsers(target + "newSorinUsersCsv.csv",
         new TheUser("ion12", "abc", "IonIon", 755, 22, "RO", "ion.ion@ionmail.com"),
         new TheUser("gigi123200", "qwerty", "GigelMasan", 753, 21, "RO", "gigi.ggg@gmail.com"));
@@ -96,16 +100,6 @@ public class AppTest {
   }
 
   @Test
-  public void testAppIulian() {
-    UserDao app = new UserDaoIulian();
-    app.writeUsers(target + "file1", new TheUser("1"), new TheUser("1"));
-    app.writeUsers(target + "file2", new TheUser("2"));
-    Assert.assertEquals(2, app.readUsers(target + "file1").size());
-    Assert.assertEquals(1, app.readUsers(target + "file2").size());
-    Assert.assertEquals("2", app.readUsers(target + "file2").get(0).username);
-  }
-
-  @Test
   public void testGrigore() {
     UserDaoGrigore app = new UserDaoGrigore();
     app.writeUsers(target + "file1", app.generateUsers(5).toArray(new TheUser[0]));
@@ -115,7 +109,6 @@ public class AppTest {
     Assert.assertEquals(2, ls.size());
     Assert.assertEquals(1, app.readUsers(target + "file2").size());
   }
-
 
   @Test
   @Ignore
@@ -129,11 +122,29 @@ public class AppTest {
   @Test(expected = NullPointerException.class)
   public void workingWithNull() {
     Integer a = null;
-    System.out.println(a.toString());
+    try {
+      System.out.println(a.toString());
+    } catch (NullPointerException e) {
+      Assert.assertTrue("exception was thrown", true);
+    }
     int c = a.intValue();
     // if(a != null )// is a a real object?
     Optional<Integer> b = Optional.empty();
     Integer d = c = b.get().intValue();
     d.intValue();
+  }
+  @Test
+  public void simpleExceptionThrowing() {
+    Integer a = null;
+    try {
+      someMethodThatShouldThrowAnExceptionIfParameterIsNull(a);
+      Assert.fail("Nu e bine. Metoda a continuat normal.");
+    } catch (NullPointerException e) {
+      Assert.assertTrue("exception was thrown", true);
+    }
+  }
+
+  private void someMethodThatShouldThrowAnExceptionIfParameterIsNull(Integer a) {
+    System.out.println(a.toString());
   }
 }

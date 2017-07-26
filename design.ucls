@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.0" icons="true" automaticImage="JPEG" always-add-relationships="true" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="ro.dcsi.internship.UserController" project="usersync" 
-    file="/usersync/src/main/java/ro/dcsi/internship/UserController.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="1" language="java" name="ro.dcsi.internship.BeanBasedUserDao" project="usersync" 
+    file="/usersync/src/main/java/ro/dcsi/internship/BeanBasedUserDao.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="115" y="213"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
