@@ -2,11 +2,13 @@ package ro.dcsi.internship;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.HttpRequestRetryHandler;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.protocol.HttpContext;
 import org.raisercostin.jedi.Locations;
 import scalaj.http.Http;
 
@@ -18,6 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 /**
  * Created by Cristi on 27-Jul-17.
@@ -34,9 +38,9 @@ public class ForgerockUserDao {
 
         return theUserList;
     }
-
+    //TODO de rezolvat eroarea la conectare
     public void connectToServer(){
-        String url = "http://localhost:8443/openidm/managed/user?_queryId=query-all";
+        String url = "https://localhost:8443/openidm/managed/user?_queryId=query-all";
 
         HttpClient client = new DefaultHttpClient();
         HttpGet request = new HttpGet(url);
@@ -50,9 +54,7 @@ public class ForgerockUserDao {
             while ((line = bufferedReader.readLine())!=null){
                 System.out.println(line);
             }
-        } catch (IOException e){
-            e.printStackTrace();
-        } catch (UnsupportedOperationException e){
+        } catch (IOException | UnsupportedOperationException e){
             e.printStackTrace();
         }
     }
