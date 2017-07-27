@@ -91,6 +91,7 @@ public class AppTest {
     Assert.assertEquals(8, ls.size());
   }
 
+
   @SuppressWarnings("null")
   @Test(expected = NullPointerException.class)
   public void workingWithNull() {
