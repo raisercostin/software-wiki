@@ -1,17 +1,13 @@
 package ro.dcsi.internship;
 
-import com.google.gson.Gson;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.HttpRequestRetryHandler;
-import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.protocol.HttpContext;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.raisercostin.jedi.Locations;
-import scalaj.http.Http;
 
 import java.io.*;
 import java.text.DateFormat;
@@ -21,8 +17,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
-
 /**
  * Created by Cristi on 27-Jul-17.
  */
@@ -31,18 +25,22 @@ public class ForgerockUserDao {
     public void writeUsersToServer(TheUser... users) {
         List<TheUser> theUserList = Arrays.asList(users);
         String target = "target/";
-        String filePath = target + "jsondata.json";
-        Gson gson = new Gson();
-        String json= "";
-        for (int i = 0; i < theUserList.size(); i++) {
-             json = gson.toJson(theUserList.get(i));
+        String filePath = target + "jsondata1.json";
+
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < theUserList.size(); i++){
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("mail", theUserList.get(i).getEmail());
+            jsonObject.put("sn",theUserList.get(i).getLastname());
+            jsonObject.put("givenName",theUserList.get(i).getFirstname());
+            jsonObject.put("userName",theUserList.get(i).getUsername());
+            jsonArray.put(jsonObject);
         }
-        try (FileWriter fileWriter = new FileWriter(filePath)) {
-            fileWriter.write(json);
+        try(FileWriter fileWriter = new FileWriter(filePath)){
+            fileWriter.write(jsonArray.toString());
         } catch (IOException e){
             e.printStackTrace();
         }
-        System.out.println(json);
     }
 
     public List<TheUser> readUsersFromServer() {
@@ -51,26 +49,34 @@ public class ForgerockUserDao {
         String target = "target/";
         String filePath = target + "jsondata.json";
 
-        Gson gson = new Gson();
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+            String line = null;
+            String jsonResponse = "";
+            while ((line = bufferedReader.readLine()) != null) {
+                jsonResponse += line;
+            }
+            JSONArray jsonArray = new JSONArray(jsonResponse);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String sn = jsonObject.getString("sn");
+                String givenName = jsonObject.getString("givenName");
+                String userName = jsonObject.getString("userName");
+                String mail = jsonObject.getString("mail");
 
-            TheUser theUser = gson.fromJson(bufferedReader, TheUser.class);
-            System.out.println("Username: " + theUser.getUsername());
-            System.out.println("First name: " + theUser.getFirstname());
-            System.out.println("Last name: " + theUser.getLastname());
-            System.out.println("Mail: " + theUser.getEmail());
+                theUserList.add(new TheUser(userName, givenName, sn, mail));
+            }
+        } catch (JSONException e) {
+            throw new JSONException(e);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return theUserList;
     }
 
     //TODO de rezolvat eroarea la conectare
     public void connectToServer() {
-        String url = "https://localhost:8443/openidm/managed/user?_queryId=query-all";
+        String url = "http://localhost:8080/openidm/managed/user?_queryId=query-all";
 
         HttpClient client = new DefaultHttpClient();
         HttpGet request = new HttpGet(url);
@@ -78,9 +84,8 @@ public class ForgerockUserDao {
 
         try {
             response = client.execute(request);
-            BufferedReader bufferedReader;
-            bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-            String line = "";
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            String line;
             while ((line = bufferedReader.readLine()) != null) {
                 System.out.println(line);
             }
@@ -92,7 +97,7 @@ public class ForgerockUserDao {
     public void backupUsers(List<TheUser> theUserList) {
         BeanBasedUserDao beanBasedUserDao = new BeanBasedUserDao();
 
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
         Date date = new Date();
 
         String target = "target/test-files/";

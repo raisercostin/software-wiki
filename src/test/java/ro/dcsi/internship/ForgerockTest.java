@@ -31,24 +31,26 @@ public class ForgerockTest {
     @Test
     public void testReadUsers() {
         ForgerockUserDao forgerockUserDao = new ForgerockUserDao();
-        forgerockUserDao.readUsersFromServer();
+        List<TheUser> theUserList = forgerockUserDao.readUsersFromServer();
+
+        for (TheUser user : theUserList)
+            System.out.println(user.toString());
     }
 
     @Test
-    public void testWriteUsers(){
+    public void testWriteUsers() {
         ForgerockUserDao forgerockUserDao = new ForgerockUserDao();
-        forgerockUserDao.writeUsersToServer(generateUsers(1).toArray(new TheUser[0]));
+        forgerockUserDao.writeUsersToServer(generateUsers(2).toArray(new TheUser[0]));
     }
 
     public List<TheUser> generateUsers(int n) {
         List<TheUser> theUserList = new ArrayList<>();
         Faker faker = new Faker();
         for (int i = 0; i < n; i++) {
-            Integer permission = (Math.random() < 0.5) ? 0 : 1;
-            Integer age = faker.number().numberBetween(0, 100);
-            TheUser user = new UserBuilder().setUsername(faker.name().username()).setPasswd(faker.idNumber().valid())
-                    .setFullname(faker.name().fullName()).setPermissions(permission).setAge(age)
-                    .setCountry(faker.address().country()).setEmail(faker.name().username() + "@gmail.com").build();
+            TheUser user = new UserBuilder().setUsername(faker.name().username())
+                    .setFirstName(faker.name().firstName())
+                    .setLastName(faker.name().lastName())
+                    .setEmail(faker.name().username() + "@gmail.com").builder();
             theUserList.add(user);
         }
         return theUserList;
