@@ -22,11 +22,6 @@ public class ForgerockTest {
         forgerockUserDao.backupUsers(existingUsers);
     }
 
-    @Test
-    public void testConnectionToServer() {
-        ForgerockUserDao forgerockUserDao = new ForgerockUserDao();
-        forgerockUserDao.connectToServer();
-    }
 
     @Test
     public void testReadUsers() {
@@ -44,7 +39,14 @@ public class ForgerockTest {
     }
 
     @Test
-    public void mainTest(){
+    public void testConnectPut() {
+        ForgerockUserDao forgerockUserDao = new ForgerockUserDao();
+        System.out.print(forgerockUserDao.connectToServerPost(3));
+    }
+
+    //TODO main test si restul
+    @Test
+    public void mainTest() {
         ForgerockUserDao forgerockUserDao = new ForgerockUserDao();
         List<TheUser> theUserList = forgerockUserDao.readUsersFromServer();
         forgerockUserDao.backupUsers(theUserList);

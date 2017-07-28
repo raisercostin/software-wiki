@@ -1,12 +1,9 @@
 package ro.dcsi.internship;
 
-import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,39 +25,26 @@ public class ForgerockUserDao {
 
     public void writeUsersToServer(TheUser... users) {
         List<TheUser> theUserList = Arrays.asList(users);
-        String target = "target/";
-        String filePath = target + "jsondata1.json";
 
         JSONArray jsonArray = new JSONArray();
-        for (int i = 0; i < theUserList.size(); i++){
+        for (int i = 0; i < theUserList.size(); i++) {
             JSONObject jsonObject = new JSONObject();
+            jsonObject.put("_id", i);
             jsonObject.put("mail", theUserList.get(i).getEmail());
-            jsonObject.put("sn",theUserList.get(i).getLastname());
-            jsonObject.put("givenName",theUserList.get(i).getFirstname());
-            jsonObject.put("userName",theUserList.get(i).getUsername());
+            jsonObject.put("sn", theUserList.get(i).getLastname());
+            jsonObject.put("givenName", theUserList.get(i).getFirstname());
+            jsonObject.put("userName", theUserList.get(i).getUsername());
             jsonArray.put(jsonObject);
         }
-        try(FileWriter fileWriter = new FileWriter(filePath)){
-            fileWriter.write(jsonArray.toString());
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+
     }
 
     public List<TheUser> readUsersFromServer() {
         List<TheUser> theUserList = new ArrayList<>();
 
-        String target = "target/";
-        String filePath = target + "jsondata.json";
-
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
-            String line = null;
-            String jsonResponse = "";
-            while ((line = bufferedReader.readLine()) != null) {
-                jsonResponse += line;
-            }
-            JSONArray jsonArray = new JSONArray(jsonResponse);
+            JSONObject result = new JSONObject(connectToServerGet());
+            JSONArray jsonArray = result.optJSONArray("result");
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String sn = jsonObject.getString("sn");
@@ -72,13 +56,11 @@ public class ForgerockUserDao {
             }
         } catch (JSONException e) {
             throw new JSONException(e);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return theUserList;
     }
 
-    public void connectToServerGet() {
+    public String connectToServerGet() {
         String url = "http://localhost:8080/openidm/managed/user?_queryId=query-all";
 
         HttpClient client = new DefaultHttpClient();
@@ -88,17 +70,47 @@ public class ForgerockUserDao {
         request.addHeader("X-OpenIDM-Username", "openidm-admin");
         request.addHeader("X-OpenIDM-Password", "openidm-admin");
         HttpResponse response;
-
+        String jsonResponse = "";
         try {
             response = client.execute(request);
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                System.out.println(line);
+                jsonResponse += line;
             }
         } catch (IOException | UnsupportedOperationException e) {
             e.printStackTrace();
         }
+
+        return jsonResponse;
+    }
+
+    //TODO put method
+    public String connectToServerPost(Integer id) {
+        String url = "http://localhost:8080/openidm/managed/user/" + id.toString();
+
+        HttpClient client = new DefaultHttpClient();
+        HttpPut request = new HttpPut(url);
+        request.addHeader("Content-Type", "application/json");
+        request.addHeader("Accept", "application/json");
+        request.addHeader("If-None-Match", "*");
+        request.addHeader("X-OpenIDM-Username", "openidm-admin");
+        request.addHeader("X-OpenIDM-Password", "openidm-admin");
+        request.addHeader("X-Requested-With", "Swagger-UI");
+        HttpResponse response;
+        String jsonResponse = "";
+        try {
+            response = client.execute(request);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                jsonResponse += line;
+            }
+        } catch (IOException | UnsupportedOperationException e) {
+            e.printStackTrace();
+        }
+
+        return jsonResponse;
     }
 
     public void backupUsers(List<TheUser> theUserList) {
