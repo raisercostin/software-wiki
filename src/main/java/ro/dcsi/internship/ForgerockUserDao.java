@@ -1,8 +1,12 @@
 package ro.dcsi.internship;
 
+import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -74,12 +78,15 @@ public class ForgerockUserDao {
         return theUserList;
     }
 
-    //TODO de rezolvat eroarea la conectare
-    public void connectToServer() {
+    public void connectToServerGet() {
         String url = "http://localhost:8080/openidm/managed/user?_queryId=query-all";
 
         HttpClient client = new DefaultHttpClient();
         HttpGet request = new HttpGet(url);
+        request.addHeader("Accept", "application/json");
+        request.addHeader("X-Requested-With", "Swagger-UI");
+        request.addHeader("X-OpenIDM-Username", "openidm-admin");
+        request.addHeader("X-OpenIDM-Password", "openidm-admin");
         HttpResponse response;
 
         try {

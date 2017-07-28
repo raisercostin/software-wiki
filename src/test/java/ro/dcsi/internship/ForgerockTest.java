@@ -43,6 +43,13 @@ public class ForgerockTest {
         forgerockUserDao.writeUsersToServer(generateUsers(2).toArray(new TheUser[0]));
     }
 
+    @Test
+    public void mainTest(){
+        ForgerockUserDao forgerockUserDao = new ForgerockUserDao();
+        List<TheUser> theUserList = forgerockUserDao.readUsersFromServer();
+        forgerockUserDao.backupUsers(theUserList);
+    }
+
     public List<TheUser> generateUsers(int n) {
         List<TheUser> theUserList = new ArrayList<>();
         Faker faker = new Faker();
