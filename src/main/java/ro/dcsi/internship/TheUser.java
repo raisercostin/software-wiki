@@ -69,7 +69,7 @@ public class TheUser {
         this(name, "", "", 0, 0, "", "");
     }
 
-/*    public TheUser(String username, String firstname, String lastname, String email) {
+    public TheUser(String username, String firstname, String lastname, String email) {
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -80,7 +80,7 @@ public class TheUser {
         this.age = 0;
         this.country = "";
 
-    }*/
+    }
 
     public TheUser(String username, String passwd, String fullname, int permissions, int age, String country,
                    String email) {
@@ -94,9 +94,18 @@ public class TheUser {
     }
 
     public String toString() {
-        return "[" + username + "::" + fullname + "::" + permissions + "::" + email + "]";
+        return "TheUser{" +
+                "username='" + username + '\'' +
+                ", passwd='" + passwd + '\'' +
+                ", fullname='" + fullname + '\'' +
+                ", permissions=" + permissions +
+                ", age=" + age +
+                ", country='" + country + '\'' +
+                ", email='" + email + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
     }
-
 }
 //
 //@SuppressWarnings("serial")
