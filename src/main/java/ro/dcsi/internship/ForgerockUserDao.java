@@ -86,7 +86,7 @@ public class ForgerockUserDao {
     }
 
     //TODO put method
-    public String connectToServerPost(Integer id) {
+    public String connectToServerPut(Integer id) {
         String url = "http://localhost:8080/openidm/managed/user/" + id.toString();
 
         HttpClient client = new DefaultHttpClient();
