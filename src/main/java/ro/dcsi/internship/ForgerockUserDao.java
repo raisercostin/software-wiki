@@ -4,7 +4,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,20 +25,43 @@ import java.util.List;
  */
 public class ForgerockUserDao {
 
+    //TODO generate different ids for each user
     public void writeUsersToServer(TheUser... users) {
         List<TheUser> theUserList = Arrays.asList(users);
 
-        JSONArray jsonArray = new JSONArray();
-        for (int i = 0; i < theUserList.size(); i++) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("_id", i);
-            jsonObject.put("mail", theUserList.get(i).getEmail());
-            jsonObject.put("sn", theUserList.get(i).getLastname());
-            jsonObject.put("givenName", theUserList.get(i).getFirstname());
-            jsonObject.put("userName", theUserList.get(i).getUsername());
-            jsonArray.put(jsonObject);
-        }
+        try {
+            for (int i = 0; i < theUserList.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("id", i);
+                jsonObject.put("mail", theUserList.get(i).getEmail());
+                jsonObject.put("sn", theUserList.get(i).getLastname());
+                jsonObject.put("givenName", theUserList.get(i).getFirstname());
+                jsonObject.put("userName", theUserList.get(i).getUsername());
+                String jsonResult = jsonObject.toString();
+                StringEntity jsonEntity = new StringEntity(jsonResult);
 
+                String url = "http://localhost:8080/openidm/managed/user/" + i;
+
+                HttpClient client = new DefaultHttpClient();
+                HttpPut request = new HttpPut(url);
+                request.addHeader("Content-Type", "application/json");
+                request.addHeader("Accept", "application/json");
+                request.addHeader("If-None-Match", "*");
+                request.addHeader("X-OpenIDM-Username", "openidm-admin");
+                request.addHeader("X-OpenIDM-Password", "openidm-admin");
+                request.addHeader("X-Requested-With", "Swagger-UI");
+                request.setEntity(jsonEntity);
+
+                HttpResponse response = client.execute(request);
+                String entity = EntityUtils.toString(response.getEntity());
+                int responseCode = response.getStatusLine().getStatusCode();
+                if (responseCode < 200 || responseCode >= 300) {
+                    throw new RuntimeException("Error code=" + response + "\ncontent=" + entity);
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<TheUser> readUsersFromServer() {
@@ -69,34 +94,6 @@ public class ForgerockUserDao {
         request.addHeader("X-Requested-With", "Swagger-UI");
         request.addHeader("X-OpenIDM-Username", "openidm-admin");
         request.addHeader("X-OpenIDM-Password", "openidm-admin");
-        HttpResponse response;
-        String jsonResponse = "";
-        try {
-            response = client.execute(request);
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                jsonResponse += line;
-            }
-        } catch (IOException | UnsupportedOperationException e) {
-            e.printStackTrace();
-        }
-
-        return jsonResponse;
-    }
-
-    //TODO put method
-    public String connectToServerPut(Integer id) {
-        String url = "http://localhost:8080/openidm/managed/user/" + id.toString();
-
-        HttpClient client = new DefaultHttpClient();
-        HttpPut request = new HttpPut(url);
-        request.addHeader("Content-Type", "application/json");
-        request.addHeader("Accept", "application/json");
-        request.addHeader("If-None-Match", "*");
-        request.addHeader("X-OpenIDM-Username", "openidm-admin");
-        request.addHeader("X-OpenIDM-Password", "openidm-admin");
-        request.addHeader("X-Requested-With", "Swagger-UI");
         HttpResponse response;
         String jsonResponse = "";
         try {

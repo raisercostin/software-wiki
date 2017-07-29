@@ -32,6 +32,11 @@ public class ForgerockTest {
             System.out.println(user.toString());
     }
 
+    @Test
+    public void testWriteUsers() {
+        ForgerockUserDao forgerockUserDao = new ForgerockUserDao();
+        forgerockUserDao.writeUsersToServer(generateUsers(3).toArray(new TheUser[0]));
+    }
 
     //TODO main test si restul
     @Test
