@@ -1,16 +1,16 @@
 package ro.dcsi.internship;
 
-import com.github.javafaker.Faker;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.Test;
+
+import com.github.javafaker.Faker;
 
 /**
  * Created by Cristi on 27-Jul-17.
  */
 public class ForgerockTest {
-
 
   static String target = "target/test-files/";
 
@@ -28,8 +28,9 @@ public class ForgerockTest {
     ForgerockUserDao forgerockUserDao = new ForgerockUserDao();
     List<TheUser> theUserList = forgerockUserDao.readUsersFromServer();
 
-    for (TheUser user : theUserList)
+    for (TheUser user : theUserList) {
       System.out.println(user.toString());
+    }
   }
 
   @Test
@@ -40,7 +41,7 @@ public class ForgerockTest {
     forgerockUserDao.writeUsersToServer(6, generateUsers(3).toArray(new TheUser[0]));
   }
 
-  //TODO main test si restul
+  // TODO main test si restul
   @Test
   public void mainTest() {
     ForgerockUserDao forgerockUserDao = new ForgerockUserDao();
