@@ -34,7 +34,7 @@ public class BeanBasedUserDao implements UserDao {
   public List<TheUser> readUsers(String file) {
     try {
       return new CsvToBeanBuilder(new FileReader(file)).withType(TheUser.class).build().parse();
-    } catch (IllegalStateException|FileNotFoundException e) {
+    } catch (IllegalStateException | FileNotFoundException e) {
       throw new RuntimeException(e);
     }
   }

@@ -45,12 +45,11 @@ public class AppTest {
     BeanBasedUserDao controller = new BeanBasedUserDao();
     List<TheUser> existingUsers = controller.readUsers(resources + "users.csv");
     Assert.assertEquals(8, existingUsers.size());
-    
-    
+
     TheUser[] users = new TheUser[existingUsers.size()];
     System.out.println(Locations.current(target + "tempUsers.csv").absolute());
     //File fisier = new File(Locations.current(target + "tempUsers.csv").mkdirOnParentIfNecessary().absolute());
-    controller.writeUsers(target+"tempUsers.csv", existingUsers.toArray(users));
+    controller.writeUsers(target + "tempUsers.csv", existingUsers.toArray(users));
 
     List<TheUser> tempUsers = controller.readUsers(target + "tempUsers.csv");
 
@@ -91,7 +90,6 @@ public class AppTest {
     Assert.assertEquals(8, ls.size());
   }
 
-
   @SuppressWarnings("null")
   @Test(expected = NullPointerException.class)
   public void workingWithNull() {
@@ -107,6 +105,7 @@ public class AppTest {
     Integer d = c = b.get().intValue();
     d.intValue();
   }
+
   @Test
   public void simpleExceptionThrowing() {
     Integer a = null;
@@ -121,7 +120,7 @@ public class AppTest {
   private void someMethodThatShouldThrowAnExceptionIfParameterIsNull(Integer a) {
     System.out.println(a.toString());
   }
-  
+
   public List<TheUser> generateUsers(int n) {
     List<TheUser> theUserList = new ArrayList<>();
     Faker faker = new Faker();
