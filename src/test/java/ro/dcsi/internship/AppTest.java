@@ -128,8 +128,8 @@ public class AppTest {
       Integer permission = (Math.random() < 0.5) ? 0 : 1;
       Integer age = faker.number().numberBetween(0, 100);
       TheUser user = new UserBuilder().setUsername(faker.name().username()).setPasswd(faker.idNumber().valid())
-          .setPermissions(permission).setAge(age)
-          .setCountry(faker.address().country()).setEmail(faker.name().username() + "@gmail.com").build();
+          .setPermissions(permission).setAge(age).setCountry(faker.address().country())
+          .setEmail(faker.name().username() + "@gmail.com").build();
       theUserList.add(user);
     }
     return theUserList;
