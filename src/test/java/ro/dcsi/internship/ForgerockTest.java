@@ -41,7 +41,6 @@ public class ForgerockTest {
     forgerockUserDao.writeUsersToServer(6, generateUsers(3).toArray(new TheUser[0]));
   }
 
-  // TODO main test si restul
   @Test
   public void mainTest() {
     ForgerockUserDao forgerockUserDao = new ForgerockUserDao();
