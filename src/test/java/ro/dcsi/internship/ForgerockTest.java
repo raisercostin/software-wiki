@@ -35,13 +35,16 @@ public class ForgerockTest {
     @Test
     public void testWriteUsers() {
         ForgerockUserDao forgerockUserDao = new ForgerockUserDao();
-        forgerockUserDao.writeUsersToServer(generateUsers(3).toArray(new TheUser[0]));
+        forgerockUserDao.writeUsersToServer(0,generateUsers(3).toArray(new TheUser[0]));
+        forgerockUserDao.writeUsersToServer(3,generateUsers(3).toArray(new TheUser[0]));
+        forgerockUserDao.writeUsersToServer(6,generateUsers(3).toArray(new TheUser[0]));
     }
 
     //TODO main test si restul
     @Test
     public void mainTest() {
         ForgerockUserDao forgerockUserDao = new ForgerockUserDao();
+        forgerockUserDao.writeUsersToServer(0,generateUsers(100).toArray(new TheUser[0]));
         List<TheUser> theUserList = forgerockUserDao.readUsersFromServer();
         forgerockUserDao.backupUsers(theUserList);
     }

@@ -26,17 +26,18 @@ import java.util.List;
 public class ForgerockUserDao {
 
     //TODO generate different ids for each user
-    public void writeUsersToServer(TheUser... users) {
+    public void writeUsersToServer(int idStart, TheUser... users) {
         List<TheUser> theUserList = Arrays.asList(users);
-
+        int stop = theUserList.size() + idStart;
+        int start = idStart;
         try {
-            for (int i = 0; i < theUserList.size(); i++) {
+            for (int i = start, j = 0; j < theUserList.size() && i < stop; j++, i++) {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("id", i);
-                jsonObject.put("mail", theUserList.get(i).getEmail());
-                jsonObject.put("sn", theUserList.get(i).getLastname());
-                jsonObject.put("givenName", theUserList.get(i).getFirstname());
-                jsonObject.put("userName", theUserList.get(i).getUsername());
+                jsonObject.put("mail", theUserList.get(j).getEmail());
+                jsonObject.put("sn", theUserList.get(j).getLastname());
+                jsonObject.put("givenName", theUserList.get(j).getFirstname());
+                jsonObject.put("userName", theUserList.get(j).getUsername());
                 String jsonResult = jsonObject.toString();
                 StringEntity jsonEntity = new StringEntity(jsonResult);
 
