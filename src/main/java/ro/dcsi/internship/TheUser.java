@@ -107,18 +107,3 @@ public class TheUser {
                 '}';
     }
 }
-//
-//@SuppressWarnings("serial")
-//class TheUser2 implements Serializable {
-//  // private String id;
-//  @CsvBindByName
-//  public final String name;
-//  // private String email;
-//
-//  public TheUser2() {
-//    this("NO_NAME");
-//  }
-//  public TheUser2(String name) {
-//    this.name = name;
-//  }
-//}

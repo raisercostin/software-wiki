@@ -1,6 +1,5 @@
 package ro.dcsi.internship;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -101,6 +100,7 @@ public class AppTest {
     } catch (NullPointerException e) {
       Assert.assertTrue("exception was thrown", true);
     }
+    @SuppressWarnings("unused")
     int c = a.intValue();
     // if(a != null )// is a a real object?
     Optional<Integer> b = Optional.empty();
@@ -129,7 +129,7 @@ public class AppTest {
       Integer permission = (Math.random() < 0.5) ? 0 : 1;
       Integer age = faker.number().numberBetween(0, 100);
       TheUser user = new UserBuilder().setUsername(faker.name().username()).setPasswd(faker.idNumber().valid())
-          .setFullname(faker.name().fullName()).setPermissions(permission).setAge(age)
+          .setPermissions(permission).setAge(age)
           .setCountry(faker.address().country()).setEmail(faker.name().username() + "@gmail.com").build();
       theUserList.add(user);
     }

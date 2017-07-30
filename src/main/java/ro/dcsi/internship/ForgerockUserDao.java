@@ -5,7 +5,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,7 +25,6 @@ import java.util.List;
  */
 public class ForgerockUserDao {
 
-    //TODO generate different ids for each user
     public void writeUsersToServer(int idStart, TheUser... users) {
         List<TheUser> theUserList = Arrays.asList(users);
         int stop = theUserList.size() + idStart;
@@ -43,7 +42,7 @@ public class ForgerockUserDao {
 
                 String url = "http://localhost:8080/openidm/managed/user/" + i;
 
-                HttpClient client = new DefaultHttpClient();
+                HttpClient client = HttpClientBuilder.create().build();
                 HttpPut request = new HttpPut(url);
                 request.addHeader("Content-Type", "application/json");
                 request.addHeader("Accept", "application/json");
@@ -89,7 +88,7 @@ public class ForgerockUserDao {
     public String connectToServerGet() {
         String url = "http://localhost:8080/openidm/managed/user?_queryId=query-all";
 
-        HttpClient client = new DefaultHttpClient();
+        HttpClient client = HttpClientBuilder.create().build();
         HttpGet request = new HttpGet(url);
         request.addHeader("Accept", "application/json");
         request.addHeader("X-Requested-With", "Swagger-UI");
