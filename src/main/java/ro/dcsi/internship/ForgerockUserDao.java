@@ -25,7 +25,6 @@ import java.util.List;
  */
 public class ForgerockUserDao {
 
-<<<<<<< HEAD
     public void writeUsersToServer(int idStart, TheUser... users) {
         List<TheUser> theUserList = Arrays.asList(users);
         int stop = theUserList.size() + idStart;
@@ -91,74 +90,7 @@ public class ForgerockUserDao {
 
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet request = new HttpGet(url);
-=======
-  //TODO generate different id for each user
-  public void writeUsersToServer(int idStart, TheUser... users) {
-    List<TheUser> theUserList = Arrays.asList(users);
-    int stop = theUserList.size() + idStart;
-    int start = idStart;
-    try {
-      for (int i = start, j = 0; j < theUserList.size() && i < stop; j++, i++) {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id", i);
-        jsonObject.put("mail", theUserList.get(j).getEmail());
-        jsonObject.put("sn", theUserList.get(j).getLastname());
-        jsonObject.put("givenName", theUserList.get(j).getFirstname());
-        jsonObject.put("userName", theUserList.get(j).getUsername());
-        String jsonResult = jsonObject.toString();
-        StringEntity jsonEntity = new StringEntity(jsonResult);
 
-        String url = "http://localhost:8080/openidm/managed/user/" + i;
-
-        HttpClient client = new DefaultHttpClient();
-        HttpPut request = new HttpPut(url);
-        request.addHeader("Content-Type", "application/json");
->>>>>>> b727b796c4b56e28fe8247f450891e4076479e52
-        request.addHeader("Accept", "application/json");
-        request.addHeader("If-None-Match", "*");
-        request.addHeader("X-OpenIDM-Username", "openidm-admin");
-        request.addHeader("X-OpenIDM-Password", "openidm-admin");
-        request.addHeader("X-Requested-With", "Swagger-UI");
-        request.setEntity(jsonEntity);
-
-        HttpResponse response = client.execute(request);
-        String entity = EntityUtils.toString(response.getEntity());
-        int responseCode = response.getStatusLine().getStatusCode();
-        if (responseCode < 200 || responseCode >= 300) {
-          throw new RuntimeException("Error code=" + response + "\ncontent=" + entity);
-        }
-      }
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  public List<TheUser> readUsersFromServer() {
-    List<TheUser> theUserList = new ArrayList<>();
-
-    try {
-      JSONObject result = new JSONObject(connectToServerGet());
-      JSONArray jsonArray = result.optJSONArray("result");
-      for (int i = 0; i < jsonArray.length(); i++) {
-        JSONObject jsonObject = jsonArray.getJSONObject(i);
-        String sn = jsonObject.getString("sn");
-        String givenName = jsonObject.getString("givenName");
-        String userName = jsonObject.getString("userName");
-        String mail = jsonObject.getString("mail");
-
-        theUserList.add(new TheUser(userName, givenName, sn, mail));
-      }
-    } catch (JSONException e) {
-      throw new JSONException(e);
-    }
-    return theUserList;
-  }
-
-  public String connectToServerGet() {
-    String url = "http://localhost:8080/openidm/managed/user?_queryId=query-all";
-
-    HttpClient client = new DefaultHttpClient();
-    HttpGet request = new HttpGet(url);
     request.addHeader("Accept", "application/json");
     request.addHeader("X-Requested-With", "Swagger-UI");
     request.addHeader("X-OpenIDM-Username", "openidm-admin");
