@@ -30,7 +30,7 @@
   </interface>  
   <class id="4" language="java" name="ro.dcsi.internship.ForgerockUserDao" project="usersync" 
     file="/usersync/src/main/java/ro/dcsi/internship/ForgerockUserDao.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="525" y="169"/>    
+    <position height="-1" width="-1" x="565" y="221"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,21 +39,25 @@
   </class>  
   <dependency id="5">    
     <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="6">    
+    <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="2"/>  
   </dependency>  
-  <realization id="6">    
+  <realization id="7">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="3"/>  
+  </realization>  
+  <dependency id="8">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <realization id="9">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="3"/>  
   </realization>  
-  <dependency id="7">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
-  <dependency id="8">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="2"/>  
-  </dependency>  
-  <dependency id="9">    
+  <dependency id="10">    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="2"/>  
   </dependency>  

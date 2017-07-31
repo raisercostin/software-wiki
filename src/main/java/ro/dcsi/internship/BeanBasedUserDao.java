@@ -15,6 +15,8 @@ import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 public class BeanBasedUserDao implements UserDao {
+  public BeanBasedUserDao(){
+  }
 
   @Override
   public void writeUsers(String file, TheUser... users) {

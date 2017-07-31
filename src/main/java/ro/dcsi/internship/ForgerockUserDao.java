@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Created by Cristi on 27-Jul-17.
  */
-public class ForgerockUserDao {
+public class ForgerockUserDao implements UserDao{
   private String serverUrl;
   private String serverUsername;
   private String serverPassword;
@@ -74,7 +74,10 @@ public class ForgerockUserDao {
     }
   }
 
-  public List<TheUser> readUsersFromServer() {
+
+  //TODO ignoring filename is a bit surprising
+  @Override
+  public List<TheUser> readUsers(String fileName) {
     List<TheUser> theUserList = new ArrayList<>();
 
     try {
@@ -121,9 +124,8 @@ public class ForgerockUserDao {
     return jsonResponse;
   }
 
+  //TODO what backup ??? :D
   public void backupUsers(List<TheUser> theUserList) {
-    BeanBasedUserDao beanBasedUserDao = new BeanBasedUserDao();
-
     DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
     Date date = new Date();
 
@@ -134,6 +136,11 @@ public class ForgerockUserDao {
 
     TheUser[] theUser = theUserList.toArray(new TheUser[theUserList.size()]);
 
-    beanBasedUserDao.writeUsers(csvFile, theUser);
+    new BeanBasedUserDao().writeUsers(csvFile, theUser);
+  }
+
+  @Override
+  public void writeUsers(String fileName, TheUser... users) {
+    writeUsersToServer(0, users);
   }
 }

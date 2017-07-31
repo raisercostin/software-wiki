@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.github.javafaker.Faker;
@@ -27,7 +28,7 @@ public class ForgerockTest {
   @Test
   public void testReadUsers() {
     ForgerockUserDao forgerockUserDao = createDefaultServer();
-    List<TheUser> theUserList = forgerockUserDao.readUsersFromServer();
+    List<TheUser> theUserList = forgerockUserDao.readUsers("");
 
     for (TheUser user : theUserList) {
       System.out.println(user.toString());
@@ -44,9 +45,18 @@ public class ForgerockTest {
 
   @Test
   public void mainTest() {
+    testManyUsers(10);
+  }
+  @Test
+  @Ignore
+  public void mainPerformanceIntegrationTest() {
+    testManyUsers(100);
+  }
+
+  private void testManyUsers(int users) {
     ForgerockUserDao forgerockUserDao = createDefaultServer();
-    forgerockUserDao.writeUsersToServer(0, generateUsers(100).toArray(new TheUser[0]));
-    List<TheUser> theUserList = forgerockUserDao.readUsersFromServer();
+    forgerockUserDao.writeUsersToServer(0, generateUsers(users).toArray(new TheUser[0]));
+    List<TheUser> theUserList = forgerockUserDao.readUsers("");
     forgerockUserDao.backupUsers(theUserList);
   }
   //TODO move outside. we test user not forge rock
