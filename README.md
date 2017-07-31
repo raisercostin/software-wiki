@@ -1,5 +1,5 @@
 # Design
-![](https://github.com/raisercostin/dcsi/raw/user/bogdan/design.png)
+![](https://github.com/raisercostin/dcsi/raw/user/bogdan/design.jpg)
 
 # internship
 
