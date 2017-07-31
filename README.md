@@ -1,5 +1,5 @@
 # Status
-[![Build Status](https://travis-ci.org/raisercostin/dcsi.svg?branch=feature/big-merge)](https://travis-ci.org/raisercostin/dcsi)
+[![Build Status](https://api.travis-ci.org/raisercostin/dcsi.svg?branch=master)](https://travis-ci.org/raisercostin/dcsi)
 
 
 # Design
