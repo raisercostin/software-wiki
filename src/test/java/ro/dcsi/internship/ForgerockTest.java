@@ -12,7 +12,7 @@ import com.github.javafaker.Faker;
 /**
  * Created by Cristi on 27-Jul-17.
  */
-public class ForgerockTest {
+public class Forger ockTest {
 
   static String target = "target/test-files/";
 
