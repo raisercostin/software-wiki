@@ -1,11 +1,17 @@
 package ro.dcsi.internship;
 
+import java.util.UUID;
+
+import com.google.common.base.Preconditions;
 import com.opencsv.bean.CsvBindByName;
 
 //case class TheUser(username:String, passwd:String)
 //new TheUser(passwd="a",username="b'")
 
 public class TheUser {
+  public static String generateUserId() {
+    return UUID.randomUUID().toString();
+  }
 
   @CsvBindByName
   public final String username;
@@ -16,13 +22,13 @@ public class TheUser {
   public final int permissions;
   public final int age;
   @CsvBindByName
-  public final String country;
+  public final String id;
   @CsvBindByName
   public final String email;
   @CsvBindByName
-  private String firstname;
+  private final String firstname;
   @CsvBindByName
-  private String lastname;
+  private final String lastname;
 
   public String getUsername() {
     return username;
@@ -44,8 +50,8 @@ public class TheUser {
     return age;
   }
 
-  public String getCountry() {
-    return country;
+  public String getId() {
+    return id;
   }
 
   public String getEmail() {
@@ -67,36 +73,30 @@ public class TheUser {
   }
 
   public TheUser(String name) {
-    this(name, "", "", 0, 0, "", "");
+    this(name, "", "", "<no-email>");
   }
 
   public TheUser(String username, String firstname, String lastname, String email) {
-    this.username = username;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.email = email;
-    this.passwd = "";
-    this.fullname = "";
-    this.permissions = 0;
-    this.age = 0;
-    this.country = "";
-
+    this(generateUserId(),username,"",firstname,lastname,"",0,0,email);
   }
 
-  public TheUser(String username, String passwd, String fullname, int permissions, int age, String country,
+  public TheUser(String id, String username, String passwd, String firstname, String lastname, String fullname, int permissions, int age,
       String email) {
     this.username = username;
     this.passwd = passwd;
     this.fullname = fullname;
+    this.firstname = firstname;
+    this.lastname = lastname;
     this.permissions = permissions;
     this.age = age;
-    this.country = country;
+    this.id = id;
     this.email = email;
+    Preconditions.checkNotNull(id);
   }
 
   public String toString() {
     return "TheUser{" + "username='" + username + '\'' + ", passwd='" + passwd + '\'' + ", fullname='" + fullname + '\''
-        + ", permissions=" + permissions + ", age=" + age + ", country='" + country + '\'' + ", email='" + email + '\''
+        + ", permissions=" + permissions + ", age=" + age + ", id='" + id + '\'' + ", email='" + email + '\''
         + ", firstname='" + firstname + '\'' + ", lastname='" + lastname + '\'' + '}';
   }
 }

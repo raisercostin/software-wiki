@@ -24,6 +24,15 @@ import java.util.List;
  * Created by Cristi on 27-Jul-17.
  */
 public class ForgerockUserDao {
+  private String serverUrl;
+  private String serverUsername;
+  private String serverPassword;
+
+  public ForgerockUserDao(String serverUrl, String serverUsername, String serverPassword) {
+    this.serverUrl = serverUrl;
+    this.serverUsername = serverUsername;
+    this.serverPassword = serverPassword;
+  }
 
   public void writeUsersToServer(int idStart, TheUser... users) {
     List<TheUser> theUserList = Arrays.asList(users);
@@ -31,8 +40,9 @@ public class ForgerockUserDao {
     int start = idStart;
     try {
       for (int i = start, j = 0; j < theUserList.size() && i < stop; j++, i++) {
+        String id = theUserList.get(j).id;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id", i);
+        jsonObject.put("id", id);
         jsonObject.put("mail", theUserList.get(j).getEmail());
         jsonObject.put("sn", theUserList.get(j).getLastname());
         jsonObject.put("givenName", theUserList.get(j).getFirstname());
@@ -40,15 +50,15 @@ public class ForgerockUserDao {
         String jsonResult = jsonObject.toString();
         StringEntity jsonEntity = new StringEntity(jsonResult);
 
-        String url = "http://localhost:8080/openidm/managed/user/" + i;
+        String url = serverUrl+"openidm/managed/user/" + id;
 
         HttpClient client = HttpClientBuilder.create().build();
         HttpPut request = new HttpPut(url);
         request.addHeader("Content-Type", "application/json");
         request.addHeader("Accept", "application/json");
         request.addHeader("If-None-Match", "*");
-        request.addHeader("X-OpenIDM-Username", "openidm-admin");
-        request.addHeader("X-OpenIDM-Password", "openidm-admin");
+        request.addHeader("X-OpenIDM-Username", serverUsername);
+        request.addHeader("X-OpenIDM-Password", serverPassword);
         request.addHeader("X-Requested-With", "Swagger-UI");
         request.setEntity(jsonEntity);
 
@@ -86,15 +96,15 @@ public class ForgerockUserDao {
   }
 
   public String connectToServerGet() {
-    String url = "http://localhost:8080/openidm/managed/user?_queryId=query-all";
+    String url = serverUrl+"/openidm/managed/user?_queryId=query-all";
 
     HttpClient client = HttpClientBuilder.create().build();
     HttpGet request = new HttpGet(url);
 
     request.addHeader("Accept", "application/json");
     request.addHeader("X-Requested-With", "Swagger-UI");
-    request.addHeader("X-OpenIDM-Username", "openidm-admin");
-    request.addHeader("X-OpenIDM-Password", "openidm-admin");
+    request.addHeader("X-OpenIDM-Username", serverUsername);
+    request.addHeader("X-OpenIDM-Password", serverPassword);
     HttpResponse response;
     String jsonResponse = "";
     try {

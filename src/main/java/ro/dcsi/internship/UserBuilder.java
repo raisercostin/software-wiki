@@ -1,12 +1,14 @@
 package ro.dcsi.internship;
 
+import java.util.UUID;
+
 public class UserBuilder {
   private String username;
   private String passwd;
   private String fullname;
   private int permissions;
   private int age;
-  private String country;
+  private String id;
   private String email;
   private String firstname;
   private String lastname;
@@ -47,8 +49,8 @@ public class UserBuilder {
     return this;
   }
 
-  public UserBuilder setCountry(String country) {
-    this.country = country;
+  public UserBuilder setId(String country) {
+    this.id = country;
     return this;
   }
 
@@ -58,11 +60,9 @@ public class UserBuilder {
   }
 
   public TheUser build() {
-    return new TheUser(username, passwd, fullname, permissions, age, country, email);
+    if(id==null){
+      id = TheUser.generateUserId();
+    }
+    return new TheUser(id, username, passwd, firstname, lastname, fullname, permissions, age, email);
   }
-
-  public TheUser builder() {
-    return new TheUser(username, firstname, lastname, email);
-  }
-
 }
