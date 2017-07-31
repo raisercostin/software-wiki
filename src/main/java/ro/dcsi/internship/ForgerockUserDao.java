@@ -1,6 +1,7 @@
 package ro.dcsi.internship;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
@@ -40,6 +41,7 @@ public class ForgerockUserDao implements UserDao{
     List<TheUser> theUserList = Arrays.asList(users);
     int stop = theUserList.size() + idStart;
     int start = idStart;
+    //TODO batch exception handling 
     try {
       for (int i = start, j = 0; j < theUserList.size() && i < stop; j++, i++) {
         String id = theUserList.get(j).id;
@@ -52,27 +54,31 @@ public class ForgerockUserDao implements UserDao{
         String jsonResult = jsonObject.toString();
         StringEntity jsonEntity = new StringEntity(jsonResult);
 
-        String url = serverUrl+"openidm/managed/user/" + id;
-
-        HttpClient client = HttpClientBuilder.create().build();
-        HttpPut request = new HttpPut(url);
-        request.addHeader("Content-Type", "application/json");
-        request.addHeader("Accept", "application/json");
-        request.addHeader("If-None-Match", "*");
-        request.addHeader("X-OpenIDM-Username", serverUsername);
-        request.addHeader("X-OpenIDM-Password", serverPassword);
-        request.addHeader("X-Requested-With", "Swagger-UI");
-        request.setEntity(jsonEntity);
-
-        HttpResponse response = client.execute(request);
-        String entity = EntityUtils.toString(response.getEntity());
-        int responseCode = response.getStatusLine().getStatusCode();
-        if (responseCode < 200 || responseCode >= 300) {
-          throw new RuntimeException("Error code=" + response + "\ncontent=" + entity);
-        }
+        connectToServerAndPut(id, jsonEntity);
       }
     } catch (IOException e) {
       throw new RuntimeException(e);
+    }
+  }
+
+  private void connectToServerAndPut(String id, StringEntity jsonEntity) throws IOException, ClientProtocolException {
+    String url = serverUrl+"openidm/managed/user/" + id;
+
+    HttpClient client = HttpClientBuilder.create().build();
+    HttpPut request = new HttpPut(url);
+    request.addHeader("Content-Type", "application/json");
+    request.addHeader("Accept", "application/json");
+    request.addHeader("If-None-Match", "*");
+    request.addHeader("X-OpenIDM-Username", serverUsername);
+    request.addHeader("X-OpenIDM-Password", serverPassword);
+    request.addHeader("X-Requested-With", "Swagger-UI");
+    request.setEntity(jsonEntity);
+
+    HttpResponse response = client.execute(request);
+    String entity = EntityUtils.toString(response.getEntity());
+    int responseCode = response.getStatusLine().getStatusCode();
+    if (responseCode < 200 || responseCode >= 300) {
+      throw new RuntimeException("Error code=" + response + "\ncontent=" + entity);
     }
   }
 
@@ -100,6 +106,7 @@ public class ForgerockUserDao implements UserDao{
     return theUserList;
   }
 
+  //TODO review for 10G response
   private String connectToServerGet() {
     String url = serverUrl+"/openidm/managed/user?_queryId=query-all";
 
@@ -110,20 +117,18 @@ public class ForgerockUserDao implements UserDao{
     request.addHeader("X-Requested-With", "Swagger-UI");
     request.addHeader("X-OpenIDM-Username", serverUsername);
     request.addHeader("X-OpenIDM-Password", serverPassword);
-    HttpResponse response;
-    String jsonResponse = "";
     try {
-      response = client.execute(request);
+      HttpResponse response = client.execute(request);
       BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
       String line;
+      String jsonResponse = "";
       while ((line = bufferedReader.readLine()) != null) {
         jsonResponse += line;
       }
+      return jsonResponse;
     } catch (IOException | UnsupportedOperationException e) {
-      e.printStackTrace();
+     throw new RuntimeException(e);
     }
-
-    return jsonResponse;
   }
 
   //TODO what backup ??? :D
