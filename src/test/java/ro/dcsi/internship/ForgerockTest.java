@@ -28,20 +28,20 @@ public class ForgerockTest {
   @Test
   public void testReadUsers() {
     ForgerockUserDao forgerockUserDao = createDefaultServer();
-    List<TheUser> theUserList = forgerockUserDao.readUsers("");
+    List<TheUser> theUserList = forgerockUserDao.readUsers();
 
     for (TheUser user : theUserList) {
       System.out.println(user.toString());
     }
   }
 
-  @Test
-  public void testWriteUsers() {
-    ForgerockUserDao forgerockUserDao = createDefaultServer();
-    forgerockUserDao.writeUsersToServer(0, generateUsers(3).toArray(new TheUser[0]));
-    forgerockUserDao.writeUsersToServer(3, generateUsers(3).toArray(new TheUser[0]));
-    forgerockUserDao.writeUsersToServer(6, generateUsers(3).toArray(new TheUser[0]));
-  }
+//  @Test
+//  public void testWriteUsers() {
+//    ForgerockUserDao forgerockUserDao = createDefaultServer();
+//    forgerockUserDao.writeUsers(generateUsers(3).toArray(new TheUser[0]));
+//    forgerockUserDao.writeUsers(generateUsers(3).toArray(new TheUser[0]));
+//    forgerockUserDao.writeUsers(generateUsers(3).toArray(new TheUser[0]));
+//  }
 
   @Test
   public void mainTest() {
@@ -55,8 +55,8 @@ public class ForgerockTest {
 
   private void testManyUsers(int users) {
     ForgerockUserDao forgerockUserDao = createDefaultServer();
-    forgerockUserDao.writeUsersToServer(0, generateUsers(users).toArray(new TheUser[0]));
-    List<TheUser> theUserList = forgerockUserDao.readUsers("");
+    forgerockUserDao.writeUsers(generateUsers(users).toArray(new TheUser[0]));
+    List<TheUser> theUserList = forgerockUserDao.readUsers();
     forgerockUserDao.backupUsers(theUserList);
   }
   //TODO move outside. we test user not forge rock

@@ -17,21 +17,21 @@ public class AppTest {
 
   @Test
   public void testHeaderDefinesTheColumn() {
-    UserDao app = new BeanBasedUserDao();
+    BeanBasedUserDao app = new BeanBasedUserDao();
     Assert.assertEquals("Ambrose", app.readUsers(resources + "file-header1.csv").get(2).getLastname());
     Assert.assertEquals("Ambrose", app.readUsers(resources + "file-header2.csv").get(2).getLastname());
   }
 
   @Test
   public void testHeaderDefinesTheColumnDaoSorin() {
-    UserDao app = new BeanBasedUserDao();
+    BeanBasedUserDao app = new BeanBasedUserDao();
     Assert.assertEquals("Ambrose", app.readUsers(resources + "file-header1.csv").get(2).getLastname());
     Assert.assertEquals("Ambrose", app.readUsers(resources + "file-header2.csv").get(2).getLastname());
   }
 
   @Test
   public void testAppIulian() {
-    UserDao app = new BeanBasedUserDao();
+    BeanBasedUserDao app = new BeanBasedUserDao();
     app.writeUsers(target + "file1", new TheUser("1"), new TheUser("1"));
     app.writeUsers(target + "file2", new TheUser("2"));
     Assert.assertEquals(2, app.readUsers(target + "file1").size());
@@ -61,7 +61,7 @@ public class AppTest {
 
   @Test
   public void testReadAppSorin() {
-    UserDao appS = new BeanBasedUserDao();
+    BeanBasedUserDao appS = new BeanBasedUserDao();
     System.out.println(appS.readUsers(resources + "sorinUsersStyle.csv"));
   }
 
@@ -72,7 +72,7 @@ public class AppTest {
 
   @Test
   public void testGrigore() {
-    UserDao app = new BeanBasedUserDao();
+    BeanBasedUserDao app = new BeanBasedUserDao();
     app.writeUsers(target + "file1", generateUsers(5).toArray(new TheUser[0]));
     app.writeUsers(target + "file2", new TheUser("costin"));
 
@@ -84,7 +84,7 @@ public class AppTest {
   @Test
   @Ignore
   public void testReadCostin() {
-    UserDao app = new BeanBasedUserDao();
+    BeanBasedUserDao app = new BeanBasedUserDao();
     List<TheUser> ls = app.readUsers("users");
     Assert.assertEquals(8, ls.size());
   }

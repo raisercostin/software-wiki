@@ -8,17 +8,14 @@ import java.io.Writer;
 import java.util.Arrays;
 import java.util.List;
 
+import com.google.api.client.util.Preconditions;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
-public class BeanBasedUserDao implements UserDao {
-  public BeanBasedUserDao(){
-  }
-
-  @Override
+public class BeanBasedUserDao {
   public void writeUsers(String file, TheUser... users) {
     //Locations.current(file).mkdirOnParentIfNecessary();
     try (Writer writer = new FileWriter(file);) {
@@ -29,7 +26,6 @@ public class BeanBasedUserDao implements UserDao {
     }
   }
 
-  @Override
   public List<TheUser> readUsers(String file) {
     try {
       return new CsvToBeanBuilder(new FileReader(file)).withType(TheUser.class).build().parse();

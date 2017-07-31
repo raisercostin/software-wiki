@@ -34,7 +34,9 @@ public class ForgerockUserDao implements UserDao{
     this.serverPassword = serverPassword;
   }
 
-  public void writeUsersToServer(int idStart, TheUser... users) {
+  @Override
+  public void writeUsers(TheUser... users) {
+    int idStart= 0;
     List<TheUser> theUserList = Arrays.asList(users);
     int stop = theUserList.size() + idStart;
     int start = idStart;
@@ -77,7 +79,7 @@ public class ForgerockUserDao implements UserDao{
 
   //TODO ignoring filename is a bit surprising
   @Override
-  public List<TheUser> readUsers(String fileName) {
+  public List<TheUser> readUsers() {
     List<TheUser> theUserList = new ArrayList<>();
 
     try {
@@ -98,7 +100,7 @@ public class ForgerockUserDao implements UserDao{
     return theUserList;
   }
 
-  public String connectToServerGet() {
+  private String connectToServerGet() {
     String url = serverUrl+"/openidm/managed/user?_queryId=query-all";
 
     HttpClient client = HttpClientBuilder.create().build();
@@ -125,7 +127,7 @@ public class ForgerockUserDao implements UserDao{
   }
 
   //TODO what backup ??? :D
-  public void backupUsers(List<TheUser> theUserList) {
+  void backupUsers(List<TheUser> theUserList) {
     DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
     Date date = new Date();
 
@@ -137,10 +139,5 @@ public class ForgerockUserDao implements UserDao{
     TheUser[] theUser = theUserList.toArray(new TheUser[theUserList.size()]);
 
     new BeanBasedUserDao().writeUsers(csvFile, theUser);
-  }
-
-  @Override
-  public void writeUsers(String fileName, TheUser... users) {
-    writeUsersToServer(0, users);
   }
 }
