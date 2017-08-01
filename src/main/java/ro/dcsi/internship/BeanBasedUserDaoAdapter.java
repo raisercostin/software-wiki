@@ -8,7 +8,7 @@ public class BeanBasedUserDaoAdapter implements UserDao {
   private BeanBasedUserDao dao;
   private String file;
 
-  public BeanBasedUserDaoAdapter(BeanBasedUserDao dao, String file){
+  public BeanBasedUserDaoAdapter(BeanBasedUserDao dao, String file) {
     this.dao = dao;
     this.file = file;
     Preconditions.checkNotNull(dao);
@@ -17,7 +17,7 @@ public class BeanBasedUserDaoAdapter implements UserDao {
 
   @Override
   public void writeUsers(TheUser... users) {
-    dao.writeUsers(file,users);
+    dao.writeUsers(file, users);
   }
 
   @Override

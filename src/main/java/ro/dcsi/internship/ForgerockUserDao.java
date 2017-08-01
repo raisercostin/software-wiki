@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Created by Cristi on 27-Jul-17.
  */
-public class ForgerockUserDao implements UserDao{
+public class ForgerockUserDao implements UserDao {
   private String serverUrl;
   private String serverUsername;
   private String serverPassword;
@@ -37,7 +37,7 @@ public class ForgerockUserDao implements UserDao{
 
   @Override
   public void writeUsers(TheUser... users) {
-    int idStart= 0;
+    int idStart = 0;
     List<TheUser> theUserList = Arrays.asList(users);
     int stop = theUserList.size() + idStart;
     int start = idStart;
@@ -62,7 +62,7 @@ public class ForgerockUserDao implements UserDao{
   }
 
   private void connectToServerAndPut(String id, StringEntity jsonEntity) throws IOException, ClientProtocolException {
-    String url = serverUrl+"openidm/managed/user/" + id;
+    String url = serverUrl + "openidm/managed/user/" + id;
 
     HttpClient client = HttpClientBuilder.create().build();
     HttpPut request = new HttpPut(url);
@@ -81,7 +81,6 @@ public class ForgerockUserDao implements UserDao{
       throw new RuntimeException("Error code=" + response + "\ncontent=" + entity);
     }
   }
-
 
   //TODO ignoring filename is a bit surprising
   @Override
@@ -108,7 +107,7 @@ public class ForgerockUserDao implements UserDao{
 
   //TODO review for 10G response
   private String connectToServerGet() {
-    String url = serverUrl+"/openidm/managed/user?_queryId=query-all";
+    String url = serverUrl + "/openidm/managed/user?_queryId=query-all";
 
     HttpClient client = HttpClientBuilder.create().build();
     HttpGet request = new HttpGet(url);
@@ -127,7 +126,7 @@ public class ForgerockUserDao implements UserDao{
       }
       return jsonResponse.toString();
     } catch (IOException | UnsupportedOperationException e) {
-     throw new RuntimeException(e);
+      throw new RuntimeException(e);
     }
   }
 

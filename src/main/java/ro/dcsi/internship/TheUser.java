@@ -68,11 +68,11 @@ public class TheUser {
   }
 
   public TheUser(String username, String firstname, String lastname, String email) {
-    this(generateUserId(),username,"",firstname,lastname,"",0,0,email);
+    this(generateUserId(), username, "", firstname, lastname, "", 0, 0, email);
   }
 
-  public TheUser(String id, String username, String passwd, String firstname, String lastname, String fullname, int permissions, int age,
-      String email) {
+  public TheUser(String id, String username, String passwd, String firstname, String lastname, String fullname,
+      int permissions, int age, String email) {
     this.username = username;
     this.passwd = passwd;
     this.fullname = fullname;

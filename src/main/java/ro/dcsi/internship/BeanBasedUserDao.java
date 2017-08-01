@@ -16,7 +16,6 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 public class BeanBasedUserDao {
   public void writeUsers(String file, TheUser... users) {
-    //Locations.current(file).mkdirOnParentIfNecessary();
     try (Writer writer = new FileWriter(file);) {
       @SuppressWarnings("unchecked")
       StatefulBeanToCsv<TheUser> beanToCsv = new StatefulBeanToCsvBuilder<TheUser>(writer).build();

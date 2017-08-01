@@ -12,7 +12,6 @@ public class UserBuilder {
   private String lastname;
 
   public UserBuilder setUsername(String username) {
-    //String a = TheUser.this.fullname;
     this.username = username;
     return this;
   }
@@ -58,7 +57,7 @@ public class UserBuilder {
   }
 
   public TheUser build() {
-    if(id==null){
+    if (id == null) {
       id = TheUser.generateUserId();
     }
     return new TheUser(id, username, passwd, firstname, lastname, fullname, permissions, age, email);

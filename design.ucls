@@ -3,7 +3,7 @@
   realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="ro.dcsi.internship.BeanBasedUserDao" project="usersync" 
     file="/usersync/src/main/java/ro/dcsi/internship/BeanBasedUserDao.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="166" y="293"/>    
+    <position height="-1" width="-1" x="330" y="240"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -30,7 +30,7 @@
   </interface>  
   <class id="4" language="java" name="ro.dcsi.internship.ForgerockUserDao" project="usersync" 
     file="/usersync/src/main/java/ro/dcsi/internship/ForgerockUserDao.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="635" y="111"/>    
+    <position height="-1" width="-1" x="752" y="102"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,7 +39,7 @@
   </class>  
   <class id="5" language="java" name="ro.dcsi.internship.ForgerockTest" project="usersync" 
     file="/usersync/src/test/java/ro/dcsi/internship/ForgerockTest.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="-268" y="74"/>    
+    <position height="-1" width="-1" x="-259" y="-10"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -48,7 +48,7 @@
   </class>  
   <class id="6" language="java" name="ro.dcsi.internship.AppTest" project="usersync" 
     file="/usersync/src/test/java/ro/dcsi/internship/AppTest.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="-192" y="485"/>    
+    <position height="-1" width="-1" x="-189" y="370"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -57,7 +57,7 @@
   </class>  
   <class id="7" language="java" name="ro.dcsi.internship.BeanBasedUserDaoAdapter" project="usersync" 
     file="/usersync/src/main/java/ro/dcsi/internship/BeanBasedUserDaoAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="194" y="64"/>    
+    <position height="-1" width="-1" x="118" y="1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -65,63 +65,63 @@
     </display>  
   </class>  
   <dependency id="8">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="3"/>  
-  </dependency>  
-  <dependency id="9">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <dependency id="10">    
-    <end type="SOURCE" refId="1"/>    
+    <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="2"/>  
   </dependency>  
-  <dependency id="11">    
+  <dependency id="9">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="1"/>  
   </dependency>  
-  <dependency id="12">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="2"/>  
-  </dependency>  
-  <dependency id="13">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
-  <association id="14">    
+  <association id="10">    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="15" name="dao"/>      
-      <multiplicity id="16" minimum="0" maximum="1"/>    
+      <attribute id="11" name="dao">        
+        <position height="0" width="0" x="164" y="-53"/>      
+      </attribute>      
+      <multiplicity id="12" minimum="0" maximum="1">        
+        <position height="0" width="0" x="164" y="-53"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="17">    
+  <dependency id="13">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="14">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <realization id="15">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="3"/>  
   </realization>  
-  <realization id="18">    
+  <realization id="16">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="3"/>  
   </realization>  
-  <dependency id="19">    
-    <end type="SOURCE" refId="7"/>    
+  <dependency id="17">    
+    <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="2"/>  
   </dependency>  
-  <dependency id="20">    
+  <dependency id="18">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="19">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="1"/>  
   </dependency>  
-  <dependency id="21">    
-    <end type="SOURCE" refId="6"/>    
+  <dependency id="20">    
+    <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="21">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="1"/>  
   </dependency>  
   <dependency id="22">    
     <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="2"/>  
-  </dependency>  
-  <dependency id="23">    
-    <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="2"/>  
   </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

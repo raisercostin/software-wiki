@@ -35,18 +35,19 @@ public class ForgerockTest {
     }
   }
 
-//  @Test
-//  public void testWriteUsers() {
-//    ForgerockUserDao forgerockUserDao = createDefaultServer();
-//    forgerockUserDao.writeUsers(generateUsers(3).toArray(new TheUser[0]));
-//    forgerockUserDao.writeUsers(generateUsers(3).toArray(new TheUser[0]));
-//    forgerockUserDao.writeUsers(generateUsers(3).toArray(new TheUser[0]));
-//  }
+  //  @Test
+  //  public void testWriteUsers() {
+  //    ForgerockUserDao forgerockUserDao = createDefaultServer();
+  //    forgerockUserDao.writeUsers(generateUsers(3).toArray(new TheUser[0]));
+  //    forgerockUserDao.writeUsers(generateUsers(3).toArray(new TheUser[0]));
+  //    forgerockUserDao.writeUsers(generateUsers(3).toArray(new TheUser[0]));
+  //  }
 
   @Test
   public void mainTest() {
     testManyUsers(10);
   }
+
   @Test
   @Ignore
   public void mainPerformanceIntegrationTest() {
@@ -59,24 +60,25 @@ public class ForgerockTest {
     List<TheUser> theUserList = forgerockUserDao.readUsers();
     forgerockUserDao.backupUsers(theUserList);
   }
+
   //TODO move outside. we test user not forge rock
-  @Test(timeout=1000)
+  @Test(timeout = 1000)
   public void testIdGeneration() {
     TheUser user = new UserBuilder().build();
     Assert.assertNotNull(user.id);
   }
 
   private ForgerockUserDao createDefaultServer() {
-    return new ForgerockUserDao("http://localhost:8080/","openidm-admin","openidm-admin");
+    return new ForgerockUserDao("http://localhost:8080/", "openidm-admin", "openidm-admin");
   }
 
   public List<TheUser> generateUsers(int n) {
     List<TheUser> theUserList = new ArrayList<>();
     Faker faker = new Faker();
     for (int i = 0; i < n; i++) {
-      TheUser user = new UserBuilder().
-          setUsername("u"+i+" - " + faker.name().username()).setFirstName(faker.name().firstName())
-          .setLastName(faker.name().lastName()).setEmail(faker.name().username() + "@gmail.com").build();
+      TheUser user = new UserBuilder().setUsername("u" + i + " - " + faker.name().username())
+          .setFirstName(faker.name().firstName()).setLastName(faker.name().lastName())
+          .setEmail(faker.name().username() + "@gmail.com").build();
       theUserList.add(user);
     }
     return theUserList;
