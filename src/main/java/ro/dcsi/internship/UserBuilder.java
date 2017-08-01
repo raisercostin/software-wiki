@@ -1,7 +1,5 @@
 package ro.dcsi.internship;
 
-import java.util.UUID;
-
 public class UserBuilder {
   private String username;
   private String passwd;

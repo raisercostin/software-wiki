@@ -5,9 +5,6 @@ import java.util.UUID;
 import com.google.common.base.Preconditions;
 import com.opencsv.bean.CsvBindByName;
 
-//case class TheUser(username:String, passwd:String)
-//new TheUser(passwd="a",username="b'")
-
 public class TheUser {
   public static String generateUserId() {
     return UUID.randomUUID().toString();
@@ -64,12 +61,6 @@ public class TheUser {
 
   public String getLastname() {
     return lastname;
-  }
-
-  // needed by com.opencsv.CsvToBean
-  @Deprecated
-  public TheUser() {
-    this("empty user");
   }
 
   public TheUser(String name) {

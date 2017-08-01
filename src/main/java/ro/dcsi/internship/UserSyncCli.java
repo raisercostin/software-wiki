@@ -17,14 +17,15 @@ public class UserSyncCli {
         options.addOption(forgerockOption);
         options.addOption(csvOption);
 
-        if (args[0] == forgerockOption.getLongOpt() || args[0] == forgerockOption.getOpt()) {
+        /*if (args[0] == forgerockOption.getLongOpt() || args[0] == forgerockOption.getOpt()) {
 
         } else if (args[0] == csvOption.getLongOpt() || args[0] == csvOption.getOpt()) {
 
-        }
+        }*/
 
         try {
-            CommandLine commandLine = parser.parse(options, args);
+            CommandLine cmd = parser.parse(options, args);
+            
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
