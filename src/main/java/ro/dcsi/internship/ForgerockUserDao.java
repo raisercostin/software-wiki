@@ -121,11 +121,11 @@ public class ForgerockUserDao implements UserDao{
       HttpResponse response = client.execute(request);
       BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
       String line;
-      String jsonResponse = "";
+      StringBuffer jsonResponse = new StringBuffer();
       while ((line = bufferedReader.readLine()) != null) {
-        jsonResponse += line;
+        jsonResponse.append(line);
       }
-      return jsonResponse;
+      return jsonResponse.toString();
     } catch (IOException | UnsupportedOperationException e) {
      throw new RuntimeException(e);
     }
