@@ -8,6 +8,7 @@ import java.io.Writer;
 import java.util.Arrays;
 import java.util.List;
 
+import com.google.common.base.Throwables;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
@@ -21,7 +22,7 @@ public class BeanBasedUserDao {
       StatefulBeanToCsv<TheUser> beanToCsv = new StatefulBeanToCsvBuilder<TheUser>(writer).build();
       beanToCsv.write(Arrays.asList(users));
     } catch (IOException | CsvDataTypeMismatchException | CsvRequiredFieldEmptyException e1) {
-      throw new RuntimeException(e1);
+      throw new WrappedCheckedException(e1);
     }
   }
 
@@ -30,7 +31,7 @@ public class BeanBasedUserDao {
     try {
       return new CsvToBeanBuilder(new FileReader(file)).withType(TheUser.class).build().parse();
     } catch (IllegalStateException | FileNotFoundException e) {
-      throw new RuntimeException(e);
+      throw new WrappedCheckedException(e);
     }
   }
 }

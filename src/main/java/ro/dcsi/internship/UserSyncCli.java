@@ -26,7 +26,7 @@ public class UserSyncCli {
       }
 
     } catch (ParseException e) {
-      throw new RuntimeException(e);
+      throw new WrappedCheckedException(e);
     }
   }
 

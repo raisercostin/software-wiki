@@ -57,7 +57,7 @@ public class ForgerockUserDao implements UserDao {
         connectToServerAndPut(id, jsonEntity);
       }
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      throw new WrappedCheckedException(e);
     }
   }
 
@@ -78,7 +78,7 @@ public class ForgerockUserDao implements UserDao {
     String entity = EntityUtils.toString(response.getEntity());
     int responseCode = response.getStatusLine().getStatusCode();
     if (responseCode < 200 || responseCode >= 300) {
-      throw new RuntimeException("Error code=" + response + "\ncontent=" + entity);
+      throw new WrappedCheckedException("Error code=" + response + "\ncontent=" + entity);
     }
   }
 
@@ -126,7 +126,7 @@ public class ForgerockUserDao implements UserDao {
       }
       return jsonResponse.toString();
     } catch (IOException | UnsupportedOperationException e) {
-      throw new RuntimeException(e);
+      throw new WrappedCheckedException(e);
     }
   }
 
