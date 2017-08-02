@@ -1,5 +1,7 @@
 package ro.dcsi.internship;
 
+import java.util.Optional;
+
 import org.apache.commons.cli.*;
 
 public class UserSyncCli {
@@ -16,11 +18,14 @@ public class UserSyncCli {
     try {
       CommandLine cmd = parser.parse(options, args);
       Option[] parserOptions = cmd.getOptions();
-      if ((cmd.hasOption("f") || cmd.hasOption("forgerock")) && ((cmd.hasOption("c") || cmd.hasOption("csv")))) {
-        new UserSyncApp().export(
-            new ForgerockUserDao(parserOptions[0].getValue(0), parserOptions[0].getValue(1),
-                parserOptions[0].getValue(2)),
-            new BeanBasedUserDaoAdapter(new BeanBasedUserDao(), parserOptions[1].getValue()));
+      if(parserOptions.length==2){
+        Optional<UserDao> dao1 = extractDao(parserOptions[0]);
+        Optional<UserDao> dao2 = extractDao(parserOptions[1]);
+        if(dao1.isPresent() && dao2.isPresent()){
+          new UserSyncApp().export(dao1.get(),dao2.get());
+        }else{
+          helpInfo(options); 
+        }
       } else {
         helpInfo(options);
       }
@@ -28,6 +33,15 @@ public class UserSyncCli {
     } catch (ParseException e) {
       throw new WrappedCheckedException(e);
     }
+  }
+
+  private static Optional<UserDao> extractDao(Option option) {
+    if (option.getLongOpt().equals("forgerock")) {
+      return Optional.of(new ForgerockUserDao(option.getValue(0), option.getValue(1), option.getValue(2)));
+    } else if (option.getLongOpt().equals("csv")) {
+      return Optional.of(new BeanBasedUserDaoAdapter(new BeanBasedUserDao(), option.getValue()));
+    }
+    return Optional.empty();
   }
 
   private static void helpInfo(Options givenOps) {

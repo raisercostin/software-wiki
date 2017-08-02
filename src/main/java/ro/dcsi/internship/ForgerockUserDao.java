@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
@@ -23,6 +24,7 @@ import org.json.JSONObject;
 import org.raisercostin.jedi.Locations;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Strings;
 
 /**
  * Created by Cristi on 27-Jul-17.
@@ -33,7 +35,7 @@ public class ForgerockUserDao implements UserDao {
   private String serverPassword;
 
   public ForgerockUserDao(String serverUrl, String serverUsername, String serverPassword) {
-    this.serverUrl = serverUrl;
+    this.serverUrl = StringUtils.stripEnd(serverUrl, "/");
     this.serverUsername = serverUsername;
     this.serverPassword = serverPassword;
   }
@@ -42,48 +44,23 @@ public class ForgerockUserDao implements UserDao {
   public void writeUsers(TheUser... users) {
     int idStart = 0;
     List<TheUser> theUserList = Arrays.asList(users);
-    int stop = theUserList.size() + idStart;
-    int start = idStart;
     // TODO batch exception handling
-    try {
-      for (int i = start, j = 0; j < theUserList.size() && i < stop; j++, i++) {
-        String id = theUserList.get(j).id;
+    for (TheUser theUser : theUserList) {
+      try {
+        String id = theUser.id;
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", id);
-        jsonObject.put("mail", theUserList.get(j).getEmail());
-        jsonObject.put("sn", theUserList.get(j).getLastname());
-        jsonObject.put("givenName", theUserList.get(j).getFirstname());
-        jsonObject.put("userName", theUserList.get(j).getUsername());
+        jsonObject.put("mail", theUser.getEmail());
+        jsonObject.put("sn", theUser.getLastname());
+        jsonObject.put("givenName", theUser.getFirstname());
+        jsonObject.put("userName", theUser.getUsername());
         String jsonResult = jsonObject.toString();
         StringEntity jsonEntity = new StringEntity(jsonResult);
 
         connectToServerAndPut(id, jsonEntity);
+      } catch (IOException e) {
+        throw new WrappedCheckedException(e);
       }
-    } catch (IOException e) {
-      throw new WrappedCheckedException(e);
-    }
-  }
-
-  private void connectToServerAndPut(String id, StringEntity jsonEntity) {
-    String url = serverUrl + "openidm/managed/user/" + id;
-    HttpPut request = new HttpPut(url);
-    request.addHeader("Content-Type", "application/json");
-    request.addHeader("Accept", "application/json");
-    request.addHeader("If-None-Match", "*");
-    request.addHeader("X-OpenIDM-Username", serverUsername);
-    request.addHeader("X-OpenIDM-Password", serverPassword);
-    request.addHeader("X-Requested-With", "Swagger-UI");
-    request.setEntity(jsonEntity);
-
-    try (CloseableHttpClient client = HttpClientBuilder.create().build();
-        CloseableHttpResponse response = client.execute(request)) {
-      String entity = EntityUtils.toString(response.getEntity());
-      int responseCode = response.getStatusLine().getStatusCode();
-      if (responseCode < 200 || responseCode >= 300) {
-        throw new WrappedCheckedException("Error code=" + response + "\ncontent=" + entity);
-      }
-    } catch (IOException e) {
-      throw new WrappedCheckedException(e);
     }
   }
 
@@ -108,6 +85,30 @@ public class ForgerockUserDao implements UserDao {
       throw new JSONException(e);
     }
     return theUserList;
+  }
+
+  private void connectToServerAndPut(String id, StringEntity jsonEntity) {
+    String url = serverUrl + "/openidm/managed/user/" + id;
+    HttpPut request = new HttpPut(url);
+    request.addHeader("Content-Type", "application/json");
+    request.addHeader("Accept", "application/json");
+    request.addHeader("If-None-Match", "*");
+    request.addHeader("X-OpenIDM-Username", serverUsername);
+    request.addHeader("X-OpenIDM-Password", serverPassword);
+    request.addHeader("X-Requested-With", "Swagger-UI");
+    request.setEntity(jsonEntity);
+
+    try (CloseableHttpClient client = HttpClientBuilder.create().build();
+        CloseableHttpResponse response = client.execute(request)) {
+      String entity = EntityUtils.toString(response.getEntity());
+      int responseCode = response.getStatusLine().getStatusCode();
+      if (responseCode < 200 || responseCode >= 300) {
+        throw new WrappedCheckedException(
+            "Call to [" + url + "] failed. Error code=" + response + "\ncontent=" + entity);
+      }
+    } catch (IOException e) {
+      throw new WrappedCheckedException(e);
+    }
   }
 
   // TODO review for 10G response
@@ -147,5 +148,10 @@ public class ForgerockUserDao implements UserDao {
     TheUser[] theUser = theUserList.toArray(new TheUser[theUserList.size()]);
 
     new BeanBasedUserDao().writeUsers(csvFile, theUser);
+  }
+
+  @Override
+  public String toString() {
+    return "ForgerockUserDao[serverUrl=" + serverUrl + ", serverUsername=" + serverUsername + "]";
   }
 }

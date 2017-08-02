@@ -1,5 +1,6 @@
 package ro.dcsi.internship;
 
+import java.io.File;
 import java.util.List;
 
 import com.google.api.client.util.Preconditions;
@@ -23,5 +24,10 @@ public class BeanBasedUserDaoAdapter implements UserDao {
   @Override
   public List<TheUser> readUsers() {
     return dao.readUsers(file);
+  }
+  
+  @Override
+  public String toString() {
+    return "BeanBasedUserDao["+new File(file).getAbsolutePath()+"]";
   }
 }
