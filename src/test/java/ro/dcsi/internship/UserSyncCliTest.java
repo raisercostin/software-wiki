@@ -6,7 +6,7 @@ public class UserSyncCliTest {
 
   @Test
   public void test() {
-    UserSyncCli.main(new String[] { "--forgerock", "http://localhost:8080", "openidm-admin", "openidm-admin", "--csv",
+    UserSyncCli.main(new String[] { "--forgerock", "http://dcs-xps:8080", "openidm-admin", "openidm-admin", "--csv",
         "target/export2.csv" });
   }
 

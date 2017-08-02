@@ -8,7 +8,8 @@ jdk:
   - oraclejdk8
 
 install: mvn install --show-version -DskipTests=true  --errors --batch-mode
-script: mvn test -B -DskipTests=true
+#script: mvn test --batch-mode -DskipTests=true
+script: mvn test --batch-mode
 
 notifications:
   email:

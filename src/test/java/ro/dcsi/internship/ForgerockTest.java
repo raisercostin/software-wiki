@@ -69,7 +69,7 @@ public class ForgerockTest {
   }
 
   private ForgerockUserDao createDefaultServer() {
-    return new ForgerockUserDao("http://localhost:8080/", "openidm-admin", "openidm-admin");
+    return new ForgerockUserDao("http://dcs-xps:8080/", "openidm-admin", "openidm-admin");
   }
 
   public List<TheUser> generateUsers(int n) {
