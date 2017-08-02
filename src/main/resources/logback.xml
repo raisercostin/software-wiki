@@ -17,7 +17,7 @@
     </encoder>
   </appender>
 
-  <logger name="ro.dcsi" level="info" additivity="false">
+  <logger name="ro.dcsi" level="debug" additivity="false">
     <appender-ref ref="STDOUT" />
     <appender-ref ref="FILE" />
   </logger>

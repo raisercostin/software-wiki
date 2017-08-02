@@ -3,14 +3,16 @@ package ro.dcsi.internship;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
@@ -24,12 +26,16 @@ import org.json.JSONObject;
 import org.raisercostin.jedi.Locations;
 
 import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Strings;
+
+import scala.util.Failure;
+import scala.util.Success;
+import scala.util.Try;
 
 /**
  * Created by Cristi on 27-Jul-17.
  */
 public class ForgerockUserDao implements UserDao {
+  private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(ForgerockUserDao.class);
   private String serverUrl;
   private String serverUsername;
   private String serverPassword;
@@ -42,10 +48,22 @@ public class ForgerockUserDao implements UserDao {
 
   @Override
   public void writeUsers(TheUser... users) {
-    int idStart = 0;
-    List<TheUser> theUserList = Arrays.asList(users);
-    // TODO batch exception handling
-    for (TheUser theUser : theUserList) {
+    List<Pair<TheUser, Try<String>>> result = writeUsersWithExceptions(users);
+    int errors = 0;
+    for (Pair<TheUser, Try<String>> pair : result) {
+      logger.info("For user " + pair.getLeft() + " operation got " + pair.getRight());
+      if (pair.getRight().isFailure())
+        errors += 1;
+    }
+    if (errors != 0) {
+      throw new IllegalStateException("The write operation thrown at least one exception" + result);
+    }
+  }
+
+  public List<Pair<TheUser, Try<String>>> writeUsersWithExceptions(TheUser... users) {
+    List<Pair<TheUser, Try<String>>> result = new ArrayList<>();
+    for (TheUser theUser : users) {
+      logger.debug("saving " + theUser);
       try {
         String id = theUser.id;
         JSONObject jsonObject = new JSONObject();
@@ -58,10 +76,20 @@ public class ForgerockUserDao implements UserDao {
         StringEntity jsonEntity = new StringEntity(jsonResult);
 
         connectToServerAndPut(id, jsonEntity);
-      } catch (IOException e) {
+        logger.debug("saved " + theUser);
+        result.add(Pair.of(theUser, new Success<>("")));
+      } catch (UnknownHostException e) {
         throw new WrappedCheckedException(e);
+      } catch (WrappedCheckedException e) {
+        // throw new WrappedCheckedException(e);
+        // logger.warn("could't save " + theUser, e);
+        result.add(Pair.of(theUser, new Failure(e)));
+      } catch (UnsupportedEncodingException e) {
+        // logger.warn("could't save " + theUser, e);
+        result.add(Pair.of(theUser, new Failure(e)));
       }
     }
+    return result;
   }
 
   // TODO ignoring filename is a bit surprising
@@ -87,7 +115,7 @@ public class ForgerockUserDao implements UserDao {
     return theUserList;
   }
 
-  private void connectToServerAndPut(String id, StringEntity jsonEntity) {
+  private void connectToServerAndPut(String id, StringEntity jsonEntity) throws UnknownHostException {
     String url = serverUrl + "/openidm/managed/user/" + id;
     HttpPut request = new HttpPut(url);
     request.addHeader("Content-Type", "application/json");
@@ -106,6 +134,8 @@ public class ForgerockUserDao implements UserDao {
         throw new WrappedCheckedException(
             "Call to [" + url + "] failed. Error code=" + response + "\ncontent=" + entity);
       }
+    } catch (UnknownHostException e) {
+      throw e;
     } catch (IOException e) {
       throw new WrappedCheckedException(e);
     }

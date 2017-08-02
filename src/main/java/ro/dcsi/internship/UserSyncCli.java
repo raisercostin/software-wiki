@@ -22,7 +22,7 @@ public class UserSyncCli {
         Optional<UserDao> dao1 = extractDao(parserOptions[0]);
         Optional<UserDao> dao2 = extractDao(parserOptions[1]);
         if(dao1.isPresent() && dao2.isPresent()){
-          new UserSyncApp().export(dao1.get(),dao2.get());
+          new UserSyncApp().exportAndLogAnyException(dao1.get(),dao2.get());
         }else{
           helpInfo(options); 
         }

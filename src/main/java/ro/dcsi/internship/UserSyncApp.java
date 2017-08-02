@@ -5,14 +5,15 @@ import org.slf4j.LoggerFactory;
 
 public class UserSyncApp {
   private static final Logger logger = LoggerFactory.getLogger(UserSyncApp.class);
-  public void export(UserDao srcDao, UserDao dstDao) {
+  public void exportAndLogAnyException(UserDao srcDao, UserDao dstDao) {
     String message = "Exporting users \n\tfrom " + srcDao + "\n\tto   " + dstDao;
     logger.info(message + " ...");
     try {
       dstDao.writeUsers(srcDao.readUsers().toArray(new TheUser[0]));
       logger.info(message + " done.");
     } catch (Throwable e) {
-      logger.error(message + " failed.",e);
+      logger.warn(message + " failed with an exception "+e.getMessage());
+      throw e;
     }
   }
 }
