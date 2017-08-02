@@ -12,8 +12,8 @@ import org.raisercostin.jedi.Locations;
 import com.github.javafaker.Faker;
 
 public class AppTest {
-  static String target = "target/test-files/";
-  static String resources = "src/test/resources/";
+  private static String target = "target/test-files/";
+  private static String resources = "src/test/resources/";
 
   @Test
   public void testHeaderDefinesTheColumn() {

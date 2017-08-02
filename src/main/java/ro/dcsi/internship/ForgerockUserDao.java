@@ -13,6 +13,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.raisercostin.jedi.Locations;
 
+import com.google.common.annotations.VisibleForTesting;
+
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -131,6 +133,7 @@ public class ForgerockUserDao implements UserDao {
   }
 
   //TODO what backup ??? :D
+  @VisibleForTesting
   void backupUsers(List<TheUser> theUserList) {
     DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
     Date date = new Date();

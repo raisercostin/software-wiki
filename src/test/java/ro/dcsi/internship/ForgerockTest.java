@@ -14,7 +14,7 @@ import com.github.javafaker.Faker;
  */
 public class ForgerockTest {
 
-  static String target = "target/test-files/";
+  private static String target = "target/test-files/";
 
   @Test
   public void testBackup() {
