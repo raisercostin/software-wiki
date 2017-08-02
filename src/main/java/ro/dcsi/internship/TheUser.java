@@ -63,7 +63,6 @@ public class TheUser {
     return lastname;
   }
 
-  @SuppressWarnings("unused")
   //TODO Don't remove it. It's used by opencsv via reflection.
   public TheUser() {
     this("<cannot happen: no name-private-constructor>");

@@ -1,11 +1,20 @@
 package ro.dcsi.internship;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
@@ -14,14 +23,6 @@ import org.json.JSONObject;
 import org.raisercostin.jedi.Locations;
 
 import com.google.common.annotations.VisibleForTesting;
-
-import java.io.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Created by Cristi on 27-Jul-17.
@@ -43,7 +44,7 @@ public class ForgerockUserDao implements UserDao {
     List<TheUser> theUserList = Arrays.asList(users);
     int stop = theUserList.size() + idStart;
     int start = idStart;
-    //TODO batch exception handling 
+    // TODO batch exception handling
     try {
       for (int i = start, j = 0; j < theUserList.size() && i < stop; j++, i++) {
         String id = theUserList.get(j).id;
@@ -63,10 +64,8 @@ public class ForgerockUserDao implements UserDao {
     }
   }
 
-  private void connectToServerAndPut(String id, StringEntity jsonEntity) throws IOException, ClientProtocolException {
+  private void connectToServerAndPut(String id, StringEntity jsonEntity) {
     String url = serverUrl + "openidm/managed/user/" + id;
-
-    HttpClient client = HttpClientBuilder.create().build();
     HttpPut request = new HttpPut(url);
     request.addHeader("Content-Type", "application/json");
     request.addHeader("Accept", "application/json");
@@ -76,15 +75,19 @@ public class ForgerockUserDao implements UserDao {
     request.addHeader("X-Requested-With", "Swagger-UI");
     request.setEntity(jsonEntity);
 
-    HttpResponse response = client.execute(request);
-    String entity = EntityUtils.toString(response.getEntity());
-    int responseCode = response.getStatusLine().getStatusCode();
-    if (responseCode < 200 || responseCode >= 300) {
-      throw new WrappedCheckedException("Error code=" + response + "\ncontent=" + entity);
+    try (CloseableHttpClient client = HttpClientBuilder.create().build();
+        CloseableHttpResponse response = client.execute(request)) {
+      String entity = EntityUtils.toString(response.getEntity());
+      int responseCode = response.getStatusLine().getStatusCode();
+      if (responseCode < 200 || responseCode >= 300) {
+        throw new WrappedCheckedException("Error code=" + response + "\ncontent=" + entity);
+      }
+    } catch (IOException e) {
+      throw new WrappedCheckedException(e);
     }
   }
 
-  //TODO ignoring filename is a bit surprising
+  // TODO ignoring filename is a bit surprising
   @Override
   public List<TheUser> readUsers() {
     List<TheUser> theUserList = new ArrayList<>();
@@ -107,19 +110,17 @@ public class ForgerockUserDao implements UserDao {
     return theUserList;
   }
 
-  //TODO review for 10G response
+  // TODO review for 10G response
   private String connectToServerGet() {
     String url = serverUrl + "/openidm/managed/user?_queryId=query-all";
 
-    HttpClient client = HttpClientBuilder.create().build();
     HttpGet request = new HttpGet(url);
-
     request.addHeader("Accept", "application/json");
     request.addHeader("X-Requested-With", "Swagger-UI");
     request.addHeader("X-OpenIDM-Username", serverUsername);
     request.addHeader("X-OpenIDM-Password", serverPassword);
-    try {
-      HttpResponse response = client.execute(request);
+    try (CloseableHttpClient client = HttpClientBuilder.create().build();
+        CloseableHttpResponse response = client.execute(request)) {
       BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
       String line;
       StringBuffer jsonResponse = new StringBuffer();
@@ -132,7 +133,7 @@ public class ForgerockUserDao implements UserDao {
     }
   }
 
-  //TODO what backup ??? :D
+  // TODO what backup ??? :D
   @VisibleForTesting
   void backupUsers(List<TheUser> theUserList) {
     DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");

@@ -1,6 +1,5 @@
 package ro.dcsi.internship;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,7 +7,6 @@ import java.io.Writer;
 import java.util.Arrays;
 import java.util.List;
 
-import com.google.common.base.Throwables;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
@@ -28,9 +26,9 @@ public class BeanBasedUserDao {
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public List<TheUser> readUsers(String file) {
-    try {
-      return new CsvToBeanBuilder(new FileReader(file)).withType(TheUser.class).build().parse();
-    } catch (IllegalStateException | FileNotFoundException e) {
+    try(FileReader reader = new FileReader(file)){
+      return new CsvToBeanBuilder(reader).withType(TheUser.class).build().parse();
+    } catch (IllegalStateException|IOException e) {
       throw new WrappedCheckedException(e);
     }
   }
