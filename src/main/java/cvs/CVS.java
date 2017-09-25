@@ -35,9 +35,8 @@ public class CVS
     		}
     		
     	}catch(Exception e){
-    		e.printStackTrace();
+    	  throw new RuntimeException(e);
     	}
-    	
     }
     
     public static void scrieCVS(String cale){
@@ -47,10 +46,8 @@ public class CVS
     		}
     		
     	} catch (FileNotFoundException e) {
-			
-			e.printStackTrace();
+        throw new RuntimeException(e);
 		}
-    }
-    
-    
+  }
+
 }

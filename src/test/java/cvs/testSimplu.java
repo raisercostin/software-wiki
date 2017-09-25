@@ -1,14 +1,15 @@
 package cvs;
 
 import java.nio.file.*;
+import java.util.List;
 
-
+import junit.framework.Assert;
 import junit.framework.TestCase;
 
 
 public class testSimplu extends TestCase {
-    String locatie = "C:\\Users\\gabi\\Desktop\\Roweb\\CVSTest.csv";
-    String locatie2 = "C:\\Users\\gabi\\Desktop\\Roweb\\CVSTest2.csv";
+    String locatie = "src/test/resources/CVSTest.csv";
+    String locatie2 = "src/test/resources/CVSTest2.csv";
 
 	
 	public void testeaza(){
@@ -21,4 +22,9 @@ public class testSimplu extends TestCase {
 		}
 	}
 
+	public void testInterface(){
+	  List<User> users = UserSync.readUsers(locatie);
+	  Assert.assertEquals(4, users.size());
+	  Assert.assertEquals("firstuser@gmail.com",users.get(0).email);
+	}
 }
