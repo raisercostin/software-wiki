@@ -1,5 +1,13 @@
 *.class
 
+
+#eclipse generated files
+.classpath
+.project
+
+#mvn generated files
+target/
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 

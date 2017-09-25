@@ -53,11 +53,12 @@ public class App
 			
 		 // parte de citire din csv
 
-		public static void read() {
+		public static String read() {
 			String numeFisier = "fisier.csv";
 			File obiectFisier = new File(numeFisier);
 			// cream un obiect de tip file pe care l pasam in constructorul lui scanner
 
+			StringBuffer sb = new StringBuffer();
 			try
 				{
 					Scanner ccz = new Scanner(obiectFisier);
@@ -66,7 +67,8 @@ public class App
 						{
 							// afisam ce a citit
 							String citit = ccz.nextLine();
-							System.out.println(citit);
+							sb.append(citit).append("\n");
+							System.out.println(citit+"a");
 						}
 
 				} catch (Exception e)
@@ -74,5 +76,6 @@ public class App
 				{
 					e.printStackTrace();
 				}
+	    return sb.toString();
 		}//end read
 	}// end class App
