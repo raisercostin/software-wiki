@@ -10,11 +10,11 @@ import java.util.*;
 
 public class CVS 
 {
-	static List<String> listaUseri = new ArrayList<>();
+	static List<User> listaUseri = new ArrayList<>();
     public static void main( String[] args )
     {
-        String locatie = "C:\\Users\\gabi\\Desktop\\Roweb\\CVSTest.csv";
-        String locatie2 = "C:\\Users\\gabi\\Desktop\\Roweb\\CVSTest2.csv";
+        String locatie = "src/test/resources/CVSTest.csv";
+        String locatie2 = "src/test/resources/CVSTest2.csv";
         citesteCVS(locatie);
         scrieCVS(locatie2);
     }
@@ -27,11 +27,13 @@ public class CVS
     			){
     		String line;
     		while( (line = br.readLine() ) !=null){
-    			String [] users =line.split(",");
-    			for(String user:users){
-    				listaUseri.add(user);
-    				System.out.println(user);
-    			}
+    			String [] userDetails =line.split(",");
+    			String Nume = userDetails[0];
+    			String Prenume = userDetails[1];
+    			String email = userDetails[2];
+    			User user = new User(Nume,Prenume,email);
+				listaUseri.add(user);
+				System.out.println(user);
     		}
     		
     	}catch(Exception e){

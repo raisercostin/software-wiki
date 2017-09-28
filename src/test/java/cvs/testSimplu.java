@@ -25,6 +25,6 @@ public class testSimplu extends TestCase {
 	public void testInterface(){
 	  List<User> users = UserSync.readUsers(locatie);
 	  Assert.assertEquals(4, users.size());
-	  Assert.assertEquals("firstuser@gmail.com",users.get(0).email);
+	  Assert.assertEquals("firstuser@gmail.com",users.get(0).getEmail());
 	}
 }
