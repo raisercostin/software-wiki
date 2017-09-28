@@ -7,7 +7,7 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 
 
-public class testSimplu extends TestCase {
+public class testSimpluTest extends TestCase {
     String locatie = "src/test/resources/CVSTest.csv";
     String locatie2 = "src/test/resources/CVSTest2.csv";
 
