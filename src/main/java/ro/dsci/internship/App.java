@@ -20,7 +20,7 @@ public class App
 				 User user1=new User("GeorgescuA","Alexandru","IT","Iasi");
 				
 				
-				user1.write("fisier.csv");
+				//user1.write("fisier.csv");
 				user1.read();
          
 			}// end main method

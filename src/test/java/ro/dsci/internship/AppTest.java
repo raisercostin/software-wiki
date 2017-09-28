@@ -18,13 +18,14 @@ public class AppTest
   {
       assertTrue( true );
   }
-//  public void testAppExecuteMain()
-//  {
-//      Assert.assertEquals("Nume,Prenume,Job,Locatie\n"+
-//"Popescu,Andrei,Manager,Bucuresti\n"+
-//"Ionescu,Ana,Secretara,Pitesti\n"+
-//"Georgescu , Alexandru, IT,Iasi\n"+
-//"Georgescu , Alexandru, IT,Iasi\n"+
-//"Georgescu , Alexandru, IT,Iasi\n", App.read());
-//  }
+  public void testAppExecuteMain()
+  {
+	  User user1=new User("GeorgescuA","Alexandru","IT","Iasi");
+      Assert.assertEquals("Nume,Prenume,Job,Locatie\n"+
+"Popescu,Andrei,Manager,Bucuresti\n"+
+"Ionescu,Ana,Secretara,Pitesti\n"+
+"Georgescu , Alexandru, IT,Iasi\n"+
+"Georgescu , Alexandru, IT,Iasi\n"+
+"Georgescu , Alexandru, IT,Iasi\n", user1.read());
+  }
 }
