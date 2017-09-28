@@ -4,15 +4,13 @@
 #eclipse generated files
 .classpath
 .project
+bin/
 
 #mvn generated files
 target/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
-
-#eclipse generated files 
-bin/
 
 
 # Package Files #
