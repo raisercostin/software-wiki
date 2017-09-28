@@ -28,10 +28,10 @@ public class CVS
     		String line;
     		while( (line = br.readLine() ) !=null){
     			String [] userDetails =line.split(",");
-    			String Nume = userDetails[0];
-    			String Prenume = userDetails[1];
+    			String nume = userDetails[0];
+    			String prenume = userDetails[1];
     			String email = userDetails[2];
-    			User user = new User(Nume,Prenume,email);
+    			User user = new User(nume,prenume,email);
 				listaUseri.add(user);
 				System.out.println(user);
     		}
