@@ -2,3 +2,5 @@
  - 4th session
 
 Design to come ...
+
+![](design.png)
