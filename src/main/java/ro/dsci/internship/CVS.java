@@ -4,10 +4,13 @@ package ro.dsci.internship;
  * Hello world!
  *
  */
-import java.io.*;
-import java.util.*;
-
-import cvs.User;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CVS 

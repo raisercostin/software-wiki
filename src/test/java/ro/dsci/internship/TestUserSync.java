@@ -8,7 +8,6 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import cvs.User;
 
 public class TestUserSync {
   String locatie = "src/test/resources/CVSTest.csv";
@@ -28,7 +27,5 @@ public class TestUserSync {
     List<User> users = UserSync.readUsers(locatie);
     Assert.assertEquals(4, users.size());
     Assert.assertEquals("firstuser@gmail.com", users.get(0).email);
-    System.out.println(Arrays.toString(users.getClass().getMethods()));
-    users.getClass().getMethods()[0].invoke(users, null);
   }
 }

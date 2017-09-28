@@ -8,8 +8,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import User;
-
 
 public class Tester1 {
 
@@ -42,10 +40,10 @@ public class Tester1 {
 	
 	private static User createUser(String[] metadata) {
 		String name = metadata[0];
-		int age = Integer.parseInt(metadata[1]);
+		String prenume = metadata[1];
 		String username = metadata[2];
 		
-		return new User(name, age, username);
+		return new User(name, prenume, username);
 	}
 
 }
