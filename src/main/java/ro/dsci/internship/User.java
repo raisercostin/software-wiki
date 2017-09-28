@@ -4,9 +4,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Scanner;
 
-public class User {
+public class User implements UserDao {
   public final String nume;
   public final String prenume;
   public final String email;
@@ -16,11 +17,18 @@ public class User {
     this.prenume = prenume;
     this.email = email;
   }
+  @Override
+  public List<User> readUsers(String locatie) {
+    readFromFile(locatie);
+    throw new IllegalArgumentException();
+  }
 
   // read
   public String read() {
-
     String numeFisier = "fisier.csv";
+    return readFromFile(numeFisier);
+  }// end read
+  private String readFromFile(String numeFisier) {
     File obiectFisier = new File(numeFisier);
     // cream un obiect de tip file pe care l pasam in constructorul lui scanner
 
@@ -42,7 +50,7 @@ public class User {
       throw new RuntimeException(e);
     }
     return sb.toString();
-  }// end read
+  }
 
   public void write(String filePath) {
     try {
@@ -70,4 +78,10 @@ public class User {
   public String toString() {
     return "User[name=" + nume + ", prenume=" + prenume + ", email=" + email + "]";
   }
+  @Override
+  public void writeUsers(List<User> users, String locatie) {
+    // TODO Auto-generated method stub
+    throw new RuntimeException("Not Implemented Yet!!!");
+  }
+
 }// end class User

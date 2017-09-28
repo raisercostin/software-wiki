@@ -9,17 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Tester1 {
+public class Tester1 implements UserDao {
 
 	public static void main(String[] args) {
-		List<User> users = readUsersFromCSV("users.txt");
+		List<User> users = new Tester1().readUsers("users.txt");
 		for(User b : users) {
 			System.out.println(b);
 		}
 
 	}
-	
-	private static List<User> readUsersFromCSV(String fileName){
+
+  @Override
+  public List<User> readUsers(String fileName) {
 		List<User> users = new ArrayList<>();
 		Path pathToFile = Paths.get(fileName);
 		
@@ -46,4 +47,9 @@ public class Tester1 {
 		return new User(name, prenume, username);
 	}
 
+  @Override
+  public void writeUsers(List<User> users, String locatie) {
+    // TODO Auto-generated method stub
+    throw new RuntimeException("Not Implemented Yet!!!");
+  }
 }

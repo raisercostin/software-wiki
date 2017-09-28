@@ -6,9 +6,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserSync {
-
-  public static List<User> readUsers(String locatie) {
+public class UserSync implements UserDao{
+  @Override public List<User> readUsers(String locatie) {
     List<User> lista = new ArrayList<>();
     try (FileInputStream fis = new FileInputStream(locatie);
         InputStreamReader isr = new InputStreamReader(fis);
@@ -29,6 +28,12 @@ public class UserSync {
     }
     return lista;
 
+  }
+
+  @Override
+  public void writeUsers(List<User> users, String locatie) {
+    // TODO Auto-generated method stub
+    throw new RuntimeException("Not Implemented Yet!!!");
   }
 
 }

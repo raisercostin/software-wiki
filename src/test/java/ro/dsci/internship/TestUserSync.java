@@ -23,9 +23,24 @@ public class TestUserSync {
   }
 
   @Test
-  public void testInterface() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException {
-    List<User> users = UserSync.readUsers(locatie);
-    Assert.assertEquals(4, users.size());
+  public void testGabiUserDao(){
+    UserSync userSync = new UserSync();
+    testWithSpecificUserSyncImplementation(userSync);
+  }
+
+  @Test
+  public void testVladUserDao(){
+    testWithSpecificUserSyncImplementation(new Tester1());
+  }
+
+  @Test
+  public void testIoanaUserDao(){
+    testWithSpecificUserSyncImplementation(new User(null,null,null));
+  }
+
+  private void testWithSpecificUserSyncImplementation(UserDao userSync) {
+    List<User> users = userSync.readUsers(locatie);
+    Assert.assertEquals(5, users.size());
     Assert.assertEquals("firstuser@gmail.com", users.get(0).email);
   }
 }
