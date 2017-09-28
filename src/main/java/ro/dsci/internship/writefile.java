@@ -1,3 +1,4 @@
+package ro.dsci.internship;
 import java.util.*;
 
 public class writefile {

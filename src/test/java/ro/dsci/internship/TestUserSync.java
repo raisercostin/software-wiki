@@ -1,10 +1,14 @@
-package cvs;
+package ro.dsci.internship;
 
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.*;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import cvs.User;
 
 public class TestUserSync {
   String locatie = "src/test/resources/CVSTest.csv";
@@ -20,9 +24,11 @@ public class TestUserSync {
   }
 
   @Test
-  public void testInterface() {
+  public void testInterface() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException {
     List<User> users = UserSync.readUsers(locatie);
     Assert.assertEquals(4, users.size());
-    Assert.assertEquals("firstuser@gmail.com", users.get(0).getEmail());
+    Assert.assertEquals("firstuser@gmail.com", users.get(0).email);
+    System.out.println(Arrays.toString(users.getClass().getMethods()));
+    users.getClass().getMethods()[0].invoke(users, null);
   }
 }

@@ -1,4 +1,4 @@
-package cvs;
+package ro.dsci.internship;
 
 /**
  * Hello world!
@@ -6,6 +6,8 @@ package cvs;
  */
 import java.io.*;
 import java.util.*;
+
+import cvs.User;
 
 
 public class CVS 
@@ -45,9 +47,9 @@ public class CVS
     	try(PrintStream out = new PrintStream(cale)){
     		for(int i =0;i<listaUseri.size();i++){
     			User user =listaUseri.get(i);
-    			out.print(user.getNume() + ","
-    					+user.getPrenume()+ ","
-    					+user.getEmail() +"\n"
+    			out.print(user.nume + ","
+    					+user.prenume+ ","
+    					+user.email +"\n"
     					);
     		}
     		

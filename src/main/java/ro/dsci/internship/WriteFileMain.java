@@ -1,3 +1,4 @@
+package ro.dsci.internship;
 
 public class WriteFileMain {
 
