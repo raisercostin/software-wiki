@@ -1,0 +1,3 @@
+Ion Popescu,23,i.popescu
+Maria Petrescu,26,mariaaa
+Mihai Berescu,45,bere.mihai
