@@ -1,87 +1,147 @@
 package ro.dsci.internship;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class User implements UserDao {
   public final String nume;
   public final String prenume;
   public final String email;
-
+  
+//constructor
   public User(String nume, String prenume, String email) {
+	  
     this.nume = nume;
     this.prenume = prenume;
     this.email = email;
-  }
+    
+  }//end constructor
+  
+  
+  
+  
+  //interfata metoda 1
   @Override
   public List<User> readUsers(String locatie) {
-    readFromFile(locatie);
-    throw new IllegalArgumentException();
-  }
+	 List<User> lista=new ArrayList<User>(); 
+	 //List =interfata,ptr implementare trb ceva concret ArrayList,Vector,etc. 
+	 try{
+		 
+		 FileReader fisier=new FileReader(locatie);
+		
+	     BufferedReader br = new BufferedReader(fisier);
+	    
+	 //ptr prima linie ,cu numele coloanelor   
+	     String line=br.readLine();
+	     
+	     String[] numeColoane=line.split(",");
+	     	   
+	     
+	  //ar trebui sa si dea seama a cata coloana e cu numele,prenumele,email ca sa le pun invers numerele jos la add.
+	     int nrNume=0;
+	     int nrPrenume=0;
+	     int nrEmail=0;
+	     
+	     for(int i=0;i<numeColoane.length;i++)
+	    	 {
+	    		 if(numeColoane[i].equals("Nume"))
+	    			 {
+	    				 nrNume=i;
+	    				 System.out.println("numele e pe  a" + nrNume+ "a coloana");
+	    			 }
+	    		 if(numeColoane[i].equals("Prenume"))
+	    			 {
+	    				 nrPrenume=i;
+	    				 System.out.println("prenumele e pe  a" + nrPrenume+ "a coloana");
+	    			 }
+	    		 if(numeColoane[i].equals("Email"))
+	    			 {
+	    				 nrEmail=i;
+	    				 System.out.println("email e pe  a" + nrEmail+ "a coloana");
+	    			 }
+	    	 }
+	  
+	     
+	     
+	   //ptr urmatoarele linii, cu atributele  
+	    
+	     line=br.readLine();
+	     while(line!=null)
+	    	 {
+	     String[] atribute=line.split(",");
+	     User usernou=new User(atribute[nrNume],atribute[nrPrenume],atribute[nrEmail]); //nrNume, nrPrenume, nrEmail
+	     lista.add(usernou);
+	   	 line=br.readLine();
+	    	 }
+	    
+	     br.close();
+	    		
+	    } //end try
+	  
+	  
+	  catch (Exception e)
+	    {
+	      throw new RuntimeException(e);
+	    }//end catch
+	
+	for(int i=0;i<lista.size();i++)
+		{
+			
+			System.out.println(lista.get(i));
+		}
+	
+	    return lista;
+	    
+  }//end interfata metoda 1
+  
+  
 
-  // read
-  public String read() {
-    String numeFisier = "fisier.csv";
-    return readFromFile(numeFisier);
-  }// end read
-  private String readFromFile(String numeFisier) {
-    File obiectFisier = new File(numeFisier);
-    // cream un obiect de tip file pe care l pasam in constructorul lui scanner
+  
+  
+  
+  
+//interfata medota 2 
+  @Override
+  public void writeUsers(List<User> users, String locatie) {
 
-    StringBuffer sb = new StringBuffer();
-    try {
-      Scanner ccz = new Scanner(obiectFisier);
-      // cream un obiect de tip scanner ptr a lua inputul/fisierul csv
-      while (ccz.hasNext()) // cat timp inca mai citeste ceva din fisier
-      {
-        // afisam ce a citit
-        String citit = ccz.nextLine();
-        sb.append(citit).append(" \n");
-        System.out.println(sb.toString());
-      }
 
-    } catch (Exception e)
+	  try {
+		  
+	     FileWriter a = new FileWriter(locatie, true);
+	     BufferedWriter b = new BufferedWriter(a);
+         PrintWriter c = new PrintWriter(b);
+	    // c.println();
+         User usernou=users.get(0);
+         String atribute[]=usernou.toString2().split(",");
+       
+   
+   c.println( atribute[0]+ " , " + atribute[1] + ", " + atribute[2]);
+   c.close();
+	  
+	    }//end try
+	  
+	 
+	  
+	    catch (Exception e) 
+	    {
+	      throw new RuntimeException(e);
+	    }
 
-    {
-      throw new RuntimeException(e);
-    }
-    return sb.toString();
-  }
+  }//end interfata metoda 2
 
-  public void write(String filePath) {
-    try {
-      FileWriter a = new FileWriter(filePath, true);
-      BufferedWriter b = new BufferedWriter(a);
-      PrintWriter c = new PrintWriter(b);
 
-      // scriem intr un fisier
-      // punand la sfarsitul fisierului ce am scris/nu stergand tot si scriind
-      // peste
-      // punem ce vrem sa scriem intr-un buffer si
-      // facem un obiect cu care sa putem println-ui ce trebuie
-      c.println(nume + " , " + prenume + ", " + email);
-      c.close();
-
-    }
-
-    catch (Exception e) {
-      throw new RuntimeException(e);
-    }
-
-  }// end write
+  public String toString2() {
+	    return  nume +","+ prenume +","+ email;
+	  }
 
   @Override
   public String toString() {
-    return "User[name=" + nume + ", prenume=" + prenume + ", email=" + email + "]";
+    return "User[nume=" + nume + ", prenume=" + prenume + ", email=" + email + "]";
   }
-  @Override
-  public void writeUsers(List<User> users, String locatie) {
-    // TODO Auto-generated method stub
-    throw new RuntimeException("Not Implemented Yet!!!");
-  }
-
+ 
 }// end class User

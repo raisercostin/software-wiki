@@ -1,14 +1,19 @@
 package ro.dsci.internship;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class AppTest {
   @Test
   public void testAppExecuteMain() {
-    User user1 = new User("GeorgescuA", "Alexandru", "email1");
-    Assert.assertEquals("Nume,Prenume,Job,Locatie\n" + "Popescu,Andrei,Manager,Bucuresti\n"
-        + "Ionescu,Ana,Secretara,Pitesti\n" + "Georgescu , Alexandru, IT,Iasi\n" + "Georgescu , Alexandru, IT,Iasi\n"
-        + "Georgescu , Alexandru, IT,Iasi\n", user1.read());
+	  
+	  List<User> users=new ArrayList<User>();		
+	  User user1=new User("Popescu","Alexandru","email1@gmail.com");	    	    
+	  users.add(user1);
+	  
+ //	user1.writeUsers(users,"fisier.csv");
+    Assert.assertEquals(users,user1.readUsers("fisier.csv"));
   }
 }

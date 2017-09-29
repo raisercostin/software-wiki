@@ -1,9 +1,3 @@
-Prenume,Job,Locatie,other, email, Nume
-Andrei,Manager,Bucuresti,,email1, Popescu
-Ana,Secretara,Pitesti,,email1, Popescu
-Alexandru, IT,Iasi,,email1, Popescu
-Alexandru, IT,Iasi,,email1, Popescu
-Alexandru, IT,Iasi,,email1, Popescu
-Alexandru, IT,Iasi,,email1, Popescu
-Alexandru, IT,Iasi,,email1, Popescu
-Alexandru, IT,Iasi,,email1, Popescu
+Email,Nume,Prenume
+email1, Popescu,Ana
+email1, Copescu,Alexandru
