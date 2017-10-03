@@ -1,3 +1,5 @@
+package ro.dsci.internship;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -10,25 +12,33 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class VladUserDao {
+public class VladUserDao implements UserDao{
 
-	public static void main(String[] args) {
-		List<User> users = readUsersFromCSV("users.csv");
-		for (User b : users) {
-			System.out.println(b);
-		}
+  public static void main(String[] args) {
+    List<User> users = new VladUserDao().readUsers("users.csv");
+    for (User b : users) {
+      System.out.println(b);
+    }
+  }
 
-	}
-
-	private static List<User> readUsersFromCSV(String fileName) {
+  @Override
+  public void writeUsers(List<User> users, String locatie) {
+    // TODO Auto-generated method stub
+    throw new RuntimeException("Not Implemented Yet!!!");
+  }
+  @Override
+  
+  public List<User> readUsers(String fileName) {
 		List<User> users = new ArrayList<>();
 		Path pathToFile = Paths.get(fileName);
+    Map<String, Integer> header = getHeader(pathToFile);
 
 		try (BufferedReader br = Files.newBufferedReader(pathToFile, StandardCharsets.US_ASCII)) {
-			String line = br.readLine();
+      String line = br.readLine();//ignore header
+      line = br.readLine();
 			while (line != null) {
 				String[] attributes = line.split(",");
-				User user = createUser(attributes, getHeader(pathToFile));
+        User user = createUser(attributes, header);
 				users.add(user);
 				line = br.readLine();
 			}
@@ -62,10 +72,4 @@ public class VladUserDao {
 
 		return new User(nume, prenume, email);
 	}
-	
-	public void WriteUsers(List<User> users, String locatie) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not Implemented Yet!!!");
-	}
-
 }

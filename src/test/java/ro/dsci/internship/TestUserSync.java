@@ -1,8 +1,8 @@
 package ro.dsci.internship;
 
-import java.lang.reflect.InvocationTargetException;
-import java.nio.file.*;
-import java.util.Arrays;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.junit.Assert;
@@ -10,37 +10,41 @@ import org.junit.Test;
 
 public class TestUserSync {
 	String locatie = "src/test/resources/CVSTest.csv";
-	String locatie2 = "src/test/resources/CVSTest2.csv";
+	String locatie2 = "target/CVSTest2.csv";
 
-	@Test
-	public void testeaza() {
-		CVS.citesteCVS(locatie);
-		CVS.scrieCVS(locatie2);
-		Path p1 = Paths.get(locatie2);
-		boolean exists = Files.exists(p1);
-		Assert.assertTrue("everything ok", exists);
-	}
 
 	@Test
 	public void testGabiUserDao() {
-		UserSync userSync = new UserSync();
+		GabrielUserDao userSync = new GabrielUserDao();
 		testWithSpecificUserSyncImplementation(userSync);
 	}
 
 	@Test
 	public void testVladUserDao() {
-		testWithSpecificUserSyncImplementation(new Tester1());
+    testWithSpecificUserSyncImplementation(new VladUserDao());
+	}
+	
+	@Test public void testAbs(){
+    System.out.println(Integer.MIN_VALUE);
+    System.out.println(Math.abs(Integer.MIN_VALUE));
+    System.out.println(Integer.MAX_VALUE);
+    System.out.println(Math.abs(Integer.MAX_VALUE));
+    System.out.println(System.currentTimeMillis());
 	}
 
-	@Test
-	public void testIoanaUserDao() {
-		testWithSpecificUserSyncImplementation(new User(null, null, null));
-	}
+  @Test
+  public void testIoanaUserDao() {
+    testWithSpecificUserSyncImplementation(new IoanaUserDao());
+  }
 
-	private void testWithSpecificUserSyncImplementation(UserDao userSync) {
-		List<User> users = userSync.readUsers(locatie);
+	private void testWithSpecificUserSyncImplementation(UserDao dao) {
+		List<User> users = dao.readUsers(locatie);
 		Assert.assertEquals(4, users.size());
 		Assert.assertEquals("firstuser@gmail.com", users.get(0).email);
 
-	}
+		dao.writeUsers(users, locatie2);
+    Path p1 = Paths.get(locatie2);
+    boolean exists = Files.exists(p1);
+    Assert.assertTrue("everything ok", exists);
+  }
 }

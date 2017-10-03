@@ -14,6 +14,6 @@ public class AppTest {
 	  users.add(user1);
 	  
  //	user1.writeUsers(users,"fisier.csv");
-    Assert.assertEquals(users,user1.readUsers("fisier.csv"));
+    Assert.assertEquals(users,new IoanaUserDao().readUsers("fisier.csv"));
   }
 }

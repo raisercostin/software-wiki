@@ -8,7 +8,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserSync implements UserDao{
+public class GabrielUserDao implements UserDao{
   @Override 
   public List<User> readUsers(String locatie) {
     List<User> lista = new ArrayList<>();

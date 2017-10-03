@@ -1,5 +1,7 @@
+package ro.dsci.internship;
 
-<<<<<<< HEAD
+
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -8,23 +10,30 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User implements UserDao {
+public class User {
   public final String nume;
   public final String prenume;
   public final String email;
-  
-//constructor
+
   public User(String nume, String prenume, String email) {
-	  
     this.nume = nume;
     this.prenume = prenume;
     this.email = email;
-    
-  }//end constructor
-  
-  
-  
-  
+  }
+
+  @Override
+  public String toString() {
+    return "User [nume=" + nume + ", prenume=" + prenume + ", email=" + email + "]";
+  }
+
+
+  public String toString2() {
+      return  nume +","+ prenume +","+ email;
+    }
+}
+
+class IoanaUserDao implements UserDao {
+
   //interfata metoda 1
   @Override
   public List<User> readUsers(String locatie) {
@@ -134,41 +143,4 @@ public class User implements UserDao {
 
   }//end interfata metoda 2
 
-
-  public String toString2() {
-	    return  nume +","+ prenume +","+ email;
-	  }
-
-  @Override
-  public String toString() {
-    return "User[nume=" + nume + ", prenume=" + prenume + ", email=" + email + "]";
-  }
-
-
-
-
-
-  
-  
- 
 }// end class User
-=======
-public class User {
-	private String nume;
-	private String prenume;
-	private String email;
-
-	public User(String nume, String prenume, String email) {
-		this.nume = nume;
-		this.prenume = prenume;
-		this.email = email;
-	}
-
-	@Override
-	public String toString() {
-		return "User [nume=" + nume + ", prenume=" + prenume + ", email=" + email + "]";
-	}
-
-
-}
->>>>>>> origin/user/vladvasile3

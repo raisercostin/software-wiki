@@ -17,7 +17,7 @@ public class App
 				
 				
 			//	user1.writeUsers(users,"fisier.csv");
-			    user1.readUsers("fisier.csv");
+			    new IoanaUserDao().readUsers("fisier.csv");
          
 			}// end main method
 		
