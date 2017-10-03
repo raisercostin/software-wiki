@@ -65,10 +65,10 @@ public class VladUserDao implements UserDao{
 		return map;
 	}
 
-	private static User createUser(String[] metadata, Map<String, Integer> header) {
-		String nume = metadata[header.get("Nume")];
-		String prenume = metadata[header.get("Prenume")];
-		String email = metadata[header.get("Email")];
+	private static User createUser(String[] row, Map<String, Integer> header) {
+		String nume = row[header.get("Nume")];
+		String prenume = row[header.get("Prenume")];
+		String email = row[header.get("Email")];
 
 		return new User(nume, prenume, email);
 	}
