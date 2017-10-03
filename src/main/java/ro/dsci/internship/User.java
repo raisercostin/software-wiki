@@ -143,5 +143,12 @@ public class User implements UserDao {
   public String toString() {
     return "User[nume=" + nume + ", prenume=" + prenume + ", email=" + email + "]";
   }
+
+
+
+
+
+  
+  
  
 }// end class User

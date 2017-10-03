@@ -31,6 +31,7 @@ public class CVS
     			BufferedReader br = new BufferedReader(isr);
     			){
     		String line;
+    		String headerLine = br.readLine();
     		while( (line = br.readLine() ) !=null){
     			String [] userDetails =line.split(",");
     			String nume = userDetails[0];

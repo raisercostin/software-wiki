@@ -2,17 +2,21 @@ package ro.dsci.internship;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserSync implements UserDao{
-  @Override public List<User> readUsers(String locatie) {
+  @Override 
+  public List<User> readUsers(String locatie) {
     List<User> lista = new ArrayList<>();
     try (FileInputStream fis = new FileInputStream(locatie);
         InputStreamReader isr = new InputStreamReader(fis);
         BufferedReader br = new BufferedReader(isr);) {
       String line;
+      String headerLine = br.readLine();
       while ((line = br.readLine()) != null) {
         String[] userDetails = line.split(",");
         String Nume = userDetails[0];
@@ -32,8 +36,20 @@ public class UserSync implements UserDao{
 
   @Override
   public void writeUsers(List<User> users, String locatie) {
-    // TODO Auto-generated method stub
-    throw new RuntimeException("Not Implemented Yet!!!");
+	  
+	    	try(PrintStream out = new PrintStream(locatie)){
+	    		for(int i =0;i<users.size();i++){
+	    			User user =users.get(i);
+	    			out.print(user.nume + ","
+	    					+user.prenume+ ","
+	    					+user.email +"\n"
+	    					);
+	    		}
+	    		
+	    	} catch (FileNotFoundException e) {
+	        throw new RuntimeException(e);
+			}
   }
+	
 
 }
