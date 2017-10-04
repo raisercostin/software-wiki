@@ -6,10 +6,10 @@ public class User {
   public final String lastname;
   public final String email;
 
-  public User(String usern, String prenume, String nume, String email) {
-    this.username = usern;
-    this.firstname = prenume;
-    this.lastname = nume;
+  public User(String usernname, String firstname, String lastname, String email) {
+    this.username = usernname;
+    this.firstname = firstname;
+    this.lastname = lastname;
     this.email = email;
   }
 

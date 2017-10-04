@@ -10,7 +10,7 @@ public class AppTest {
   public void testAppExecuteMain() {
 	  
 	  List<User> users=new ArrayList<User>();		
-	  User user1=new User("Popescu","Alexandru","email1@gmail.com");	    	    
+	  User user1=new User("p.alex","Alexandru","Popescu", "email1@gmail.com");	    	    
 	  users.add(user1);
 	  
  //	user1.writeUsers(users,"fisier.csv");

@@ -25,6 +25,12 @@ public class TestUserSync {
     UserDao userSync = new GabrielForgerockUserDao();
     testWithSpecificUserSyncImplementation(userSync);
   }
+  
+  @Test
+  public void testVladForgerockUserDao() {
+    UserDao userSync = (UserDao) new VladForgeRockUserDao();
+    testWithSpecificUserSyncImplementation(userSync);
+  }
 
 	@Test
 	public void testVladUserDao() {
