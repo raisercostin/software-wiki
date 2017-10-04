@@ -40,7 +40,7 @@ public class GabrielUserDao implements UserDao{
 	    	try(PrintStream out = new PrintStream(locatie)){
 	    		for(int i =0;i<users.size();i++){
 	    			User user =users.get(i);
-	    			out.print(user.nume + ","
+	    			out.print(user.username + ","
 	    					+user.prenume+ ","
 	    					+user.email +"\n"
 	    					);

@@ -12,33 +12,33 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class VladUserDao implements UserDao{
+public class VladUserDao implements UserDao {
 
-  public static void main(String[] args) {
-    List<User> users = new VladUserDao().readUsers("users.csv");
-    for (User b : users) {
-      System.out.println(b);
-    }
-  }
+	public static void main(String[] args) {
+		List<User> users = new VladUserDao().readUsers("users.csv");
+		for (User b : users) {
+			System.out.println(b);
+		}
+	}
 
-  @Override
-  public void writeUsers(List<User> users, String locatie) {
-    // TODO Auto-generated method stub
-    throw new RuntimeException("Not Implemented Yet!!!");
-  }
-  @Override
-  
-  public List<User> readUsers(String fileName) {
+	@Override
+	public void writeUsers(List<User> users, String locatie) {
+		// TODO Auto-generated method stub
+		throw new RuntimeException("Not Implemented Yet!!!");
+	}
+
+	@Override
+	public List<User> readUsers(String fileName) {
 		List<User> users = new ArrayList<>();
 		Path pathToFile = Paths.get(fileName);
-    Map<String, Integer> header = getHeader(pathToFile);
+		Map<String, Integer> header = getHeader(pathToFile);
 
 		try (BufferedReader br = Files.newBufferedReader(pathToFile, StandardCharsets.US_ASCII)) {
-      String line = br.readLine();//ignore header
-      line = br.readLine();
+			String line = br.readLine();// ignore header
+			line = br.readLine();
 			while (line != null) {
 				String[] attributes = line.split(",");
-        User user = createUser(attributes, header);
+				User user = createUser(attributes, header);
 				users.add(user);
 				line = br.readLine();
 			}
@@ -49,7 +49,7 @@ public class VladUserDao implements UserDao{
 		return users;
 	}
 
-	private static Map<String, Integer> getHeader(Path pathToFile) {
+	private Map<String, Integer> getHeader(Path pathToFile) {
 		Map<String, Integer> map = new HashMap<>();
 		try (BufferedReader br = Files.newBufferedReader(pathToFile)) {
 			String firstLine = br.readLine();
@@ -65,11 +65,13 @@ public class VladUserDao implements UserDao{
 		return map;
 	}
 
-	private static User createUser(String[] row, Map<String, Integer> header) {
-		String nume = row[header.get("Nume")];
-		String prenume = row[header.get("Prenume")];
+	private User createUser(String[] row, Map<String, Integer> header) {
+		String usern = row[header.get("Username")];
+		String prenume = row[header.get("Firstname")];
+		String nume = row[header.get("Name")];
 		String email = row[header.get("Email")];
 
-		return new User(nume, prenume, email);
+		return new User(usern, prenume, nume, email);
 	}
+
 }

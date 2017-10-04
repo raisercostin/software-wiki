@@ -1,23 +1,25 @@
 package ro.dsci.internship;
 
 public class User {
-  public final String nume;
-  public final String prenume;
+  public final String username;
+  public final String firstname;
+  public final String lastname;
   public final String email;
 
-  public User(String nume, String prenume, String email) {
-    this.nume = nume;
-    this.prenume = prenume;
+  public User(String usern, String prenume, String nume, String email) {
+    this.username = usern;
+    this.firstname = prenume;
+    this.lastname = nume;
     this.email = email;
   }
 
   @Override
   public String toString() {
-    return "User [nume=" + nume + ", prenume=" + prenume + ", email=" + email + "]";
+    return "User [Username=" + username + ", prenume=" + firstname + ", nume=" + lastname + ", email=" + email + "]";
   }
 
 
   public String toString2() {
-      return  nume +","+ prenume +","+ email;
+      return  username +","+ firstname +","+ lastname +","+ email;
     }
 }
