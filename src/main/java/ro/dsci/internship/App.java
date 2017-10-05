@@ -9,7 +9,7 @@ public class App
 			{
 				List<User> users=new ArrayList<User>();
 				
-			    User user1=new User("Popescu","Alexandru","email1@gmail.com");
+			    User user1=new User("email1","Popescu","Alexandru","email1@gmail.com");
 			  
 			    
 			    
