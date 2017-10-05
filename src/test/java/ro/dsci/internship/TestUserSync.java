@@ -68,6 +68,7 @@ public class TestUserSync {
     Assert.assertTrue("everything ok", exists);
     List<User> actual = dao.readUsers(locatie2);
     Assert.assertEquals(4, actual.size());
+    
     Assert.assertEquals(users, actual);
   }
 }

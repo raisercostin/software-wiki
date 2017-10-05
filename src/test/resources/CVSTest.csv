@@ -1,5 +1,5 @@
-Nume,Prenume,Email
-Nume1,Prenume1,firstuser@gmail.com
-Nume2,Prenume2,user2@gmail.com
-Nume3,Prenume3,user3@gmail.com
-Nume4,Prenume4,user4@gmail.com
+username,firstname,lastname,email
+username1,Prenume1,Nume1,firstuser@gmail.com
+username2,Prenume2,Nume2,user2@gmail.com
+username3,Prenume3,Nume3,user3@gmail.com
+username4,Prenume4,Nume4,user4@gmail.com
