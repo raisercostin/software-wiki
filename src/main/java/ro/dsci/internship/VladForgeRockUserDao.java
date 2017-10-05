@@ -5,15 +5,29 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class VladForgeRockUserDao {
-	public static void main(String[] args) {
+public class VladForgeRockUserDao implements UserDao{
 
-		String jsonString = callURL("https://localhost:8443/openidm/managed/user?_queryId=query-all");
+  @Override
+  public List<User> readUsers(String locatie) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public void writeUsers(List<User> users, String locatie) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  public static void main(String[] args) {
+
+		String jsonString = callURL("http://localhost:8080/openidm/managed/user?_queryId=query-all");
 		System.out.println("\n\njsonString: " + jsonString);
 
 		try {

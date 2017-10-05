@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.google.common.base.Joiner;
 
 public class TestUserSync {
 	String locatie = "src/test/resources/CVSTest.csv";
@@ -28,8 +31,13 @@ public class TestUserSync {
   
   @Test
   public void testVladForgerockUserDao() {
-    UserDao userSync = (UserDao) new VladForgeRockUserDao();
+    UserDao userSync = new VladForgeRockUserDao();
     testWithSpecificUserSyncImplementation(userSync);
+  }
+  @Test
+  public void testUnirestForgerockUserDao() {
+    UserDao userSync = new UnirestForgeRockUserDao();
+    testReadWrite(userSync,617);
   }
 
 	@Test
@@ -50,7 +58,7 @@ public class TestUserSync {
     testWithSpecificUserSyncImplementation(new IoanaUserDao());
   }
 
-	private void testWithSpecificUserSyncImplementation(UserDao dao) throws RuntimeException{
+  private void testWithSpecificUserSyncImplementation(UserDao dao) throws RuntimeException{
     List<User> users = dao.readUsers(locatie);
     Assert.assertEquals(4, users.size());
     Assert.assertEquals("firstuser@gmail.com", users.get(0).email);
@@ -63,12 +71,35 @@ public class TestUserSync {
     }
     Assert.assertFalse("everything ok", Files.exists(p1));
 
-		dao.writeUsers(users, locatie2);
+    dao.writeUsers(users, locatie2);
     boolean exists = Files.exists(p1);
     Assert.assertTrue("everything ok", exists);
     List<User> actual = dao.readUsers(locatie2);
     Assert.assertEquals(4, actual.size());
     
     Assert.assertEquals(users, actual);
+  }
+
+  private void testReadWrite(UserDao dao, int size) throws RuntimeException{
+    List<User> users = dao.readUsers(locatie);
+    System.out.println(Joiner.on("\n").join(users));
+    Assert.assertEquals(size, users.size());
+  }
+
+  @Test
+  public void testReadWrite() {
+    UserDao userSync = new UnirestForgeRockUserDao();
+    List<User> users = userSync.readUsers("");
+    List<User> newUsers = Arrays.asList(new User("id1","first","last","email"));
+    userSync.writeUsers(newUsers, "");
+    List<User> users2 = userSync.readUsers("");
+    Assert.assertEquals(users.size()+1, users2.size());
+    users.addAll(newUsers);
+    Assert.assertEquals(users, users2);
+  }
+
+  @Test
+  public void testEqualsBetweenLists() {
+    Assert.assertEquals(Arrays.asList("ab"), Arrays.asList("a"+"b"));
   }
 }
