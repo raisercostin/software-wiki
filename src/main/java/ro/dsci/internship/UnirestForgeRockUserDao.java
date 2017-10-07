@@ -1,8 +1,10 @@
 package ro.dsci.internship;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.entity.StringEntity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -44,9 +46,46 @@ public class UnirestForgeRockUserDao implements UserDao {
 	}
 
 	@Override
-
 	public void writeUsers(List<User> users, String locatie) {
+		for (User user : users) {
+			addUsers(user);
+			
+		}
+		
+		
+	}
+
+	public User addUsers(User x) {
+		try {
+		//  	try {
+	    //	StringEntity parameters = new StringEntity("{" + "\"_id\": \"" + id + "\"userName\": \"" + userName
+		//				+ "\"givenName\": \"" + givenName + "\"sn\": \"" + sn + "\"mail\": \"" + mail + "}");
+
+		//	} catch (UnsupportedEncodingException e) {
+		//		throw new RuntimeException(e);
+		//	}
+			
+			HttpResponse<User> jsonResponse = Unirest.put("http://localhost:8080/openidm/managed/user")
+					.header("Accept", "application/json")
+					.header("Content-Type", "application/json")
+					.header("X-Requested-With", "Swagger-UI")
+					.header("X-OpenIDM-Username", "openidm-admin")
+					.header("X-OpenIDM-Password", "openidm-admin")
+					.body(x)
+					.asObject(User.class);
+			
+			User createduser = jsonResponse.getBody();
+		    return createduser;
+
+			
+
+		} catch (UnirestException e) {
+			throw new RuntimeException("Wrapped checked exception.", e);
+		}
+	}
+
+	private int getId() {
 		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented yet!!!");
+		return 0;
 	}
 }
