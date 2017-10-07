@@ -20,12 +20,17 @@ public class IoanaUserDao implements UserDao {
 
 			// ar trebui sa si dea seama a cata coloana e cu numele,prenumele,email ca
 			// sa le pun invers numerele jos la add.
+			int nrId = 0;
 			int nrUsername = 0;
 			int nrFirstname = 0;
 			int nrLastname = 0;
 			int nrEmail = 0;
 
 			for (int i = 0; i < numeColoane.length; i++) {
+				if (numeColoane[i].equals("Id")) {
+					nrId = i;
+					System.out.println("Id e pe  a" + nrId + "a coloana");
+				}
 				if (numeColoane[i].equals("Name")) {
 					nrUsername = i;
 					System.out.println("numele e pe  a" + nrUsername + "a coloana");
@@ -49,7 +54,7 @@ public class IoanaUserDao implements UserDao {
 			line = br.readLine();
 			while (line != null) {
 				String[] atribute = line.split(",");
-				User usernou = new User(atribute[nrUsername], atribute[nrFirstname], atribute[nrLastname],
+				User usernou = new User(atribute[nrId], atribute[nrUsername], atribute[nrFirstname], atribute[nrLastname],
 						atribute[nrEmail]);
 				lista.add(usernou);
 				line = br.readLine();

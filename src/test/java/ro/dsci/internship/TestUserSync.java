@@ -90,7 +90,7 @@ public class TestUserSync {
   public void testReadWrite() {
     UserDao userSync = new UnirestForgeRockUserDao();
     List<User> users = userSync.readUsers("");
-    List<User> newUsers = Arrays.asList(new User("id1","first","last","email"));
+    List<User> newUsers = Arrays.asList(new User("Id","username","first","last","email"));
     userSync.writeUsers(newUsers, "");
     List<User> users2 = userSync.readUsers("");
     Assert.assertEquals(users.size()+1, users2.size());

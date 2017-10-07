@@ -66,12 +66,13 @@ public class VladUserDao implements UserDao {
 	}
 
 	private User createUser(String[] row, Map<String, Integer> header) {
+		String id = row[header.get("Id")];
 		String usern = row[header.get("Username")];
 		String prenume = row[header.get("Firstname")];
 		String nume = row[header.get("Name")];
 		String email = row[header.get("Email")];
 
-		return new User(usern, prenume, nume, email);
+		return new User(id, usern, prenume, nume, email);
 	}
 
 }

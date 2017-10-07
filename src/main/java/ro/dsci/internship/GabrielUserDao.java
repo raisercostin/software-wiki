@@ -24,6 +24,7 @@ public class GabrielUserDao implements UserDao {
 			String[] header = headerLine.split(",");
 			 headerList = Arrays.asList(header);
 			// Gasim indexul coloanei cu numele X
+			int indexId = headerList.indexOf("id");
 			int indexUsername = headerList.indexOf("username");
 			int indexFirstName = headerList.indexOf("firstname");
 			int indexLastName = headerList.indexOf("lastname");
@@ -32,11 +33,12 @@ public class GabrielUserDao implements UserDao {
 			String line;
 			while ((line = br.readLine()) != null) {
 				String[] userDetails = line.split(",");
+				String id = userDetails[indexId];
 				String username = userDetails[indexUsername];
 				String firstname = userDetails[indexFirstName];
 				String lastname = userDetails[indexLastName];
 				String email = userDetails[indexEmail];
-				User user = new User(username, firstname, lastname, email);
+				User user = new User(id, username, firstname, lastname, email);
 				lista.add(user);
 				System.out.println(user);
 			}
@@ -54,12 +56,12 @@ public class GabrielUserDao implements UserDao {
 
 		try (PrintStream out = new PrintStream(locatie)) {
 			out.print(headerList.get(0)+ "," +headerList.get(1)+ ","
-					+headerList.get(2)+"," + headerList.get(3)+ "\n"
+					+headerList.get(2)+"," + headerList.get(3)+"," + headerList.get(4)+ "\n"
 					);
 
 			for (int i = 0; i < users.size(); i++) {
 				User user = users.get(i);
-				out.print(user.username + "," + user.firstname + "," + user.lastname + "," + user.email + "\n");
+				out.print(user.id + "," + user.username + "," + user.firstname + "," + user.lastname + "," + user.email + "\n");
 			}
 
 		} catch (FileNotFoundException e) {

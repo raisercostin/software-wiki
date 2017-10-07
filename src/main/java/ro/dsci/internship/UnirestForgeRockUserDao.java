@@ -3,6 +3,7 @@ package ro.dsci.internship;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import org.apache.http.entity.StringEntity;
 import org.json.JSONArray;
@@ -41,13 +42,23 @@ public class UnirestForgeRockUserDao implements UserDao {
 	}
 
 	private User toUser(JSONObject object) {
-		return new User(object.getString("userName"), object.getString("givenName"), object.getString("sn"),
+		return new User(object.getString("id"),object.getString("userName"), object.getString("givenName"), object.getString("sn"),
 				object.getString("mail"));
 	}
 
 	@Override
 	public void writeUsers(List<User> users, String locatie) {
 		for (User user : users) {
+			
+			System.out.print("Username:");
+			user.username = new Scanner(System.in).next();
+			System.out.print("\nFirst name:");
+			user.firstname = new Scanner(System.in).next();
+			System.out.print("\nLast name:");
+			user.lastname = new Scanner(System.in).next();
+			System.out.print("\nEmail:");
+			user.email = new Scanner(System.in).next();
+			
 			addUsers(user);
 			
 		}
@@ -57,6 +68,7 @@ public class UnirestForgeRockUserDao implements UserDao {
 
 	public User addUsers(User x) {
 		try {
+			// --adding parameters solution below--
 		//  	try {
 	    //	StringEntity parameters = new StringEntity("{" + "\"_id\": \"" + id + "\"userName\": \"" + userName
 		//				+ "\"givenName\": \"" + givenName + "\"sn\": \"" + sn + "\"mail\": \"" + mail + "}");
