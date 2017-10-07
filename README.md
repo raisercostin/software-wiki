@@ -6,7 +6,8 @@ Ask to be a collaborator if you want to contribute or make a pull request.
 # Ship4
 
 # Status
-[![Build Status](https://api.travis-ci.org/raisercostin/dcsi.svg?branch=team/ship4)](https://travis-ci.org/raisercostin/dcsi/team/ship4)
+[![Travis Build Status](https://api.travis-ci.org/raisercostin/dcsi.svg?branch=team/ship4)](https://travis-ci.org/raisercostin/dcsi/team/ship4)
+[![Code Climate](https://img.shields.io/codeclimate/github/raisercostin/dcsi.svg)](https://codeclimate.com/github/raisercostin/dcsi)
 
 See [more tools at github.com marketplace](https://github.com/marketplace) and [more badges at shields.io](https://shields.io/)
 
