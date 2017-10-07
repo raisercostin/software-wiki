@@ -5,6 +5,8 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.util.Iterator;
 
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -12,6 +14,24 @@ import org.junit.Test;
  */
 public class TestCSVRead {
 
+//  @Test
+//  @Ignore("")
+//  public void interlacedReads() {
+//    CsvUserDao database = new CsvUserDao("src/test/resources/CSV/headersnotdefault.csv");
+//    int c1 = 0; int c2 = 0;
+//    for (User u1 : database) {
+//      database.addUser(new User("a"));
+//      for (User u2 : database) {
+//        c2++;
+//        database.deleteUser("a");
+//        //database.addUser(new User("b"));
+//      }
+//      Assert.assertNotNull(database.getUser("a"));
+//      c1++;
+//    }
+//    assertEquals(c1*c1,c2);
+//  }
+  
   @Test
   public void HeadersNotDefault() {
     CsvUserDao database = new CsvUserDao("src/test/resources/CSV/headersnotdefault.csv");

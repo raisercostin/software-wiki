@@ -2,27 +2,45 @@ package ro.dcsi.internship;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static ro.dcsi.internship.IntegrationTestConfig.testInstance;
 
 import java.util.Iterator;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
-public class UserSyncTest {
+public class UserSyncAppTest {
   @Test
   public void twoSyncViaCommandLine1() {
-    String args[] = { "copy", "--fr", "http://10.3.67.23:8080", "openidm-admin", "openidm-admin", "--file",
+    OpenIdConfig c = IntegrationTestConfig.testInstance;
+    String csvFile = "target/export2.csv";
+    String args[] = { "--forgerock", c.openIDMServer, c.openIDMUsername, c.openIDMPassword, "--csv",
         "target/export2.csv" };
     UserSyncApp.main(args);
-    //... check that target/export2.csv exists and is identical with forgerock
+    UserDao fr = new ForgeRockUserDao(c);
+    UserDao csv = new CsvUserDao(csvFile);
+    assertEverythingFromSrcIsInDst(fr,csv);
   }
 
   @Test
   public void twoSyncViaCommandLine2() {
-    String args[] = { "copy", "--file", "target/export2.csv", "--fr", "http://10.3.67.23:8080", "openidm-admin",
-        "openidm-admin" };
+    OpenIdConfig c = IntegrationTestConfig.testInstance;
+    String srcFile = "src/test/resources/CSV/UserSyncAppRestoreTest.csv";
+
+    String args[] = { "copy", "--csv", srcFile, "--forgerock", c.openIDMServer, c.openIDMUsername,
+        c.openIDMPassword };
     UserSyncApp.main(args);
-    //... check that target/export2.csv exists and is identical with forgerock
+    UserDao fr = new ForgeRockUserDao(c);
+    UserDao csv = new CsvUserDao(srcFile);
+    assertEverythingFromSrcIsInDst(csv,fr);
+  }
+
+  private void assertEverythingFromSrcIsInDst(UserDao src, UserDao dest) {
+    for (User user : src) {
+      assertTrue("Search for user "+user.username()+" with id "+user.getId(),dest.userExists(user.getId()));
+    }
   }
 
   @Test
@@ -36,7 +54,8 @@ public class UserSyncTest {
     UserDao dao1 = new InbMemoryUserDao();
   }
 
-  @Test //(timeout=2000)
+  @Test // (timeout=2000)
+  @Ignore("Cache not implemented yet")
   public void twoIterators() {
     ForgeRockUserDao daoAdmin1 = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
     UserDao dao1 = daoAdmin1;
@@ -49,6 +68,7 @@ public class UserSyncTest {
   }
 
   @Test
+  @Ignore("Cache not implemented yet")
   public void callsToserver() {
     ForgeRockUserDao daoAdmin1 = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
     assertEquals(0, daoAdmin1.requestsToServer());

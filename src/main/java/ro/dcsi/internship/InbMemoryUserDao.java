@@ -24,29 +24,4 @@ public class InbMemoryUserDao implements UserDao {
     // TODO Auto-generated method stub
     throw new RuntimeException("Not Implemented Yet!!!");
   }
-
-  @Override
-  public Optional<User> getUser(String id) {
-    // TODO Auto-generated method stub
-    throw new RuntimeException("Not Implemented Yet!!!");
-  }
-
-  @Override
-  public boolean deleteUser(String id) {
-    // TODO Auto-generated method stub
-    throw new RuntimeException("Not Implemented Yet!!!");
-  }
-
-  @Override
-  public boolean updateUser(User user) {
-    // TODO Auto-generated method stub
-    throw new RuntimeException("Not Implemented Yet!!!");
-  }
-
-  @Override
-  public boolean addUser(User user) {
-    // TODO Auto-generated method stub
-    throw new RuntimeException("Not Implemented Yet!!!");
-  }
-
 }

@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 public class ForgeRockUserDao implements UserDao {
   private int requestsToServer = 0;
-  private OpenIdConfig config;
+  OpenIdConfig config;
 
   public ForgeRockUserDao(String openIDMServer, String openIDMUsername, String openIDMPassword) {
     this(new OpenIdConfig(openIDMServer, openIDMUsername, openIDMPassword));
@@ -129,8 +129,11 @@ public class ForgeRockUserDao implements UserDao {
 
   @Override
   public void write(Iterator<User> users) {
-    // TODO Auto-generated method stub
-    throw new RuntimeException("Not Implemented Yet!!!");
+    User user = null;
+    while (users.hasNext()) {
+      user = users.next();
+      this.addUser(user);
+    }
   }
 
   public int requestsToServer() {
