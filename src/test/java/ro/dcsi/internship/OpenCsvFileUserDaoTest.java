@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-public class OpenCsvExporterTest extends CsvExporterTest {
+public class OpenCsvFileUserDaoTest extends CsvFileUserDaoTest {
 	@Override
 	UserDao exporter() {
 		return new OpenCsvFileUserDao();

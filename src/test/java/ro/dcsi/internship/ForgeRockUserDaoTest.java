@@ -1,6 +1,7 @@
 package ro.dcsi.internship;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,14 +18,25 @@ public class ForgeRockUserDaoTest extends CsvFileUserDaoTest {
 	private final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(ForgeRockUserDaoTest.class);
 
 	@Override
-	ForgeRockUsersDao exporter() {
-		return new ForgeRockUsersDao("dcs-xps:8080");
+	ForgeRockUserDao exporter() {
+		return new ForgeRockUserDao("dcs-xps:8080");
 	}
 	@Override
 	@Test
 	public void readUsersTest() throws IOException {
-		List<User> users = exporter().load("doesn't matter the name");
-	}
+		List<User> users = exporter().load("no reading from file !!!!!!!!!!!");
+		assertNotNull(users);
+		assertEquals(0, users.size());
+		String email = "raisercostin+testuser1@gmail.com";
+		User user = new User("testuser1",email);
+		assertEquals(email, user.email);
+		exporter().save(Lists.newArrayList(user),"no writing to file !!!!!");
+		List<User> users2 = exporter().load("no reading from file !!!!!!!!!!!");
+		assertNotNull(users2);
+		assertEquals(1, users2.size());
+		assertEquals("testuser1", users.get(0).username);
+		assertEquals(email, users.get(0).email);
+	}	
 	@Test
 	public void addOneUserTest() throws IOException {
 		List<User> users = exporter().load("doesn't matter the name2");
@@ -38,7 +50,7 @@ public class ForgeRockUserDaoTest extends CsvFileUserDaoTest {
 	@Test
 	public void create10Users() throws IOException {
 		List<User> users = generateUsers(2000,"testuser4create10Users",10,"@gmail.com");
-		ForgeRockUsersDao fr = exporter();
+		ForgeRockUserDao fr = exporter();
 		int alreadyExistingUsers = fr.load("doesn't matter the name2").size();
 		fr.forcedCreate(users);
 		List<User> actual = fr.load("");
@@ -47,17 +59,17 @@ public class ForgeRockUserDaoTest extends CsvFileUserDaoTest {
 	@Test
 	public void exportUsersFromFile() throws IOException {
 		List<User> users = new OpenCsvFileUserDao().load("src/test/resources/sample3.csv");
-		ForgeRockUsersDao fr = new ForgeRockUsersDao("dcs-xps:8080");
+		ForgeRockUserDao fr = new ForgeRockUserDao("dcs-xps:8080");
 		fr.forcedCreate(users);
 	}
 	@Test
 	public void importUsersFromForgeRock() throws IOException {
-		List<User> users = new ForgeRockUsersDao("dcs-xps:8080").load("nu conteaza");
+		List<User> users = new ForgeRockUserDao("dcs-xps:8080").load("nu conteaza");
 		new OpenCsvFileUserDao().save(users, "target/2017-05-31--forge-rock-backup.csv");
 	}
 	@Test
 	public void syncUsers() throws IOException {
-		ForgeRockUsersDao fr = new ForgeRockUsersDao("http","dcs-xps:8080");
+		ForgeRockUserDao fr = new ForgeRockUserDao("http","dcs-xps:8080");
 		OpenCsvFileUserDao file = new OpenCsvFileUserDao();
 
 		List<User> users = fr.load("nu conteaza");
