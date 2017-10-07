@@ -17,3 +17,8 @@ notifications:
       - raisercostin@gmail.com
     on_success: always # default: change
     on_failure: always # default: always
+
+branches:
+  only:
+  - team/ship4
+  - master
