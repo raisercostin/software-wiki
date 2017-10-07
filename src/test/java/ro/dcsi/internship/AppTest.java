@@ -16,6 +16,11 @@ public class AppTest {
   private static String resources = "src/test/resources/";
 
   @Test
+  public void testWriteToConsoleUtf8Stuff() {
+    System.out.println( "Hello World! ণতথণতথণতথণতথণতথণতথণতথণতথ" );
+  }
+
+  @Test
   public void testHeaderDefinesTheColumn() {
     BeanBasedUserDao app = new BeanBasedUserDao();
     Assert.assertEquals("Ambrose", app.load(resources + "file-header1.csv").get(2).getLastname());

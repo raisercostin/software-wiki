@@ -8,13 +8,15 @@
 
 	<groupId>ro.dcsi.internship</groupId>
 	<artifactId>usersync</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>5.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-
-	<name>usersync</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+        -->
 		<myJavaVersion>1.8</myJavaVersion>
 	</properties>
 
@@ -64,6 +66,11 @@
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20170516</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mashape.unirest</groupId>
+			<artifactId>unirest-java</artifactId>
+			<version>1.4.9</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
