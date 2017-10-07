@@ -12,6 +12,7 @@ See [wiki](https://github.com/raisercostin/dcsi/wiki/UserSync-App-Backlog)
 
 
 # Design
+- ![design--2017-10-07](https://github.com/raisercostin/dcsi/blob/master/design--2017-10-07.png)
 - design changes - https://github.com/raisercostin/dcsi/commit/de94b0a04589716424836661bd8b259635c6410a?diff=unified
 - current design
   ![current](https://github.com/raisercostin/dcsi/blob/user/costin/all.png)
@@ -37,13 +38,13 @@ See [wiki](https://github.com/raisercostin/dcsi/wiki/UserSync-App-Backlog)
 
 - check server 
     - install idm 
-        - [~ https://www.forgerock.com/downloads/download-openidm-trial-downloading/ ](https://www.forgerock.com/downloads/download-openidm-trial-downloading/)
-        - [~ https://backstage.forgerock.com/docs/idm/5/install-guide ](https://backstage.forgerock.com/docs/idm/5/install-guide)
+        - [~ï¿½https://www.forgerock.com/downloads/download-openidm-trial-downloading/ ](https://www.forgerock.com/downloads/download-openidm-trial-downloading/)
+        - [~ï¿½https://backstage.forgerock.com/docs/idm/5/install-guide ](https://backstage.forgerock.com/docs/idm/5/install-guide)
 
     - check connection 
         - server 
-            - [~ http://localhost:8080 ](http://localhost:8080/)
-            - [~ https://localhost:8443 ](https://localhost:8443/)
+            - [~ï¿½http://localhost:8080 ](http://localhost:8080/)
+            - [~ï¿½https://localhost:8443 ](https://localhost:8443/)
 
         - user 
             - openidm-admin 
@@ -59,7 +60,7 @@ See [wiki](https://github.com/raisercostin/dcsi/wiki/UserSync-App-Backlog)
         - add access via https 
 
 - start a maven project 
-    - [~ https://start.spring.io/ ](https://start.spring.io/)
+    - [~ï¿½https://start.spring.io/ ](https://start.spring.io/)
     - maven-archetype-quickstart 
     - mvn archetype:generate 
         - options 
@@ -96,7 +97,7 @@ See [wiki](https://github.com/raisercostin/dcsi/wiki/UserSync-App-Backlog)
     - Make a test with junit that checks user creation. 
     - Make test pass. 
     - csv library 
-        - [~ stackoverflow.com &gt; Questions &gt; 10462507 &gt; Any-good-library-to-read-and-write-csv-files ](http://stackoverflow.com/questions/10462507/any-good-library-to-read-and-write-csv-files)
+        - [~ï¿½stackoverflow.com &gt; Questions &gt; 10462507 &gt; Any-good-library-to-read-and-write-csv-files ](http://stackoverflow.com/questions/10462507/any-good-library-to-read-and-write-csv-files)
 
 - Export 100 users to a csv file. 
 - What if we have 1 000 000 users? 
@@ -129,8 +130,8 @@ See [wiki](https://github.com/raisercostin/dcsi/wiki/UserSync-App-Backlog)
         - as server 
 
     - HATEOAS 
-        - [~ https://spring.io/understanding/HATEOAS ](https://spring.io/understanding/HATEOAS)
-        - [~ https://martinfowler.com/articles/richardsonMaturityModel.html ](https://martinfowler.com/articles/richardsonMaturityModel.html)
+        - [~ï¿½https://spring.io/understanding/HATEOAS ](https://spring.io/understanding/HATEOAS)
+        - [~ï¿½https://martinfowler.com/articles/richardsonMaturityModel.htmlï¿½](https://martinfowler.com/articles/richardsonMaturityModel.html)
         
         
 # DCSI - Internship Java for Enterprise Security
