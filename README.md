@@ -8,6 +8,8 @@ Ask to be a collaborator if you want to contribute or make a pull request.
 # Status
 [![Build Status](https://api.travis-ci.org/raisercostin/dcsi.svg?branch=team/ship4)](https://travis-ci.org/raisercostin/dcsi/team/ship4)
 
+See [more tools at github.com marketplace](https://github.com/marketplace) and [more badges at shields.io](https://shields.io/)
+
 This is the 4th practice session from September 2017
 
 ## Backlog
