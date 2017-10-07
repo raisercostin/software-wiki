@@ -17,12 +17,12 @@ public class BeanBasedUserDaoAdapter implements UserDao {
   }
 
   @Override
-  public void writeUsers(TheUser... users) {
+  public void save(User... users) {
     dao.writeUsers(file, users);
   }
 
   @Override
-  public List<TheUser> readUsers() {
+  public List<User> load() {
     return dao.readUsers(file);
   }
   

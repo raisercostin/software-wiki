@@ -14,10 +14,10 @@ import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 public class BeanBasedUserDao {
-  public void writeUsers(String file, TheUser... users) {
+  public void writeUsers(String file, User... users) {
     try (Writer writer = new FileWriter(file);) {
       @SuppressWarnings("unchecked")
-      StatefulBeanToCsv<TheUser> beanToCsv = new StatefulBeanToCsvBuilder<TheUser>(writer).build();
+      StatefulBeanToCsv<User> beanToCsv = new StatefulBeanToCsvBuilder<User>(writer).build();
       beanToCsv.write(Arrays.asList(users));
     } catch (IOException | CsvDataTypeMismatchException | CsvRequiredFieldEmptyException e1) {
       throw new WrappedCheckedException(e1);
@@ -25,9 +25,9 @@ public class BeanBasedUserDao {
   }
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
-  public List<TheUser> readUsers(String file) {
+  public List<User> readUsers(String file) {
     try(FileReader reader = new FileReader(file)){
-      return new CsvToBeanBuilder(reader).withType(TheUser.class).build().parse();
+      return new CsvToBeanBuilder(reader).withType(User.class).build().parse();
     } catch (IllegalStateException|IOException e) {
       throw new WrappedCheckedException(e);
     }

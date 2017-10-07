@@ -5,7 +5,7 @@ import java.util.UUID;
 import com.google.common.base.Preconditions;
 import com.opencsv.bean.CsvBindByName;
 
-public class TheUser {
+public class User {
   public static String generateUserId() {
     return UUID.randomUUID().toString();
   }
@@ -64,19 +64,19 @@ public class TheUser {
   }
 
   //TODO Don't remove it. It's used by opencsv via reflection.
-  public TheUser() {
+  public User() {
     this("<cannot happen: no name-private-constructor>");
   }
 
-  public TheUser(String name) {
+  public User(String name) {
     this(name, "", "", "<no-email>");
   }
 
-  public TheUser(String username, String firstname, String lastname, String email) {
+  public User(String username, String firstname, String lastname, String email) {
     this(generateUserId(), username, "", firstname, lastname, "", 0, 0, email);
   }
 
-  public TheUser(String id, String username, String passwd, String firstname, String lastname, String fullname,
+  public User(String id, String username, String passwd, String firstname, String lastname, String fullname,
       int permissions, int age, String email) {
     this.username = username;
     this.passwd = passwd;

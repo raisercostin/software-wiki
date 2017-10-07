@@ -47,10 +47,10 @@ public class ForgerockUserDao implements UserDao {
   }
 
   @Override
-  public void writeUsers(TheUser... users) {
-    List<Pair<TheUser, Try<String>>> result = writeUsersWithExceptions(users);
+  public void save(User... users) {
+    List<Pair<User, Try<String>>> result = writeUsersWithExceptions(users);
     int errors = 0;
-    for (Pair<TheUser, Try<String>> pair : result) {
+    for (Pair<User, Try<String>> pair : result) {
       logger.info("For user " + pair.getLeft() + " operation got " + pair.getRight());
       if (pair.getRight().isFailure())
         errors += 1;
@@ -60,9 +60,9 @@ public class ForgerockUserDao implements UserDao {
     }
   }
 
-  public List<Pair<TheUser, Try<String>>> writeUsersWithExceptions(TheUser... users) {
-    List<Pair<TheUser, Try<String>>> result = new ArrayList<>();
-    for (TheUser theUser : users) {
+  public List<Pair<User, Try<String>>> writeUsersWithExceptions(User... users) {
+    List<Pair<User, Try<String>>> result = new ArrayList<>();
+    for (User theUser : users) {
       logger.debug("saving " + theUser);
       try {
         String id = theUser.id;
@@ -94,8 +94,8 @@ public class ForgerockUserDao implements UserDao {
 
   // TODO ignoring filename is a bit surprising
   @Override
-  public List<TheUser> readUsers() {
-    List<TheUser> theUserList = new ArrayList<>();
+  public List<User> load() {
+    List<User> theUserList = new ArrayList<>();
 
     try {
       JSONObject result = new JSONObject(connectToServerGet());
@@ -107,7 +107,7 @@ public class ForgerockUserDao implements UserDao {
         String userName = jsonObject.getString("userName");
         String mail = jsonObject.getString("mail");
 
-        theUserList.add(new TheUser(userName, givenName, sn, mail));
+        theUserList.add(new User(userName, givenName, sn, mail));
       }
     } catch (JSONException e) {
       throw new JSONException(e);
@@ -166,7 +166,7 @@ public class ForgerockUserDao implements UserDao {
 
   // TODO what backup ??? :D
   @VisibleForTesting
-  void backupUsers(List<TheUser> theUserList) {
+  void backupUsers(List<User> theUserList) {
     DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
     Date date = new Date();
 
@@ -175,7 +175,7 @@ public class ForgerockUserDao implements UserDao {
 
     Locations.current(csvFile).mkdirOnParentIfNecessary();
 
-    TheUser[] theUser = theUserList.toArray(new TheUser[theUserList.size()]);
+    User[] theUser = theUserList.toArray(new User[theUserList.size()]);
 
     new BeanBasedUserDao().writeUsers(csvFile, theUser);
   }

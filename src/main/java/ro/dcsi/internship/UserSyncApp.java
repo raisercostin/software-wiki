@@ -9,7 +9,7 @@ public class UserSyncApp {
     String message = "Exporting users \n\tfrom " + srcDao + "\n\tto   " + dstDao;
     logger.info(message + " ...");
     try {
-      dstDao.writeUsers(srcDao.readUsers().toArray(new TheUser[0]));
+      dstDao.save(srcDao.load().toArray(new User[0]));
       logger.info(message + " done.");
     } catch (Throwable e) {
       logger.warn(message + " failed with an exception "+e.getMessage());

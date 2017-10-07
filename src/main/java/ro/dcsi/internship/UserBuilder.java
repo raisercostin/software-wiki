@@ -56,10 +56,10 @@ public class UserBuilder {
     return this;
   }
 
-  public TheUser build() {
+  public User build() {
     if (id == null) {
-      id = TheUser.generateUserId();
+      id = User.generateUserId();
     }
-    return new TheUser(id, username, passwd, firstname, lastname, fullname, permissions, age, email);
+    return new User(id, username, passwd, firstname, lastname, fullname, permissions, age, email);
   }
 }

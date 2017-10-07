@@ -19,7 +19,7 @@ public class ForgerockTest {
   @Test
   public void testBackup() {
     BeanBasedUserDao controller = new BeanBasedUserDao();
-    List<TheUser> existingUsers = controller.readUsers(target + "tempUsers.csv");
+    List<User> existingUsers = controller.readUsers(target + "tempUsers.csv");
 
     ForgerockUserDao forgerockUserDao = createDefaultServer();
     forgerockUserDao.backupUsers(existingUsers);
@@ -28,9 +28,9 @@ public class ForgerockTest {
   @Test
   public void testReadUsers() {
     ForgerockUserDao forgerockUserDao = createDefaultServer();
-    List<TheUser> theUserList = forgerockUserDao.readUsers();
+    List<User> theUserList = forgerockUserDao.load();
 
-    for (TheUser user : theUserList) {
+    for (User user : theUserList) {
       System.out.println(user.toString());
     }
   }
@@ -56,15 +56,15 @@ public class ForgerockTest {
 
   private void testManyUsers(int users) {
     ForgerockUserDao forgerockUserDao = createDefaultServer();
-    forgerockUserDao.writeUsers(generateUsers(users).toArray(new TheUser[0]));
-    List<TheUser> theUserList = forgerockUserDao.readUsers();
+    forgerockUserDao.save(generateUsers(users).toArray(new User[0]));
+    List<User> theUserList = forgerockUserDao.load();
     forgerockUserDao.backupUsers(theUserList);
   }
 
   //TODO move outside. we test user not forge rock
   @Test(timeout = 1000)
   public void testIdGeneration() {
-    TheUser user = new UserBuilder().build();
+    User user = new UserBuilder().build();
     Assert.assertNotNull(user.id);
   }
 
@@ -72,11 +72,11 @@ public class ForgerockTest {
     return new ForgerockUserDao("http://dcs-xps:8080/", "openidm-admin", "openidm-admin");
   }
 
-  public List<TheUser> generateUsers(int n) {
-    List<TheUser> theUserList = new ArrayList<>();
+  public List<User> generateUsers(int n) {
+    List<User> theUserList = new ArrayList<>();
     Faker faker = new Faker();
     for (int i = 0; i < n; i++) {
-      TheUser user = new UserBuilder().setUsername("u" + i + " - " + faker.name().username())
+      User user = new UserBuilder().setUsername("u" + i + " - " + faker.name().username())
           .setFirstName(faker.name().firstName()).setLastName(faker.name().lastName())
           .setEmail(faker.name().username() + "@gmail.com").build();
       theUserList.add(user);

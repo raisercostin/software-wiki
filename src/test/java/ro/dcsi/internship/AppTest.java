@@ -32,8 +32,8 @@ public class AppTest {
   @Test
   public void testAppIulian() {
     BeanBasedUserDao app = new BeanBasedUserDao();
-    app.writeUsers(target + "file1", new TheUser("1"), new TheUser("1"));
-    app.writeUsers(target + "file2", new TheUser("2"));
+    app.writeUsers(target + "file1", new User("1"), new User("1"));
+    app.writeUsers(target + "file2", new User("2"));
     Assert.assertEquals(2, app.readUsers(target + "file1").size());
     Assert.assertEquals(1, app.readUsers(target + "file2").size());
     Assert.assertEquals("2", app.readUsers(target + "file2").get(0).username);
@@ -42,15 +42,15 @@ public class AppTest {
   @Test
   public void testLiviu() {
     BeanBasedUserDao controller = new BeanBasedUserDao();
-    List<TheUser> existingUsers = controller.readUsers(resources + "users.csv");
+    List<User> existingUsers = controller.readUsers(resources + "users.csv");
     Assert.assertEquals(8, existingUsers.size());
 
-    TheUser[] users = new TheUser[existingUsers.size()];
+    User[] users = new User[existingUsers.size()];
     System.out.println(Locations.current(target + "tempUsers.csv").absolute());
     //File fisier = new File(Locations.current(target + "tempUsers.csv").mkdirOnParentIfNecessary().absolute());
     controller.writeUsers(target + "tempUsers.csv", existingUsers.toArray(users));
 
-    List<TheUser> tempUsers = controller.readUsers(target + "tempUsers.csv");
+    List<User> tempUsers = controller.readUsers(target + "tempUsers.csv");
 
     Assert.assertEquals(existingUsers.size(), tempUsers.size());
 
@@ -73,10 +73,10 @@ public class AppTest {
   @Test
   public void testGrigore() {
     BeanBasedUserDao app = new BeanBasedUserDao();
-    app.writeUsers(target + "file1", generateUsers(5).toArray(new TheUser[0]));
-    app.writeUsers(target + "file2", new TheUser("costin"));
+    app.writeUsers(target + "file1", generateUsers(5).toArray(new User[0]));
+    app.writeUsers(target + "file2", new User("costin"));
 
-    List<TheUser> ls = app.readUsers(target + "file1");
+    List<User> ls = app.readUsers(target + "file1");
     Assert.assertEquals(5, ls.size());
     Assert.assertEquals(1, app.readUsers(target + "file2").size());
   }
@@ -85,7 +85,7 @@ public class AppTest {
   @Ignore
   public void testReadCostin() {
     BeanBasedUserDao app = new BeanBasedUserDao();
-    List<TheUser> ls = app.readUsers("users");
+    List<User> ls = app.readUsers("users");
     Assert.assertEquals(8, ls.size());
   }
 
@@ -121,13 +121,13 @@ public class AppTest {
     System.out.println(a.toString());
   }
 
-  public List<TheUser> generateUsers(int n) {
-    List<TheUser> theUserList = new ArrayList<>();
+  public List<User> generateUsers(int n) {
+    List<User> theUserList = new ArrayList<>();
     Faker faker = new Faker();
     for (int i = 0; i < n; i++) {
       Integer permission = (Math.random() < 0.5) ? 0 : 1;
       Integer age = faker.number().numberBetween(0, 100);
-      TheUser user = new UserBuilder().setUsername(faker.name().username()).setPasswd(faker.idNumber().valid())
+      User user = new UserBuilder().setUsername(faker.name().username()).setPasswd(faker.idNumber().valid())
           .setPermissions(permission).setAge(age).setId(faker.address().country())
           .setEmail(faker.name().username() + "@gmail.com").build();
       theUserList.add(user);
