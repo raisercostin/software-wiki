@@ -22,18 +22,18 @@ public class UserSyncApp {
   }
 
   // Parse option for UserDao
-  private static UserDao parseDaoInfo(Option daoInfo) {
+  private static IterableUserDao parseDaoInfo(Option daoInfo) {
 
     // Parse CSV Dao
     if (daoInfo.getOpt().equals(csvShortOption) || (daoInfo.hasLongOpt() && daoInfo.getLongOpt().equals(csvLongOption)))
-      return new CsvUserDao(daoInfo.getValue());
+      return new ExtendedCsvUserDao(daoInfo.getValue());
 
     // Parse ForgeRockDao
     if (daoInfo.getOpt().equals(forgeRockShortOption)
         || (daoInfo.hasLongOpt() && daoInfo.getLongOpt().equals(forgeRockLongOption)))
-      return new ForgeRockUserDao(new OpenIdConfig(daoInfo.getValue(0), daoInfo.getValue(1), daoInfo.getValue(2)));
+      return new ExtendedForgeRockUserDao(new OpenIdConfig(daoInfo.getValue(0), daoInfo.getValue(1), daoInfo.getValue(2)));
 
-    return new CsvUserDao("");
+    return new ExtendedCsvUserDao("");
   }
 
   public static void main(String[] args) {
@@ -58,9 +58,9 @@ public class UserSyncApp {
       // check number of option
       if (parsedOptions.length == 2) {
         // Parse first option
-        UserDao src = parseDaoInfo(parsedOptions[0]);
+        IterableUserDao src = parseDaoInfo(parsedOptions[0]);
         // Parse second option
-        UserDao dest = parseDaoInfo(parsedOptions[1]);
+        IterableUserDao dest = parseDaoInfo(parsedOptions[1]);
 
         // Actual function
         UserSync function = new UserSync();

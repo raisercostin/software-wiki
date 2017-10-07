@@ -5,15 +5,15 @@ import java.util.Map;
 
 import com.google.common.collect.Maps;
 
-public class User extends RawUser {
-  public User(String id) {
+public class ExtendedUser extends RawUser {
+  public ExtendedUser(String id) {
     super(id, Maps.newTreeMap());
   }
-  public User(String id, Map<String, String> attributes) {
+  public ExtendedUser(String id, Map<String, String> attributes) {
     super(id, attributes);
   }
 
-  public User(String username, String email, String firstName, String lastName) {
+  public ExtendedUser(String username, String email, String firstName, String lastName) {
     super("the-magical-id", toMap("username", username, "email", email, "firstname", firstName, "lastname", lastName));
   }
 

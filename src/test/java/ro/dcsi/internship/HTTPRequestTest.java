@@ -17,7 +17,7 @@ public class HTTPRequestTest {
 
   @AfterClass
   public static void prepareDatabase() {
-    ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
+    ExtendedForgeRockUserDao db = new ExtendedForgeRockUserDao(IntegrationTestConfig.testInstance);
     db.deleteUser(existingUserId);
     db.deleteUser(nonExistingUserId);
     Hashtable<String, String> existingUserAttributes = new Hashtable<String, String>();
@@ -26,15 +26,15 @@ public class HTTPRequestTest {
     existingUserAttributes.put("mail", "ExistingUser@ex.com");
     existingUserAttributes.put("sn", existingUserId);
     existingUserAttributes.put("givenName", existingUserId);
-    User existingUser = new User(existingUserId, existingUserAttributes);
+    ExtendedUser existingUser = new ExtendedUser(existingUserId, existingUserAttributes);
     db.addUser(existingUser);
   }
 
   @Test(timeout = 10000)
   public void prepareDatabaseTest() {
     HTTPRequestTest.prepareDatabase();
-    ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
-    Optional<User> user = db.getUser(existingUserId);
+    ExtendedForgeRockUserDao db = new ExtendedForgeRockUserDao(IntegrationTestConfig.testInstance);
+    Optional<ExtendedUser> user = db.getUser(existingUserId);
     assertTrue(user.isPresent());
     assertEquals(existingUserId, db.getUser(existingUserId).get().getId());
   }

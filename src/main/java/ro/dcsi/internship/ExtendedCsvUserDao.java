@@ -20,19 +20,19 @@ import de.siegmar.fastcsv.writer.CsvWriter;
 /**
  * Created by Catalin on 7/3/2017.
  */
-public class CsvUserDao implements UserDao {
+public class ExtendedCsvUserDao implements IterableUserDao {
   // List<User> database;
   CsvReader reader;
   private String filename;
   private final char separator;
 
-  public CsvUserDao(String filename) {
+  public ExtendedCsvUserDao(String filename) {
     this.filename = filename;
     separator = ';';
     reader = new CsvReader(filename, separator);
   }
 
-  public CsvUserDao(String filename, char separator) {
+  public ExtendedCsvUserDao(String filename, char separator) {
     this.filename = filename;
     this.separator = separator;
     reader = new CsvReader(filename, separator);
@@ -41,11 +41,11 @@ public class CsvUserDao implements UserDao {
   @Override
   // TODO not thread safe
   public boolean userExists(String id) {
-    List<User> users = reader.readUsers();
+    List<ExtendedUser> users = reader.readUsers();
     // if (database == null) {
     // database = reader.readUsers();
     // }
-    for (User u : users)
+    for (ExtendedUser u : users)
       if (u.getAttributeValue("_id") != null && u.getAttributeValue("_id").equals(id))
         return true;
     return false;
@@ -92,15 +92,15 @@ public class CsvUserDao implements UserDao {
   // }
 
   @Override
-  public Iterator<User> read() {
+  public Iterator<ExtendedUser> read() {
     return new CsvDBIterator(reader.readUsers());
   }
 
-  class CsvDBIterator implements Iterator<User> {
-    private List<User> users;
+  class CsvDBIterator implements Iterator<ExtendedUser> {
+    private List<ExtendedUser> users;
     int currentIndex;
 
-    public CsvDBIterator(List<User> users) {
+    public CsvDBIterator(List<ExtendedUser> users) {
       this.users = users;
       currentIndex = 0;
     }
@@ -113,15 +113,15 @@ public class CsvUserDao implements UserDao {
     }
 
     @Override
-    public User next() {
+    public ExtendedUser next() {
       if (hasNext())
         return users.get(currentIndex++);
-      return new User("-1", new HashMap<>());
+      return new ExtendedUser("-1", new HashMap<>());
     }
   }
 
   @Override
-  public void write(Iterator<User> iterator) {
+  public void write(Iterator<ExtendedUser> iterator) {
     File file = new File(filename);
     CsvWriter csv = new CsvWriter();
     csv.setFieldSeparator(separator);
@@ -129,7 +129,7 @@ public class CsvUserDao implements UserDao {
     try (CsvAppender appender = csv.append(new FileWriter(file))) {
       if (!iterator.hasNext())
         return;
-      User u = iterator.next();
+      ExtendedUser u = iterator.next();
 
       // Append headers
       Set<String> headers = u.getAttributeSet();
@@ -150,7 +150,7 @@ public class CsvUserDao implements UserDao {
         if (iterator.hasNext())
           u = iterator.next();
         else
-          u = new User("-10", new HashMap<>());
+          u = new ExtendedUser("-10", new HashMap<>());
 
       } while (!u.getId().equals("-10"));
 

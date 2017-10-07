@@ -7,11 +7,11 @@ import java.util.Queue;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class ForgeRockDBIterator implements Iterator<User> {
-  private final ForgeRockUserDao database;
+public class ForgeRockDBIterator implements Iterator<ExtendedUser> {
+  private final ExtendedForgeRockUserDao database;
   private Queue<String> userIds = new LinkedList<String>();
 
-  public ForgeRockDBIterator(ForgeRockUserDao database) {
+  public ForgeRockDBIterator(ExtendedForgeRockUserDao database) {
     this.database = database;
     this.fetchUserList();
   }
@@ -47,10 +47,10 @@ public class ForgeRockDBIterator implements Iterator<User> {
     }
   }
 
-  public User next() {
+  public ExtendedUser next() {
     if (this.hasNext()) {
       String id = this.userIds.remove();
-      User user = this.database.getUser(id).get();
+      ExtendedUser user = this.database.getUser(id).get();
       if (user != null) {
         return user;
       } else {

@@ -3,5 +3,5 @@ package ro.dcsi.internship;
 import java.util.Iterator;
 
 public interface UserReader {
-  public Iterator<User> read();
+  public Iterator<ExtendedUser> read();
 }

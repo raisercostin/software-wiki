@@ -24,7 +24,7 @@ public class CsvReader {
     this.separator = separator;
   }
 
-  public List<User> readUsers() {
+  public List<ExtendedUser> readUsers() {
     //Opening file
     try (FileReader reader = new FileReader(new File(filename))) {
 
@@ -42,7 +42,7 @@ public class CsvReader {
       List<String> headers = new ArrayList<>(container.getHeader());
 
       //User list
-      List<User> users = new ArrayList<>();
+      List<ExtendedUser> users = new ArrayList<>();
       Map<String, String> mapBuffer;
 
       //Read Users
@@ -53,7 +53,7 @@ public class CsvReader {
           mapBuffer.put(headers.get(i), row.getField(i));
         }
         String id = mapBuffer.containsKey("_id") ? mapBuffer.get("_id") : Integer.toString(row.hashCode());
-        User user = new User(id, mapBuffer);
+        ExtendedUser user = new ExtendedUser(id, mapBuffer);
         users.add(user);
       }
       reader.close();

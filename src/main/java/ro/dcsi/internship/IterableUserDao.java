@@ -3,7 +3,7 @@ package ro.dcsi.internship;
 import java.util.Iterator;
 import java.util.Optional;
 
-public interface UserDao extends Iterable<User>, UserReader, UserWriter {
+public interface IterableUserDao extends Iterable<ExtendedUser>, UserReader, UserWriter {
   /**Javadoc comment.
    * Should return as fast as possible without iterating over all users.*/
 //  /*internal comment*/
@@ -18,7 +18,7 @@ public interface UserDao extends Iterable<User>, UserReader, UserWriter {
 //  public boolean addUser(User user);
 
   @Override
-  default public Iterator<User> iterator() {
+  default public Iterator<ExtendedUser> iterator() {
     return read();
   }
 }

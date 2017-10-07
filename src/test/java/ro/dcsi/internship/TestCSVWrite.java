@@ -17,23 +17,23 @@ public class TestCSVWrite {
     String path = "src/test/resources/CSV/" + filename2;
 
     //Read Users
-    CsvUserDao database = new CsvUserDao(path);
-    Iterator<User> users = database.read();
+    ExtendedCsvUserDao database = new ExtendedCsvUserDao(path);
+    Iterator<ExtendedUser> users = database.read();
 
     //Write Users
     int location = filename2.lastIndexOf('.');
     String path2 = "target/" + filename2.substring(0, location) + "_backup" + filename2.substring(location);
-    UserWriter exporter = new CsvUserDao(path2);
+    UserWriter exporter = new ExtendedCsvUserDao(path2);
     exporter.write(users);
 
     //Read Written file
-    CsvUserDao writeDatabase = new CsvUserDao(path2);
-    Iterator<User> usersRead = writeDatabase.read();
+    ExtendedCsvUserDao writeDatabase = new ExtendedCsvUserDao(path2);
+    Iterator<ExtendedUser> usersRead = writeDatabase.read();
 
-    Iterator<User> userReference = database.iterator();
+    Iterator<ExtendedUser> userReference = database.iterator();
 
-    User uRead;
-    User uReference;
+    ExtendedUser uRead;
+    ExtendedUser uReference;
 
     while (usersRead.hasNext() && userReference.hasNext()) {
       uRead = usersRead.next();
@@ -59,23 +59,23 @@ public class TestCSVWrite {
     String path = "src/test/resources/CSV/" + filename2;
 
     //Read Users
-    CsvUserDao database = new CsvUserDao(path);
-    Iterator<User> users = database.read();
+    ExtendedCsvUserDao database = new ExtendedCsvUserDao(path);
+    Iterator<ExtendedUser> users = database.read();
 
     //Write Users
     int location = filename2.lastIndexOf('.');
     String writeFilename = "target/" + filename2.substring(0, location) + "_backup" + filename2.substring(location);
-    UserWriter exporter = new CsvUserDao(writeFilename);
+    UserWriter exporter = new ExtendedCsvUserDao(writeFilename);
     exporter.write(users);
 
     //Read Written file
-    CsvUserDao writeDatabase = new CsvUserDao(writeFilename);
-    Iterator<User> usersRead = writeDatabase.read();
+    ExtendedCsvUserDao writeDatabase = new ExtendedCsvUserDao(writeFilename);
+    Iterator<ExtendedUser> usersRead = writeDatabase.read();
 
-    Iterator<User> userReference = database.iterator();
+    Iterator<ExtendedUser> userReference = database.iterator();
 
-    User uRead;
-    User uReference;
+    ExtendedUser uRead;
+    ExtendedUser uReference;
 
     while (usersRead.hasNext() && userReference.hasNext()) {
       uRead = usersRead.next();

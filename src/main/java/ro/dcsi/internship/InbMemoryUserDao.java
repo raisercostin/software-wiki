@@ -4,16 +4,16 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Optional;
 
-public class InbMemoryUserDao implements UserDao {
-  Map<String, User> users;
+public class InbMemoryUserDao implements IterableUserDao {
+  Map<String, ExtendedUser> users;
 
   @Override
-  public Iterator<User> read() {
+  public Iterator<ExtendedUser> read() {
     return users.values().iterator();
   }
 
   @Override
-  public void write(Iterator<User> users) {
+  public void write(Iterator<ExtendedUser> users) {
     //for (User u : users) {
     //  addUser(u);
     //}

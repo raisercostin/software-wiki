@@ -12,7 +12,7 @@ public class ForgeRockDBIteratorTest {
 
   @AfterClass
   public static void prepareDatabase() {
-    ForgeRockUserDao db = new ForgeRockUserDao(testInstance);
+    ExtendedForgeRockUserDao db = new ExtendedForgeRockUserDao(testInstance);
     db.deleteUser(existingUserId);
     db.deleteUser(nonExistingUserId);
     Hashtable<String, String> existingUserAttributes = new Hashtable<String, String>();
@@ -21,16 +21,16 @@ public class ForgeRockDBIteratorTest {
     existingUserAttributes.put("mail", "ExistingUser@ex.com");
     existingUserAttributes.put("sn", existingUserId);
     existingUserAttributes.put("givenName", existingUserId);
-    User existingUser = new User(existingUserId, existingUserAttributes);
+    ExtendedUser existingUser = new ExtendedUser(existingUserId, existingUserAttributes);
     db.addUser(existingUser);
   }
 
   @Test(timeout = 6000)
   public void simpleIteratorTest() {
     ForgeRockDBIteratorTest.prepareDatabase();
-    ForgeRockUserDao db = new ForgeRockUserDao(testInstance);
-    User found = null;
-    for (User user : db) {
+    ExtendedForgeRockUserDao db = new ExtendedForgeRockUserDao(testInstance);
+    ExtendedUser found = null;
+    for (ExtendedUser user : db) {
       if (user.getId().equals(existingUserId)) {
         found = user;
       }

@@ -7,19 +7,19 @@ import java.util.Optional;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ForgeRockUserDao implements UserDao {
+public class ExtendedForgeRockUserDao implements IterableUserDao {
   private int requestsToServer = 0;
   OpenIdConfig config;
 
-  public ForgeRockUserDao(String openIDMServer, String openIDMUsername, String openIDMPassword) {
+  public ExtendedForgeRockUserDao(String openIDMServer, String openIDMUsername, String openIDMPassword) {
     this(new OpenIdConfig(openIDMServer, openIDMUsername, openIDMPassword));
   }
 
-  public ForgeRockUserDao(OpenIdConfig config) {
+  public ExtendedForgeRockUserDao(OpenIdConfig config) {
     this.config = config;
   }
 
-  public static JSONObject userToJSONObject(User user) {
+  public static JSONObject userToJSONObject(ExtendedUser user) {
     /* TODO extend User instead of static method */
     JSONObject object = new JSONObject();
     for (String key : user.getAttributeSet()) {
@@ -29,9 +29,9 @@ public class ForgeRockUserDao implements UserDao {
     return object;
   }
 
-  public static String userToJSONString(User user) {
+  public static String userToJSONString(ExtendedUser user) {
     /* TODO extend User instead of static method */
-    JSONObject object = ForgeRockUserDao.userToJSONObject(user);
+    JSONObject object = ExtendedForgeRockUserDao.userToJSONObject(user);
     return object.toString();
   }
 
@@ -48,7 +48,7 @@ public class ForgeRockUserDao implements UserDao {
     return header;
   }
 
-  public Optional<User> getUser(String id) {
+  public Optional<ExtendedUser> getUser(String id) {
     HTTPRequest request = new HTTPRequest(config.openIDMServer + "/openidm/managed/user/" + id, "GET",
         this.basicIDMHeader());
     incCallsToServer("getUser" + id);
@@ -67,7 +67,7 @@ public class ForgeRockUserDao implements UserDao {
           attributes.put(attr, (String) jsonUser.get(attr));
         }
       }
-      User user = new User(jsonUser.getString("_id"), attributes);
+      ExtendedUser user = new ExtendedUser(jsonUser.getString("_id"), attributes);
       return Optional.of(user);
     } else {
       return Optional.empty();
@@ -91,21 +91,21 @@ public class ForgeRockUserDao implements UserDao {
     return (response.code == 200);
   }
 
-  public boolean updateUser(User user) {
+  public boolean updateUser(ExtendedUser user) {
     Map<String, String> headers = this.basicIDMHeader();
     HTTPRequest request = new HTTPRequest(config.openIDMServer + "/openidm/managed/user/" + user.getId() + "#_update",
-        "PUT", headers, ForgeRockUserDao.userToJSONString(user));
+        "PUT", headers, ExtendedForgeRockUserDao.userToJSONString(user));
     incCallsToServer("update " + user.getId());
     HTTPResponse response = request.send();
 
     return (response.code == 200);
   }
 
-  public boolean addUser(User user) {
+  public boolean addUser(ExtendedUser user) {
     Map<String, String> headers = this.basicIDMHeader();
     if (!this.userExists(user.getId())) {
       HTTPRequest request = new HTTPRequest(config.openIDMServer + "/openidm/managed/user/" + user.getId(), "PUT",
-          headers, ForgeRockUserDao.userToJSONString(user));
+          headers, ExtendedForgeRockUserDao.userToJSONString(user));
       incCallsToServer("add " + user.getId());
       HTTPResponse response = request.send();
       // System.out.println(request);
@@ -117,19 +117,19 @@ public class ForgeRockUserDao implements UserDao {
     }
   }
 
-  public Iterator<User> read() {
+  public Iterator<ExtendedUser> read() {
     return this.iterator();
   }
 
   /* TODO jsonToUser methods */
 
-  public Iterator<User> iterator() {
+  public Iterator<ExtendedUser> iterator() {
     return new ForgeRockDBIterator(this);
   }
 
   @Override
-  public void write(Iterator<User> users) {
-    User user = null;
+  public void write(Iterator<ExtendedUser> users) {
+    ExtendedUser user = null;
     while (users.hasNext()) {
       user = users.next();
       this.addUser(user);

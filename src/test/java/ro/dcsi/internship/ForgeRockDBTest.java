@@ -17,7 +17,7 @@ public class ForgeRockDBTest {
 
   @AfterClass
   public static void prepareDatabase() {
-    ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
+    ExtendedForgeRockUserDao db = new ExtendedForgeRockUserDao(IntegrationTestConfig.testInstance);
     db.deleteUser(existingUserId);
     db.deleteUser(nonExistingUserId);
     Hashtable<String, String> existingUserAttributes = new Hashtable<String, String>();
@@ -26,15 +26,15 @@ public class ForgeRockDBTest {
     existingUserAttributes.put("mail", "ExistingUser@ex.com");
     existingUserAttributes.put("sn", existingUserId);
     existingUserAttributes.put("givenName", existingUserId);
-    User existingUser = new User(existingUserId, existingUserAttributes);
+    ExtendedUser existingUser = new ExtendedUser(existingUserId, existingUserAttributes);
     db.addUser(existingUser);
   }
 
   @Test(timeout = 10000)
   public void prepareDatabaseTest() {
     ForgeRockDBTest.prepareDatabase();
-    ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
-    Optional<User> user = db.getUser(existingUserId);
+    ExtendedForgeRockUserDao db = new ExtendedForgeRockUserDao(IntegrationTestConfig.testInstance);
+    Optional<ExtendedUser> user = db.getUser(existingUserId);
     assertTrue(user.isPresent());
     assertEquals(existingUserId, db.getUser(existingUserId).get().getId());
   }
@@ -42,22 +42,22 @@ public class ForgeRockDBTest {
   @Test(timeout = 10000)
   public void getUserTest() {
     ForgeRockDBTest.prepareDatabase();
-    ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
+    ExtendedForgeRockUserDao db = new ExtendedForgeRockUserDao(IntegrationTestConfig.testInstance);
 
     // get an existing user
-    Optional<User> user = db.getUser(existingUserId);
+    Optional<ExtendedUser> user = db.getUser(existingUserId);
     assertTrue(user.isPresent());
     assertEquals(existingUserId, user.get().getAttributeValue("sn"));
 
     // get a non existing user
-    Optional<User> user2 = db.getUser(nonExistingUserId);
+    Optional<ExtendedUser> user2 = db.getUser(nonExistingUserId);
     assertFalse(user2.isPresent());
   }
 
   @Test(timeout = 10000)
   public void userExistsTest() {
     ForgeRockDBTest.prepareDatabase();
-    ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
+    ExtendedForgeRockUserDao db = new ExtendedForgeRockUserDao(IntegrationTestConfig.testInstance);
     assertTrue(db.userExists(existingUserId));
     assertFalse(db.userExists(nonExistingUserId));
   }
@@ -65,7 +65,7 @@ public class ForgeRockDBTest {
   @Test(timeout = 10000)
   public void deleteUserTest() {
     ForgeRockDBTest.prepareDatabase();
-    ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
+    ExtendedForgeRockUserDao db = new ExtendedForgeRockUserDao(IntegrationTestConfig.testInstance);
     assertTrue(db.deleteUser(existingUserId));
     assertFalse(db.deleteUser(nonExistingUserId));
   }
@@ -73,7 +73,7 @@ public class ForgeRockDBTest {
   @Test(timeout = 10000)
   public void updateUserTest() {
     ForgeRockDBTest.prepareDatabase();
-    ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
+    ExtendedForgeRockUserDao db = new ExtendedForgeRockUserDao(IntegrationTestConfig.testInstance);
 
     // update an existing user
     Hashtable<String, String> attributes = new Hashtable<String, String>();
@@ -84,7 +84,7 @@ public class ForgeRockDBTest {
     attributes.put("userName", "joe");
     attributes.put("city", "Bucharest");
     attributes.put("customAttr", "customVal");
-    User user = new User(existingUserId, attributes);
+    ExtendedUser user = new ExtendedUser(existingUserId, attributes);
     assertTrue(db.updateUser(user));
     assertTrue(db.getUser(existingUserId).isPresent());
     assertEquals("joe", db.getUser(existingUserId).get().getAttributeValue("userName"));
@@ -100,14 +100,14 @@ public class ForgeRockDBTest {
     attributes.put("userName", "joe");
     attributes.put("city", "Bucharest");
     attributes.put("customAttr", "customVal");
-    User user2 = new User(nonExistingUserId, attributes2);
+    ExtendedUser user2 = new ExtendedUser(nonExistingUserId, attributes2);
     assertFalse(db.updateUser(user2));
   }
 
   @Test(timeout = 10000)
   public void addUserTest() {
     ForgeRockDBTest.prepareDatabase();
-    ForgeRockUserDao db = new ForgeRockUserDao(IntegrationTestConfig.testInstance);
+    ExtendedForgeRockUserDao db = new ExtendedForgeRockUserDao(IntegrationTestConfig.testInstance);
 
     // add a non existing user
     Hashtable<String, String> attributes = new Hashtable<String, String>();
@@ -116,7 +116,7 @@ public class ForgeRockDBTest {
     attributes.put("sn", nonExistingUserId);
     attributes.put("givenName", nonExistingUserId);
     attributes.put("userName", nonExistingUserId);
-    User user = new User(nonExistingUserId, attributes);
+    ExtendedUser user = new ExtendedUser(nonExistingUserId, attributes);
     assertTrue(db.addUser(user));
     assertTrue(db.getUser(nonExistingUserId).isPresent());
     assertEquals(nonExistingUserId, db.getUser(nonExistingUserId).get().getAttributeValue("userName"));
@@ -128,7 +128,7 @@ public class ForgeRockDBTest {
     attributes2.put("sn", existingUserId);
     attributes2.put("givenName", existingUserId);
     attributes2.put("userName", "joe");
-    User user2 = new User(existingUserId, attributes2);
+    ExtendedUser user2 = new ExtendedUser(existingUserId, attributes2);
     assertFalse(db.addUser(user2));
     assertTrue(db.getUser(existingUserId).isPresent());
     assertEquals(existingUserId, db.getUser(existingUserId).get().getAttributeValue("userName"));
