@@ -31,12 +31,7 @@ public class ForgeRockUserDao implements UserDao {
 	}
 
 	@Override
-	public String loadHeader(String csvFile) {
-		throw new RuntimeException("Not implemented yet!");
-	}
-
-	@Override
-	public List<User> load(String csvFile) {
+	public List<User> load() {
 		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build();) {
 			ArrayList<User> users = new ArrayList<>();
 			String url = protocol+"://" + hostAndPort + "/openidm/managed/user?_prettyPrint=true&_queryId=query-all";
@@ -70,7 +65,8 @@ public class ForgeRockUserDao implements UserDao {
 		}
 	}
 
-	public void save(List<User> users, String outputFileName) {
+	@Override
+  public void save(List<User> users) {
 		for (User user : users) {
 			createUser(user);
 		}
@@ -175,11 +171,11 @@ public class ForgeRockUserDao implements UserDao {
 		return max;
 	}
 
-	public void forcedCreate(List<User> users) {
+	public void forcedCreate(User... users) {
 		deleteIfExists(users);
-		save(users, "nu conteaza");
+		save(users);
 	}
-	public void deleteIfExists(List<User> users) {
+	public void deleteIfExists(User... users) {
 		for (User user : users) {
 			deleteIfExistsById(user.username);
 		}
@@ -200,7 +196,7 @@ public class ForgeRockUserDao implements UserDao {
 
 	//TODO improve performance
 	public Optional<User> loadUserById(String idFromUsenameForForgeRock) {
-		List<User> users2 = load("doesn't matter the name2");
+		List<User> users2 = load();
 		List<User> res = users2.stream().filter(u->u.idFromUsenameForForgeRock().equals(idFromUsenameForForgeRock)).collect(Collectors.toList());
 		if(res.size()>1)
 			throw new IllegalStateException("Too many users!");

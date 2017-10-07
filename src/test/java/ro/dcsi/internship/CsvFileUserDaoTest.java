@@ -18,7 +18,7 @@ public class CsvFileUserDaoTest {
 	String fileName = "src/test/resources/users100.csv";
 	String outFileName = "target/users100out.csv";
 
-	UserDao exporter() {
+	FileUserDao exporter() {
 		return new CsvFileUserDao();
 	}
 

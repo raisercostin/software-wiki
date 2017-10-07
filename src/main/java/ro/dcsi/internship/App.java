@@ -1,6 +1,7 @@
 package ro.dcsi.internship;
 
 import java.io.IOException;
+import java.util.List;
 
 public class App {
 	public static void main(String... args) throws IOException {
@@ -8,7 +9,7 @@ public class App {
 	}
 
 	public static void copyByImportAndExport(String importFile, String exportFile) throws IOException {
-		UserDao users = new OpenCsvFileUserDao();
-		users.save(users.load(importFile), exportFile);
+		List<User> users = new OpenCsvFileUserDao().load(importFile);
+		new OpenCsvFileUserDao().save(users,exportFile);
 	}
 }

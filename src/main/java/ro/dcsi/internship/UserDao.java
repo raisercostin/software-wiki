@@ -1,9 +1,12 @@
 package ro.dcsi.internship;
 
+import java.util.Arrays;
 import java.util.List;
 
 public interface UserDao {
-	List<User> load(String csvFile);
-	void save(List<User> users, String outputFileName);
-	String loadHeader(String csvFile);
+  default void save(User... users){
+    save(Arrays.asList(users));
+  }
+  void save(List<User> users);
+  List<User> load();
 }

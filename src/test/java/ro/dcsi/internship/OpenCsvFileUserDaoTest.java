@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class OpenCsvFileUserDaoTest extends CsvFileUserDaoTest {
 	@Override
-	UserDao exporter() {
+	FileUserDao exporter() {
 		return new OpenCsvFileUserDao();
 	}
 
