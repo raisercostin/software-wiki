@@ -1,5 +1,9 @@
 *.class
 
+# UML
+design1.png
+design1.ucls
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -42,5 +46,6 @@ nbdist/
 .project
 .settings/
 
-###Mac Users###
-.DS_Store
+### Mac users ##
+.DS_STORE
+/bin/

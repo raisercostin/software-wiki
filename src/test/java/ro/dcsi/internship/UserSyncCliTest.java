@@ -35,6 +35,6 @@ public class UserSyncCliTest {
 
   @Test(expected = NullPointerException.class)
   public void testAppDirectly() {
-    new UserSyncApp().exportAndLogAnyException(null, null);
+    new UserSyncAppSimple().exportAndLogAnyException(null, null);
   }
 }
