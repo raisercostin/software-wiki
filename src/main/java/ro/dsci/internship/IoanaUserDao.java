@@ -18,7 +18,8 @@ public class IoanaUserDao implements UserDao {
 			String line = br.readLine();
 			String[] numeColoane = line.split(",");
 
-			// ar trebui sa si dea seama a cata coloana e cu numele,prenumele,email ca
+			// ar trebui sa si dea seama a cata coloana e cu
+			// numele,prenumele,email ca
 			// sa le pun invers numerele jos la add.
 			int nrId = 0;
 			int nrUsername = 0;
@@ -54,8 +55,8 @@ public class IoanaUserDao implements UserDao {
 			line = br.readLine();
 			while (line != null) {
 				String[] atribute = line.split(",");
-				User usernou = new User(atribute[nrId], atribute[nrUsername], atribute[nrFirstname], atribute[nrLastname],
-						atribute[nrEmail]);
+				User usernou = new User(atribute[nrId], atribute[nrUsername], atribute[nrFirstname],
+						atribute[nrLastname], atribute[nrEmail]);
 				lista.add(usernou);
 				line = br.readLine();
 			}
@@ -79,9 +80,10 @@ public class IoanaUserDao implements UserDao {
 			PrintWriter c = new PrintWriter(b);
 			// c.println();
 			User usernou = users.get(0);
-			String atribute[] = usernou.toString2().split(",");
+			String atribute[] = usernou.toString().split(",");
 
-			c.println(atribute[0] + " , " + atribute[1] + ", " + atribute[2]);
+			c.println(
+					atribute[0] + " , " + atribute[1] + ", " + atribute[2] + " , " + atribute[3] + " , " + atribute[4]);
 			c.close();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
