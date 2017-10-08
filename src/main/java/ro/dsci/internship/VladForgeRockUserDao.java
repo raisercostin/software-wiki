@@ -42,7 +42,7 @@ public class VladForgeRockUserDao implements UserDao {
 	}
 
 	private User toUser(JSONObject object) {
-		return new User(object.getInt("_id"), object.getString("userName"), object.getString("givenName"),
+		return new User(object.getString("_id"), object.getString("userName"), object.getString("givenName"),
 				object.getString("sn"), object.getString("mail"));
 	}
 
@@ -51,7 +51,7 @@ public class VladForgeRockUserDao implements UserDao {
 	public void writeUsers(List<User> users, String locatie) {
 		User user = new User();
 
-			user.id = getId();
+			
 			System.out.print("Username:");
 			user.username = new Scanner(System.in).next();
 			System.out.print("\nFirst name:");

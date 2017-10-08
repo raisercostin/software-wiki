@@ -66,7 +66,7 @@ public class VladUserDao implements UserDao {
 	}
 
 	private User createUser(String[] row, Map<String, Integer> header) {
-		int id = Integer.parseInt(row[header.get("Id")]);
+		String id = row[header.get("Id")];
 		String usern = row[header.get("Username")];
 		String prenume = row[header.get("Firstname")];
 		String nume = row[header.get("Name")];
