@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,7 +17,6 @@ public class TestUserSync {
 	String locatie = "src/test/resources/CVSTest.csv";
 	String locatie2 = "target/CVSTest2.csv";
 
-
 	@Test
 	public void testGabiUserDao() {
 		GabrielUserDao userSync = new GabrielUserDao();
@@ -24,9 +24,16 @@ public class TestUserSync {
 	}
 
 	@Test
+	// citeste useri Rest si scrie useri pe serveri
 	public void testGabiForgerockUserDao() {
 		UserDao userSync = new GabrielForgerockUserDao();
-		testReadWrite(userSync, 2);
+		UserDao local = new GabrielUserDao();
+		List<User> useriLocali = local.readUsers(locatie);
+
+		List<User> usersServerInitial = userSync.readUsers("");
+		userSync.writeUsers(useriLocali, "");
+		List<User> usersServerFinal = userSync.readUsers("");
+		Assert.assertTrue(usersServerFinal.size() == usersServerInitial.size() + useriLocali.size());
 	}
 
 	@Test
@@ -83,7 +90,7 @@ public class TestUserSync {
 
 	private void testReadWrite(UserDao dao, int size) throws RuntimeException {
 		List<User> users = dao.readUsers(locatie);
-		
+
 		System.out.println(Joiner.on("\n").join(users));
 		Assert.assertEquals(size, users.size());
 	}
@@ -104,8 +111,15 @@ public class TestUserSync {
 	public void testEqualsBetweenLists() {
 		User user1 = new User("02", "username1", "first1", "last1", "email1");
 		User user2 = new User("21", "username2", "first2", "last2", "email2");
-		List<User> l1 = Arrays.asList(user1,user2);
-		List<User> l2 = Arrays.asList(user1,user2);
-		Assert.assertEquals(l1,l2);
+		List<User> l1 = Arrays.asList(user1, user2);
+		List<String> lista = new ArrayList<String>();
+
+		List<User> l2 = Arrays.asList(user1, user2);
+		List<String> l3 = Arrays.asList(user1.toString(), user2.toString());
+		lista.add(l1.toString());
+		lista.add(l2.toString());
+		System.out.println(lista.toString());
+		Assert.assertEquals(l1, l2);
+
 	}
 }

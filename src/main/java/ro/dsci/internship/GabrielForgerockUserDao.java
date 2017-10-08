@@ -1,7 +1,9 @@
 package ro.dsci.internship;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -41,9 +43,48 @@ public class GabrielForgerockUserDao implements UserDao {
 		return new User(object.getString("_id"),object.getString("userName"), object.getString("givenName"), object.getString("sn"),
 				object.getString("mail"));
 	}
+	
+	private JSONObject userToJSONObject(User user){
+		JSONObject object = new JSONObject();
+		object.put("_id", user.getId());
+		object.put("userName",user.getUsername());
+		object.put("givenName", user.getFirstname());
+		object.put("sn", user.getLastname());
+		object.put("mail", user.getEmail());
+		return object;
+		
+		
+	}
+	
   @Override
   public void writeUsers(List<User> users, String locatie) {
-    // TODO Auto-generated method stub
-    throw new RuntimeException("Not Implemented Yet!!!");
+	  for(int i =0;i<users.size();i++){
+		  User user =users.get(i);
+		  JSONObject Json = userToJSONObject(user);
+		 
+	  try {
+		HttpResponse<JsonNode> jsonResponse = Unirest.put("http://localhost:8080/openidm/managed/user/"+user.id)
+				.header("Content-Type", "application/json")
+				.header("Accept", "application/json")
+				.header("If-None-Match"," *")
+				.header("X-OpenIDM-Username", "openidm-admin")
+				.header("X-OpenIDM-Password", "openidm-admin")
+				.header("X-Requested-With", "Swagger-UI")
+				.body(Json).asJson();
+				/*
+				.field("_id", user.getId())
+				.field("userName",user.getUsername())
+				.field("givenName", user.getFirstname())
+				.field("sn", user.getLastname())
+				.field("mail", user.getEmail())
+				.asJson();
+				*/
+				System.out.println(jsonResponse.getBody().toString());
+	} catch (UnirestException e) {
+		
+		e.printStackTrace();
+		throw new RuntimeException("Wrapped checked exception.", e);
+	}
+  }
   }
 }
