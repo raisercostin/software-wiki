@@ -29,12 +29,13 @@ public class UnirestForgeRockUserDao implements UserDao {
 					.asJson();
 
 			JSONObject body = getResponse.getBody().getObject();
-			System.out.println(body.toString(4));
+			//System.out.println(body.toString(4));
 			JSONArray users = body.getJSONArray("result");
 			List<User> result = new ArrayList<>();
 			for (int i = 0, maxi = users.length(); i < maxi; i++) {
 				result.add(toUser((JSONObject) users.get(i)));
 			}
+			result.forEach(System.out::print);
 			return result;
 		} catch (UnirestException e) {
 			throw new RuntimeException("Wrapped checked exception.", e);

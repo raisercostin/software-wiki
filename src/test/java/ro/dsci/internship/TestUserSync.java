@@ -26,7 +26,7 @@ public class TestUserSync {
 	@Test
 	public void testGabiForgerockUserDao() {
 		UserDao userSync = new GabrielForgerockUserDao();
-		testWithSpecificUserSyncImplementation(userSync);
+		testReadWrite(userSync, 2);
 	}
 
 	@Test
@@ -83,8 +83,7 @@ public class TestUserSync {
 
 	private void testReadWrite(UserDao dao, int size) throws RuntimeException {
 		List<User> users = dao.readUsers(locatie);
-		System.out.println("aici+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-		users.forEach(System.out::println);
+		
 		System.out.println(Joiner.on("\n").join(users));
 		Assert.assertEquals(size, users.size());
 	}
@@ -93,7 +92,7 @@ public class TestUserSync {
 	public void testReadWrite() {
 		UserDao userSync = new UnirestForgeRockUserDao();
 		List<User> users = userSync.readUsers("");
-		List<User> newUsers = Arrays.asList(new User(88, "username", "first", "last", "email"));
+		List<User> newUsers = Arrays.asList(new User("88", "username", "first", "last", "email"));
 		userSync.writeUsers(newUsers, "");
 		List<User> users2 = userSync.readUsers("");
 		Assert.assertEquals(users.size() + 1, users2.size());
@@ -103,8 +102,8 @@ public class TestUserSync {
 
 	@Test
 	public void testEqualsBetweenLists() {
-		User user1 = new User(30, "username1", "first1", "last1", "email1");
-		User user2 = new User(31, "username2", "first2", "last2", "email2");
+		User user1 = new User("02", "username1", "first1", "last1", "email1");
+		User user2 = new User("21", "username2", "first2", "last2", "email2");
 		List<User> l1 = Arrays.asList(user1,user2);
 		List<User> l2 = Arrays.asList(user1,user2);
 		Assert.assertEquals(l1,l2);
