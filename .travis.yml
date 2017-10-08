@@ -15,6 +15,7 @@ notifications:
   email:
     recipients:
       - raisercostin@gmail.com
+      - vasile.v3721@yahoo.com
     on_success: always # default: change
     on_failure: always # default: always
 
