@@ -7,7 +7,7 @@ import com.opencsv.bean.CsvBindByName;
 
 public class User implements Serializable {
 	@CsvBindByName
-	public String id;
+	public int id;
 	@CsvBindByName
 	public String username;
 	@CsvBindByName
@@ -21,7 +21,7 @@ public class User implements Serializable {
 	public User(){
 		
 	}
-	public User(String id, String usernname, String firstname, String lastname, String email) {
+	public User(int id, String usernname, String firstname, String lastname, String email) {
 		this.id = id;
 		this.username = usernname;
 		this.firstname = firstname;
@@ -29,11 +29,11 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

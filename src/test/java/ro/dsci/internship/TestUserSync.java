@@ -93,7 +93,7 @@ public class TestUserSync {
 	public void testReadWrite() {
 		UserDao userSync = new UnirestForgeRockUserDao();
 		List<User> users = userSync.readUsers("");
-		List<User> newUsers = Arrays.asList(new User("Id", "username", "first", "last", "email"));
+		List<User> newUsers = Arrays.asList(new User(88, "username", "first", "last", "email"));
 		userSync.writeUsers(newUsers, "");
 		List<User> users2 = userSync.readUsers("");
 		Assert.assertEquals(users.size() + 1, users2.size());
@@ -103,8 +103,8 @@ public class TestUserSync {
 
 	@Test
 	public void testEqualsBetweenLists() {
-		User user1 = new User("Id1", "username1", "first1", "last1", "email1");
-		User user2 = new User("Id2", "username2", "first2", "last2", "email2");
+		User user1 = new User(30, "username1", "first1", "last1", "email1");
+		User user2 = new User(31, "username2", "first2", "last2", "email2");
 		List<User> l1 = Arrays.asList(user1,user2);
 		List<User> l2 = Arrays.asList(user1,user2);
 		Assert.assertEquals(l1,l2);

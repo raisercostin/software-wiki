@@ -38,7 +38,7 @@ public class GabrielForgerockUserDao implements UserDao {
 	}
 
 	private User toUser(JSONObject object) {
-		return new User(object.getString("id"),object.getString("userName"), object.getString("givenName"), object.getString("sn"),
+		return new User(object.getInt("id"),object.getString("userName"), object.getString("givenName"), object.getString("sn"),
 				object.getString("mail"));
 	}
 

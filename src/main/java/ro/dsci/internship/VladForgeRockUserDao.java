@@ -1,73 +1,128 @@
 package ro.dsci.internship;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.charset.Charset;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
+import org.apache.http.entity.StringEntity;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-public class VladForgeRockUserDao implements UserDao{
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
-  @Override
-  public List<User> readUsers(String locatie) {
-    // TODO Auto-generated method stub
-    return null;
-  }
+public class VladForgeRockUserDao implements UserDao {
 
-  @Override
-  public void writeUsers(List<User> users, String locatie) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  public static void main(String[] args) {
-
-		String jsonString = callURL("http://localhost:8080/openidm/managed/user?_queryId=query-all");
-		System.out.println("\n\njsonString: " + jsonString);
-
+	@Override
+	public List<User> readUsers(String locatie) {
 		try {
-			JSONArray jsonArray = new JSONArray(jsonString);
-			int count = jsonArray.length();
-			for (int i = 0; i < count; i++) {
-				JSONObject jsonObject = jsonArray.getJSONObject(i);
-				System.out.println("jsonObject " + i + ": " + jsonObject);
+			HttpResponse<JsonNode> getResponse = Unirest
+					.get("http://localhost:8080/openidm/managed/user?_prettyPrint=true&_queryId=query-all")
+					.header("Accept", "application/json")
+					.header("Content-Type", "application/json")
+					.header("X-Requested-With", "Swagger-UI")
+					.header("X-OpenIDM-Username", "openidm-admin")
+					.header("X-OpenIDM-Password", "openidm-admin")
+					.asJson();
+
+			JSONObject body = getResponse.getBody().getObject();
+			System.out.println(body.toString(4));
+			JSONArray users = body.getJSONArray("result");
+			List<User> result = new ArrayList<>();
+			for (int i = 0, maxi = users.length(); i < maxi; i++) {
+				result.add(toUser((JSONObject) users.get(i)));
 			}
-		} catch (JSONException e) {
-			e.printStackTrace();
+			return result;
+		} catch (UnirestException e) {
+			throw new RuntimeException("Wrapped checked exception.", e);
 		}
 	}
 
-	public static String callURL(String myURL) {
-		System.out.println("Requested URL:" + myURL);
-		StringBuilder sb = new StringBuilder();
-		URLConnection urlConn = null;
-		InputStreamReader in = null;
+	private User toUser(JSONObject object) {
+		return new User(object.getInt("_id"),object.getString("userName"), object.getString("givenName"), object.getString("sn"),
+				object.getString("mail"));
+	}
+
+	@Override
+	public void writeUsers(List<User> users, String locatie) {
+		for (User user : users) {
+			
+			user.id = getId();
+			System.out.print("Username:");
+			user.username = new Scanner(System.in).next();
+			System.out.print("\nFirst name:");
+			user.firstname = new Scanner(System.in).next();
+			System.out.print("\nLast name:");
+			user.lastname = new Scanner(System.in).next();
+			System.out.print("\nEmail:");
+			user.email = new Scanner(System.in).next();
+			
+			addUsers(user);
+			
+		}
+		
+		
+	}
+
+	public User addUsers(User x) {
 		try {
-			URL url = new URL(myURL);
-			urlConn = url.openConnection();
-			if (urlConn != null)
-				urlConn.setReadTimeout(60 * 1000);
-			if (urlConn != null && urlConn.getInputStream() != null) {
-				in = new InputStreamReader(urlConn.getInputStream(), Charset.defaultCharset());
-				BufferedReader bufferedReader = new BufferedReader(in);
-				if (bufferedReader != null) {
-					int cp;
-					while ((cp = bufferedReader.read()) != -1) {
-						sb.append((char) cp);
-					}
-					bufferedReader.close();
+			// --adding parameters solution below--
+		//  	try {
+	    //	StringEntity parameters = new StringEntity("{" + "\"_id\": \"" + id + "\"userName\": \"" + userName
+		//				+ "\"givenName\": \"" + givenName + "\"sn\": \"" + sn + "\"mail\": \"" + mail + "}");
+
+		//	} catch (UnsupportedEncodingException e) {
+		//		throw new RuntimeException(e);
+		//	}
+			
+			HttpResponse<User> jsonResponse = Unirest.put("http://localhost:8080/openidm/managed/user")
+					.header("Accept", "application/json")
+					.header("Content-Type", "application/json")
+					.header("X-Requested-With", "Swagger-UI")
+					.header("X-OpenIDM-Username", "openidm-admin")
+					.header("X-OpenIDM-Password", "openidm-admin")
+					.body(x)
+					.asObject(User.class);
+			
+			User createduser = jsonResponse.getBody();
+		    return createduser;
+
+			
+
+		} catch (UnirestException e) {
+			throw new RuntimeException("Wrapped checked exception.", e);
+		}
+	}
+
+	private int getId() {
+		int lastid = 0;
+		
+		try {
+			HttpResponse<JsonNode> getResponse = Unirest
+					.get("http://localhost:8080/openidm/managed/user?_prettyPrint=true&_queryId=query-all")
+					.header("Accept", "application/json")
+					.header("Content-Type", "application/json")
+					.header("X-Requested-With", "Swagger-UI")
+					.header("X-OpenIDM-Username", "openidm-admin")
+					.header("X-OpenIDM-Password", "openidm-admin")
+					.asJson();
+			
+			JSONObject job = getResponse.getBody().getObject();
+			JSONArray jarr = job.getJSONArray("");
+			
+			for(int i=0; i<=jarr.length(); i++) {
+				if(Integer.parseInt(jarr.getJSONObject(i).getString("_id")) > lastid) {
+					lastid = Integer.parseInt(jarr.getJSONObject(i).getString("_id"));
 				}
 			}
-			in.close();
-		} catch (Exception e) {
-			throw new RuntimeException("Exception while calling URL:" + myURL, e);
+			
+		} catch (UnirestException e) {
+			throw new RuntimeException("Wrapped checked exception.", e);
 		}
-
-		return sb.toString();
+		
+		return lastid;
 	}
 }

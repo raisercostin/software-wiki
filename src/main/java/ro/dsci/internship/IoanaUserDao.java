@@ -55,7 +55,7 @@ public class IoanaUserDao implements UserDao {
 			line = br.readLine();
 			while (line != null) {
 				String[] atribute = line.split(",");
-				User usernou = new User(atribute[nrId], atribute[nrUsername], atribute[nrFirstname],
+				User usernou = new User(Integer.parseInt(atribute[nrId]), atribute[nrUsername], atribute[nrFirstname],
 						atribute[nrLastname], atribute[nrEmail]);
 				lista.add(usernou);
 				line = br.readLine();
