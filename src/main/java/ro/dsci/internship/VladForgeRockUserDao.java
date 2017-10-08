@@ -1,11 +1,11 @@
 package ro.dsci.internship;
 
-import java.io.UnsupportedEncodingException;
+//import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import org.apache.http.entity.StringEntity;
+//import org.apache.http.entity.StringEntity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -42,14 +42,15 @@ public class VladForgeRockUserDao implements UserDao {
 	}
 
 	private User toUser(JSONObject object) {
-		return new User(object.getInt("_id"),object.getString("userName"), object.getString("givenName"), object.getString("sn"),
-				object.getString("mail"));
+		return new User(object.getInt("_id"), object.getString("userName"), object.getString("givenName"),
+				object.getString("sn"), object.getString("mail"));
 	}
 
+	@SuppressWarnings("resource")
 	@Override
 	public void writeUsers(List<User> users, String locatie) {
-		for (User user : users) {
-			
+		User user = new User();
+
 			user.id = getId();
 			System.out.print("Username:");
 			user.username = new Scanner(System.in).next();
@@ -59,38 +60,37 @@ public class VladForgeRockUserDao implements UserDao {
 			user.lastname = new Scanner(System.in).next();
 			System.out.print("\nEmail:");
 			user.email = new Scanner(System.in).next();
-			
+
 			addUsers(user);
-			
-		}
+			users.add(user);
+
 		
-		
+
 	}
 
 	public User addUsers(User x) {
 		try {
 			// --adding parameters solution below--
-		//  	try {
-	    //	StringEntity parameters = new StringEntity("{" + "\"_id\": \"" + id + "\"userName\": \"" + userName
-		//				+ "\"givenName\": \"" + givenName + "\"sn\": \"" + sn + "\"mail\": \"" + mail + "}");
+			// try {
+			// StringEntity parameters = new StringEntity("{" + "\"_id\": \"" + id +
+			// "\"userName\": \"" + userName
+			// + "\"givenName\": \"" + givenName + "\"sn\": \"" + sn + "\"mail\": \"" + mail
+			// + "}");
 
-		//	} catch (UnsupportedEncodingException e) {
-		//		throw new RuntimeException(e);
-		//	}
-			
+			// } catch (UnsupportedEncodingException e) {
+			// throw new RuntimeException(e);
+			// }
+
 			HttpResponse<User> jsonResponse = Unirest.put("http://localhost:8080/openidm/managed/user")
 					.header("Accept", "application/json")
 					.header("Content-Type", "application/json")
 					.header("X-Requested-With", "Swagger-UI")
 					.header("X-OpenIDM-Username", "openidm-admin")
 					.header("X-OpenIDM-Password", "openidm-admin")
-					.body(x)
-					.asObject(User.class);
-			
-			User createduser = jsonResponse.getBody();
-		    return createduser;
+					.body(x).asObject(User.class);
 
-			
+			User createduser = jsonResponse.getBody();
+			return createduser;
 
 		} catch (UnirestException e) {
 			throw new RuntimeException("Wrapped checked exception.", e);
@@ -99,7 +99,7 @@ public class VladForgeRockUserDao implements UserDao {
 
 	private int getId() {
 		int lastid = 0;
-		
+
 		try {
 			HttpResponse<JsonNode> getResponse = Unirest
 					.get("http://localhost:8080/openidm/managed/user?_prettyPrint=true&_queryId=query-all")
@@ -109,20 +109,20 @@ public class VladForgeRockUserDao implements UserDao {
 					.header("X-OpenIDM-Username", "openidm-admin")
 					.header("X-OpenIDM-Password", "openidm-admin")
 					.asJson();
-			
+
 			JSONObject job = getResponse.getBody().getObject();
 			JSONArray jarr = job.getJSONArray("");
-			
-			for(int i=0; i<=jarr.length(); i++) {
-				if(Integer.parseInt(jarr.getJSONObject(i).getString("_id")) > lastid) {
+
+			for (int i = 0; i <= jarr.length(); i++) {
+				if (Integer.parseInt(jarr.getJSONObject(i).getString("_id")) > lastid) {
 					lastid = Integer.parseInt(jarr.getJSONObject(i).getString("_id"));
 				}
 			}
-			
+
 		} catch (UnirestException e) {
 			throw new RuntimeException("Wrapped checked exception.", e);
 		}
-		
+
 		return lastid;
 	}
 }
