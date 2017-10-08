@@ -38,7 +38,7 @@ public class TestUserSync {
 	@Test
 	public void testUnirestForgerockUserDao() {
 		UserDao userSync = new UnirestForgeRockUserDao();
-		testReadWrite(userSync, 617);
+		testReadWrite(userSync, 2);
 	}
 
 	@Test

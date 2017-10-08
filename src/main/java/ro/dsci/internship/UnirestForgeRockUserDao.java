@@ -42,7 +42,7 @@ public class UnirestForgeRockUserDao implements UserDao {
 	}
 
 	private User toUser(JSONObject object) {
-		return new User(object.getInt("_id"),object.getString("userName"), object.getString("givenName"), object.getString("sn"),
+		return new User(object.getString("_id"),object.getString("userName"), object.getString("givenName"), object.getString("sn"),
 				object.getString("mail"));
 	}
 
