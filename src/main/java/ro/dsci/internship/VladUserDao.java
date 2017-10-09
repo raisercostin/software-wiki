@@ -1,7 +1,10 @@
 package ro.dsci.internship;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,16 +18,10 @@ import java.util.Map;
 public class VladUserDao implements UserDao {
 
 	public static void main(String[] args) {
-		List<User> users = new VladUserDao().readUsers("users.csv");
+		List<User> users = new VladUserDao().readUsers("src/test/resources/CVSTest.csv");
 		for (User b : users) {
 			System.out.println(b);
 		}
-	}
-
-	@Override
-	public void writeUsers(List<User> users, String locatie) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not Implemented Yet!!!");
 	}
 
 	@Override
@@ -50,7 +47,9 @@ public class VladUserDao implements UserDao {
 	}
 
 	private Map<String, Integer> getHeader(Path pathToFile) {
+
 		Map<String, Integer> map = new HashMap<>();
+
 		try (BufferedReader br = Files.newBufferedReader(pathToFile)) {
 			String firstLine = br.readLine();
 			if (firstLine == null)
@@ -66,13 +65,51 @@ public class VladUserDao implements UserDao {
 	}
 
 	private User createUser(String[] row, Map<String, Integer> header) {
-		String id = row[header.get("Id")];
-		String usern = row[header.get("Username")];
-		String prenume = row[header.get("Firstname")];
-		String nume = row[header.get("Name")];
-		String email = row[header.get("Email")];
+		String id = row[header.get("id")];
+		String usern = row[header.get("username")];
+		String prenume = row[header.get("firstname")];
+		String nume = row[header.get("lastname")];
+		String email = row[header.get("email")];
 
 		return new User(id, usern, prenume, nume, email);
 	}
 
-}
+	@Override
+    public void writeUsers(List<User> users, String fileName) {
+	    	final String COMMA_DELIMITER = ",";
+		    final String NEW_LINE_SEPARATOR = "\n";
+		    final String FILE_HEADER = "id,username,firstname,lastname,email";
+		        FileWriter fileWriter = null;
+		        try {
+		            fileWriter = new FileWriter(fileName);
+		            fileWriter.append(FILE_HEADER.toString());
+		            fileWriter.append(NEW_LINE_SEPARATOR);
+		            for (User user : users) {
+		                fileWriter.append(user.getId());
+		                fileWriter.append(COMMA_DELIMITER);
+		                fileWriter.append(user.getUsername());
+		                fileWriter.append(COMMA_DELIMITER);
+		                fileWriter.append(user.getFirstname());
+		                fileWriter.append(COMMA_DELIMITER);
+		                fileWriter.append(user.getLastname());
+		                fileWriter.append(COMMA_DELIMITER);
+		                fileWriter.append(user.getEmail());
+		                fileWriter.append(NEW_LINE_SEPARATOR);
+	            }
+		            System.out.println("CSV file was created successfully !!!");
+		        } catch (Exception e) {
+		            System.out.println("Error in CsvFileWriter !!!");
+		            e.printStackTrace();
+		        } finally {
+		            try {
+		                fileWriter.flush();
+		                fileWriter.close();
+		            } catch (IOException e) {
+		                System.out.println("Error while flushing/closing fileWriter !!!");
+		                e.printStackTrace();
+		            }
+		        }
+		    }
+
+	}
+

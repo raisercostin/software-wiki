@@ -3,8 +3,6 @@ package ro.dsci.internship;
 //import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
 //import org.apache.http.entity.StringEntity;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,7 +27,7 @@ public class VladForgeRockUserDao implements UserDao {
 					.asJson();
 
 			JSONObject body = getResponse.getBody().getObject();
-			System.out.println(body.toString(4));
+			System.out.println(body.toString(5));
 			JSONArray users = body.getJSONArray("result");
 			List<User> result = new ArrayList<>();
 			for (int i = 0, maxi = users.length(); i < maxi; i++) {
@@ -46,83 +44,41 @@ public class VladForgeRockUserDao implements UserDao {
 				object.getString("sn"), object.getString("mail"));
 	}
 
-	@SuppressWarnings("resource")
+	private JSONObject userToJSONObject(User user) {
+		JSONObject object = new JSONObject();
+		object.put("_id", user.getId());
+		object.put("userName", user.getUsername());
+		object.put("givenName", user.getFirstname());
+		object.put("sn", user.getLastname());
+		object.put("mail", user.getEmail());
+		return object;
+
+	}
+
 	@Override
 	public void writeUsers(List<User> users, String locatie) {
-		User user = new User();
+		for (int i = 0; i < users.size(); i++) {
+			User user = users.get(i);
+			JSONObject Json = userToJSONObject(user);
 
-			
-			System.out.print("Username:");
-			user.username = new Scanner(System.in).next();
-			System.out.print("\nFirst name:");
-			user.firstname = new Scanner(System.in).next();
-			System.out.print("\nLast name:");
-			user.lastname = new Scanner(System.in).next();
-			System.out.print("\nEmail:");
-			user.email = new Scanner(System.in).next();
+			try {
+				HttpResponse<JsonNode> jsonResponse = Unirest.put("http://localhost:8080/openidm/managed/user/" + user.id)
+						.header("Content-Type", "application/json")
+						.header("Accept", "application/json")
+						.header("If-None-Match", " *")
+						.header("X-OpenIDM-Username", "openidm-admin")
+						.header("X-OpenIDM-Password", "openidm-admin")
+						.header("X-Requested-With", "Swagger-UI")
+						.body(Json)
+						.asJson();
 
-			addUsers(user);
-			users.add(user);
+				System.out.println(jsonResponse.getBody().toString());
 
-		
+			} catch (UnirestException e) {
 
-	}
-
-	public User addUsers(User x) {
-		try {
-			// --adding parameters solution below--
-			// try {
-			// StringEntity parameters = new StringEntity("{" + "\"_id\": \"" + id +
-			// "\"userName\": \"" + userName
-			// + "\"givenName\": \"" + givenName + "\"sn\": \"" + sn + "\"mail\": \"" + mail
-			// + "}");
-
-			// } catch (UnsupportedEncodingException e) {
-			// throw new RuntimeException(e);
-			// }
-
-			HttpResponse<User> jsonResponse = Unirest.put("http://localhost:8080/openidm/managed/user")
-					.header("Accept", "application/json")
-					.header("Content-Type", "application/json")
-					.header("X-Requested-With", "Swagger-UI")
-					.header("X-OpenIDM-Username", "openidm-admin")
-					.header("X-OpenIDM-Password", "openidm-admin")
-					.body(x).asObject(User.class);
-
-			User createduser = jsonResponse.getBody();
-			return createduser;
-
-		} catch (UnirestException e) {
-			throw new RuntimeException("Wrapped checked exception.", e);
-		}
-	}
-
-	private int getId() {
-		int lastid = 0;
-
-		try {
-			HttpResponse<JsonNode> getResponse = Unirest
-					.get("http://localhost:8080/openidm/managed/user?_prettyPrint=true&_queryId=query-all")
-					.header("Accept", "application/json")
-					.header("Content-Type", "application/json")
-					.header("X-Requested-With", "Swagger-UI")
-					.header("X-OpenIDM-Username", "openidm-admin")
-					.header("X-OpenIDM-Password", "openidm-admin")
-					.asJson();
-
-			JSONObject job = getResponse.getBody().getObject();
-			JSONArray jarr = job.getJSONArray("");
-
-			for (int i = 0; i <= jarr.length(); i++) {
-				if (Integer.parseInt(jarr.getJSONObject(i).getString("_id")) > lastid) {
-					lastid = Integer.parseInt(jarr.getJSONObject(i).getString("_id"));
-				}
+				e.printStackTrace();
+				throw new RuntimeException("Wrapped checked exception.", e);
 			}
-
-		} catch (UnirestException e) {
-			throw new RuntimeException("Wrapped checked exception.", e);
 		}
-
-		return lastid;
 	}
 }
