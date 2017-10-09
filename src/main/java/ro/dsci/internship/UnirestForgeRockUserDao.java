@@ -46,59 +46,71 @@ public class UnirestForgeRockUserDao implements UserDao {
 		return new User(object.getString("_id"),object.getString("userName"), object.getString("givenName"), object.getString("sn"),
 				object.getString("mail"));
 	}
-
-	@Override
-	public void writeUsers(List<User> users, String locatie) {
-		for (User user : users) {
-			
-			System.out.print("Username:");
-			user.username = new Scanner(System.in).next();
-			System.out.print("\nFirst name:");
-			user.firstname = new Scanner(System.in).next();
-			System.out.print("\nLast name:");
-			user.lastname = new Scanner(System.in).next();
-			System.out.print("\nEmail:");
-			user.email = new Scanner(System.in).next();
-			
-			addUsers(user);
-			
-		}
+	
+	private JSONObject userToJSONObject(User user){
+		JSONObject object = new JSONObject();
+		object.put("_id", user.getId());
+		object.put("userName",user.getUsername());
+		object.put("givenName", user.getFirstname());
+		object.put("sn", user.getLastname());
+		object.put("mail", user.getEmail());
+		return object;
 		
 		
 	}
 
-	public User addUsers(User x) {
-		try {
-			// --adding parameters solution below--
-		//  	try {
-	    //	StringEntity parameters = new StringEntity("{" + "\"_id\": \"" + id + "\"userName\": \"" + userName
-		//				+ "\"givenName\": \"" + givenName + "\"sn\": \"" + sn + "\"mail\": \"" + mail + "}");
-
-		//	} catch (UnsupportedEncodingException e) {
-		//		throw new RuntimeException(e);
-		//	}
-			
-			HttpResponse<User> jsonResponse = Unirest.put("http://localhost:8080/openidm/managed/user")
-					.header("Accept", "application/json")
+	 @Override
+	  public void writeUsers(List<User> users, String locatie) {
+		  for(int i =0;i<users.size();i++){
+			  User user =users.get(i);
+			  JSONObject Json = userToJSONObject(user);
+			 
+		  try {
+			HttpResponse<JsonNode> jsonResponse = Unirest.put("http://localhost:8080/openidm/managed/user/"+user.id)
 					.header("Content-Type", "application/json")
-					.header("X-Requested-With", "Swagger-UI")
+					.header("Accept", "application/json")
+					.header("If-None-Match"," *")
 					.header("X-OpenIDM-Username", "openidm-admin")
 					.header("X-OpenIDM-Password", "openidm-admin")
-					.body(x)
-					.asObject(User.class);
-			
-			User createduser = jsonResponse.getBody();
-		    return createduser;
-
-			
-
+					.header("X-Requested-With", "Swagger-UI")
+					.body(Json).asJson();
+				
+					System.out.println(jsonResponse.getBody().toString());
 		} catch (UnirestException e) {
+			
+			e.printStackTrace();
 			throw new RuntimeException("Wrapped checked exception.", e);
 		}
-	}
+	  }
+	  }
+	  
+	  public void deleteAllEntries(){
+		  List<User> users = this.readUsers("");
+		  
+		  for(int i =0;i<users.size();i++){
+			  User user =users.get(i);
+			  JSONObject Json = userToJSONObject(user);
+			 
+		  try {
+			HttpResponse<JsonNode> jsonResponse = Unirest.delete("http://localhost:8080/openidm/managed/user/"+user.getId())
+					.header("Content-Type", "application/json")
+					.header("Accept", "application/json")
+					
+					.header("X-OpenIDM-Username", "openidm-admin")
+					.header("X-OpenIDM-Password", "openidm-admin")
+					.header("X-Requested-With", "Swagger-UI")
+					.body(Json).asJson();
+				
+					System.out.println(jsonResponse.getBody().toString());
+		} catch (UnirestException e) {
+			
+			e.printStackTrace();
+			throw new RuntimeException("Wrapped checked exception.", e);
+		}
+	  }
 
-	private int getId() {
-		// TODO Auto-generated method stub
-		return 0;
+		  
+	  }
+	  
+	  
 	}
-}

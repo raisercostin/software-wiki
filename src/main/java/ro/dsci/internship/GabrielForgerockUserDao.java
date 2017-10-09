@@ -12,6 +12,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mashape.unirest.request.HttpRequestWithBody;
 
 public class GabrielForgerockUserDao implements UserDao {
 	@Override
@@ -71,14 +72,7 @@ public class GabrielForgerockUserDao implements UserDao {
 				.header("X-OpenIDM-Password", "openidm-admin")
 				.header("X-Requested-With", "Swagger-UI")
 				.body(Json).asJson();
-				/*
-				.field("_id", user.getId())
-				.field("userName",user.getUsername())
-				.field("givenName", user.getFirstname())
-				.field("sn", user.getLastname())
-				.field("mail", user.getEmail())
-				.asJson();
-				*/
+			
 				System.out.println(jsonResponse.getBody().toString());
 	} catch (UnirestException e) {
 		
@@ -87,4 +81,34 @@ public class GabrielForgerockUserDao implements UserDao {
 	}
   }
   }
+  
+  public void deleteAllEntries(){
+	  List<User> users = this.readUsers("");
+	  
+	  for(int i =0;i<users.size();i++){
+		  User user =users.get(i);
+		  JSONObject Json = userToJSONObject(user);
+		 
+	  try {
+		HttpResponse<JsonNode> jsonResponse = Unirest.delete("http://localhost:8080/openidm/managed/user/"+user.getId())
+				.header("Content-Type", "application/json")
+				.header("Accept", "application/json")
+				
+				.header("X-OpenIDM-Username", "openidm-admin")
+				.header("X-OpenIDM-Password", "openidm-admin")
+				.header("X-Requested-With", "Swagger-UI")
+				.body(Json).asJson();
+			
+				System.out.println(jsonResponse.getBody().toString());
+	} catch (UnirestException e) {
+		
+		e.printStackTrace();
+		throw new RuntimeException("Wrapped checked exception.", e);
+	}
+  }
+
+	  
+  }
+  
+  
 }

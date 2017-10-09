@@ -24,16 +24,19 @@ public class TestUserSync {
 	}
 
 	@Test
-	// citeste useri Rest si scrie useri pe serveri
+	//sterge,  citeste  si scrie useri pe serveri
 	public void testGabiForgerockUserDao() {
 		UserDao userSync = new GabrielForgerockUserDao();
 		UserDao local = new GabrielUserDao();
+		((GabrielForgerockUserDao) userSync).deleteAllEntries();
 		List<User> useriLocali = local.readUsers(locatie);
-
 		List<User> usersServerInitial = userSync.readUsers("");
+		Assert.assertTrue(usersServerInitial.isEmpty());
+		
 		userSync.writeUsers(useriLocali, "");
 		List<User> usersServerFinal = userSync.readUsers("");
-		Assert.assertTrue(usersServerFinal.size() == usersServerInitial.size() + useriLocali.size());
+		Assert.assertEquals(usersServerFinal, useriLocali);
+		
 	}
 
 	@Test
@@ -112,13 +115,12 @@ public class TestUserSync {
 		User user1 = new User("02", "username1", "first1", "last1", "email1");
 		User user2 = new User("21", "username2", "first2", "last2", "email2");
 		List<User> l1 = Arrays.asList(user1, user2);
-		List<String> lista = new ArrayList<String>();
+		
 
 		List<User> l2 = Arrays.asList(user1, user2);
-		List<String> l3 = Arrays.asList(user1.toString(), user2.toString());
-		lista.add(l1.toString());
-		lista.add(l2.toString());
-		System.out.println(lista.toString());
+		
+	
+		
 		Assert.assertEquals(l1, l2);
 
 	}
