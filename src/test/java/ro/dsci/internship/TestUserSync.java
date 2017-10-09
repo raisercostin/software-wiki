@@ -43,12 +43,13 @@ public class TestUserSync {
 	public void testVladForgerockUserDao() {
 		UserDao userSync = new VladForgeRockUserDao();
 		UserDao localUser = new VladUserDao();
-		List<User> useriLocali = localUser.readUsers(locatie);
+		List<User> useriLocali = localUser.readUsers(locatie); 
 
-		List<User> usersServerInit = userSync.readUsers("");
+		List<User> usersServerInit = userSync.readUsers(""); 
 		userSync.writeUsers(useriLocali, "");
 		List<User> usersServerFin = userSync.readUsers("");
-		Assert.assertTrue(usersServerFin.size() == usersServerInit.size() + useriLocali.size());
+		Assert.assertEquals(usersServerFin.size(), usersServerInit.size() + useriLocali.size());
+		
 	}
 
 	@Test
@@ -109,7 +110,7 @@ public class TestUserSync {
 	public void testReadWrite() {
 		UserDao userSync = new UnirestForgeRockUserDao();
 		List<User> users = userSync.readUsers("");
-		List<User> newUsers = Arrays.asList(new User("88", "username", "first", "last", "email"));
+		List<User> newUsers = Arrays.asList(new User("88", "username", "first", "last", "email@gmail.com"));
 		userSync.writeUsers(newUsers, "");
 		List<User> users2 = userSync.readUsers("");
 		Assert.assertEquals(users.size() + 1, users2.size());
