@@ -1,6 +1,7 @@
 package ro.dsci.internship;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -96,7 +97,38 @@ public class TestUserSync {
 		Assert.assertTrue("everything ok", exists);
 		List<User> actual = dao.readUsers(locatie2);
 		Assert.assertEquals(4, actual.size());
-		//Assert.assertEquals(users, actual);
+		Assert.assertEquals(users.toString(), actual.toString());
+		Assert.assertEquals(users, actual);
+	}
+	
+	@Test
+	public void testEquals() {
+		BigInteger a = new BigInteger("34242354352353425645475678678675676346563456321134523");
+		BigInteger b = new BigInteger("34242354352353425645475678678675676346563456321134523");
+		BigInteger actual = a.multiply(b);
+		BigInteger expected = new BigInteger("1172538831592137592283049939512687211197454925126862789967475671863286036654308225176012366710357862437529");
+		System.out.println("big="+actual);
+		Assert.assertFalse(expected==actual);
+		Assert.assertEquals(expected.toString(), actual.toString());
+		Assert.assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testStringEquals() {
+		String a = "34242354352353425645475678678675676346563456321134523";
+		String b = "5436867978654654675685679789078";
+		String c = "5436867978654654675685679789078";
+		String d = "5436867978654654675685679789078"+"";
+		String actual = a+"/"+b;
+		String expected = "34242354352353425645475678678675676346563456321134523/5436867978654654675685679789078";
+		System.out.println("big="+actual);
+		Assert.assertTrue(b==c);
+		Assert.assertTrue(c==d);
+		Assert.assertFalse(c+"/"==d+"/");
+		Assert.assertEquals(c+"/",d+"/");
+		Assert.assertFalse(expected==actual);
+		Assert.assertEquals(expected.toString(), actual.toString());
+		Assert.assertEquals(expected, actual);
 	}
 
 	private void testReadWrite(UserDao dao, int size) throws RuntimeException {
@@ -117,19 +149,34 @@ public class TestUserSync {
 		users.addAll(newUsers);
 		Assert.assertEquals(users, users2);
 	}
+	@Test
+	public void testEqualsOnStrings() {
+		String userId = "1";
+		String user1 = "username"+"1";
+		String user2 = "username"+userId;
+		String user3 = "username1";
+		Assert.assertTrue(user1!=user2);
+		Assert.assertTrue(user1==user3);
+		Assert.assertTrue(user2!=user3);
+	}
+	@Test
+	public void testEqualsOnUsers() {
+		String userId = "1";
+		User user1 = new User("02", "username"+"1", "first1", "last1", "email1");
+		User user2 = new User("02", "username"+userId, "first1", "last1", "email1");
+		User user3 = new User("02", "username1", "first1", "last1", "email1");
+		Assert.assertEquals(user1.toString(), user2.toString());
+		Assert.assertEquals(user1.toString(), user3.toString());
+		Assert.assertEquals(user1, user2);
+		Assert.assertEquals(user1, user3);
+	}
 
 	@Test
 	public void testEqualsBetweenLists() {
 		User user1 = new User("02", "username1", "first1", "last1", "email1");
 		User user2 = new User("21", "username2", "first2", "last2", "email2");
 		List<User> l1 = Arrays.asList(user1, user2);
-		
-
 		List<User> l2 = Arrays.asList(user1, user2);
-		
-	
-		
 		Assert.assertEquals(l1, l2);
-
 	}
 }

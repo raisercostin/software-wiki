@@ -24,9 +24,7 @@ public class GabrielUserDao implements UserDao{
 		try {
 			rezultat = (ArrayList<User>) new CsvToBeanBuilder(new FileReader(locatie)).withType(User.class).build().parse();
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("laCitire");
-
+			throw new RuntimeException("laCitire",e);
 		}
 		return rezultat;
 	}
@@ -40,8 +38,7 @@ public class GabrielUserDao implements UserDao{
 			beanToCsv.write(users);
 		     writer.close();
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("la Scriere");
+			throw new RuntimeException("la Scriere",e);
 		}
 
 	}
@@ -51,9 +48,7 @@ public class GabrielUserDao implements UserDao{
 		try {
 			Files.deleteIfExists(p1);
 		} catch (IOException e) {
-			
-			e.printStackTrace();
-			throw new RuntimeException("la curatare");
+			throw new RuntimeException("la curatare",e);
 		}
 	}
 
