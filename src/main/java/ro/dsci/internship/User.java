@@ -87,38 +87,51 @@ public class User implements Serializable {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
+    if (this == obj) {
       return true;
-    if (obj == null)
+    }
+    if (obj == null) {
       return false;
-    if (getClass() != obj.getClass())
+    }
+    if (getClass() != obj.getClass()) {
       return false;
+    }
     User other = (User) obj;
     if (email == null) {
-      if (other.email != null)
+      if (other.email != null) {
         return false;
-    } else if (!email.equals(other.email))
+      }
+    } else if (!email.equals(other.email)) {
       return false;
+    }
     if (firstname == null) {
-      if (other.firstname != null)
+      if (other.firstname != null) {
         return false;
-    } else if (!firstname.equals(other.firstname))
+      }
+    } else if (!firstname.equals(other.firstname)) {
       return false;
+    }
     if (id == null) {
-      if (other.id != null)
+      if (other.id != null) {
         return false;
-    } else if (!id.equals(other.id))
+      }
+    } else if (!id.equals(other.id)) {
       return false;
+    }
     if (lastname == null) {
-      if (other.lastname != null)
+      if (other.lastname != null) {
         return false;
-    } else if (!lastname.equals(other.lastname))
+      }
+    } else if (!lastname.equals(other.lastname)) {
       return false;
+    }
     if (username == null) {
-      if (other.username != null)
+      if (other.username != null) {
         return false;
-    } else if (!username.equals(other.username))
+      }
+    } else if (!username.equals(other.username)) {
       return false;
+    }
     return true;
   }
 }

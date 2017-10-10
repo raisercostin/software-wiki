@@ -5,15 +5,12 @@ import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import com.google.common.base.Joiner;
 
 public class TestUserSync {
   String locatie = "src/test/resources/CVSTest.csv";
@@ -26,7 +23,7 @@ public class TestUserSync {
   }
 
   @Test(timeout = 1000)
-  //sterge,  citeste  si scrie useri pe serveri
+  // sterge, citeste si scrie useri pe serveri
   public void testGabiForgerockUserDao() {
     GabrielForgerockUserDao adminDao = new GabrielForgerockUserDao();
     UserDao dao = adminDao;
@@ -54,11 +51,11 @@ public class TestUserSync {
 
   }
   //
-  //  @Test
-  //  public void testUnirestForgerockUserDao() {
-  //    UserDao userSync = new UnirestForgeRockUserDao();
-  //    testReadWrite(userSync, 1);
-  //  }
+  // @Test
+  // public void testUnirestForgerockUserDao() {
+  // UserDao userSync = new UnirestForgeRockUserDao();
+  // testReadWrite(userSync, 1);
+  // }
 
   @Test
   public void testVladUserDao() {
@@ -134,12 +131,12 @@ public class TestUserSync {
     Assert.assertEquals(expected, actual);
   }
   //
-  //  private void testReadWrite(UserDao dao, int size) throws RuntimeException {
-  //    List<User> users = dao.readUsers(locatie);
+  // private void testReadWrite(UserDao dao, int size) throws RuntimeException {
+  // List<User> users = dao.readUsers(locatie);
   //
-  //    System.out.println(Joiner.on("\n").join(users));
-  //    Assert.assertEquals(size, users.size());
-  //  }
+  // System.out.println(Joiner.on("\n").join(users));
+  // Assert.assertEquals(size, users.size());
+  // }
 
   @Test
   public void testReadWriteOnUirestForgeRockUserDao() {
