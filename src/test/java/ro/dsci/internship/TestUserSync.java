@@ -23,7 +23,7 @@ public class TestUserSync {
 		testWithSpecificUserSyncImplementation(userSync);
 	}
 
-	@Test
+	@Test(timeout=1000)
 	//sterge,  citeste  si scrie useri pe serveri
 	public void testGabiForgerockUserDao() {
 		UserDao userSync = new GabrielForgerockUserDao();
