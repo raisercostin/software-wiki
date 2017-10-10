@@ -19,12 +19,9 @@ public class VladForgeRockUserDao implements UserDao {
     try {
       HttpResponse<JsonNode> getResponse = Unirest
           .get("http://localhost:8080/openidm/managed/user?_prettyPrint=true&_queryId=query-all")
-          .header("Accept", "application/json")
-          .header("Content-Type", "application/json")
-          .header("X-Requested-With", "Swagger-UI")
-          .header("X-OpenIDM-Username", "openidm-admin")
-          .header("X-OpenIDM-Password", "openidm-admin")
-          .asJson();
+          .header("Accept", "application/json").header("Content-Type", "application/json")
+          .header("X-Requested-With", "Swagger-UI").header("X-OpenIDM-Username", "openidm-admin")
+          .header("X-OpenIDM-Password", "openidm-admin").asJson();
 
       JSONObject body = getResponse.getBody().getObject();
       System.out.println(body.toString(5));
@@ -63,14 +60,9 @@ public class VladForgeRockUserDao implements UserDao {
 
       try {
         HttpResponse<JsonNode> jsonResponse = Unirest.put("http://localhost:8080/openidm/managed/user/" + user.id)
-            .header("Content-Type", "application/json")
-            .header("Accept", "application/json")
-            .header("If-None-Match", " *")
-            .header("X-OpenIDM-Username", "openidm-admin")
-            .header("X-OpenIDM-Password", "openidm-admin")
-            .header("X-Requested-With", "Swagger-UI")
-            .body(Json)
-            .asJson();
+            .header("Content-Type", "application/json").header("Accept", "application/json")
+            .header("If-None-Match", " *").header("X-OpenIDM-Username", "openidm-admin")
+            .header("X-OpenIDM-Password", "openidm-admin").header("X-Requested-With", "Swagger-UI").body(Json).asJson();
 
         System.out.println(jsonResponse.getBody().toString());
 

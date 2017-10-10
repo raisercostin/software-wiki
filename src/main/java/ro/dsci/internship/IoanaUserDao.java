@@ -57,8 +57,8 @@ public class IoanaUserDao implements UserDao {
       line = br.readLine();
       while (line != null) {
         String[] atribute = line.split(",");
-        User usernou = new User(atribute[nrId], atribute[nrUsername], atribute[nrFirstname],
-            atribute[nrLastname], atribute[nrEmail]);
+        User usernou = new User(atribute[nrId], atribute[nrUsername], atribute[nrFirstname], atribute[nrLastname],
+            atribute[nrEmail]);
         lista.add(usernou);
         line = br.readLine();
       }
@@ -84,8 +84,7 @@ public class IoanaUserDao implements UserDao {
       User usernou = users.get(0);
       String atribute[] = usernou.toString().split(",");
 
-      c.println(
-          atribute[0] + " , " + atribute[1] + ", " + atribute[2] + " , " + atribute[3] + " , " + atribute[4]);
+      c.println(atribute[0] + " , " + atribute[1] + ", " + atribute[2] + " , " + atribute[3] + " , " + atribute[4]);
       c.close();
     } catch (Exception e) {
       throw new RuntimeException(e);

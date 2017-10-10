@@ -62,12 +62,10 @@ public class UnirestForgeRockUserDao implements UserDao {
       JSONObject Json = userToJSONObject(user);
 
       try {
-        HttpResponse<JsonNode> jsonResponse = Unirest
-            .put("http://localhost:8080/openidm/managed/user/" + user.id)
+        HttpResponse<JsonNode> jsonResponse = Unirest.put("http://localhost:8080/openidm/managed/user/" + user.id)
             .header("Content-Type", "application/json").header("Accept", "application/json")
             .header("If-None-Match", " *").header("X-OpenIDM-Username", "openidm-admin")
-            .header("X-OpenIDM-Password", "openidm-admin").header("X-Requested-With", "Swagger-UI")
-            .body(Json).asJson();
+            .header("X-OpenIDM-Password", "openidm-admin").header("X-Requested-With", "Swagger-UI").body(Json).asJson();
 
         System.out.println(jsonResponse.getBody().toString());
       } catch (UnirestException e) {

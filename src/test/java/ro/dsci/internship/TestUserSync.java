@@ -25,7 +25,7 @@ public class TestUserSync {
     testWithSpecificUserSyncImplementation(userSync);
   }
 
-  @Test(timeout=1000)
+  @Test(timeout = 1000)
   //sterge,  citeste  si scrie useri pe serveri
   public void testGabiForgerockUserDao() {
     GabrielForgerockUserDao adminDao = new GabrielForgerockUserDao();
@@ -34,31 +34,31 @@ public class TestUserSync {
     List<User> localUsers = new GabrielUserDao().readUsers(locatie);
     List<User> initialUsersOnServer = dao.readUsers("");
     Assert.assertTrue(initialUsersOnServer.isEmpty());
-    
+
     dao.writeUsers(localUsers, "");
     List<User> usersServerFinal = dao.readUsers("");
     Assert.assertEquals(usersServerFinal, localUsers);
-    
+
   }
 
   @Test
   public void testVladForgerockUserDao() {
     UserDao userSync = new VladForgeRockUserDao();
     UserDao localUser = new VladUserDao();
-    List<User> useriLocali = localUser.readUsers(locatie); 
+    List<User> useriLocali = localUser.readUsers(locatie);
 
-    List<User> usersServerInit = userSync.readUsers(""); 
+    List<User> usersServerInit = userSync.readUsers("");
     userSync.writeUsers(useriLocali, "");
     List<User> usersServerFin = userSync.readUsers("");
     Assert.assertEquals(usersServerFin.size(), usersServerInit.size() + useriLocali.size());
-    
+
   }
-//
-//  @Test
-//  public void testUnirestForgerockUserDao() {
-//    UserDao userSync = new UnirestForgeRockUserDao();
-//    testReadWrite(userSync, 1);
-//  }
+  //
+  //  @Test
+  //  public void testUnirestForgerockUserDao() {
+  //    UserDao userSync = new UnirestForgeRockUserDao();
+  //    testReadWrite(userSync, 1);
+  //  }
 
   @Test
   public void testVladUserDao() {
@@ -102,15 +102,16 @@ public class TestUserSync {
     Assert.assertEquals(users.toString(), actual.toString());
     Assert.assertEquals(users, actual);
   }
-  
+
   @Test
   public void testEquals() {
     BigInteger a = new BigInteger("34242354352353425645475678678675676346563456321134523");
     BigInteger b = new BigInteger("34242354352353425645475678678675676346563456321134523");
     BigInteger actual = a.multiply(b);
-    BigInteger expected = new BigInteger("1172538831592137592283049939512687211197454925126862789967475671863286036654308225176012366710357862437529");
-    System.out.println("big="+actual);
-    Assert.assertFalse(expected==actual);
+    BigInteger expected = new BigInteger(
+        "1172538831592137592283049939512687211197454925126862789967475671863286036654308225176012366710357862437529");
+    System.out.println("big=" + actual);
+    Assert.assertFalse(expected == actual);
     Assert.assertEquals(expected.toString(), actual.toString());
     Assert.assertEquals(expected, actual);
   }
@@ -120,25 +121,25 @@ public class TestUserSync {
     String a = "34242354352353425645475678678675676346563456321134523";
     String b = "5436867978654654675685679789078";
     String c = "5436867978654654675685679789078";
-    String d = "5436867978654654675685679789078"+"";
-    String actual = a+"/"+b;
+    String d = "5436867978654654675685679789078" + "";
+    String actual = a + "/" + b;
     String expected = "34242354352353425645475678678675676346563456321134523/5436867978654654675685679789078";
-    System.out.println("big="+actual);
-    Assert.assertTrue(b==c);
-    Assert.assertTrue(c==d);
-    Assert.assertFalse(c+"/"==d+"/");
-    Assert.assertEquals(c+"/",d+"/");
-    Assert.assertFalse(expected==actual);
+    System.out.println("big=" + actual);
+    Assert.assertTrue(b == c);
+    Assert.assertTrue(c == d);
+    Assert.assertFalse(c + "/" == d + "/");
+    Assert.assertEquals(c + "/", d + "/");
+    Assert.assertFalse(expected == actual);
     Assert.assertEquals(expected.toString(), actual.toString());
     Assert.assertEquals(expected, actual);
   }
-//
-//  private void testReadWrite(UserDao dao, int size) throws RuntimeException {
-//    List<User> users = dao.readUsers(locatie);
-//
-//    System.out.println(Joiner.on("\n").join(users));
-//    Assert.assertEquals(size, users.size());
-//  }
+  //
+  //  private void testReadWrite(UserDao dao, int size) throws RuntimeException {
+  //    List<User> users = dao.readUsers(locatie);
+  //
+  //    System.out.println(Joiner.on("\n").join(users));
+  //    Assert.assertEquals(size, users.size());
+  //  }
 
   @Test
   public void testReadWriteOnUirestForgeRockUserDao() {
@@ -151,21 +152,23 @@ public class TestUserSync {
     users.addAll(newUsers);
     Assert.assertEquals(users, users2);
   }
+
   @Test
   public void testEqualsOnStrings() {
     String userId = "1";
-    String user1 = "username"+"1";
-    String user2 = "username"+userId;
+    String user1 = "username" + "1";
+    String user2 = "username" + userId;
     String user3 = "username1";
-    Assert.assertTrue(user1!=user2);
-    Assert.assertTrue(user1==user3);
-    Assert.assertTrue(user2!=user3);
+    Assert.assertTrue(user1 != user2);
+    Assert.assertTrue(user1 == user3);
+    Assert.assertTrue(user2 != user3);
   }
+
   @Test
   public void testEqualsOnUsers() {
     String userId = "1";
-    User user1 = new User("02", "username"+"1", "first1", "last1", "email1");
-    User user2 = new User("02", "username"+userId, "first1", "last1", "email1");
+    User user1 = new User("02", "username" + "1", "first1", "last1", "email1");
+    User user2 = new User("02", "username" + userId, "first1", "last1", "email1");
     User user3 = new User("02", "username1", "first1", "last1", "email1");
     Assert.assertEquals(user1.toString(), user2.toString());
     Assert.assertEquals(user1.toString(), user3.toString());

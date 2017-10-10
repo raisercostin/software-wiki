@@ -1,6 +1,5 @@
 package ro.dsci.internship;
 
-
 import java.io.Serializable;
 
 import com.opencsv.bean.CsvBindByName;
@@ -17,10 +16,10 @@ public class User implements Serializable {
   @CsvBindByName
   public String email;
 
-  
-  public User(){
-    
+  public User() {
+
   }
+
   public User(String id, String usernname, String firstname, String lastname, String email) {
     this.id = id;
     this.username = usernname;
@@ -73,6 +72,7 @@ public class User implements Serializable {
   public String toString() {
     return this.id + "," + this.username + "," + this.firstname + "," + this.lastname + "," + this.email;
   }
+
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -84,6 +84,7 @@ public class User implements Serializable {
     result = prime * result + ((username == null) ? 0 : username.hashCode());
     return result;
   }
+
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
