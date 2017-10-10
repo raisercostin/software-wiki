@@ -15,6 +15,8 @@ import org.junit.Test;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Collections2;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 public class TestUserSync {
   String locatie = "src/test/resources/CVSTest.csv";
   String locatie2 = "target/CVSTest2.csv";
@@ -28,7 +30,7 @@ public class TestUserSync {
   @Test(timeout = 1000)
   // sterge, citeste si scrie useri pe serveri
   public void testGabiForgerockUserDao() {
-    GabrielForgerockUserDao adminDao = new GabrielForgerockUserDao();
+    UnirestForgeRockUserDao adminDao = new UnirestForgeRockUserDao();
     UserDao dao = adminDao;
     adminDao.deleteAllEntries();
     List<User> localUsers = new GabrielUserDao().readUsers(locatie);
@@ -43,7 +45,7 @@ public class TestUserSync {
 
   @Test
   public void testVladForgerockUserDao() {
-    UserDao userSync = new VladForgeRockUserDao();
+    UserDao userSync = new UnirestForgeRockUserDao();
     UserDao localUser = new VladUserDao();
     List<User> useriLocali = localUser.readUsers(locatie);
 
@@ -51,7 +53,7 @@ public class TestUserSync {
     userSync.writeUsers(useriLocali, "");
     List<User> usersServerFin = userSync.readUsers("");
     Assert.assertEquals(usersServerFin.size(), usersServerInit.size() + useriLocali.size());
-
+    usersServerFin.forEach(System.out::println);
   }
   //
   // @Test

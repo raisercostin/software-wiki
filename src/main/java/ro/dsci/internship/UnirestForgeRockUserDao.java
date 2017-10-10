@@ -60,14 +60,16 @@ public class UnirestForgeRockUserDao implements UserDao {
   public void writeUsers(List<User> users, String locatie) {
     for (int i = 0; i < users.size(); i++) {
       User user = users.get(i);
-      JSONObject Json = userToJSONObject(user);
+      user.id = makeItUnique(user.id);
+      user.username = makeItUnique(user.username);
+      JSONObject userAsJson = userToJSONObject(user);
 
       try {
         String url = "http://localhost:8080/openidm/managed/user/" + user.id;
         HttpResponse<JsonNode> jsonResponse = Unirest.put(url).header("Content-Type", "application/json")
             .header("Accept", "application/json").header("If-None-Match", " *")
             .header("X-OpenIDM-Username", "openidm-admin").header("X-OpenIDM-Password", "openidm-admin")
-            .header("X-Requested-With", "Swagger-UI").body(Json).asJson();
+            .header("X-Requested-With", "Swagger-UI").body(userAsJson).asJson();
 
         if (jsonResponse.getStatus() < 200 || jsonResponse.getStatus() >= 300) {
           throw new UserSyncException("Request to server [" + url + "] returned with wrong http status "+jsonResponse.getStatus()+" ("+jsonResponse.getStatusText()+"). Full body response:"+jsonResponse.getBody());
@@ -76,6 +78,10 @@ public class UnirestForgeRockUserDao implements UserDao {
         throw new RuntimeException("Wrapped checked exception.", e);
       }
     }
+  }
+
+  private String makeItUnique(String text) {
+    return text+"--"+generateUniqueId();
   }
 
   public void deleteAllEntries() {

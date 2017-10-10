@@ -4,8 +4,10 @@ import java.io.Serializable;
 
 import com.opencsv.bean.CsvBindByName;
 
+//TODO write these users using BeanDao but without getters and setters and with final fields.
 public class User implements Serializable {
   @CsvBindByName
+  @Deprecated//("this should be final")
   public String id;
   @CsvBindByName
   public String username;
