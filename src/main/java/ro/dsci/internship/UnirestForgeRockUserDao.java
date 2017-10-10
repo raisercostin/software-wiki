@@ -2,6 +2,7 @@ package ro.dsci.internship;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,6 +13,9 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class UnirestForgeRockUserDao implements UserDao {
+  public String generateUniqueId() {
+    return UUID.randomUUID().toString();
+  }
 
   @Override
   public List<User> readUsers(String locatie) {
@@ -29,7 +33,7 @@ public class UnirestForgeRockUserDao implements UserDao {
       for (int i = 0, maxi = users.length(); i < maxi; i++) {
         result.add(toUser((JSONObject) users.get(i)));
       }
-      result.forEach(System.out::print);
+      // result.forEach(System.out::println);
       return result;
     } catch (UnirestException e) {
       throw new RuntimeException("Wrapped checked exception.", e);
@@ -59,12 +63,15 @@ public class UnirestForgeRockUserDao implements UserDao {
       JSONObject Json = userToJSONObject(user);
 
       try {
-        HttpResponse<JsonNode> jsonResponse = Unirest.put("http://localhost:8080/openidm/managed/user/" + user.id)
-            .header("Content-Type", "application/json").header("Accept", "application/json")
-            .header("If-None-Match", " *").header("X-OpenIDM-Username", "openidm-admin")
-            .header("X-OpenIDM-Password", "openidm-admin").header("X-Requested-With", "Swagger-UI").body(Json).asJson();
+        String url = "http://localhost:8080/openidm/managed/user/" + user.id;
+        HttpResponse<JsonNode> jsonResponse = Unirest.put(url).header("Content-Type", "application/json")
+            .header("Accept", "application/json").header("If-None-Match", " *")
+            .header("X-OpenIDM-Username", "openidm-admin").header("X-OpenIDM-Password", "openidm-admin")
+            .header("X-Requested-With", "Swagger-UI").body(Json).asJson();
 
-        System.out.println(jsonResponse.getBody().toString());
+        if (jsonResponse.getStatus() < 200 || jsonResponse.getStatus() >= 300) {
+          throw new UserSyncException("Request to server [" + url + "] returned with wrong http status "+jsonResponse.getStatus()+" ("+jsonResponse.getStatusText()+"). Full body response:"+jsonResponse.getBody());
+        }
       } catch (UnirestException e) {
         throw new RuntimeException("Wrapped checked exception.", e);
       }
@@ -95,5 +102,4 @@ public class UnirestForgeRockUserDao implements UserDao {
     }
 
   }
-
 }

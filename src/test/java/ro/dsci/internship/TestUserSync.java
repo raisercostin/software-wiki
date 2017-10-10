@@ -12,6 +12,9 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.google.common.base.Joiner;
+import com.google.common.collect.Collections2;
+
 public class TestUserSync {
   String locatie = "src/test/resources/CVSTest.csv";
   String locatie2 = "target/CVSTest2.csv";
@@ -140,13 +143,15 @@ public class TestUserSync {
 
   @Test
   public void testReadWriteOnUirestForgeRockUserDao() {
-    UserDao userSync = new UnirestForgeRockUserDao();
-    List<User> users = userSync.readUsers("");
-    List<User> newUsers = Arrays.asList(new User("88", "username", "first", "last", "email@gmail.com"));
-    userSync.writeUsers(newUsers, "");
-    List<User> users2 = userSync.readUsers("");
+    UnirestForgeRockUserDao dao = new UnirestForgeRockUserDao();
+    List<User> users = dao.readUsers("");
+    String id = dao.generateUniqueId();
+    List<User> newUsers = Arrays.asList(new User(id, "username-"+id, "first", "last", "email@gmail.com"));
+    dao.writeUsers(newUsers, "");
+    List<User> users2 = dao.readUsers("");
     Assert.assertEquals(users.size() + 1, users2.size());
     users.addAll(newUsers);
+    Assert.assertEquals(Joiner.on("\n").join(users), Joiner.on("\n").join(users2));
     Assert.assertEquals(users, users2);
   }
 
