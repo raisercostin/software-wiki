@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+//Use GabrielUserDao instead
+@Deprecated
 public class IoanaUserDao implements UserDao {
 	@Override
 	public List<User> readUsers(String locatie) {
