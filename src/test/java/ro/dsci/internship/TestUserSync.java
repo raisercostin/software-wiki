@@ -20,6 +20,7 @@ import ch.qos.logback.core.net.SyslogOutputStream;
 public class TestUserSync {
   String locatie = "src/test/resources/CVSTest.csv";
   String locatie2 = "target/CVSTest2.csv";
+  
 
   @Test
   public void testGabiUserDao() {
@@ -27,19 +28,19 @@ public class TestUserSync {
     testWithSpecificUserSyncImplementation(userSync);
   }
 
-  @Test(timeout = 1000)
+  @Test
   // sterge, citeste si scrie useri pe serveri
+  
   public void testGabiForgerockUserDao() {
     UnirestForgeRockUserDao adminDao = new UnirestForgeRockUserDao();
-    UserDao dao = adminDao;
-    adminDao.deleteAllEntries();
-    List<User> localUsers = new GabrielUserDao().readUsers(locatie);
-    List<User> initialUsersOnServer = dao.readUsers("");
-    Assert.assertTrue(initialUsersOnServer.isEmpty());
-
-    dao.writeUsers(localUsers, "");
-    List<User> usersServerFinal = dao.readUsers("");
-    Assert.assertEquals(usersServerFinal, localUsers);
+    GabrielUserDao dao = new GabrielUserDao();
+    
+    List<User> usersServerInitial=adminDao.readUsers("");
+    List<User> localUsers = dao.readUsers(locatie);
+    adminDao.writeUsers(localUsers, "");
+    
+    List<User> usersServerFinal = adminDao.readUsers("");
+    Assert.assertEquals(usersServerFinal.size(), localUsers.size()+usersServerInitial.size());
 
   }
 
@@ -145,16 +146,16 @@ public class TestUserSync {
 
   @Test
   public void testReadWriteOnUirestForgeRockUserDao() {
-    UnirestForgeRockUserDao dao = new UnirestForgeRockUserDao();
-    List<User> users = dao.readUsers("");
-    String id = dao.generateUniqueId();
-    List<User> newUsers = Arrays.asList(new User(id, "username-"+id, "first", "last", "email@gmail.com"));
-    dao.writeUsers(newUsers, "");
-    List<User> users2 = dao.readUsers("");
-    Assert.assertEquals(users.size() + 1, users2.size());
-    users.addAll(newUsers);
-    Assert.assertEquals(Joiner.on("\n").join(users), Joiner.on("\n").join(users2));
-    Assert.assertEquals(users, users2);
+    UnirestForgeRockUserDao adminDao = new UnirestForgeRockUserDao();
+    List<User> usersServer = adminDao.readUsers("");
+   
+    List<User> newUsers = Arrays.asList(new User("id", "username", "first", "last", "email@gmail.com"));
+    adminDao.writeUsers(newUsers, "");
+    
+    List<User> usersServer2 = adminDao.readUsers("");
+    
+    Assert.assertEquals(usersServer.size() + 1, usersServer2.size());
+   
   }
 
   @Test

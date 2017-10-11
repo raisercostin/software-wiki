@@ -47,11 +47,11 @@ public class UnirestForgeRockUserDao implements UserDao {
 
   private JSONObject userToJSONObject(User user) {
     JSONObject object = new JSONObject();
-    object.put("_id", user.getId());
-    object.put("userName", user.getUsername());
-    object.put("givenName", user.getFirstname());
-    object.put("sn", user.getLastname());
-    object.put("mail", user.getEmail());
+    object.put("_id", user.id);
+    object.put("userName", user.username);
+    object.put("givenName", user.firstname);
+    object.put("sn", user.lastname);
+    object.put("mail", user.email);
     return object;
 
   }
@@ -60,12 +60,15 @@ public class UnirestForgeRockUserDao implements UserDao {
   public void writeUsers(List<User> users, String locatie) {
     for (int i = 0; i < users.size(); i++) {
       User user = users.get(i);
-      user.id = makeItUnique(user.id);
-      user.username = makeItUnique(user.username);
-      JSONObject userAsJson = userToJSONObject(user);
+      //String id, String username, String firstname, String lastname, String email
+      User pentruTest =new User(
+    		  makeItUnique(user.id),makeItUnique(user.username),user.firstname
+    		  ,user.lastname,user.email);
+      
+      JSONObject userAsJson = userToJSONObject(pentruTest);
 
       try {
-        String url = "http://localhost:8080/openidm/managed/user/" + user.id;
+        String url = "http://localhost:8080/openidm/managed/user/" + pentruTest.id;
         HttpResponse<JsonNode> jsonResponse = Unirest.put(url).header("Content-Type", "application/json")
             .header("Accept", "application/json").header("If-None-Match", " *")
             .header("X-OpenIDM-Username", "openidm-admin").header("X-OpenIDM-Password", "openidm-admin")
@@ -93,7 +96,7 @@ public class UnirestForgeRockUserDao implements UserDao {
 
       try {
         HttpResponse<JsonNode> jsonResponse = Unirest
-            .delete("http://localhost:8080/openidm/managed/user/" + user.getId())
+            .delete("http://localhost:8080/openidm/managed/user/" + user.id)
             .header("Content-Type", "application/json").header("Accept", "application/json")
 
             .header("X-OpenIDM-Username", "openidm-admin").header("X-OpenIDM-Password", "openidm-admin")

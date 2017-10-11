@@ -85,15 +85,15 @@ public class VladUserDao implements UserDao {
       fileWriter.append(FILE_HEADER.toString());
       fileWriter.append(NEW_LINE_SEPARATOR);
       for (User user : users) {
-        fileWriter.append(user.getId());
+        fileWriter.append(user.id);
         fileWriter.append(COMMA_DELIMITER);
-        fileWriter.append(user.getUsername());
+        fileWriter.append(user.username);
         fileWriter.append(COMMA_DELIMITER);
-        fileWriter.append(user.getFirstname());
+        fileWriter.append(user.firstname);
         fileWriter.append(COMMA_DELIMITER);
-        fileWriter.append(user.getLastname());
+        fileWriter.append(user.lastname);
         fileWriter.append(COMMA_DELIMITER);
-        fileWriter.append(user.getEmail());
+        fileWriter.append(user.email);
         fileWriter.append(NEW_LINE_SEPARATOR);
       }
       System.out.println("CSV file was created successfully !!!");
