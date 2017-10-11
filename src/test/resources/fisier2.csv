@@ -1,3 +1,5 @@
-Email,Nume,Prenume
-email1, Popescu,Ana
-email1, Copescu,Alexandru
+id,username,firstname,lastname,email
+5,username5,Prenume5,Nume5,user5@gmail.com
+6,username6,Prenume6,Nume6,user6@gmail.com
+7,username7,Prenume7,Nume7,user7@gmail.com
+8,username8,Prenume8,Nume8,user8@gmail.com

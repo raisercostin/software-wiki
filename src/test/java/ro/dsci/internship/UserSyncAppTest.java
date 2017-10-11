@@ -9,10 +9,10 @@ public class UserSyncAppTest {
     //copieze toti userii din fisier.csv in users-all
     UserSyncApp.main("--csv","src/test/resources/fisier.csv","--csvWrite","target/users-all.csv");
     //adauge noii user in users-all
-  /*  UserSyncApp.main("--csv","src/test/resources/fisier2.csv","--csv","target/users-all.csv");
+    UserSyncApp.main("--csv","src/test/resources/fisier2.csv","--csvWrite","target/users-all.csv");
     //copieze toti userii din fisier.csv in users-all
-    UserSyncApp.main("--csv","src/test/resources/fisier.csv","--forgerock","http://localhost:8080","openidm-admin","openidm-admin");
+    UserSyncApp.main("--csv","src/test/resources/fisier.csv","--forgerock","http://localhost:8080","--user","openidm-admin");
     //copieze toti userii din fisier.csv in users-all
-    UserSyncApp.main("--forgerock","http://localhost:8080","openidm-admin","openidm-admin","--csv","target/users-all-from-forgerock.csv");*/
+    UserSyncApp.main("--forgerock","http://localhost:8080","--user","openidm-admin","--csv","target/users-all-from-forgerock.csv");
   }
 }
