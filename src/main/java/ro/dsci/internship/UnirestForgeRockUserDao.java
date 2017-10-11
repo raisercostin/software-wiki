@@ -17,14 +17,17 @@ public class UnirestForgeRockUserDao implements UserDao {
     return UUID.randomUUID().toString();
   }
 
+  public String url = "http://localhost:8080";
+  public String userLogIn = "openidm-admin";
+
   @Override
   public List<User> readUsers(String locatie) {
     try {
       HttpResponse<JsonNode> getResponse = Unirest
-          .get("http://localhost:8080/openidm/managed/user?_prettyPrint=true&_queryId=query-all")
+          .get(url + "/openidm/managed/user?_prettyPrint=true&_queryId=query-all")
           .header("Accept", "application/json").header("Content-Type", "application/json")
-          .header("X-Requested-With", "Swagger-UI").header("X-OpenIDM-Username", "openidm-admin")
-          .header("X-OpenIDM-Password", "openidm-admin").asJson();
+          .header("X-Requested-With", "Swagger-UI").header("X-OpenIDM-Username", userLogIn)
+          .header("X-OpenIDM-Password", userLogIn).asJson();
 
       JSONObject body = getResponse.getBody().getObject();
       // System.out.println(body.toString(4));
@@ -33,7 +36,7 @@ public class UnirestForgeRockUserDao implements UserDao {
       for (int i = 0, maxi = users.length(); i < maxi; i++) {
         result.add(toUser((JSONObject) users.get(i)));
       }
-      // result.forEach(System.out::println);
+      result.forEach(System.out::println);
       return result;
     } catch (UnirestException e) {
       throw new RuntimeException("Wrapped checked exception.", e);
@@ -55,9 +58,6 @@ public class UnirestForgeRockUserDao implements UserDao {
     return object;
 
   }
-
-  public String url = "http://localhost:8080";
-  public String userLogIn = "openidm-admin";
 
   @Override
   public void writeUsers(List<User> users, String locatie) {
