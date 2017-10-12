@@ -25,6 +25,21 @@ public class TestUserSync {
   }
 
   @Test
+  public void testH2UserDao() {
+    UnirestForgeRockUserDao forgerock = new UnirestForgeRockUserDao();
+    UserDao dao = new H2UserDao();
+    testExternalServerUserDao(dao);
+  }
+
+  @Test
+  public void testEnd2EndUserDao() {
+    UnirestForgeRockUserDao forgerock = new UnirestForgeRockUserDao();
+    UserDao dao = new H2UserDao();
+    List<User> users = forgerock.readUsers(locatie);
+    dao.writeUsers(users, locatie);
+  }
+
+  @Test
   // sterge, citeste si scrie useri pe serveri
 
   public void testGabiForgerockUserDao() {
@@ -156,15 +171,15 @@ public class TestUserSync {
   @Test
   public void testReadWriteOnUirestForgeRockUserDao() {
     UnirestForgeRockUserDao adminDao = new UnirestForgeRockUserDao();
-    List<User> usersServer = adminDao.readUsers("");
+    testExternalServerUserDao(adminDao);
+  }
 
+  private void testExternalServerUserDao(UserDao dao) {
+    List<User> usersServer = dao.readUsers("");
     List<User> newUsers = Arrays.asList(new User("id", "username", "first", "last", "email@gmail.com"));
-    adminDao.writeUsers(newUsers, "");
-
-    List<User> usersServer2 = adminDao.readUsers("");
-
+    dao.writeUsers(newUsers, "");
+    List<User> usersServer2 = dao.readUsers("");
     Assert.assertEquals(usersServer.size() + 1, usersServer2.size());
-
   }
 
   @Test

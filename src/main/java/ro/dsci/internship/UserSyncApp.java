@@ -20,7 +20,6 @@ public class UserSyncApp {
   private static String userpass;
 
   public static void main(String... args) {
-
     UserSyncApp userSyncApp = new UserSyncApp();
 
     JCommander.newBuilder().addObject(userSyncApp).build().parse(args);
