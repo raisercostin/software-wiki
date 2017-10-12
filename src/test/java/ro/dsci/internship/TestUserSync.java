@@ -22,11 +22,10 @@ public class TestUserSync {
 =======
 import ch.qos.logback.core.net.SyslogOutputStream;
 
-public class TestUserSync {
+public class TestUserSync{
   String locatie = "src/test/resources/CVSTest.csv";
   String locatie2 = "target/CVSTest2.csv";
   
->>>>>>> 33b26c02a1a6dd353cefe40126e92530d06848e2
 
   @Test
   public void testGabiUserDao() {
@@ -62,7 +61,6 @@ public class TestUserSync {
     Assert.assertEquals(usersServerFin.size(), usersServerInit.size() + useriLocali.size());
     usersServerFin.forEach(System.out::println);
   }
-<<<<<<< HEAD
 
   @Test
   public void testUnirestForgerockUserDao() {
@@ -76,7 +74,6 @@ public class TestUserSync {
   }
 
   @Test
-=======
   //
   // @Test
   // public void testUnirestForgerockUserDao() {
@@ -91,7 +88,6 @@ public class TestUserSync {
   }
 
   @Test
->>>>>>> 33b26c02a1a6dd353cefe40126e92530d06848e2
   public void testAbs() {
     System.out.println(Integer.MIN_VALUE);
     System.out.println(Math.abs(Integer.MIN_VALUE));
@@ -124,7 +120,6 @@ public class TestUserSync {
     Assert.assertTrue("everything ok", exists);
     List<User> actual = dao.readUsers(locatie2);
     Assert.assertEquals(4, actual.size());
-<<<<<<< HEAD
 
     Assert.assertEquals(users, actual);
   }
@@ -145,7 +140,7 @@ public class TestUserSync {
     Assert.assertEquals(users.size() + 1, users2.size());
     users.addAll(newUsers);
     Assert.assertEquals(users, users2);
-=======
+
     Assert.assertEquals(users.toString(), actual.toString());
     Assert.assertEquals(users, actual);
   }
@@ -223,19 +218,19 @@ public class TestUserSync {
     Assert.assertEquals(user1.toString(), user3.toString());
     Assert.assertEquals(user1, user2);
     Assert.assertEquals(user1, user3);
->>>>>>> 33b26c02a1a6dd353cefe40126e92530d06848e2
   }
 
   @Test
   public void testEqualsBetweenLists() {
-<<<<<<< HEAD
+
     Assert.assertEquals(Arrays.asList("ab"), Arrays.asList("a" + "b"));
-=======
+
     User user1 = new User("02", "username1", "first1", "last1", "email1");
     User user2 = new User("21", "username2", "first2", "last2", "email2");
     List<User> l1 = Arrays.asList(user1, user2);
     List<User> l2 = Arrays.asList(user1, user2);
     Assert.assertEquals(l1, l2);
->>>>>>> 33b26c02a1a6dd353cefe40126e92530d06848e2
   }
+}
+
 }
