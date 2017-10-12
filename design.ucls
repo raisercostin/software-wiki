@@ -1,51 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.1" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
+<<<<<<< HEAD
   <class id="1" language="java" name="ro.dsci.internship.GabrielForgerockUserDao" project="s5" 
     file="/s5/src/main/java/ro/dsci/internship/GabrielForgerockUserDao.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="567" y="106"/>    
+=======
+  <class id="1" language="java" name="ro.dsci.internship.VladForgeRockUserDao" project="usersync" 
+    file="/usersync/src/main/java/ro/dsci/internship/VladForgeRockUserDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="133" y="374"/>    
+>>>>>>> 33b26c02a1a6dd353cefe40126e92530d06848e2
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
+<<<<<<< HEAD
   <class id="2" language="java" name="ro.dsci.internship.IoanaUserDao" project="s5" 
     file="/s5/src/main/java/ro/dsci/internship/IoanaUserDao.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="124" width="223" x="1232" y="123"/>    
+=======
+  <class id="2" language="java" name="ro.dsci.internship.VladUserDao" project="usersync" 
+    file="/usersync/src/main/java/ro/dsci/internship/VladUserDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="275" y="192"/>    
+>>>>>>> 33b26c02a1a6dd353cefe40126e92530d06848e2
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
+<<<<<<< HEAD
   <class id="3" language="java" name="ro.dsci.internship.Header" project="s5" 
     file="/s5/src/main/java/ro/dsci/internship/Header.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="437" y="474"/>    
+=======
+  <class id="3" language="java" name="ro.dsci.internship.GabrielForgerockUserDao" project="usersync" 
+    file="/usersync/src/main/java/ro/dsci/internship/GabrielForgerockUserDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="543" y="192"/>    
+>>>>>>> 33b26c02a1a6dd353cefe40126e92530d06848e2
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
+<<<<<<< HEAD
   <class id="4" language="java" name="ro.dsci.internship.UnirestForgeRockUserDao" project="s5" 
     file="/s5/src/main/java/ro/dsci/internship/UnirestForgeRockUserDao.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="142" width="223" x="180" y="123"/>    
+=======
+  <class id="4" language="java" name="ro.dsci.internship.IoanaUserDao" project="usersync" 
+    file="/usersync/src/main/java/ro/dsci/internship/IoanaUserDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="778" y="154"/>    
+>>>>>>> 33b26c02a1a6dd353cefe40126e92530d06848e2
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
+<<<<<<< HEAD
   <class id="5" language="java" name="ro.dsci.internship.IoanaForgeRockUserDao" project="s5" 
     file="/s5/src/main/java/ro/dsci/internship/IoanaForgeRockUserDao.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="124" width="223" x="706" y="123"/>    
+=======
+  <interface id="5" language="java" name="ro.dsci.internship.UserDao" project="usersync" 
+    file="/usersync/src/main/java/ro/dsci/internship/UserDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="542" y="16"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="6" language="java" name="ro.dsci.internship.App" project="usersync" 
+    file="/usersync/src/main/java/ro/dsci/internship/App.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="863" y="303"/>    
+>>>>>>> 33b26c02a1a6dd353cefe40126e92530d06848e2
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
+<<<<<<< HEAD
   <class id="6" language="java" name="ro.dsci.internship.User" project="s5" 
     file="/s5/src/main/java/ro/dsci/internship/User.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1292" y="704"/>    
@@ -58,11 +98,17 @@
   <interface id="7" language="java" name="ro.dsci.internship.UserDao" project="s5" 
     file="/s5/src/main/java/ro/dsci/internship/UserDao.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="881" y="429"/>    
+=======
+  <class id="7" language="java" name="ro.dsci.internship.GabrielUserDao" project="usersync" 
+    file="/usersync/src/main/java/ro/dsci/internship/GabrielUserDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="372" y="387"/>    
+>>>>>>> 33b26c02a1a6dd353cefe40126e92530d06848e2
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
+<<<<<<< HEAD
   </interface>  
   <class id="8" language="java" name="ro.dsci.internship.VladForgeRockUserDao" project="s5" 
     file="/s5/src/main/java/ro/dsci/internship/VladForgeRockUserDao.java" binary="false" corner="BOTTOM_RIGHT">    
@@ -76,12 +122,19 @@
   <class id="9" language="java" name="ro.dsci.internship.App" project="s5" 
     file="/s5/src/main/java/ro/dsci/internship/App.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="106" width="130" x="1941" y="-23"/>    
+=======
+  </class>  
+  <class id="8" language="java" name="ro.dsci.internship.UnirestForgeRockUserDao" project="usersync" 
+    file="/usersync/src/main/java/ro/dsci/internship/UnirestForgeRockUserDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="653" y="382"/>    
+>>>>>>> 33b26c02a1a6dd353cefe40126e92530d06848e2
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
+<<<<<<< HEAD
   <class id="10" language="java" name="ro.dsci.internship.GabrielUserDao" project="s5" 
     file="/s5/src/main/java/ro/dsci/internship/GabrielUserDao.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="142" width="223" x="1827" y="123"/>    
@@ -181,6 +234,36 @@
     <end type="SOURCE" refId="11"/>    
     <end type="TARGET" refId="6"/>  
   </dependency>  
+=======
+  <realization id="9">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <realization id="10">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <dependency id="11">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <realization id="12">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <realization id="13">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <realization id="14">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <realization id="15">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+>>>>>>> 33b26c02a1a6dd353cefe40126e92530d06848e2
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

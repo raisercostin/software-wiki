@@ -1,2 +1,5 @@
-Nume,Prenume,Email
-Popescu , Alexandru,email1@gmail.com
+id,username,firstname,lastname,email
+1,username1,Prenume1,Nume1,firstuser@gmail.com
+2,username2,Prenume2,Nume2,user2@gmail.com
+3,username3,Prenume3,Nume3,user3@gmail.com
+4,username4,Prenume4,Nume4,user4@gmail.com
