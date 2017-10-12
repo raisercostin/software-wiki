@@ -93,18 +93,53 @@ public class GabrielUserDao implements UserDao {
 		}
 
 	}
+	
+	public void updateUsers(List<User> users, String locatie) {
+		
+		List<User> initialUsers=this.readUsers(locatie);
+		
+		Object[] FILE_HEADER = { "id", "username", "firstname", "lastname", "email" };
+		stergeDacaExista(locatie);
+		FileWriter fileWriter = null;
+		CSVPrinter csvFilePrinter = null;
+		CSVFormat csvFileFormat = CSVFormat.DEFAULT.withRecordSeparator("\n");
+		try {
+			fileWriter = new FileWriter(locatie);
+			csvFilePrinter = new CSVPrinter(fileWriter, csvFileFormat);
+			csvFilePrinter.printRecord(FILE_HEADER);
+			
+			List<User> updatedUsers = new ArrayList<>();
+			updatedUsers.addAll(initialUsers);
+			updatedUsers.addAll(users);
+			for (User user : updatedUsers) {
+				List userDataRecord = new ArrayList();
+				userDataRecord.add(user.id);
+				userDataRecord.add(user.username);
+				userDataRecord.add(user.firstname);
+				userDataRecord.add(user.lastname);
+				userDataRecord.add(user.email);
+				csvFilePrinter.printRecord(userDataRecord);
 
-	private static List<String[]> toStringArray(List<User> users) {
-		List<String[]> records = new ArrayList<String[]>();
-		// add header record
-		records.add(new String[] { "id", "username", "firstname", "lastname", "email" });
-		Iterator<User> it = users.iterator();
-		while (it.hasNext()) {
-			User user = it.next();
-			records.add(new String[] { user.id, user.username, user.firstname, user.lastname, user.email });
+			}
+			System.out.println("CSV file was created successfully");
+
+		} catch (IOException e) {
+
+			 throw new RuntimeException("Wrapped checked exception.", e);
+		} finally {
+			try {
+				fileWriter.flush();
+				fileWriter.close();
+				csvFilePrinter.close();
+
+			} catch (IOException e) {
+				 throw new RuntimeException("Wrapped checked exception.", e);
+			}
+
 		}
-		return records;
 	}
+
+	
 
 	public void stergeDacaExista(String locatie) {
 		Path p1 = Paths.get(locatie);

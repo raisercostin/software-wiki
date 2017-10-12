@@ -113,7 +113,7 @@ public class TestUserSync {
     BigInteger actual = a.multiply(b);
     BigInteger expected = new BigInteger(
         "1172538831592137592283049939512687211197454925126862789967475671863286036654308225176012366710357862437529");
-    System.out.println("big=" + actual);
+    //System.out.println("big=" + actual);
     Assert.assertFalse(expected == actual);
     Assert.assertEquals(expected.toString(), actual.toString());
     Assert.assertEquals(expected, actual);
@@ -127,7 +127,7 @@ public class TestUserSync {
     String d = "5436867978654654675685679789078" + "";
     String actual = a + "/" + b;
     String expected = "34242354352353425645475678678675676346563456321134523/5436867978654654675685679789078";
-    System.out.println("big=" + actual);
+   // System.out.println("big=" + actual);
     Assert.assertTrue(b == c);
     Assert.assertTrue(c == d);
     Assert.assertFalse(c + "/" == d + "/");

@@ -18,7 +18,7 @@ public class VladUserDao implements UserDao {
   public static void main(String[] args) {
     List<User> users = new VladUserDao().readUsers("src/test/resources/CVSTest.csv");
     for (User b : users) {
-      System.out.println(b);
+     // System.out.println(b);
     }
   }
 

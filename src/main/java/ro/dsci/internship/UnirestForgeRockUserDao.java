@@ -109,7 +109,7 @@ public class UnirestForgeRockUserDao implements UserDao {
             .header("X-OpenIDM-Username", "openidm-admin").header("X-OpenIDM-Password", "openidm-admin")
             .header("X-Requested-With", "Swagger-UI").body(Json).asJson();
 
-        System.out.println(jsonResponse.getBody().toString());
+       // System.out.println(jsonResponse.getBody().toString());
       } catch (UnirestException e) {
 
         e.printStackTrace();
