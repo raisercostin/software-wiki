@@ -13,9 +13,8 @@ import org.junit.Test;
 import com.google.common.base.Joiner;
 
 public class TestUserSync {
-	String locatie = "src/test/resources/CVSTest.csv";
-	String locatie2 = "target/CVSTest2.csv";
-
+  String locatie = "src/test/resources/CVSTest.csv";
+  String locatie2 = "target/CVSTest2.csv";
 
   @Test
   public void testGabiUserDao() {
@@ -28,37 +27,39 @@ public class TestUserSync {
     UserDao userSync = new GabrielForgerockUserDao();
     testWithSpecificUserSyncImplementation(userSync);
   }
-  
+
   @Test
   public void testVladForgerockUserDao() {
     UserDao userSync = new VladForgeRockUserDao();
     testWithSpecificUserSyncImplementation(userSync);
   }
+
   @Test
   public void testUnirestForgerockUserDao() {
     UserDao userSync = new UnirestForgeRockUserDao();
-    testReadWrite(userSync,617);
+    testReadWrite(userSync, 617);
   }
 
-	@Test
-	public void testVladUserDao() {
+  @Test
+  public void testVladUserDao() {
     testWithSpecificUserSyncImplementation(new VladUserDao());
-	}
-	
-	@Test public void testAbs(){
+  }
+
+  @Test
+  public void testAbs() {
     System.out.println(Integer.MIN_VALUE);
     System.out.println(Math.abs(Integer.MIN_VALUE));
     System.out.println(Integer.MAX_VALUE);
     System.out.println(Math.abs(Integer.MAX_VALUE));
     System.out.println(System.currentTimeMillis());
-	}
+  }
 
   @Test
   public void testIoanaUserDao() {
     testWithSpecificUserSyncImplementation(new IoanaUserDao());
   }
 
-  private void testWithSpecificUserSyncImplementation(UserDao dao) throws RuntimeException{
+  private void testWithSpecificUserSyncImplementation(UserDao dao) throws RuntimeException {
     List<User> users = dao.readUsers(locatie);
     Assert.assertEquals(4, users.size());
     Assert.assertEquals("firstuser@gmail.com", users.get(0).email);
@@ -67,7 +68,7 @@ public class TestUserSync {
     try {
       Files.deleteIfExists(p1);
     } catch (IOException e) {
-      throw new RuntimeException(e);      
+      throw new RuntimeException(e);
     }
     Assert.assertFalse("everything ok", Files.exists(p1));
 
@@ -76,11 +77,11 @@ public class TestUserSync {
     Assert.assertTrue("everything ok", exists);
     List<User> actual = dao.readUsers(locatie2);
     Assert.assertEquals(4, actual.size());
-    
+
     Assert.assertEquals(users, actual);
   }
 
-  private void testReadWrite(UserDao dao, int size) throws RuntimeException{
+  private void testReadWrite(UserDao dao, int size) throws RuntimeException {
     List<User> users = dao.readUsers(locatie);
     System.out.println(Joiner.on("\n").join(users));
     Assert.assertEquals(size, users.size());
@@ -90,16 +91,16 @@ public class TestUserSync {
   public void testReadWrite() {
     UserDao userSync = new UnirestForgeRockUserDao();
     List<User> users = userSync.readUsers("");
-    List<User> newUsers = Arrays.asList(new User("id1","first","last","email"));
+    List<User> newUsers = Arrays.asList(new User("id1", "first", "last", "email"));
     userSync.writeUsers(newUsers, "");
     List<User> users2 = userSync.readUsers("");
-    Assert.assertEquals(users.size()+1, users2.size());
+    Assert.assertEquals(users.size() + 1, users2.size());
     users.addAll(newUsers);
     Assert.assertEquals(users, users2);
   }
 
   @Test
   public void testEqualsBetweenLists() {
-    Assert.assertEquals(Arrays.asList("ab"), Arrays.asList("a"+"b"));
+    Assert.assertEquals(Arrays.asList("ab"), Arrays.asList("a" + "b"));
   }
 }
