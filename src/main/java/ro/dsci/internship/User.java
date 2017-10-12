@@ -2,8 +2,6 @@ package ro.dsci.internship;
 
 import java.io.Serializable;
 
-import com.opencsv.bean.CsvBindByName;
-
 //TODO write these users using BeanDao but without getters and setters and with final fields.
 public class User implements Serializable {
 

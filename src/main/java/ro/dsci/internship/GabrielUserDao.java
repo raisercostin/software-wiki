@@ -3,24 +3,16 @@ package ro.dsci.internship;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
-
-import com.opencsv.CSVWriter;
-import com.opencsv.bean.CsvToBeanBuilder;
-import com.opencsv.bean.StatefulBeanToCsv;
-import com.opencsv.bean.StatefulBeanToCsvBuilder;
 
 public class GabrielUserDao implements UserDao {
 
@@ -66,7 +58,7 @@ public class GabrielUserDao implements UserDao {
       csvFilePrinter = new CSVPrinter(fileWriter, csvFileFormat);
       csvFilePrinter.printRecord(FILE_HEADER);
       for (User user : users) {
-        List userDataRecord = new ArrayList();
+        List<String> userDataRecord = new ArrayList<>();
         userDataRecord.add(user.id);
         userDataRecord.add(user.username);
         userDataRecord.add(user.firstname);
@@ -112,7 +104,7 @@ public class GabrielUserDao implements UserDao {
       updatedUsers.addAll(initialUsers);
       updatedUsers.addAll(users);
       for (User user : updatedUsers) {
-        List userDataRecord = new ArrayList();
+        List<String> userDataRecord = new ArrayList();
         userDataRecord.add(user.id);
         userDataRecord.add(user.username);
         userDataRecord.add(user.firstname);

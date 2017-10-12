@@ -54,19 +54,6 @@ public class TestUserSync {
   }
 
   @Test
-  public void testUnirestForgerockUserDao() {
-    UserDao userSync = new UnirestForgeRockUserDao();
-    testReadWrite(userSync, 617);
-  }
-
-  //
-  // @Test
-  // public void testUnirestForgerockUserDao() {
-  // UserDao userSync = new UnirestForgeRockUserDao();
-  // testReadWrite(userSync, 1);
-  // }
-
-  @Test
   public void testVladUserDao() {
     UserDao userSync = new VladUserDao();
     testWithSpecificUserSyncImplementation(userSync);
@@ -119,14 +106,13 @@ public class TestUserSync {
   public void testReadWrite() {
     UserDao userSync = new UnirestForgeRockUserDao();
     List<User> users = userSync.readUsers("");
-    List<User> newUsers = Arrays.asList(new User("id1", "username", "first", "last", "email"));
+    List<User> newUsers = Arrays.asList(new User("id1", "username", "first", "last", "test@gmail.com"));
     userSync.writeUsers(newUsers, "");
     List<User> users2 = userSync.readUsers("");
     Assert.assertEquals(users.size() + 1, users2.size());
     users.addAll(newUsers);
-    Assert.assertEquals(users, users2);
-
     Assert.assertEquals(users.toString(), users2.toString());
+    Assert.assertEquals(users, users2);
   }
 
   @Test

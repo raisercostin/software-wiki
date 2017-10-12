@@ -1,7 +1,5 @@
 package ro.dsci.internship;
 
-import java.util.List;
-
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.internal.Sets;
