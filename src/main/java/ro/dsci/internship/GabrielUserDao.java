@@ -24,130 +24,128 @@ import com.opencsv.bean.StatefulBeanToCsvBuilder;
 
 public class GabrielUserDao implements UserDao {
 
-	@Override
-	public List<User> readUsers(String locatie) {
-		ArrayList<User> rezultat = new ArrayList<>();
+  @Override
+  public List<User> readUsers(String locatie) {
+    ArrayList<User> rezultat = new ArrayList<>();
 
-		CSVFormat format = CSVFormat.RFC4180.withHeader().withDelimiter(',');
+    CSVFormat format = CSVFormat.RFC4180.withHeader().withDelimiter(',');
 
-		CSVParser parser = null;
-		try {
-			parser = new CSVParser(new FileReader(locatie), format);
-			for (CSVRecord record : parser) {
-				User user = new User(record.get("id"), record.get("username"), record.get("firstname"),
-						record.get("lastname"), record.get("email"));
+    CSVParser parser = null;
+    try {
+      parser = new CSVParser(new FileReader(locatie), format);
+      for (CSVRecord record : parser) {
+        User user = new User(record.get("id"), record.get("username"), record.get("firstname"), record.get("lastname"),
+            record.get("email"));
 
-				rezultat.add(user);
-			}
-		} catch (IOException e1) {
+        rezultat.add(user);
+      }
+    } catch (IOException e1) {
 
-			throw new RuntimeException("Wrapped checked exception.", e1);
-		}
+      throw new RuntimeException("Wrapped checked exception.", e1);
+    }
 
-		try {
-			parser.close();
-		} catch (IOException e) {
+    try {
+      parser.close();
+    } catch (IOException e) {
 
-			 throw new RuntimeException("Wrapped checked exception.", e);
-		}
+      throw new RuntimeException("Wrapped checked exception.", e);
+    }
 
-		return rezultat;
-	}
+    return rezultat;
+  }
 
-	@Override
-	public void writeUsers(List<User> users, String locatie) {
-		Object[] FILE_HEADER = { "id", "username", "firstname", "lastname", "email" };
-		stergeDacaExista(locatie);
-		FileWriter fileWriter = null;
-		CSVPrinter csvFilePrinter = null;
-		CSVFormat csvFileFormat = CSVFormat.DEFAULT.withRecordSeparator("\n");
-		try {
-			fileWriter = new FileWriter(locatie);
-			csvFilePrinter = new CSVPrinter(fileWriter, csvFileFormat);
-			csvFilePrinter.printRecord(FILE_HEADER);
-			for (User user : users) {
-				List userDataRecord = new ArrayList();
-				userDataRecord.add(user.id);
-				userDataRecord.add(user.username);
-				userDataRecord.add(user.firstname);
-				userDataRecord.add(user.lastname);
-				userDataRecord.add(user.email);
-				csvFilePrinter.printRecord(userDataRecord);
+  @Override
+  public void writeUsers(List<User> users, String locatie) {
+    Object[] FILE_HEADER = { "id", "username", "firstname", "lastname", "email" };
+    stergeDacaExista(locatie);
+    FileWriter fileWriter = null;
+    CSVPrinter csvFilePrinter = null;
+    CSVFormat csvFileFormat = CSVFormat.DEFAULT.withRecordSeparator("\n");
+    try {
+      fileWriter = new FileWriter(locatie);
+      csvFilePrinter = new CSVPrinter(fileWriter, csvFileFormat);
+      csvFilePrinter.printRecord(FILE_HEADER);
+      for (User user : users) {
+        List userDataRecord = new ArrayList();
+        userDataRecord.add(user.id);
+        userDataRecord.add(user.username);
+        userDataRecord.add(user.firstname);
+        userDataRecord.add(user.lastname);
+        userDataRecord.add(user.email);
+        csvFilePrinter.printRecord(userDataRecord);
 
-			}
-			System.out.println("CSV file was created successfully");
+      }
+      System.out.println("CSV file was created successfully");
 
-		} catch (IOException e) {
+    } catch (IOException e) {
 
-			 throw new RuntimeException("Wrapped checked exception.", e);
-		} finally {
-			try {
-				fileWriter.flush();
-				fileWriter.close();
-				csvFilePrinter.close();
+      throw new RuntimeException("Wrapped checked exception.", e);
+    } finally {
+      try {
+        fileWriter.flush();
+        fileWriter.close();
+        csvFilePrinter.close();
 
-			} catch (IOException e) {
-				 throw new RuntimeException("Wrapped checked exception.", e);
-			}
+      } catch (IOException e) {
+        throw new RuntimeException("Wrapped checked exception.", e);
+      }
 
-		}
+    }
 
-	}
-	
-	public void updateUsers(List<User> users, String locatie) {
-		
-		List<User> initialUsers=this.readUsers(locatie);
-		
-		Object[] FILE_HEADER = { "id", "username", "firstname", "lastname", "email" };
-		stergeDacaExista(locatie);
-		FileWriter fileWriter = null;
-		CSVPrinter csvFilePrinter = null;
-		CSVFormat csvFileFormat = CSVFormat.DEFAULT.withRecordSeparator("\n");
-		try {
-			fileWriter = new FileWriter(locatie);
-			csvFilePrinter = new CSVPrinter(fileWriter, csvFileFormat);
-			csvFilePrinter.printRecord(FILE_HEADER);
-			
-			List<User> updatedUsers = new ArrayList<>();
-			updatedUsers.addAll(initialUsers);
-			updatedUsers.addAll(users);
-			for (User user : updatedUsers) {
-				List userDataRecord = new ArrayList();
-				userDataRecord.add(user.id);
-				userDataRecord.add(user.username);
-				userDataRecord.add(user.firstname);
-				userDataRecord.add(user.lastname);
-				userDataRecord.add(user.email);
-				csvFilePrinter.printRecord(userDataRecord);
+  }
 
-			}
-			System.out.println("CSV file was created successfully");
+  public void updateUsers(List<User> users, String locatie) {
 
-		} catch (IOException e) {
+    List<User> initialUsers = this.readUsers(locatie);
 
-			 throw new RuntimeException("Wrapped checked exception.", e);
-		} finally {
-			try {
-				fileWriter.flush();
-				fileWriter.close();
-				csvFilePrinter.close();
+    Object[] FILE_HEADER = { "id", "username", "firstname", "lastname", "email" };
+    stergeDacaExista(locatie);
+    FileWriter fileWriter = null;
+    CSVPrinter csvFilePrinter = null;
+    CSVFormat csvFileFormat = CSVFormat.DEFAULT.withRecordSeparator("\n");
+    try {
+      fileWriter = new FileWriter(locatie);
+      csvFilePrinter = new CSVPrinter(fileWriter, csvFileFormat);
+      csvFilePrinter.printRecord(FILE_HEADER);
 
-			} catch (IOException e) {
-				 throw new RuntimeException("Wrapped checked exception.", e);
-			}
+      List<User> updatedUsers = new ArrayList<>();
+      updatedUsers.addAll(initialUsers);
+      updatedUsers.addAll(users);
+      for (User user : updatedUsers) {
+        List userDataRecord = new ArrayList();
+        userDataRecord.add(user.id);
+        userDataRecord.add(user.username);
+        userDataRecord.add(user.firstname);
+        userDataRecord.add(user.lastname);
+        userDataRecord.add(user.email);
+        csvFilePrinter.printRecord(userDataRecord);
 
-		}
-	}
+      }
+      System.out.println("CSV file was created successfully");
 
-	
+    } catch (IOException e) {
 
-	public void stergeDacaExista(String locatie) {
-		Path p1 = Paths.get(locatie);
-		try {
-			Files.deleteIfExists(p1);
-		} catch (IOException e) {
-			 throw new RuntimeException("Wrapped checked exception.", e);
-		}
-	}
+      throw new RuntimeException("Wrapped checked exception.", e);
+    } finally {
+      try {
+        fileWriter.flush();
+        fileWriter.close();
+        csvFilePrinter.close();
+
+      } catch (IOException e) {
+        throw new RuntimeException("Wrapped checked exception.", e);
+      }
+
+    }
+  }
+
+  public void stergeDacaExista(String locatie) {
+    Path p1 = Paths.get(locatie);
+    try {
+      Files.deleteIfExists(p1);
+    } catch (IOException e) {
+      throw new RuntimeException("Wrapped checked exception.", e);
+    }
+  }
 
 }

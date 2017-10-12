@@ -14,10 +14,9 @@ import org.junit.Test;
 
 import com.google.common.base.Joiner;
 
-public class TestUserSync{
+public class TestUserSync {
   String locatie = "src/test/resources/CVSTest.csv";
   String locatie2 = "target/CVSTest2.csv";
-  
 
   @Test
   public void testGabiUserDao() {
@@ -27,17 +26,17 @@ public class TestUserSync{
 
   @Test
   // sterge, citeste si scrie useri pe serveri
-  
+
   public void testGabiForgerockUserDao() {
     UnirestForgeRockUserDao adminDao = new UnirestForgeRockUserDao();
     GabrielUserDao dao = new GabrielUserDao();
-    
-    List<User> usersServerInitial=adminDao.readUsers("");
+
+    List<User> usersServerInitial = adminDao.readUsers("");
     List<User> localUsers = dao.readUsers(locatie);
     adminDao.writeUsers(localUsers, "");
-    
+
     List<User> usersServerFinal = adminDao.readUsers("");
-    Assert.assertEquals(usersServerFinal.size(), localUsers.size()+usersServerInitial.size());
+    Assert.assertEquals(usersServerFinal.size(), localUsers.size() + usersServerInitial.size());
 
   }
 
@@ -59,7 +58,6 @@ public class TestUserSync{
     UserDao userSync = new UnirestForgeRockUserDao();
     testReadWrite(userSync, 617);
   }
-
 
   //
   // @Test
@@ -121,7 +119,7 @@ public class TestUserSync{
   public void testReadWrite() {
     UserDao userSync = new UnirestForgeRockUserDao();
     List<User> users = userSync.readUsers("");
-    List<User> newUsers = Arrays.asList(new User("id1","username", "first", "last", "email"));
+    List<User> newUsers = Arrays.asList(new User("id1", "username", "first", "last", "email"));
     userSync.writeUsers(newUsers, "");
     List<User> users2 = userSync.readUsers("");
     Assert.assertEquals(users.size() + 1, users2.size());
@@ -152,7 +150,7 @@ public class TestUserSync{
     String d = "5436867978654654675685679789078" + "";
     String actual = a + "/" + b;
     String expected = "34242354352353425645475678678675676346563456321134523/5436867978654654675685679789078";
-   // System.out.println("big=" + actual);
+    // System.out.println("big=" + actual);
     Assert.assertTrue(b == c);
     Assert.assertTrue(c == d);
     Assert.assertFalse(c + "/" == d + "/");
@@ -173,14 +171,14 @@ public class TestUserSync{
   public void testReadWriteOnUirestForgeRockUserDao() {
     UnirestForgeRockUserDao adminDao = new UnirestForgeRockUserDao();
     List<User> usersServer = adminDao.readUsers("");
-   
+
     List<User> newUsers = Arrays.asList(new User("id", "username", "first", "last", "email@gmail.com"));
     adminDao.writeUsers(newUsers, "");
-    
+
     List<User> usersServer2 = adminDao.readUsers("");
-    
+
     Assert.assertEquals(usersServer.size() + 1, usersServer2.size());
-   
+
   }
 
   @Test
@@ -218,5 +216,3 @@ public class TestUserSync{
     Assert.assertEquals(l1, l2);
   }
 }
-
-

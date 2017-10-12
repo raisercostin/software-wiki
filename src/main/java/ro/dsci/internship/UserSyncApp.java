@@ -15,7 +15,7 @@ public class UserSyncApp {
 
   @Parameter(names = { "--forgerock" })
   private static String serverLink;
-  
+
   @Parameter(names = { "--user" })
   private static String userpass;
 
@@ -28,13 +28,13 @@ public class UserSyncApp {
     VladUserDao userDao = new VladUserDao();
     List<User> users = userDao.readUsers(readFromFile);
     userDao.writeUsers(users, writeToFile);
-    
-    UnirestForgeRockUserDao forgeUser = new UnirestForgeRockUserDao();  
+
+    UnirestForgeRockUserDao forgeUser = new UnirestForgeRockUserDao();
     forgeUser.url = serverLink;
     forgeUser.userLogIn = userpass;
     List<User> results = forgeUser.readUsers("");
     userDao.writeUsers(results, writeToFile);
-//    forgeUser.writeUsers(users, "");
-    
+    //    forgeUser.writeUsers(users, "");
+
   }
 }

@@ -24,10 +24,9 @@ public class UnirestForgeRockUserDao implements UserDao {
   public List<User> readUsers(String locatie) {
     try {
       HttpResponse<JsonNode> getResponse = Unirest
-          .get(url + "/openidm/managed/user?_prettyPrint=true&_queryId=query-all")
-          .header("Accept", "application/json").header("Content-Type", "application/json")
-          .header("X-Requested-With", "Swagger-UI").header("X-OpenIDM-Username", userLogIn)
-          .header("X-OpenIDM-Password", userLogIn).asJson();
+          .get(url + "/openidm/managed/user?_prettyPrint=true&_queryId=query-all").header("Accept", "application/json")
+          .header("Content-Type", "application/json").header("X-Requested-With", "Swagger-UI")
+          .header("X-OpenIDM-Username", userLogIn).header("X-OpenIDM-Password", userLogIn).asJson();
 
       JSONObject body = getResponse.getBody().getObject();
       // System.out.println(body.toString(4));
@@ -64,20 +63,17 @@ public class UnirestForgeRockUserDao implements UserDao {
     for (int i = 0; i < users.size(); i++) {
       User user = users.get(i);
       //String id, String username, String firstname, String lastname, String email
-      User pentruTest =new User(
-    		  makeItUnique(user.id),makeItUnique(user.username),user.firstname
-    		  ,user.lastname,user.email);
-      
+      User pentruTest = new User(makeItUnique(user.id), makeItUnique(user.username), user.firstname, user.lastname,
+          user.email);
+
       JSONObject userAsJson = userToJSONObject(pentruTest);
 
       try {
-
 
         String urlid = url + "/openidm/managed/user/" + pentruTest.id;
         HttpResponse<JsonNode> jsonResponse = Unirest.put(urlid).header("Content-Type", "application/json")
             .header("Accept", "application/json").header("If-None-Match", " *").header("X-OpenIDM-Username", userLogIn)
             .header("X-OpenIDM-Password", userLogIn).header("X-Requested-With", "Swagger-UI").body(userAsJson).asJson();
-
 
         if (jsonResponse.getStatus() < 200 || jsonResponse.getStatus() >= 300) {
           throw new UserSyncException(
@@ -102,14 +98,13 @@ public class UnirestForgeRockUserDao implements UserDao {
       JSONObject Json = userToJSONObject(user);
 
       try {
-        HttpResponse<JsonNode> jsonResponse = Unirest
-            .delete("http://localhost:8080/openidm/managed/user/" + user.id)
+        HttpResponse<JsonNode> jsonResponse = Unirest.delete("http://localhost:8080/openidm/managed/user/" + user.id)
             .header("Content-Type", "application/json").header("Accept", "application/json")
 
             .header("X-OpenIDM-Username", "openidm-admin").header("X-OpenIDM-Password", "openidm-admin")
             .header("X-Requested-With", "Swagger-UI").body(Json).asJson();
 
-       // System.out.println(jsonResponse.getBody().toString());
+        // System.out.println(jsonResponse.getBody().toString());
       } catch (UnirestException e) {
 
         e.printStackTrace();

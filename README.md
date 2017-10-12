@@ -25,8 +25,8 @@ See [wiki](https://github.com/raisercostin/dcsi/wiki/UserSync-App-Backlog)
 Usefull commands
 - Keep formatting the same in the team. Execute these commands to format and then check style.
     ```
-    mvn formatter:format
     mvn antrun:run
+    mvn formatter:format
     mvn checkstyle:check
     mvn versions:display-plugin-updates
     ```
