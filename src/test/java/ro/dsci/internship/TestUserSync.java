@@ -13,14 +13,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.common.base.Joiner;
-import com.google.common.collect.Collections2;
-
-<<<<<<< HEAD
-public class TestUserSync {
-  String locatie = "src/test/resources/CVSTest.csv";
-  String locatie2 = "target/CVSTest2.csv";
-=======
-import ch.qos.logback.core.net.SyslogOutputStream;
 
 public class TestUserSync{
   String locatie = "src/test/resources/CVSTest.csv";
@@ -68,12 +60,7 @@ public class TestUserSync{
     testReadWrite(userSync, 617);
   }
 
-  @Test
-  public void testVladUserDao() {
-    testWithSpecificUserSyncImplementation(new VladUserDao());
-  }
 
-  @Test
   //
   // @Test
   // public void testUnirestForgerockUserDao() {
@@ -134,15 +121,14 @@ public class TestUserSync{
   public void testReadWrite() {
     UserDao userSync = new UnirestForgeRockUserDao();
     List<User> users = userSync.readUsers("");
-    List<User> newUsers = Arrays.asList(new User("id1", "first", "last", "email"));
+    List<User> newUsers = Arrays.asList(new User("id1","username", "first", "last", "email"));
     userSync.writeUsers(newUsers, "");
     List<User> users2 = userSync.readUsers("");
     Assert.assertEquals(users.size() + 1, users2.size());
     users.addAll(newUsers);
     Assert.assertEquals(users, users2);
 
-    Assert.assertEquals(users.toString(), actual.toString());
-    Assert.assertEquals(users, actual);
+    Assert.assertEquals(users.toString(), users2.toString());
   }
 
   @Test
@@ -233,4 +219,4 @@ public class TestUserSync{
   }
 }
 
-}
+
