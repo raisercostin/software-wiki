@@ -40,11 +40,11 @@ public class UserSyncApp {
       userDao.writeUsers(users, writeToFile);
     }
 
-   // UnirestForgeRockUserDao forgeUser = new UnirestForgeRockUserDao();
-   // forgeUser.url = serverLink;
-   // forgeUser.userLogIn = userpass;
-   // List<User> results = forgeUser.readUsers("");
-   // userDao.writeUsers(results, writeToFile);
+    // UnirestForgeRockUserDao forgeUser = new UnirestForgeRockUserDao();
+    // forgeUser.url = serverLink;
+    // forgeUser.userLogIn = userpass;
+    // List<User> results = forgeUser.readUsers("");
+    // userDao.writeUsers(results, writeToFile);
     // forgeUser.writeUsers(users, "");
 
   }

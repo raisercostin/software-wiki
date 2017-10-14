@@ -31,15 +31,15 @@ public class H2UserDao implements UserDao {
 
   @Override
   public List<User> readUsers(String locatie) {
-    return template.query("select * from Users",new RowMapper<User>() {
+    return template.query("select * from Users", new RowMapper<User>() {
       @Override
       public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-        String id=rs.getString(1);
-        String username=id;
-        String firstname=id;
-        String lastname=id;
-        String email=id;
-        return new User(id,username,firstname,lastname,email);
+        String id = rs.getString(1);
+        String username = id;
+        String firstname = id;
+        String lastname = id;
+        String email = id;
+        return new User(id, username, firstname, lastname, email);
       }
     });
   }
