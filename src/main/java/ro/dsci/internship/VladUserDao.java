@@ -111,4 +111,15 @@ public class VladUserDao implements UserDao {
     }
   }
 
+  public List<User> sumOfUsers(String file, List<User> users) {
+
+    List<User> u1 = readUsers(file);
+    for (User u : u1) {
+      users.add(u);
+    }
+
+    return users;
+
+  }
+
 }
