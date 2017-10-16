@@ -27,6 +27,7 @@ public class UnirestForgeRockUserDao implements UserDao {
           .get(url + "/openidm/managed/user?_prettyPrint=true&_queryId=query-all").header("Accept", "application/json")
           .header("Content-Type", "application/json").header("X-Requested-With", "Swagger-UI")
           .header("X-OpenIDM-Username", userLogIn).header("X-OpenIDM-Password", userLogIn).asJson();
+      
 
       JSONObject body = getResponse.getBody().getObject();
       // System.out.println(body.toString(4));
@@ -113,4 +114,15 @@ public class UnirestForgeRockUserDao implements UserDao {
     }
 
   }
+  public List<User> deUnique (List <User> intrare){
+	  List<User> rezultat = new ArrayList<>();
+	  for(User user : intrare){
+		  String idInit =user.id.split("--")[0] ;
+		  String usernameInit = user.username.split("--")[0];
+		  User userNou=new User(idInit,usernameInit,user.firstname,user.lastname,user.email);
+		  rezultat.add(userNou);
+	  }
+	  return rezultat;
+  }
+  
 }
