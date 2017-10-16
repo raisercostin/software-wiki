@@ -111,11 +111,11 @@ public class TestUserSync {
     Assert.assertEquals(users, actual);
   }
 
-  private void testReadWrite(UserDao dao, int size) throws RuntimeException {
+  /*private void testReadWrite(UserDao dao, int size) throws RuntimeException {
     List<User> users = dao.readUsers(locatie);
     System.out.println(Joiner.on("\n").join(users));
     Assert.assertEquals(size, users.size());
-  }
+  }*/
 
   @Test
   public void testReadWrite() {
