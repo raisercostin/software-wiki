@@ -16,7 +16,7 @@ import com.google.common.base.Joiner;
 
 public class TestUserSync {
   String locatie = "src/test/resources/CVSTest.csv";
-  String locatie2 = "target/CVSTest2.csv";
+  String locatie2 = "target/CVSTest21.csv";
 
   @Test
   public void testGabiUserDao() {
@@ -36,7 +36,7 @@ public class TestUserSync {
     UnirestForgeRockUserDao forgerock = new UnirestForgeRockUserDao();
     UserDao dao = new H2UserDao();
     List<User> users = forgerock.readUsers(locatie);
-    dao.writeUsers(users, locatie);
+    dao.writeUsers(users, locatie2);
   }
 
   @Test

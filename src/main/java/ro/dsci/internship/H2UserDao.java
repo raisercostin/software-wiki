@@ -31,14 +31,15 @@ public class H2UserDao implements UserDao {
 
   @Override
   public List<User> readUsers(String locatie) {
+	  
     return template.query("select * from Users", new RowMapper<User>() {
-      @Override
+      @Override 
       public User mapRow(ResultSet rs, int rowNum) throws SQLException {
         String id = rs.getString(1);
-        String username = id;
-        String firstname = id;
-        String lastname = id;
-        String email = id;
+        String username = rs.getString(2);
+        String firstname = rs.getString(3);
+        String lastname = rs.getString(4);
+        String email = rs.getString(5);
         return new User(id, username, firstname, lastname, email);
       }
     });
@@ -53,11 +54,19 @@ public class H2UserDao implements UserDao {
     ds.setPassword("sa");
     return ds;
   }
+  
+  /*
+   *       String SQL = "insert into Student (name, age) values (?, ?)";
+      jdbcTemplateObject.update( SQL, name, age);
+      System.out.println("Created Record Name = " + name + " Age = " + age);
+      String id, String username, String firstname, String lastname, String email
+      // template.update("insert into Users(username) values (?)", user.username);
+   */
 
   @Override
   public void writeUsers(List<User> users, String locatie) {
     for (User user : users) {
-      template.update("insert into Users(username) values (?)", user.username);
+      template.update("insert into Users(id,username,firstname,lastname,email) values (?,?,?,?,?)", user.id,user.username,user.firstname,user.lastname,user.email);
     }
   }
 }
