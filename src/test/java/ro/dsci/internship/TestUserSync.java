@@ -119,15 +119,18 @@ public class TestUserSync {
 
   @Test
   public void testReadWrite() {
-    UserDao userSync = new UnirestForgeRockUserDao();
+	UnirestForgeRockUserDao userSync = new UnirestForgeRockUserDao();
     List<User> users = userSync.readUsers("");
     List<User> newUsers = Arrays.asList(new User("id1", "username", "first", "last", "test@gmail.com"));
     userSync.writeUsers(newUsers, "");
     List<User> users2 = userSync.readUsers("");
     Assert.assertEquals(users.size() + 1, users2.size());
     users.addAll(newUsers);
+    users = userSync.deUnique(users);
+    users2 = userSync.deUnique(users2);
     Assert.assertEquals(users.toString(), users2.toString());
     Assert.assertEquals(users, users2);
+    users.forEach(System.out::println);
   }
 
   @Test
