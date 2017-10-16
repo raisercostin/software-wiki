@@ -9,33 +9,67 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class UserSyncAppTest {
-  static GabrielUserDao dao = new GabrielUserDao();
 
-  @Test
-  public void test1Gabi() {
+	@Test
+	public void test1Gabi() {
+		GabrielUserDao dao = new GabrielUserDao();
+		// copieze toti userii din fisier.csv in users-all
+		UserSyncAppGabi.main("--csvRead", "src/test/resources/CVSTest.csv", "--csvWrite", "target/users-all.csv");
+		Path p1 = Paths.get("target/users-all.csv");
+		Assert.assertTrue(Files.exists(p1));
+		List<User> users1 = dao.readUsers("src/test/resources/CVSTest.csv");
+		List<User> users2 = dao.readUsers("target/users-all.csv");
+		Assert.assertEquals(users1, users2);
 
-    //copieze toti userii din fisier.csv in users-all
-    UserSyncAppGabi.main("--csv", "src/test/resources/CVSTest.csv", "--csvWrite", "target/users-all.csv");
+	}
 
-    Path p1 = Paths.get("target/users-all.csv");
-    Assert.assertTrue(Files.exists(p1));
-  }
+	@Test
+	public void test2Gabi() {
+		// Copiem fisierul initial
+		GabrielUserDao dao = new GabrielUserDao();
+		UserSyncAppGabi.main("--csvRead", "src/test/resources/CVSTest.csv", "--csvWrite", "target/users-all.csv");
+		List<User> listaInitiala = dao.readUsers("target/users-all.csv");
+		int initial = listaInitiala.size();
 
-  @Test
-  public void test2Gabi() {
-    //Copiem fisierul initial
-    UserSyncAppGabi.main("--csv", "src/test/resources/CVSTest.csv", "--csvWrite", "target/users-all.csv");
-    List<User> listaInitiala = dao.readUsers("target/users-all.csv");
-    int initial = listaInitiala.size();
+		// adauge noii user in users-all
+		UserSyncAppGabi.main("--csvRead", "src/test/resources/CVSTest.csv", "--csvUpdate", "target/users-all.csv");
+		List<User> listaFinala = dao.readUsers("target/users-all.csv");
+		int dupa = listaFinala.size();
+		Assert.assertEquals(dupa, initial + 4);// sunt 4 useri acolo
+	}
 
-    //adauge noii user in users-all
-    UserSyncAppGabi.main("--csv", "src/test/resources/CVSTest.csv", "--csvUpdate", "target/users-all.csv");
-    List<User> listaFinala = dao.readUsers("target/users-all.csv");
-    int dupa = listaFinala.size();
-    Assert.assertEquals(dupa, initial + 4);// sunt 4 useri acolo
-  }
-  //copieze toti userii din fisier.csv in users-all
-  // UserSyncApp.main("--csv","src/test/resources/fisier.csv","--forgerock","http://localhost:8080","--user","openidm-admin");
-  //copieze toti userii din fisier.csv in users-all
-  // UserSyncApp.main("--forgerock","http://localhost:8080","--user","openidm-admin","--csv","target/users-all-from-forgerock.csv");
+	@Test
+	public void Test3Gabi() {
+		GabrielUserDao dao = new GabrielUserDao();
+		UnirestForgeRockUserDao adminDao = new UnirestForgeRockUserDao();
+
+		// citesc useri din CVS
+		List<User> listaPC = dao.readUsers("src/test/resources/CVSTest.csv");
+
+		List<User> listaServerinit = adminDao.readUsers("");
+
+		// adaug useri pe server
+		UserSyncAppGabi.main("--csvRead", "src/test/resources/CVSTest.csv",
+				"--forgeRockConnect", "http://localhost:8080",
+				"--user", "openidm-admin","--forgerockWriteOnServer", "src/test/resources/CVSTest.csv");
+		List<User> listaServerFinal = adminDao.readUsers("");
+
+		Assert.assertTrue(listaServerFinal.size() == (listaPC.size() + listaServerinit.size()));
+
+	}
+	@Test
+	
+	public void Test4Gabi() {
+		GabrielUserDao dao = new GabrielUserDao();
+		UnirestForgeRockUserDao adminDao = new UnirestForgeRockUserDao();
+
+	
+		List<User> listaServerinit = adminDao.readUsers("");
+
+		// adaug useri din server in calculator 
+		UserSyncAppGabi.main("--forgeRockConnect","http://localhost:8080","--user","openidm-admin","--forgerockWritefromServer","target/users-all-from-forgerock.csv");
+		List<User> fromServerToPc = dao.readUsers("target/users-all-from-forgerock.csv");
+		Assert.assertEquals(fromServerToPc.size(),listaServerinit.size());
+		Assert.assertEquals(fromServerToPc,listaServerinit);
+	}
 }

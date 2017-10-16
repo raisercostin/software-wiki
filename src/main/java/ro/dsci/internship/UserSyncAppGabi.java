@@ -16,19 +16,20 @@ public class UserSyncAppGabi {
   public static void main(String... args) {
 
     Options options = new Options();
-    options.addOption("csv", true, "Citeste CSV din fisier in o lista");
+    options.addOption("csvRead", true, "Citeste CSV din fisier in o lista");
     options.addOption("csvWrite", true, "Scrie CSV din lista in un fisier");
+    options.addOption("forgeRockConnect",true,"link");
     options.addOption("csvUpdate", true, "update cu CSV din lista in un fisier/update nu delete");
-    options.addOption("forgerock", true, "Citeste CSV din server in un fisier" + "Dati adresa serverului va rog");
+    options.addOption("forgerockWriteOnServer", true, "Scrie CSV din hard pe server" + "Dati adresa serverului va rog");
     options.addOption("user", true, "Citeste CSV din server in un fisier" + "Dati parola va rog");
-    options.addOption("forgerockWrite", true,
+    options.addOption("forgerockWritefromServer", true,
         "Scie CSV citit anterior de pe server in un fisier" + "zice-ti unde sa punem CSV");
 
     try {
       CommandLine line = new BasicParser().parse(options, args);
 
-      if (line.hasOption("csv")) {
-        String v = line.getOptionValue("csv");
+      if (line.hasOption("csvRead")) {
+        String v = line.getOptionValue("csvRead");
         tempLocali = dao.readUsers(v);
       }
 
@@ -41,25 +42,32 @@ public class UserSyncAppGabi {
         String v = line.getOptionValue("csvUpdate");
         dao.updateUsers(tempLocali, v);
       }
-      if (line.hasOption("forgerock")) {
-        String v = line.getOptionValue("forgerock");
-        adminDao.url = "v";
+      if (line.hasOption("forgeRockConnect")) {
+        String v = line.getOptionValue("forgeRockConnect");
+        adminDao.url = v;
       }
 
       if (line.hasOption("user")) {
         String v = line.getOptionValue("user");
-        adminDao.userLogIn = "v";
-        tempServer = adminDao.readUsers(v);
+        adminDao.userLogIn = v;
+        tempServer =adminDao.readUsers("");
+        
       }
+      if (line.hasOption("forgerockWritefromServer")) {
+          String v = line.getOptionValue("forgerockWritefromServer");
+          dao.writeUsers(tempServer, v);
+        }
 
-      if (line.hasOption("forgerockWrite")) {
-        String v = line.getOptionValue("forgerockWrite");
-        adminDao.writeUsers(tempServer, v);
+
+      if (line.hasOption("forgerockWriteOnServer")) {
+        String v = line.getOptionValue("forgerockWriteOnServer");
+        adminDao.writeUsers(tempLocali, v);
       }
 
     } catch (ParseException e) {
-
+    	e.printStackTrace();
       throw new RuntimeException(e);
+      
     }
 
   }
