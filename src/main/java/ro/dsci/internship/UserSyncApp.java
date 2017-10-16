@@ -24,10 +24,10 @@ public class UserSyncApp {
 
   public static void main(String... args) {
     UserSyncApp userSyncApp = new UserSyncApp();
+    VladUserDao userDao = new VladUserDao();
+    UnirestForgeRockUserDao forgeUser = new UnirestForgeRockUserDao();
 
     JCommander.newBuilder().addObject(userSyncApp).build().parse(args);
-
-    VladUserDao userDao = new VladUserDao();
 
     if (operation.equals("copytofile1")) {
       List<User> users = userDao.readUsers(readFromFile);
@@ -40,12 +40,18 @@ public class UserSyncApp {
       userDao.writeUsers(users, writeToFile);
     }
 
-    // UnirestForgeRockUserDao forgeUser = new UnirestForgeRockUserDao();
-    // forgeUser.url = serverLink;
-    // forgeUser.userLogIn = userpass;
-    // List<User> results = forgeUser.readUsers("");
-    // userDao.writeUsers(results, writeToFile);
-    // forgeUser.writeUsers(users, "");
+    if (operation.equals("copytoserver")) {
+      List<User> users = userDao.readUsers(readFromFile);
+      forgeUser.url = serverLink;
+      forgeUser.userLogIn = userpass;
+      forgeUser.writeUsers(users, "");
+    }
 
+    if (operation.equals("copyfromserver")) {
+      forgeUser.url = serverLink;
+      forgeUser.userLogIn = userpass;
+      List<User> users = forgeUser.readUsers("");
+      userDao.writeUsers(users, writeToFile);
+    }
   }
 }
