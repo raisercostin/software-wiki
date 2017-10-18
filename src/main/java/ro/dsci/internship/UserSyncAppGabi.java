@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
@@ -24,6 +26,8 @@ public class UserSyncAppGabi {
     options.addOption("user", true, "Citeste CSV din server in un fisier" + "Dati parola va rog");
     options.addOption("forgerockWritefromServer", true,
         "Scie CSV citit anterior de pe server in un fisier" + "zice-ti unde sa punem CSV");
+    
+
 
     try {
       CommandLine line = new BasicParser().parse(options, args);

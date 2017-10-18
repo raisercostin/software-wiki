@@ -15,58 +15,55 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 public class H2UserDao implements UserDao {
-  public static void main(String[] args) throws SQLException {
-    org.h2.tools.Server.main(null);
-  }
+	public static void main(String[] args) throws SQLException {
+		org.h2.tools.Server.main(null);
+	}
 
-  JdbcTemplate template = new JdbcTemplate(newH2Datasource());
+	JdbcTemplate template = new JdbcTemplate(newH2Datasource());
 
-  public H2UserDao() {
-    createUsersTabeIfExists();
-  }
+	public H2UserDao() {
+		createUsersTabeIfExists();
+	}
 
-  private void createUsersTabeIfExists() {
-    template.execute(Locations.classpath("users.sql").readContent());
-  }
+	private void createUsersTabeIfExists() {
+		template.execute(Locations.classpath("users.sql").readContent());
+	}
 
-  @Override
-  public List<User> readUsers(String locatie) {
-	  
-    return template.query("select * from Users", new RowMapper<User>() {
-      @Override 
-      public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-        String id = rs.getString(1);
-        String username = rs.getString(2);
-        String firstname = rs.getString(3);
-        String lastname = rs.getString(4);
-        String email = rs.getString(5);
-        return new User(id, username, firstname, lastname, email);
-      }
-    });
-  }
+	@Override
+	public List<User> readUsers(String locatie) {
 
-  private DataSource newH2Datasource() {
-    JdbcDataSource ds = new JdbcDataSource();
-    String url = "jdbc:h2:" + Locations.current("").absolute() + "/target/test-h2-database";
-    System.out.println("h2 connection url with user and password [sa]: [" + url + "].");
-    ds.setURL(url);
-    ds.setUser("sa");
-    ds.setPassword("sa");
-    return ds;
-  }
-  
-  /*
-   *       String SQL = "insert into Student (name, age) values (?, ?)";
-      jdbcTemplateObject.update( SQL, name, age);
-      System.out.println("Created Record Name = " + name + " Age = " + age);
-      String id, String username, String firstname, String lastname, String email
-      // template.update("insert into Users(username) values (?)", user.username);
-   */
+		return template.query("select * from Users", new RowMapper<User>() {
+			@Override
+			public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+				String id = rs.getString(1);
+				String username = rs.getString(2);
+				String firstname = rs.getString(3);
+				String lastname = rs.getString(4);
+				String email = rs.getString(5);
+				return new User(id, username, firstname, lastname, email);
+			}
+		});
+	}
 
-  @Override
-  public void writeUsers(List<User> users, String locatie) {
-    for (User user : users) {
-      template.update("insert into Users(id,username,firstname,lastname,email) values (?,?,?,?,?)", user.id,user.username,user.firstname,user.lastname,user.email);
-    }
-  }
+	private DataSource newH2Datasource() {
+		JdbcDataSource ds = new JdbcDataSource();
+		String url = "jdbc:h2:" + Locations.current("").absolute() + "/target/test-h2-database";
+		System.out.println("h2 connection url with user and password [sa]: [" + url + "].");
+		ds.setURL(url);
+		ds.setUser("sa");
+		ds.setPassword("sa");
+		return ds;
+	}
+
+	@Override
+	public void writeUsers(List<User> users, String locatie) {
+		for (User user : users) {
+			template.update("insert into Users(id,username,firstname,lastname,email) values (?,?,?,?,?)", user.id,
+					user.username, user.firstname, user.lastname, user.email);
+		}
+	}
+
+	public void deleteAllUsersFromTable() {
+		template.execute(" DELETE FROM Users; ");
+	}
 }

@@ -34,9 +34,13 @@ public class TestUserSync {
   @Test
   public void testEnd2EndUserDao() {
     UnirestForgeRockUserDao forgerock = new UnirestForgeRockUserDao();
-    UserDao dao = new H2UserDao();
-    List<User> users = forgerock.readUsers(locatie);
-    dao.writeUsers(users, locatie2);
+    H2UserDao dao = new H2UserDao();
+    dao.deleteAllUsersFromTable();
+    List<User> users = forgerock.readUsers("");
+    dao.writeUsers(users, "");
+    List<User> users2=dao.readUsers("");
+    Assert.assertEquals(users.size(),users2.size());
+    Assert.assertEquals(users, users2);
   }
 
   @Test
