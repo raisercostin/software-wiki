@@ -4,37 +4,31 @@ import java.util.List;
 
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-public class UserSyncAppGabi {
-  static GabrielFileUserDao dao = new GabrielFileUserDao();
-  static UnirestForgeRockUserDao adminDao = new UnirestForgeRockUserDao();
-  static List<User> tempLocali;
-  static List<User> tempServer;
-
+public class UserSyncGabiApp {
   public static void main(String... args) {
-
-    Options options = new Options();
-    options.addOption("csvRead", true, "Citeste CSV din fisier in o lista");
-    options.addOption("csvWrite", true, "Scrie CSV din lista in un fisier");
-    options.addOption("forgeRockConnect",true,"link");
-    options.addOption("csvUpdate", true, "update cu CSV din lista in un fisier/update nu delete");
-    options.addOption("forgerockWriteOnServer", true, "Scrie CSV din hard pe server" + "Dati adresa serverului va rog");
-    options.addOption("user", true, "Citeste CSV din server in un fisier" + "Dati parola va rog");
-    options.addOption("forgerockWritefromServer", true,
-        "Scie CSV citit anterior de pe server in un fisier" + "zice-ti unde sa punem CSV");
-    
-
-
+    new UserSyncGabiApp(new GabrielFileUserDao(), new UnirestForgeRockUserDao()).sync(args);
+  }
+  
+  private final UserDao dao;
+  private final UnirestForgeRockUserDao adminDao;
+  public UserSyncGabiApp(UserDao fileUserDao, UnirestForgeRockUserDao forgeRockUserDao){
+    this.dao = fileUserDao;
+    this.adminDao = forgeRockUserDao;
+  }
+  public void sync(String... args) {
     try {
-      CommandLine line = new BasicParser().parse(options, args);
+      CommandLine line = new BasicParser().parse(createOptions(), args);
+      List<User> tempLocali;
+      List<User> tempServer = null;
 
       if (line.hasOption("csvRead")) {
         String v = line.getOptionValue("csvRead");
         tempLocali = dao.readUsers(v);
+      }else{
+        throw new RuntimeException("Cannot have csvWrite if csvRead doesn't exist");
       }
 
       if (line.hasOption("csvWrite")) {
@@ -71,9 +65,7 @@ public class UserSyncAppGabi {
     } catch (ParseException e) {
     	e.printStackTrace();
       throw new RuntimeException(e);
-      
     }
-
   }
   /*
    *  List<User> readUsers(String locatie);
@@ -91,5 +83,18 @@ public class UserSyncAppGabi {
     UserSyncApp.main("--forgerock","http://localhost:8080","-
     *
     */
+
+  private static Options createOptions() {
+    Options options = new Options();
+    options.addOption("csvRead", true, "Citeste CSV din fisier in o lista");
+    options.addOption("csvWrite", true, "Scrie CSV din lista in un fisier");
+    options.addOption("forgeRockConnect",true,"link");
+    options.addOption("csvUpdate", true, "update cu CSV din lista in un fisier/update nu delete");
+    options.addOption("forgerockWriteOnServer", true, "Scrie CSV din hard pe server" + "Dati adresa serverului va rog");
+    options.addOption("user", true, "Citeste CSV din server in un fisier" + "Dati parola va rog");
+    options.addOption("forgerockWritefromServer", true,
+        "Scie CSV citit anterior de pe server in un fisier" + "zice-ti unde sa punem CSV");
+    return options;
+  }
 
 }
