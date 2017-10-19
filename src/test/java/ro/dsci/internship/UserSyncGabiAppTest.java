@@ -33,7 +33,7 @@ public class UserSyncGabiAppTest {
     GabrielFileUserDao dao = new GabrielFileUserDao();
     List<User> users1 = dao.readUsers("src/test/resources/CVSTest.csv");
     List<User> users2 = dao.readUsers("target/users-all.csv");
-    Assert.assertNotEquals(users1, users2);
+    Assert.assertEquals(users1, users2);
 
   }
 

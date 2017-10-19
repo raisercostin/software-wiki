@@ -20,8 +20,8 @@ public class UserSyncIoana {
 
   public static void main(String[] args) {
 
-    Sets settings = new Sets();
-    new JCommander(settings, args); // simple one-liner
+    //Sets settings = new Sets();
+    //new JCommander(settings, args); // simple one-liner
     // do the logic
 
   }
