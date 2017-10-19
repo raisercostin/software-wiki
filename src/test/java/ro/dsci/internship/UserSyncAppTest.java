@@ -12,7 +12,7 @@ public class UserSyncAppTest {
 
 	@Test
 	public void test1Gabi() {
-		GabrielUserDao dao = new GabrielUserDao();
+		GabrielFileUserDao dao = new GabrielFileUserDao();
 		// copieze toti userii din fisier.csv in users-all
 		UserSyncAppGabi.main("--csvRead", "src/test/resources/CVSTest.csv", "--csvWrite", "target/users-all.csv");
 		Path p1 = Paths.get("target/users-all.csv");
@@ -26,7 +26,7 @@ public class UserSyncAppTest {
 	@Test
 	public void test2Gabi() {
 		// Copiem fisierul initial
-		GabrielUserDao dao = new GabrielUserDao();
+		GabrielFileUserDao dao = new GabrielFileUserDao();
 		UserSyncAppGabi.main("--csvRead", "src/test/resources/CVSTest.csv", "--csvWrite", "target/users-all.csv");
 		List<User> listaInitiala = dao.readUsers("target/users-all.csv");
 		int initial = listaInitiala.size();
@@ -40,7 +40,7 @@ public class UserSyncAppTest {
 
 	@Test
 	public void Test3Gabi() {
-		GabrielUserDao dao = new GabrielUserDao();
+		GabrielFileUserDao dao = new GabrielFileUserDao();
 		UnirestForgeRockUserDao adminDao = new UnirestForgeRockUserDao();
 
 		// citesc useri din CVS
@@ -60,7 +60,7 @@ public class UserSyncAppTest {
 	@Test
 	
 	public void Test4Gabi() {
-		GabrielUserDao dao = new GabrielUserDao();
+		GabrielFileUserDao dao = new GabrielFileUserDao();
 		UnirestForgeRockUserDao adminDao = new UnirestForgeRockUserDao();
 
 	

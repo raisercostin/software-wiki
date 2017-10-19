@@ -10,7 +10,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 public class UserSyncAppGabi {
-  static GabrielUserDao dao = new GabrielUserDao();
+  static GabrielFileUserDao dao = new GabrielFileUserDao();
   static UnirestForgeRockUserDao adminDao = new UnirestForgeRockUserDao();
   static List<User> tempLocali;
   static List<User> tempServer;

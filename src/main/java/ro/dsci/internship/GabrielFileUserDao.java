@@ -14,8 +14,8 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
-public class GabrielUserDao implements UserDao {
-  private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(GabrielUserDao.class);
+public class GabrielFileUserDao implements UserDao {
+  private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(GabrielFileUserDao.class);
 
   @Override
   public List<User> readUsers(String locatie) {

@@ -22,7 +22,7 @@ public class TestUserSync {
 
   @Test
   public void testGabiUserDao() {
-    GabrielUserDao userSync = new GabrielUserDao();
+    GabrielFileUserDao userSync = new GabrielFileUserDao();
     testWithSpecificUserSyncImplementation(userSync);
   }
 
@@ -50,7 +50,7 @@ public class TestUserSync {
 
   public void testGabiForgerockUserDao() {
     UnirestForgeRockUserDao adminDao = new UnirestForgeRockUserDao();
-    GabrielUserDao dao = new GabrielUserDao();
+    GabrielFileUserDao dao = new GabrielFileUserDao();
 
     List<User> usersServerInitial = adminDao.readUsers("");
     List<User> localUsers = dao.readUsers(locatie);
