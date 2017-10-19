@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true" packagingData="true" scan="true" scanPeriod="30 seconds">
+	<!--disable debug  <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" /> -->
+    <timestamp key="startTimestamp" datePattern="yyyyMMddHHmmssSSS"/>
+	<property name="profile" value="test" />
+	<property name="logs" value="${application.home:-${user.dir}}/target/home/.logs-${profile}--${startTimestamp}" />
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<!-- eclipse clickable place -->
+			<!-- %4relative %highlight - to color-->
+			<pattern>%4relative [%level] [%-10.10thread] \(%file:%line\) %-120message - %logger{10.10}.%-20.20method - %n%xException</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	        <!-- Support multiple-JVM writing to the same log file -->
+	        <prudent>false</prudent>
+		<file>${logs}/namek.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%4relative [%level] [%-10.10thread] %-200message%xThrowable - %date{yyyy-MM-dd-'T'-HH-mm-ss-SSS} %logger.%method\(%file:%line\)%n</pattern>
+			<!--
+			<pattern>%date %5p [%t] %logger.%M\(%F:%L\) - %m%n</pattern>
+			<pattern>%4relative %5p [%-17thread] - %-200msg - %date %logger{30}\(%file:%line\)%n</pattern>
+			<pattern>%4relative %coloredLevel [%-17thread] %logger{15}.%M\(%F:%L\) - %message%n%xException{5}</pattern>
+			<pattern>%date - [%level] - from %logger in %thread %n%message%n%xException%n</pattern></pattern>
+			-->
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${logs}/namek-%d{yyyy-MM-dd}-%02i.log</fileNamePattern>
+			<maxFileSize>10MB</maxFileSize>
+			<maxHistory>60</maxHistory>
+			<totalSizeCap>20GB</totalSizeCap>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="FILE-WARN"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logs}/namek-warn.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%4relative %level [%-10.10thread] %-200message - $d %logger{30}.%M\(%file:%line\)%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${logs}/namek-warn-%d{yyyy-MM-dd}-%02i.log</fileNamePattern>
+			<maxFileSize>10MB</maxFileSize>
+			<maxHistory>60</maxHistory>
+			<totalSizeCap>20GB</totalSizeCap>
+		</rollingPolicy>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>WARN</level>
+		</filter>
+	</appender>
+
+
+	<logger name="ch.qos.logback" level="WARN" />
+
+	<root level="DEBUG">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+		<appender-ref ref="FILE-WARN" />
+	</root>
+</configuration>

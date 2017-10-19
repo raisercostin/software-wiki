@@ -15,6 +15,7 @@ import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
 public class GabrielUserDao implements UserDao {
+  private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(GabrielUserDao.class);
 
   @Override
   public List<User> readUsers(String locatie) {
@@ -67,7 +68,7 @@ public class GabrielUserDao implements UserDao {
         csvFilePrinter.printRecord(userDataRecord);
 
       }
-      System.out.println("CSV file was created successfully");
+     logger.info("CSV file was created successfully");
 
     } catch (IOException e) {
 
@@ -113,7 +114,7 @@ public class GabrielUserDao implements UserDao {
         csvFilePrinter.printRecord(userDataRecord);
 
       }
-      System.out.println("CSV file was created successfully");
+      logger.info("CSV file was created successfully");
 
     } catch (IOException e) {
 
