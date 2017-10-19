@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration debug="true" packagingData="true" scan="true" scanPeriod="30 seconds">
+<configuration debug="false" packagingData="true" scan="true" scanPeriod="30 seconds">
 	<!--disable debug  <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" /> -->
     <timestamp key="startTimestamp" datePattern="yyyyMMddHHmmssSSS"/>
 	<property name="profile" value="test" />
