@@ -14,11 +14,12 @@ import java.util.List;
 import java.util.Map;
 
 public class VladUserDao implements UserDao {
+  private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(VladUserDao.class);
 
   public static void main(String[] args) {
     List<User> users = new VladUserDao().readUsers("src/test/resources/CVSTest.csv");
     for (User b : users) {
-      // System.out.println(b);
+      // logger.info(b);
     }
   }
 
@@ -96,16 +97,16 @@ public class VladUserDao implements UserDao {
         fileWriter.append(user.email);
         fileWriter.append(NEW_LINE_SEPARATOR);
       }
-      System.out.println("CSV file was created successfully !!!");
+      logger.info("CSV file was created successfully !!!");
     } catch (Exception e) {
-      System.out.println("Error in CsvFileWriter !!!");
+      logger.info("Error in CsvFileWriter !!!");
       e.printStackTrace();
     } finally {
       try {
         fileWriter.flush();
         fileWriter.close();
       } catch (IOException e) {
-        System.out.println("Error while flushing/closing fileWriter !!!");
+        logger.info("Error while flushing/closing fileWriter !!!");
         e.printStackTrace();
       }
     }

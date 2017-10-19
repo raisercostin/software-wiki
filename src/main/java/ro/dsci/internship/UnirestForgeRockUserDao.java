@@ -30,13 +30,13 @@ public class UnirestForgeRockUserDao implements UserDao {
       
 
       JSONObject body = getResponse.getBody().getObject();
-      // System.out.println(body.toString(4));
+      // logger.info(body.toString(4));
       JSONArray users = body.getJSONArray("result");
       List<User> result = new ArrayList<>();
       for (int i = 0, maxi = users.length(); i < maxi; i++) {
         result.add(toUser((JSONObject) users.get(i)));
       }
-      //result.forEach(System.out::println);
+      //result.forEach(System.out::logger.info);
       return result;
     } catch (UnirestException e) {
       throw new RuntimeException("Wrapped checked exception.", e);
@@ -105,7 +105,7 @@ public class UnirestForgeRockUserDao implements UserDao {
             .header("X-OpenIDM-Username", "openidm-admin").header("X-OpenIDM-Password", "openidm-admin")
             .header("X-Requested-With", "Swagger-UI").body(Json).asJson();
 
-        // System.out.println(jsonResponse.getBody().toString());
+        // logger.info(jsonResponse.getBody().toString());
       } catch (UnirestException e) {
 
         e.printStackTrace();

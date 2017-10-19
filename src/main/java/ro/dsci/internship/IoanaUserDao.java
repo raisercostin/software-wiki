@@ -11,6 +11,8 @@ import java.util.List;
 //Use GabrielUserDao instead
 @Deprecated
 public class IoanaUserDao implements UserDao {
+  private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(IoanaUserDao.class);
+
   @Override
   public List<User> readUsers(String locatie) {
     List<User> lista = new ArrayList<>();
@@ -31,23 +33,23 @@ public class IoanaUserDao implements UserDao {
       for (int i = 0; i < numeColoane.length; i++) {
         if (numeColoane[i].equals("Id")) {
           nrId = i;
-          System.out.println("Id e pe  a" + nrId + "a coloana");
+          logger.info("Id e pe  a" + nrId + "a coloana");
         }
         if (numeColoane[i].equals("Name")) {
           nrUsername = i;
-          System.out.println("numele e pe  a" + nrUsername + "a coloana");
+          logger.info("numele e pe  a" + nrUsername + "a coloana");
         }
         if (numeColoane[i].equals("Firstname")) {
           nrFirstname = i;
-          System.out.println("prenumele e pe  a" + nrFirstname + "a coloana");
+          logger.info("prenumele e pe  a" + nrFirstname + "a coloana");
         }
         if (numeColoane[i].equals("Lastname")) {
           nrLastname = i;
-          System.out.println("prenumele e pe  a" + nrLastname + "a coloana");
+          logger.info("prenumele e pe  a" + nrLastname + "a coloana");
         }
         if (numeColoane[i].equals("Email")) {
           nrEmail = i;
-          System.out.println("email e pe  a" + nrEmail + "a coloana");
+          logger.info("email e pe  a" + nrEmail + "a coloana");
         }
       }
 
@@ -66,8 +68,7 @@ public class IoanaUserDao implements UserDao {
     }
 
     for (int i = 0; i < lista.size(); i++) {
-
-      System.out.println(lista.get(i));
+      logger.info(lista.get(i).toString());
     }
     return lista;
   }
@@ -79,11 +80,12 @@ public class IoanaUserDao implements UserDao {
       FileWriter a = new FileWriter(locatie, true);
       BufferedWriter b = new BufferedWriter(a);
       PrintWriter c = new PrintWriter(b);
-      // c.println();
+      // c.logger.info();
       User usernou = users.get(0);
       String atribute[] = usernou.toString().split(",");
 
-      c.println(atribute[0] + " , " + atribute[1] + ", " + atribute[2] + " , " + atribute[3] + " , " + atribute[4]);
+      String all = atribute[0] + " , " + atribute[1] + ", " + atribute[2] + " , " + atribute[3] + " , " + atribute[4];
+      c.println(all);
       c.close();
     } catch (Exception e) {
       throw new RuntimeException(e);

@@ -15,6 +15,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 public class H2UserDao implements UserDao {
+  private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(H2UserDao.class);
+
 	public static void main(String[] args) throws SQLException {
 		org.h2.tools.Server.main(null);
 	}
@@ -48,7 +50,7 @@ public class H2UserDao implements UserDao {
 	private DataSource newH2Datasource() {
 		JdbcDataSource ds = new JdbcDataSource();
 		String url = "jdbc:h2:" + Locations.current("").absolute() + "/target/test-h2-database";
-		System.out.println("h2 connection url with user and password [sa]: [" + url + "].");
+		logger.info("h2 connection url with user and password [sa]: [" + url + "].");
 		ds.setURL(url);
 		ds.setUser("sa");
 		ds.setPassword("sa");

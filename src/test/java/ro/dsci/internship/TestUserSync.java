@@ -15,6 +15,8 @@ import org.junit.Test;
 import com.google.common.base.Joiner;
 
 public class TestUserSync {
+  private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(TestUserSync.class);
+
   String locatie = "src/test/resources/CVSTest.csv";
   String locatie2 = "target/CVSTest21.csv";
 
@@ -69,7 +71,7 @@ public class TestUserSync {
     userSync.writeUsers(useriLocali, "");
     List<User> usersServerFin = userSync.readUsers("");
     Assert.assertEquals(usersServerFin.size(), usersServerInit.size() + useriLocali.size());
-    usersServerFin.forEach(System.out::println);
+    logger.info(Joiner.on("\n").join(usersServerFin));
   }
 
   @Test
@@ -80,11 +82,11 @@ public class TestUserSync {
 
   @Test
   public void testAbs() {
-    System.out.println(Integer.MIN_VALUE);
-    System.out.println(Math.abs(Integer.MIN_VALUE));
-    System.out.println(Integer.MAX_VALUE);
-    System.out.println(Math.abs(Integer.MAX_VALUE));
-    System.out.println(System.currentTimeMillis());
+    logger.info(""+Integer.MIN_VALUE);
+    logger.info(""+Math.abs(Integer.MIN_VALUE));
+    logger.info(""+Integer.MAX_VALUE);
+    logger.info(""+Math.abs(Integer.MAX_VALUE));
+    logger.info(""+System.currentTimeMillis());
   }
 
   @Test
@@ -117,7 +119,7 @@ public class TestUserSync {
 
   /*private void testReadWrite(UserDao dao, int size) throws RuntimeException {
     List<User> users = dao.readUsers(locatie);
-    System.out.println(Joiner.on("\n").join(users));
+    logger.info(Joiner.on("\n").join(users));
     Assert.assertEquals(size, users.size());
   }*/
 
@@ -134,7 +136,7 @@ public class TestUserSync {
     users2 = userSync.deUnique(users2);
     Assert.assertEquals(users.toString(), users2.toString());
     Assert.assertEquals(users, users2);
-    users.forEach(System.out::println);
+    logger.info(Joiner.on("\n").join(users));
   }
 
   @Test
@@ -144,7 +146,7 @@ public class TestUserSync {
     BigInteger actual = a.multiply(b);
     BigInteger expected = new BigInteger(
         "1172538831592137592283049939512687211197454925126862789967475671863286036654308225176012366710357862437529");
-    //System.out.println("big=" + actual);
+    //logger.info("big=" + actual);
     Assert.assertFalse(expected == actual);
     Assert.assertEquals(expected.toString(), actual.toString());
     Assert.assertEquals(expected, actual);
@@ -158,7 +160,7 @@ public class TestUserSync {
     String d = "5436867978654654675685679789078" + "";
     String actual = a + "/" + b;
     String expected = "34242354352353425645475678678675676346563456321134523/5436867978654654675685679789078";
-    // System.out.println("big=" + actual);
+    // logger.info("big=" + actual);
     Assert.assertTrue(b == c);
     Assert.assertTrue(c == d);
     Assert.assertFalse(c + "/" == d + "/");
@@ -171,7 +173,7 @@ public class TestUserSync {
   // private void testReadWrite(UserDao dao, int size) throws RuntimeException {
   // List<User> users = dao.readUsers(locatie);
   //
-  // System.out.println(Joiner.on("\n").join(users));
+  // logger.info(Joiner.on("\n").join(users));
   // Assert.assertEquals(size, users.size());
   // }
 
